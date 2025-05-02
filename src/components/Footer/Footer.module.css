@@ -1,0 +1,32 @@
+.footer {
+  padding-bottom: 16px;
+
+  @media (min-width: 768px) {
+    padding-bottom: 36px;
+  }
+
+  @media (min-width: 1440px) {
+    padding-bottom: 40px;
+  }
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 40px;
+
+}
+
+.copyright {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--dark-grey);
+  padding-top: 40px;
+
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
+}
