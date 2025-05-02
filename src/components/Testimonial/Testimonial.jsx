@@ -1,18 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../../assets/fonts.css';
-import {
-  testimonialContainerStyles,
-  testimonialHeaderStyles,
-  testimonialTitleStyles,
-  testimonialQuoteStyles,
-  testimonialAuthorStyles,
-  quoteIconStyles,
-  quoteContainerStyles,
-  paginationContainerStyles,
-  paginationDotStyles,
-  paginationDotActiveStyles,
-} from './Testimonial.styles';
+import './Testimonial.css';
 
 const Testimonial = ({
   testimonials,
@@ -29,26 +18,23 @@ const Testimonial = ({
   const activeTestimonial = testimonials[activeIndex];
 
   return (
-    <div style={testimonialContainerStyles}>
-      <p style={testimonialHeaderStyles}>{headerText}</p>
-      <h2 style={testimonialTitleStyles}>{title}</h2>
+    <div className="testimonial-container">
+      <p className="testimonial-header">{headerText}</p>
+      <h2 className="testimonial-title">{title}</h2>
 
-      <img src={quoteIconSrc} alt="Quote" style={quoteIconStyles} />
-      <div style={quoteContainerStyles}>
-        <p style={testimonialQuoteStyles}>{activeTestimonial.quote}</p>
+      <img src={quoteIconSrc} alt="Quote" className="quote-icon" />
+      <div className="quote-container">
+        <p className="testimonial-quote">{activeTestimonial.quote}</p>
       </div>
 
-      <p style={testimonialAuthorStyles}>{activeTestimonial.author}</p>
+      <p className="testimonial-author">{activeTestimonial.author}</p>
 
-      <div style={paginationContainerStyles}>
+      <div className="pagination-container">
         {testimonials.map((_, index) => (
           <div
             key={index}
             onClick={() => handleDotClick(index)}
-            style={{
-              ...paginationDotStyles,
-              ...(index === activeIndex ? paginationDotActiveStyles : {}),
-            }}
+            className={`pagination-dot ${index === activeIndex ? 'pagination-dot-active' : ''}`}
           />
         ))}
       </div>

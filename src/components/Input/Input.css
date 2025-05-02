@@ -1,0 +1,47 @@
+.input-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.input {
+  width: 100%;
+  height: 56px;
+  padding: 16px 40px 16px 18px;
+  border-radius: 30px;
+  border: 1px solid #E5E5E5;
+  font-size: 16px;
+  font-family: 'Mulish', sans-serif;
+  outline: none;
+  background-color: transparent;
+  box-sizing: border-box;
+}
+
+.input-label {
+  position: absolute;
+  left: 18px;
+  pointer-events: none;
+  font-family: 'Mulish', sans-serif;
+  font-size: 16px;
+  color: #757575;
+  transition: all 0.2s ease;
+}
+
+.input-label-default {
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+}
+
+.input-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 2;
+}
+
+.input-required {
+  color: #000000;
+}

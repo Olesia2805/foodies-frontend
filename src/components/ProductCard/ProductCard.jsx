@@ -1,17 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../../assets/fonts.css';
-import {
-  cardContainerStyles,
-  cardImageStyles,
-  cardDescriptionStyles,
-  recipeTitleStyles,
-  favoriteButtonStyles,
-  arrowButtonStyles,
-  authorContainerStyles,
-  authorImageStyles,
-  authorNameStyles,
-} from './ProductCard.styles';
+import './ProductCard.css';
 import favoriteIcon from '../../assets/Icons/favorites.svg';
 import favoriteHoverIcon from '../../assets/Icons/favorites_Hover.svg';
 import arrowIcon from '../../assets/Icons/arrow.svg';
@@ -41,20 +31,20 @@ const ProductCard = ({
   };
 
   return (
-    <div style={cardContainerStyles}>
-      <img src={image} alt={description} style={cardImageStyles} />
+    <div className="card-container">
+      <img src={image} alt={description} className="card-image" />
 
-      {recipeTitle && <h2 style={recipeTitleStyles}>{recipeTitle}</h2>}
+      {recipeTitle && <h2 className="recipe-title">{recipeTitle}</h2>}
 
-      <h3 style={cardDescriptionStyles}>{description}</h3>
+      <h3 className="card-description">{description}</h3>
 
-      <div style={authorContainerStyles}>
-        <img src={authorImage} alt={author} style={authorImageStyles} />
-        <p style={authorNameStyles}>{author}</p>
+      <div className="author-container">
+        <img src={authorImage} alt={author} className="author-image" />
+        <p className="author-name">{author}</p>
       </div>
 
       <button
-        style={favoriteButtonStyles}
+        className="favorite-button"
         onClick={handleFavoriteClick}
         onFocus={e => (e.target.style.outline = 'none')}
         aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
@@ -66,7 +56,7 @@ const ProductCard = ({
       </button>
 
       <button
-        style={arrowButtonStyles}
+        className="arrow-button"
         onClick={handleArrowClick}
         onFocus={e => (e.target.style.outline = 'none')}
         aria-label="Add to cart"

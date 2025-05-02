@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../../assets/fonts.css';
-import { 
-  inputContainerStyles, 
-  inputStyles, 
-  labelStyles, 
-  iconStyles,
-  requiredStyles
-} from './Input.styles';
+import './Input.css';
 
 const Input = ({
   type = 'text',
@@ -33,7 +27,7 @@ const Input = ({
   };
 
   return (
-    <div style={{ ...inputContainerStyles, ...style }}>
+    <div className="input-container" style={style}>
       <input
         type={type}
         id={name}
@@ -42,25 +36,17 @@ const Input = ({
         onChange={onChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        style={inputStyles}
+        className="input"
         required={required}
       />
       {!value && !isFocused && (
-        <label 
-          htmlFor={name} 
-          style={{
-            ...labelStyles,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            fontSize: '16px',
-          }}
-        >
+        <label htmlFor={name} className="input-label input-label-default">
           {placeholder}
-          {required && <span style={requiredStyles}>*</span>}
+          {required && <span className="input-required">*</span>}
         </label>
       )}
       {icon && (
-        <div style={iconStyles} onClick={onIconClick}>
+        <div className="input-icon" onClick={onIconClick}>
           {icon}
         </div>
       )}

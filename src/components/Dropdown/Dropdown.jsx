@@ -1,15 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import '../../assets/fonts.css';
-import { 
-  dropdownContainerStyles, 
-  dropdownStyles, 
-  iconStyles,
-  optionsContainerStyles,
-  optionStyles,
-  optionHoverStyles,
-  requiredStyles
-} from './Dropdown.styles';
+import './Dropdown.css';
 
 const Dropdown = ({
   value,
@@ -62,49 +54,40 @@ const Dropdown = ({
   return (
     <div 
       ref={dropdownRef}
-      style={{ ...dropdownContainerStyles, ...style }}
+      className="dropdown-container"
+      style={style}
     >
       <div 
         onClick={handleToggle}
         onBlur={handleBlur}
         tabIndex="0"
-        style={{
-          ...dropdownStyles,
-          borderColor: isOpen ? '#1A1A1A' : '#E5E5E5',
-        }}
+        className={`dropdown ${isOpen ? 'dropdown-open' : ''}`}
       >
         {displayText || (
-          <span style={{ color: '#757575' }}>
+          <span className="placeholder">
             {placeholder}
-            {required && <span style={requiredStyles}>*</span>}
+            {required && <span className="required">*</span>}
           </span>
         )}
       </div>
       
-      <div style={iconStyles}>
+      <div className="dropdown-icon">
         <img 
           src={iconSrc} 
           alt="dropdown arrow" 
-          style={{
-            transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-            transition: 'transform 0.3s ease',
-          }}
+          className={isOpen ? 'dropdown-icon-rotate' : 'dropdown-icon-normal'}
         />
       </div>
       
       {isOpen && (
-        <div style={optionsContainerStyles}>
+        <div className="options-container">
           {options.map((option, index) => (
             <div
               key={option.value}
               onClick={() => handleOptionClick(option.value)}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(-1)}
-              style={{
-                ...optionStyles,
-                ...(hoveredIndex === index ? optionHoverStyles : {}),
-                ...(option.value === value ? { fontWeight: 'bold' } : {}),
-              }}
+              className={`option ${hoveredIndex === index ? 'option-hover' : ''} ${option.value === value ? 'option-selected' : ''}`}
             >
               {option.label}
             </div>

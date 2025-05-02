@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../../assets/fonts.css';
-import { baseStyles, variants } from './Button.styles';
+import './Button.css';
 
 const Button = ({ 
   text, 
@@ -12,11 +12,7 @@ const Button = ({
   style,
   disabled
 }) => {
-
-
-  const buttonStyles = {
-    ...baseStyles,
-    ...variants[variant],
+  const customStyle = {
     width: width || 'auto',
     height: height || '56px',
     ...style,
@@ -24,7 +20,8 @@ const Button = ({
 
   return (
     <button 
-      style={buttonStyles} 
+      className={`button button-${variant}`}
+      style={customStyle}
       onClick={onClick}
       disabled={disabled}
     >
