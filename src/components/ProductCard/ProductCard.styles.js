@@ -1,5 +1,5 @@
 export const cardContainerStyles = {
-  width: '290px',
+  width: '343px',
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',
@@ -8,13 +8,21 @@ export const cardContainerStyles = {
   border: '1px solid #e6e6e6',
   borderRadius: '30px',
   overflow: 'hidden',
+  '@media (max-width: 768px)': {
+    width: '305px',
+    height: '275px',
+  },
 };
 
 export const cardImageStyles = {
-  width: '100%',
-  height: '275px',
+  width: '343px',
+  height: '230px',
   borderRadius: '30px',
   objectFit: 'cover',
+  '@media (max-width: 768px)': {
+    width: '305px',
+    height: '180px',
+  },
 };
 
 export const cardDescriptionStyles = {
@@ -25,6 +33,11 @@ export const cardDescriptionStyles = {
   margin: '8px 0 60px 0',
   textAlign: 'left',
   padding: '0 10px',
+  '@media (max-width: 768px)': {
+    fontSize: '14px',
+    lineHeight: '20px',
+    margin: '4px 0 50px 0',
+  },
 };
 
 export const cardActionsStyles = {
