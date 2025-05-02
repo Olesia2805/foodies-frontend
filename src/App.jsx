@@ -6,6 +6,7 @@ import Button from './components/Button/Button';
 import Input from './components/Input/Input';
 import Dropdown from './components/Dropdown/Dropdown';
 import Testimonial from './components/Testimonial/Testimonial';
+import ProductCard from './components/ProductCard/ProductCard';
 import eyeIcon from './assets/Icons/eye.svg';
 import eyeOffIcon from './assets/Icons/eye-off.svg';
 import chevronDownIcon from './assets/Icons/chevron-down.svg';
@@ -205,6 +206,46 @@ function App() {
             testimonials={testimonialData}
             quoteIconSrc={quoteIcon}
           />
+        </div>
+
+        <div>
+          <h2>Product Card Examples</h2>
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '30px',
+              marginTop: '20px',
+            }}
+          >
+            <ProductCard
+              recipeTitle="BAKEWELL TART"
+              image="https://images.unsplash.com/photo-1512621776951-a57141f2eefd"
+              title="Bakewell tart with almonds and powdered sugar"
+              onAddToCart={() => alert('More info!')}
+              onToggleFavorite={isFavorite =>
+                console.log('Favorite status:', isFavorite)
+              }
+            />
+            <ProductCard
+              recipeTitle="FRESH SALAD"
+              image="https://images.unsplash.com/photo-1565958011703-44f9829ba187"
+              title="Fresh vegetable salad with feta cheese"
+              onAddToCart={() => alert('More info!')}
+              onToggleFavorite={isFavorite =>
+                console.log('Favorite status:', isFavorite)
+              }
+            />
+            <ProductCard
+              recipeTitle="CHOCOLATE CAKE"
+              image="https://images.unsplash.com/photo-1551879400-111a9087cd86"
+              title="Homemade chocolate cake with berries"
+              onAddToCart={() => alert('More info!')}
+              onToggleFavorite={isFavorite =>
+                console.log('Favorite status:', isFavorite)
+              }
+            />
+          </div>
         </div>
       </div>
       <p className="read-the-docs">
