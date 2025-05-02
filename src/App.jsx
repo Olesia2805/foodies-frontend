@@ -221,7 +221,7 @@ function App() {
             <ProductCard
               recipeTitle="BAKEWELL TART"
               image="https://images.unsplash.com/photo-1512621776951-a57141f2eefd"
-              title="Bakewell tart with almonds and powdered sugar"
+              description="Bakewell tart with almonds and powdered sugar"
               onAddToCart={() => alert('More info!')}
               onToggleFavorite={isFavorite =>
                 console.log('Favorite status:', isFavorite)
@@ -230,7 +230,7 @@ function App() {
             <ProductCard
               recipeTitle="FRESH SALAD"
               image="https://images.unsplash.com/photo-1565958011703-44f9829ba187"
-              title="Fresh vegetable salad with feta cheese"
+              description="Fresh vegetable salad with feta cheese"
               onAddToCart={() => alert('More info!')}
               onToggleFavorite={isFavorite =>
                 console.log('Favorite status:', isFavorite)
@@ -239,7 +239,7 @@ function App() {
             <ProductCard
               recipeTitle="CHOCOLATE CAKE"
               image="https://images.unsplash.com/photo-1551879400-111a9087cd86"
-              title="Homemade chocolate cake with berries"
+              description="Homemade chocolate cake with berries"
               onAddToCart={() => alert('More info!')}
               onToggleFavorite={isFavorite =>
                 console.log('Favorite status:', isFavorite)

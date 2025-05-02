@@ -4,11 +4,10 @@ import '../../assets/fonts.css';
 import {
   cardContainerStyles,
   cardImageStyles,
-  cardTitleStyles,
+  cardDescriptionStyles,
   recipeTitleStyles,
   favoriteButtonStyles,
   arrowButtonStyles,
-  arrowIconStyles,
   authorContainerStyles,
   authorImageStyles,
   authorNameStyles,
@@ -19,7 +18,7 @@ import arrowIcon from '../../assets/Icons/arrow.svg';
 
 const ProductCard = ({
   image,
-  title,
+  description,
   recipeTitle,
   author = 'Ivetta',
   authorImage = 'https://randomuser.me/api/portraits/women/44.jpg',
@@ -43,11 +42,11 @@ const ProductCard = ({
 
   return (
     <div style={cardContainerStyles}>
-      <img src={image} alt={title} style={cardImageStyles} />
-      
+      <img src={image} alt={description} style={cardImageStyles} />
+
       {recipeTitle && <h2 style={recipeTitleStyles}>{recipeTitle}</h2>}
 
-      <h3 style={cardTitleStyles}>{title}</h3>
+      <h3 style={cardDescriptionStyles}>{description}</h3>
 
       <div style={authorContainerStyles}>
         <img src={authorImage} alt={author} style={authorImageStyles} />
@@ -57,22 +56,22 @@ const ProductCard = ({
       <button
         style={favoriteButtonStyles}
         onClick={handleFavoriteClick}
+        onFocus={e => (e.target.style.outline = 'none')}
         aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
       >
         <img
           src={isFavorite ? favoriteHoverIcon : favoriteIcon}
           alt="Favorite"
-          width="24"
-          height="24"
         />
       </button>
 
       <button
         style={arrowButtonStyles}
         onClick={handleArrowClick}
+        onFocus={e => (e.target.style.outline = 'none')}
         aria-label="Add to cart"
       >
-        <img src={arrowIcon} alt="Arrow" style={arrowIconStyles} />
+        <img src={arrowIcon} alt="Arrow" />
       </button>
     </div>
   );
@@ -80,7 +79,7 @@ const ProductCard = ({
 
 ProductCard.propTypes = {
   image: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
   recipeTitle: PropTypes.string,
   author: PropTypes.string,
   authorImage: PropTypes.string,

@@ -13,18 +13,18 @@ export const cardContainerStyles = {
 export const cardImageStyles = {
   width: '100%',
   height: '275px',
+  borderRadius: '30px',
   objectFit: 'cover',
 };
 
-export const cardTitleStyles = {
-  fontFamily: 'Mulish, sans-serif',
-  fontWeight: '500',
+export const cardDescriptionStyles = {
+  fontFamily: 'Mulish',
+  fontWeight: 500,
   fontSize: '16px',
   lineHeight: '24px',
-  letterSpacing: '-0.02em',
-  margin: '16px 0 60px 0',
+  margin: '8px 0 60px 0',
   textAlign: 'left',
-  padding: '0 20px',
+  padding: '0 10px',
 };
 
 export const cardActionsStyles = {
@@ -39,10 +39,10 @@ export const cardActionsStyles = {
 export const authorContainerStyles = {
   display: 'flex',
   alignItems: 'center',
-  gap: '10px',
+  gap: '8px',
   position: 'absolute',
   bottom: '20px',
-  left: '20px',
+  left: '10px',
 };
 
 export const authorImageStyles = {
@@ -54,58 +54,57 @@ export const authorImageStyles = {
 
 export const authorNameStyles = {
   fontFamily: 'Mulish, sans-serif',
-  fontWeight: '500',
+  fontWeight: '700',
   fontSize: '16px',
   lineHeight: '24px',
+  letterSpacing: '-2%',
   margin: 0,
 };
 
 export const favoriteButtonStyles = {
+  right: '65px',
+  width: '40px',
+  height: '40px',
+  backgroundColor: 'white',
+  display: 'flex',
   background: 'white',
-  border: '1px solid #e6e6e6',
-  cursor: 'pointer',
-  padding: '0',
-  position: 'absolute',
-  bottom: '20px',
-  right: '75px',
-  width: '40px',
-  height: '40px',
-  borderRadius: '50%',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-};
-
-export const arrowButtonStyles = {
-  width: '40px',
-  height: '40px',
-  borderRadius: '50%',
-  backgroundColor: '#000',
-  display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   cursor: 'pointer',
   border: 'none',
-  padding: 0,
+  position: 'absolute',
+  bottom: '20px',
+  borderRadius: '30px',
+  outline: 'none',
+  boxShadow: 'none',
+};
+
+export const arrowButtonStyles = {
+  backgroundColor: 'white',
+  display: 'flex',
+  background: 'white',
+  justifyContent: 'center',
+  alignItems: 'center',
+  cursor: 'pointer',
+  border: 'none',
   position: 'absolute',
   bottom: '20px',
   right: '20px',
-};
-
-export const arrowIconStyles = {
-  width: '20px',
-  height: '20px',
+  width: '36px',
+  height: '36px',
+  borderRadius: '30px',
+  outline: 'none',
+  boxShadow: 'none',
 };
 
 export const recipeTitleStyles = {
   fontFamily: 'Mulish, sans-serif',
-  fontWeight: '700',
-  fontSize: '18px',
+  fontWeight: '800',
+  fontSize: '20px',
   lineHeight: '24px',
+  letterSpacing: '-2%',
   textTransform: 'uppercase',
-  letterSpacing: '0.05em',
-  margin: '20px 0 10px 0',
   textAlign: 'left',
-  padding: '0 20px',
-  color: '#000',
+  padding: '0 10px',
+  marginBottom: '0px',
 };
