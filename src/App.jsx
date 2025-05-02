@@ -1,3 +1,5 @@
+import Icon from './components/Icon/Icon.jsx'
+
 const App = () => {
   return (
     <>
