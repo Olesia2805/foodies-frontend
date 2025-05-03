@@ -7,7 +7,7 @@ import Input from './components/Input/Input';
 import Dropdown from './components/Dropdown/Dropdown';
 import Testimonial from './components/Testimonial/Testimonial';
 import ProductCard from './components/ProductCard/ProductCard';
-import { SignInModal, SignUpModal } from './components/Modals';
+import { SignInModal, SignUpModal, LogoutModal } from './components/Modals';
 import eyeIcon from './assets/Icons/eye.svg';
 import eyeOffIcon from './assets/Icons/eye-off.svg';
 import chevronDownIcon from './assets/Icons/chevron-down.svg';
@@ -24,6 +24,7 @@ function App() {
   const [showPassword, setShowPassword] = useState(false);
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   const categoryOptions = [
     { value: 'seafood', label: 'Seafood' },
@@ -277,12 +278,32 @@ function App() {
             width={300}
             onClick={() => setIsSignUpModalOpen(true)}
           />
+          <Button
+            text="Open Logout Modal"
+            variant="primary"
+            width={300}
+            onClick={() => setIsLogoutModalOpen(true)}
+          />
         </div>
       </div>
 
       {/* Modal Components */}
-      <SignInModal isOpen={isSignInModalOpen} onClose={() => setIsSignInModalOpen(false)} />
-      <SignUpModal isOpen={isSignUpModalOpen} onClose={() => setIsSignUpModalOpen(false)} />
+      <SignInModal
+        isOpen={isSignInModalOpen}
+        onClose={() => setIsSignInModalOpen(false)}
+      />
+      <SignUpModal
+        isOpen={isSignUpModalOpen}
+        onClose={() => setIsSignUpModalOpen(false)}
+      />
+      <LogoutModal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onLogout={() => {
+          console.log('User logged out');
+          setIsLogoutModalOpen(false);
+        }}
+      />
 
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more

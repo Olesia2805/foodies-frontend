@@ -51,7 +51,12 @@ const SignUpModal = ({ isOpen, onClose }) => {
   return (
     <div className={styles.modalOverlay} onClick={handleOverlayClick}>
       <div className={styles.modal}>
-        <button className={styles.modalClose} onClick={onClose}>
+        <button
+          className={styles.modalClose}
+          onClick={onClose}
+          style={{ outline: 'none' }}
+          tabIndex="-1"
+        >
           ×
         </button>
         <h2 className={styles.modalTitle}>SIGN UP</h2>

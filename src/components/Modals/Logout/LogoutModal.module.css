@@ -12,7 +12,7 @@
 
 .modal {
     width: 560px;
-    height: 570px;
+    height: 416px;
     border-radius: 30px;
     padding: 80px;
     background-color: white;
@@ -31,7 +31,6 @@
     cursor: pointer;
     background: none;
     border: none;
-    outline: none;
     font-size: 24px;
     line-height: 1;
     color: #1A1A1A;
@@ -44,38 +43,55 @@
     font-size: 32px;
     line-height: 40px;
     letter-spacing: -2%;
-    text-align: left;
+    text-align: center;
     text-transform: uppercase;
     margin: 0;
     color: #1A1A1A;
 }
 
-.modalForm {
+.modalText {
+    font-family: Mulish;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    text-align: center;
+    color: #1A1A1A;
+    margin: 0;
+}
+
+.buttonsContainer {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 20px;
+    margin-top: auto;
+}
+
+.logoutButton {
     width: 100%;
-    margin-top: 10px;
-}
-
-.modalFooter {
+    height: 56px;
+    background-color: #1A1A1A;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 30px;
     font-family: Mulish;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 18px;
-    letter-spacing: -2%;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-}
-
-.modalFooter span {
-    color: #757575;
-}
-
-.modalFooter a {
-    color: #1A1A1A;
-    cursor: pointer;
     font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.cancelButton {
+    width: 100%;
+    height: 56px;
+    background-color: transparent;
+    color: #1A1A1A;
+    border: 1px solid #1A1A1A;
+    border-radius: 30px;
+    font-family: Mulish;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    text-transform: uppercase;
+    cursor: pointer;
 }
