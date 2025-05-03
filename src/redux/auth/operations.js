@@ -44,7 +44,9 @@ export const getMeOps = createAsyncThunk(
   'auth/getMeOps',
   async (_, { rejectWithValue }) => {
     try {
-      return await axiosInstance.get('/auth/me');
+      const response = await axiosInstance.get('/auth/me');
+
+      return response.data;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || 'Logout failed');
     }

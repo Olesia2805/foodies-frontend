@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
+  getMeOps,
   refreshTokenOps,
   signInUserOps,
   signOutUserOps,
@@ -7,7 +8,7 @@ import {
 } from './operations.js';
 
 const initialState = {
-  isAuthenticated: localStorage.getItem('token') ?? false,
+  isAuthenticated: !!localStorage.getItem('token') ?? false,
   user: null,
 
   loading: false,
@@ -48,6 +49,20 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = payload;
         state.isAuthenticated = false;
+      })
+
+      .addCase(getMeOps.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getMeOps.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.user = payload;
+      })
+      .addCase(getMeOps.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+        state.user = null;
       })
 
       .addCase(refreshTokenOps.fulfilled, (state, { payload }) => {
