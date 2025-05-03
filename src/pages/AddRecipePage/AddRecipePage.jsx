@@ -1,5 +1,7 @@
-const AddRecipePage = () => {
-  return <div>AddRecipePage</div>
-}
+import withAuthGuard from '../../hoc/withAuthGuard.jsx';
 
-export default AddRecipePage
+const AddRecipePage = () => {
+  return <div>AddRecipePage</div>;
+};
+
+export default withAuthGuard(AddRecipePage);

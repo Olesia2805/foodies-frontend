@@ -1,0 +1,46 @@
+import axios from 'axios';
+import { store } from '../redux/store';
+import { refreshTokenOps, signOutUserOps } from '../redux/auth/index.js';
+
+const axiosInstance = axios.create({
+  baseURL: 'http://localhost:3000/api',
+});
+
+axiosInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
+
+axiosInstance.interceptors.response.use(
+  (res) => res,
+  async (error) => {
+    const originalRequest = error.config;
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      refreshToken
+    ) {
+      originalRequest._retry = true;
+
+      try {
+        const response = await store
+          .dispatch(refreshTokenOps(refreshToken))
+          .unwrap();
+        console.log(response, response);
+        originalRequest.headers.Authorization = `Bearer ${response.token}`;
+        return axiosInstance(originalRequest);
+      } catch {
+        store.dispatch(signOutUserOps());
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
+export default axiosInstance;

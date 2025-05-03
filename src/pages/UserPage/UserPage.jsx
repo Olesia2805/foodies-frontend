@@ -1,5 +1,7 @@
-const UserPage = () => {
-  return <div>UserPage</div>
-}
+import withAuthGuard from '../../hoc/withAuthGuard.jsx';
 
-export default UserPage
+const UserPage = () => {
+  return <div>UserPage</div>;
+};
+
+export default withAuthGuard(UserPage);
