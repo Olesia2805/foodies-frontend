@@ -1,0 +1,13 @@
+.header {
+  padding-top: 24px;
+
+  @media (min-width: 768px) {
+    padding-top: 36px;
+  }
+
+  @media (min-width: 1440px) {
+    padding-top: 40px;
+  }
+}
+
+.wrapper {}

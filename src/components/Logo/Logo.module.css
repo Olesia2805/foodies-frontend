@@ -1,0 +1,8 @@
+.logo {
+  display: flex;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: lowercase;
+  color: var(--dark-grey);
+}
