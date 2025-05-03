@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-
+import { Toaster } from 'react-hot-toast';
 import Loader from 'components/Loader/Loader';
 import Layout from './components/Layout/Layout.jsx';
 import { ROUTER } from './constants/router.js';
@@ -27,21 +27,24 @@ const App = () => {
   }, []);
 
   return (
-    <Suspense fallback={<Loader />}>
-      <Routes>
-        <Route path={ROUTER.HOME} element={<Layout />}>
-          <Route index element={<HomePage />} />
+    <>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path={ROUTER.HOME} element={<Layout />}>
+            <Route index element={<HomePage />} />
 
-          <Route path={`${ROUTER.USER}/:id`} element={<UserPage />} />
+            <Route path={`${ROUTER.USER}/:id`} element={<UserPage />} />
 
-          <Route path={`${ROUTER.RECIPE}/:id`} element={<RecipePage />} />
+            <Route path={`${ROUTER.RECIPE}/:id`} element={<RecipePage />} />
 
-          <Route path={ROUTER.ADD_RECIPE} element={<AddRecipePage />} />
+            <Route path={ROUTER.ADD_RECIPE} element={<AddRecipePage />} />
 
-          <Route path={ROUTER.ALL} element={<NotFoundPage />} />
-        </Route>
-      </Routes>
-    </Suspense>
+            <Route path={ROUTER.ALL} element={<NotFoundPage />} />
+          </Route>
+        </Routes>
+      </Suspense>
+      <Toaster position="top-right" />
+    </>
   );
 };
 
