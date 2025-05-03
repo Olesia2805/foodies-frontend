@@ -7,6 +7,7 @@ import Input from './components/Input/Input';
 import Dropdown from './components/Dropdown/Dropdown';
 import Testimonial from './components/Testimonial/Testimonial';
 import ProductCard from './components/ProductCard/ProductCard';
+import { SignInModal } from './components/Modals';
 import eyeIcon from './assets/Icons/eye.svg';
 import eyeOffIcon from './assets/Icons/eye-off.svg';
 import chevronDownIcon from './assets/Icons/chevron-down.svg';
@@ -21,6 +22,7 @@ function App() {
     category: '',
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const categoryOptions = [
     { value: 'seafood', label: 'Seafood' },
@@ -102,8 +104,18 @@ function App() {
               marginTop: '20px',
             }}
           >
-            <Button text="Sign In" variant="secondary" width={400} />
-            <Button text="Sign In" variant="primary" width={400} />
+            <Button
+              text="Sign In"
+              variant="secondary"
+              width={400}
+              onClick={() => setIsModalOpen(true)}
+            />
+            <Button
+              text="Sign In"
+              variant="primary"
+              width={400}
+              onClick={() => setIsModalOpen(true)}
+            />
             <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
               <Button text="Publish" variant="primary" width={200} />
               <Button text="Add Recipe" variant="outline" width={200} />
@@ -248,6 +260,22 @@ function App() {
           </div>
         </div>
       </div>
+
+      <div>
+        <h2>Modal Example</h2>
+        <div style={{ marginTop: '20px' }}>
+          <Button
+            text="Open Sign In Modal"
+            variant="primary"
+            width={300}
+            onClick={() => setIsModalOpen(true)}
+          />
+        </div>
+      </div>
+
+      {/* Modal Component */}
+      <SignInModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
