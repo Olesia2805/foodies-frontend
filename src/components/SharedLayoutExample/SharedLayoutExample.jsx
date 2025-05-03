@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom';
 
 const SharedLayoutExample = () => {
   return (
@@ -9,7 +9,7 @@ const SharedLayoutExample = () => {
       </main>
       <footer>Footer</footer>
     </div>
-  )
-}
+  );
+};
 
-export default SharedLayoutExample
+export default SharedLayoutExample;

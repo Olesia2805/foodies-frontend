@@ -1,5 +1,5 @@
 const RecipePage = () => {
-  return <div>RecipePage</div>
-}
+  return <div>RecipePage</div>;
+};
 
-export default RecipePage
+export default RecipePage;

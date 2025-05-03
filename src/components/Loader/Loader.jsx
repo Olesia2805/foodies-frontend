@@ -1,5 +1,5 @@
 const Loader = () => {
-  return <div>Loading...</div>
-}
+  return <div>Loading...</div>;
+};
 
-export default Loader
+export default Loader;
