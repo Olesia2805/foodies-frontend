@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import Input from '../../Input/Input';
 import Button from '../../Button/Button';
 import '../../../assets/fonts.css';
-import styles from './SignInModal.module.css';
+import styles from './SignUpModal.module.css';
 import eyeIcon from '../../../assets/Icons/eye.svg';
 import eyeOffIcon from '../../../assets/Icons/eye-off.svg';
 
-const SignInModal = ({ isOpen, onClose }) => {
+const SignUpModal = ({ isOpen, onClose }) => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -33,7 +34,7 @@ const SignInModal = ({ isOpen, onClose }) => {
   const handleSubmit = e => {
     e.preventDefault();
     // Handle form submission logic here
-    console.log('Sign in attempt with:', { email, password });
+    console.log('Sign up attempt with:', { name, email, password });
   };
 
   const togglePasswordVisibility = () => {
@@ -53,9 +54,18 @@ const SignInModal = ({ isOpen, onClose }) => {
         <button className={styles.modalClose} onClick={onClose}>
           ×
         </button>
-        <h2 className={styles.modalTitle}>SIGN IN</h2>
+        <h2 className={styles.modalTitle}>SIGN UP</h2>
 
         <form className={styles.modalForm} onSubmit={handleSubmit}>
+          <Input
+            type="text"
+            name="name"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            placeholder="Name"
+            required={true}
+          />
+
           <Input
             type="email"
             name="email"
@@ -85,7 +95,7 @@ const SignInModal = ({ isOpen, onClose }) => {
 
           <div style={{ marginTop: '20px' }}>
             <Button
-              text="SIGN IN"
+              text="CREATE"
               variant="secondary"
               width="100%"
               onClick={handleSubmit}
@@ -93,15 +103,17 @@ const SignInModal = ({ isOpen, onClose }) => {
                 height: '56px',
                 borderRadius: '30px',
                 fontWeight: '700',
+                backgroundColor: '#BFBEBE',
+                color: '#FFFFFF',
               }}
             />
           </div>
         </form>
 
         <div className={styles.modalFooter}>
-          <span>Don't have an account?</span>
-          <a href="#" onClick={() => console.log('Create account clicked')}>
-            Create an account
+          <span>I already have an account?</span>
+          <a href="#" onClick={() => console.log('Sign in clicked')}>
+            Sign in
           </a>
         </div>
       </div>
@@ -109,9 +121,9 @@ const SignInModal = ({ isOpen, onClose }) => {
   );
 };
 
-SignInModal.propTypes = {
+SignUpModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default SignInModal;
+export default SignUpModal;
