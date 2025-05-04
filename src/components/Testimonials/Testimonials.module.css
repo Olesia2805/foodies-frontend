@@ -1,0 +1,106 @@
+.testimonials {
+  padding: 80px 0;
+  background-color: white;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #777;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.slider {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.quoteMark {
+  font-size: 100px;
+  color: #e0e0e0;
+  font-family: serif;
+  line-height: 0.6;
+  margin-top: -20px; /* щоб наблизити до заголовка */
+  margin-bottom: 0px;
+  margin-left: 130px;
+  align-self: flex-start; /* щоб вирівняти ліворуч */
+}
+
+.testimonialContent {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.testimonialText {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 0px;
+}
+
+.testimonialAuthor {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  text-transform: uppercase;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  gap: 10px;
+}
+
+.paginationDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.paginationDot.active {
+  background-color: #333;
+}
+
+@media (max-width: 768px) {
+  .testimonials {
+    padding: 50px 0;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .testimonialText {
+    font-size: 16px;
+  }
+}

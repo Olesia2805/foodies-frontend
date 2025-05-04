@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTER } from '../../constants/router';
 import styles from './Hero.module.css';
 import Container from '../Container/Container';
-// import Modal from '../Modal/Modal';
+import HeroModal from '/src/components/HeroModal/HeroModal';
 import SignInModal from '../SignInModal/SignInModal';
 import { useAuth } from '../../hooks';
 
@@ -51,9 +51,9 @@ const Hero = () => {
       </Container>
 
       {showModal && (
-        <Modal onClose={closeModal}>
+        <HeroModal onClose={closeModal}>
           <SignInModal />
-        </Modal>
+        </HeroModal>
       )}
     </section>
   );
