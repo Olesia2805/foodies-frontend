@@ -31,7 +31,7 @@ const RecipePage = () => {
 
   if (loading) return <Loader />;
   if (error) return <Error message={error} />;
-  if (!recipe) return <div>Recipe not found</div>;
+  if (!recipe || !recipe._id) return <div>Recipe not found</div>;
 
   return (
     <div className={styles['recipe-page']}>
