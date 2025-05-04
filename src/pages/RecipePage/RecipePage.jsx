@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Error } from '../../components/Error/Error';
-import { Loader } from '../../components/Loader/Loader';
+import Error from '../../components/Error/Error';
+import Loader from '../../components/Loader/Loader';
 import { fetchRecipeById } from '../../redux/recipes/operations';
 import { selectRecipeById } from '../../redux/recipes/selectors';
 import styles from './RecipePage.module.css';
