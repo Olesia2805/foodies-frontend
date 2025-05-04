@@ -3,7 +3,7 @@ import {
   signInUserOps,
   selectIsAuthenticated,
   signUpUserOps,
-  signOutUserOps,
+  logOutUserOps,
   getMeOps,
   selectUser,
 } from '../redux/auth';
@@ -21,15 +21,15 @@ const useAuth = () => {
     dispatch(signInUserOps(credentials));
   };
 
-  const signOut = async () => {
-    dispatch(signOutUserOps());
+  const logOut = async () => {
+    dispatch(logOutUserOps());
   };
 
   const getUser = async () => {
     dispatch(getMeOps());
   };
 
-  return { isAuthenticated, user, getUser, signUp, signIn, signOut };
+  return { isAuthenticated, user, getUser, signUp, signIn, logOut };
 };
 
 export default useAuth;

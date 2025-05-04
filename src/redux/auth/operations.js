@@ -29,8 +29,8 @@ export const signInUserOps = createAsyncThunk(
   }
 );
 
-export const signOutUserOps = createAsyncThunk(
-  'auth/signOutUserOps',
+export const logOutUserOps = createAsyncThunk(
+  'auth/logOutUserOps',
   async (_, { rejectWithValue }) => {
     try {
       return await axiosInstance.post('/auth/logout');

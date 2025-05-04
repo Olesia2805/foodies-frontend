@@ -7,6 +7,7 @@ import { useState } from 'react';
 import Icon from '../Icon/Icon.jsx';
 import { useAuth } from '../../hooks';
 import { ERROR_MESSAGES } from '../../constants/validationMessages.js';
+import Modal from '../Modal/Modal.jsx';
 
 const SignInSchema = yup.object({
   email: yup
@@ -18,9 +19,9 @@ const SignInSchema = yup.object({
   password: yup.string().required(ERROR_MESSAGES.PASSWORD_IS_REQUIRED),
 });
 
-const SignInModal = () => {
+const SignInModal = ({ isOpen, onClose }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const { signIn, signOut, getUser } = useAuth();
+  const { signIn } = useAuth();
 
   const {
     register,
@@ -36,26 +37,21 @@ const SignInModal = () => {
 
   const onSubmit = async (values) => {
     await signIn(values);
-  };
-
-  const onSignOut = async () => {
-    await signOut();
-  };
-
-  const onGetUser = async () => {
-    await getUser();
+    onClose();
   };
 
   return (
-    <>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input {...register('email')} placeholder="Email*" />
+
         <label>
           <input
             {...register('password')}
             type={isPasswordVisible ? 'text' : 'Password'}
             placeholder="password"
           />
+
           <button
             type="button"
             onClick={() => setIsPasswordVisible((prevState) => !prevState)}
@@ -63,11 +59,10 @@ const SignInModal = () => {
             <Icon name={isPasswordVisible ? 'eye' : 'closed-eye'} size={24} />
           </button>
         </label>
+
         <button type="submit">Sign in</button>
       </form>
-      <button onClick={onSignOut}>log out</button>
-      <button onClick={onGetUser}>get user</button>
-    </>
+    </Modal>
   );
 };
 

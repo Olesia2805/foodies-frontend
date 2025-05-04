@@ -6,7 +6,7 @@ import { useAuth } from '../../hooks';
 import styles from './Header.module.css';
 
 const Header = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, logOut } = useAuth();
 
   return (
     <header className={styles.header}>
@@ -15,6 +15,8 @@ const Header = () => {
           <Logo />
 
           {!isAuthenticated && <SignActions />}
+
+          {isAuthenticated && <button onClick={() => logOut()}>Log out</button>}
         </div>
       </Container>
     </header>

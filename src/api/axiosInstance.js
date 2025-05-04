@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { store } from '../redux/store';
-import { refreshTokenOps, signOutUserOps } from '../redux/auth/index.js';
+import { refreshTokenOps, logOutUserOps } from '../redux/auth/index.js';
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000/api',
@@ -36,7 +36,7 @@ axiosInstance.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${response.token}`;
         return axiosInstance(originalRequest);
       } catch {
-        store.dispatch(signOutUserOps());
+        store.dispatch(logOutUserOps());
       }
     }
     return Promise.reject(error);

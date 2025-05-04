@@ -1,22 +1,29 @@
 import styles from './SignActions.module.css';
 import SignUpModal from '../SignUpModal/SignUpModal.jsx';
 import SignInModal from '../SignInModal/SignInModal.jsx';
+import { useState } from 'react';
 
 const SignActions = () => {
-  const openSignInModal = () => {};
-  const openSignUpModal = () => {};
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
 
   return (
     <>
       <div className={styles.actions}>
-        <button>Sign in</button>
+        <button onClick={() => setIsSignInModalOpen(true)}>Sign in</button>
 
-        <button>Sign up</button>
+        <button onClick={() => setIsSignUpModalOpen(true)}>Sign up</button>
       </div>
 
-      {/*<SignUpModal />*/}
+      <SignInModal
+        isOpen={isSignInModalOpen}
+        onClose={() => setIsSignInModalOpen(false)}
+      />
 
-      {/*<SignInModal />*/}
+      <SignUpModal
+        isOpen={isSignUpModalOpen}
+        onClose={() => setIsSignUpModalOpen(false)}
+      />
     </>
   );
 };
