@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { fetchRecipeById } from '../../redux/recipes/operations';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectRecipeById } from '../../redux/recipes/selectors';
-import { Loader } from '../../components/Loader/Loader';
+import { useParams } from 'react-router-dom';
 import { Error } from '../../components/Error/Error';
+import { Loader } from '../../components/Loader/Loader';
+import { fetchRecipeById } from '../../redux/recipes/operations';
+import { selectRecipeById } from '../../redux/recipes/selectors';
 import styles from './RecipePage.module.css';
 
 const RecipePage = () => {
@@ -39,7 +39,9 @@ const RecipePage = () => {
         <h1>{recipe.title}</h1>
         <div className={styles['recipe-meta']}>
           <span className="author">By {recipe.author}</span>
-          <span className="date">{new Date(recipe.createdAt).toLocaleDateString()}</span>
+          <span className="date">
+            {new Date(recipe.createdAt).toLocaleDateString()}
+          </span>
         </div>
       </div>
 
