@@ -1,4 +1,4 @@
-import styles from './Icon.module.css'
+import styles from './Icon.module.css';
 
 /**
  * Renders an SVG icon using IcoMoon symbol ID.
@@ -14,9 +14,10 @@ const Icon = ({ name, className = '', size = 20, ...otherProps }) => (
     className={className ? `${styles.icon} ${className}` : styles.icon}
     width={size}
     height={size}
-    {...otherProps}>
+    {...otherProps}
+  >
     <use xlinkHref={`/icons/symbol-defs.svg#icon-${name}`} />
   </svg>
-)
+);
 
-export default Icon
+export default Icon;

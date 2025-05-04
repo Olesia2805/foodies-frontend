@@ -1,13 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {}
+const initialState = {};
 
 export const recipesSlice = createSlice({
   name: 'recipes',
   initialState,
   extraReducers: (builder) => {
-    builder
-  }
-})
+    builder;
+  },
+});
 
-export default recipesSlice.reducer
+export default recipesSlice.reducer;
