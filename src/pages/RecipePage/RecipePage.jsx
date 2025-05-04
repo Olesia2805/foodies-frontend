@@ -31,46 +31,57 @@ const RecipePage = () => {
 
   if (loading) return <Loader />;
   if (error) return <Error message={error} />;
-  if (!recipe || !recipe._id) return <div>Recipe not found</div>;
+  // if (!recipe || !recipe._id) return <div>Recipe not found</div>;
+  if (!recipe) return <div>Recipe not found</div>;
 
   return (
     <div className={styles['recipe-page']}>
       <div className={styles['recipe-header']}>
-        <h1>{recipe.title}</h1>
-        <div className={styles['recipe-meta']}>
-          <span className="author">By {recipe.author}</span>
-          <span className="date">
-            {new Date(recipe.createdAt).toLocaleDateString()}
-          </span>
+        <div className={styles['recipe-image']}>
+          <img src={recipe.thumb} alt={recipe.title} />
+        </div>
+        <h1>{recipe?.title}</h1>
+
+        <ul className={styles['recipe-category']}>
+          <li>{recipe?.categoryOfRecipe.name}</li>
+          <li>{recipe.time} min</li>
+        </ul>
+
+        <p>{recipe.description}</p>
+
+        <div className={styles['recipe-author-block']}>
+          <img className={styles['recipe-author-img']} src={recipe?.owner.avatar} alt="NA" />
+          <ul>
+            <li className={styles['recipe-author-span']} >Created by </li>
+            <li className="recipe-author-name">{recipe?.owner.email} </li>
+          </ul>
         </div>
       </div>
 
       <div className={styles['recipe-content']}>
-        <div className={styles['recipe-image']}>
-          <img src={recipe.image} alt={recipe.title} />
-        </div>
+        <h2>Ingredients</h2>
+        <ul className={styles['ingredients-list']}>
+          {recipe.ingredients.map((ingredient, index) => (
+            <li className={styles['ingredient-item']} key={index}>
+              <img
+                className={styles['ingredient-image']}
+                src={ingredient.img}
+                alt="NA"
+              />
+              <div>
+                <p className={styles['ingredient-name']}>{ingredient.name}</p>
+                <p className={styles['ingredient-measure']}>
+                  {ingredient.RecipeIngredient.measure}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
 
-        <div className={styles['recipe-details']}>
-          <h2>Ingredients</h2>
-          <ul className={styles['ingredients-list']}>
-            {recipe.ingredients.map((ingredient, index) => (
-              <li key={index}>{ingredient}</li>
-            ))}
-          </ul>
+        <h2>Recipe Preparation</h2>
+        <p>{recipe.instructions}</p>
 
-          <h2>Instructions</h2>
-          <ol className={styles['instructions-list']}>
-            {recipe.instructions.map((step, index) => (
-              <li key={index}>{step}</li>
-            ))}
-          </ol>
 
-          <div className={styles['recipe-info']}>
-            <div className="prep-time">Prep Time: {recipe.prepTime} mins</div>
-            <div className="cook-time">Cook Time: {recipe.cookTime} mins</div>
-            <div className="servings">Servings: {recipe.servings}</div>
-          </div>
-        </div>
       </div>
     </div>
   );

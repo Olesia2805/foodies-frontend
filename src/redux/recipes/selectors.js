@@ -1,7 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit';
 
 export const selectRecipes = (state) => state.recipes.items;
-export const selectRecipeById = (id) => (state) => state.recipes.item;
+export const selectRecipeById = () => (state) => {
+  return state.recipes.item?.recipe || null;
+};
 export const selectSingleRecipe = (id) => (state) => {
   const items = state.recipes?.items || [];
   return items.find((recipe) => recipe?._id === id) || null;
