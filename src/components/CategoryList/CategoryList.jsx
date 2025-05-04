@@ -9,7 +9,7 @@ import {
 import css from './CategoryList.module.css';
 import Icon from '../Icon/Icon';
 import Loader from '../Loader/Loader';
-import placeholderImg from '../../assets/img/placeholder.png';
+import categoryImages from './categoryImages';
 
 const CategoryList = ({ onCategorySelect }) => {
   const categoryClasses = [
@@ -17,6 +17,7 @@ const CategoryList = ({ onCategorySelect }) => {
     'div7', 'div8', 'div9', 'div10', 'div11', 'div12',
     'div13', 'div14', 'div15', 'div16'
   ];
+
 
   const dispatch = useDispatch();
 
@@ -40,7 +41,7 @@ const CategoryList = ({ onCategorySelect }) => {
         <div
           key={cat.id}
           className={`${css.card} ${css[categoryClasses[index]]}`}
-          style={{ backgroundImage: `url(${placeholderImg})` }}
+          style={{ backgroundImage: `url(${categoryImages[index]})` }}
         >
           <div className={css.chip}>
             <div className={css.nameWrapper}>
