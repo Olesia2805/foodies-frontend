@@ -1,0 +1,75 @@
+.actions {
+  display: flex;
+  align-items: center;
+  position: relative;
+  border-radius: 30px;
+  background-color: var(--white);
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 100%;
+    border-radius: 30px;
+    transition: right 0.3s ease, background-color 0.3s ease;
+    background: var(--dark-grey);
+    border: 1px solid var(--border);
+    z-index: 0;
+
+    @media (min-width: 768px) {
+      width: 104px;
+    }
+  }
+
+  button {
+    width: 80px;
+    height: 38px;
+    border-radius: 30px;
+    padding: 13px 15px;
+    font-family: var(--font-primary), sans-serif;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    font-size: 12px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s ease;
+    color: black;
+
+    &:hover {
+      color: white;
+    }
+
+    &:last-of-type {
+      color: white;
+    }
+
+    @media (min-width: 768px) {
+      width: 104px;
+      height: 46px;
+    }
+  }
+
+  &:has(button:hover:nth-of-type(1))::before {
+    right: 80px;
+    @media (min-width: 768px) {
+      right: 104px;
+    }
+  }
+
+  &:has(button:hover:nth-of-type(1)) button:nth-of-type(2) {
+    color: var(--black);
+  }
+
+  &:hover {
+    &::before {
+      background: var(--black);
+    }
+  }
+}
