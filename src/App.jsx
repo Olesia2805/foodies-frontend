@@ -7,6 +7,7 @@ import Input from './components/Input/Input';
 import Dropdown from './components/Dropdown/Dropdown';
 import Testimonial from './components/Testimonial/Testimonial';
 import ProductCard from './components/ProductCard/ProductCard';
+import FoodItem from './components/FoodItem/FoodItem';
 import { SignInModal, SignUpModal, LogoutModal } from './components/Modals';
 import eyeIcon from './assets/Icons/eye.svg';
 import eyeOffIcon from './assets/Icons/eye-off.svg';
@@ -242,15 +243,6 @@ function App() {
               }
             />
             <ProductCard
-              recipeTitle="FRESH SALAD"
-              image="https://images.unsplash.com/photo-1565958011703-44f9829ba187"
-              description="Fresh vegetable salad with feta cheese"
-              onAddToCart={() => alert('More info!')}
-              onToggleFavorite={isFavorite =>
-                console.log('Favorite status:', isFavorite)
-              }
-            />
-            <ProductCard
               recipeTitle="CHOCOLATE CAKE"
               image="https://images.unsplash.com/photo-1551879400-111a9087cd86"
               description="Homemade chocolate cake with berries"
@@ -260,6 +252,40 @@ function App() {
               }
             />
           </div>
+        </div>
+      </div>
+
+      <div>
+        <h2>Food Item Examples</h2>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px',
+            marginTop: '20px',
+          }}
+        >
+          <FoodItem
+            image="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38"
+            title="MARGHERITA PIZZA"
+            description="Classic pizza with tomato sauce, mozzarella, and fresh basil"
+            onDelete={() => alert('Delete clicked')}
+            onAction={() => alert('Action clicked')}
+          />
+          <FoodItem
+            image="https://images.unsplash.com/photo-1563379926898-05f4575a45d8"
+            title="CHOCOLATE CAKE"
+            description="Rich chocolate cake with ganache frosting and berries"
+            onDelete={() => alert('Delete clicked')}
+            onAction={() => alert('Action clicked')}
+          />
+          <FoodItem
+            image="https://images.unsplash.com/photo-1512621776951-a57141f2eefd"
+            title="VEGETABLE BOWL"
+            description="Healthy bowl with mixed vegetables, quinoa and avocado"
+            onDelete={() => alert('Delete clicked')}
+            onAction={() => alert('Action clicked')}
+          />
         </div>
       </div>
 
