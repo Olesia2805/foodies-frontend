@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../../api/axiosInstance';
 
+// TODO: перевірити
 export const fetchRecipes = createAsyncThunk(
   'recipes/fetchRecipes',
   async (_, thunkAPI) => {
@@ -13,6 +14,7 @@ export const fetchRecipes = createAsyncThunk(
   }
 );
 
+// * DONE
 export const fetchRecipeById = createAsyncThunk(
   'recipes/fetchRecipeById',
   async (recipeId, thunkAPI) => {
@@ -25,6 +27,7 @@ export const fetchRecipeById = createAsyncThunk(
   }
 );
 
+// TODO: перевірити
 export const addRecipe = createAsyncThunk(
   'recipes/addRecipe',
   async (recipeData, thunkAPI) => {
@@ -37,6 +40,7 @@ export const addRecipe = createAsyncThunk(
   }
 );
 
+// TODO: перевірити
 export const updateRecipe = createAsyncThunk(
   'recipes/updateRecipe',
   async ({ id, recipeData }, thunkAPI) => {
@@ -49,6 +53,7 @@ export const updateRecipe = createAsyncThunk(
   }
 );
 
+// TODO: перевірити
 export const deleteRecipe = createAsyncThunk(
   'recipes/deleteRecipe',
   async (recipeId, thunkAPI) => {
