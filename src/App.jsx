@@ -7,6 +7,8 @@ import { ROUTER } from './constants/router.js';
 import { useDispatch } from 'react-redux';
 import { getMeOps } from './redux/auth';
 import { useAuth } from './hooks';
+import UIKit from './pages/UIKit/UIkit.jsx';
+import { NavLink } from 'react-router-dom';
 
 const HomePage = lazy(() => import('pages/HomePage/HomePage'));
 const RecipePage = lazy(() => import('pages/RecipePage/RecipePage'));
@@ -28,16 +30,20 @@ const App = () => {
 
   return (
     <>
+      <NavLink to={ROUTER.ADD_RECIPE}>Add recipe</NavLink>
+      <NavLink to={'/ui-kit'}>UI kit</NavLink>
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path={ROUTER.HOME} element={<Layout />}>
             <Route index element={<HomePage />} />
 
+            <Route path={ROUTER.ADD_RECIPE} element={<AddRecipePage />} />
+
             <Route path={`${ROUTER.USER}/:id`} element={<UserPage />} />
 
             <Route path={`${ROUTER.RECIPE}/:id`} element={<RecipePage />} />
 
-            <Route path={ROUTER.ADD_RECIPE} element={<AddRecipePage />} />
+            <Route path={'/ui-kit'} element={<UIKit />} />
 
             <Route path={ROUTER.ALL} element={<NotFoundPage />} />
           </Route>
