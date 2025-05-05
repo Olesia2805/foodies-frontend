@@ -3,5 +3,6 @@ export const ROUTER = {
   RECIPE: '/recipe',
   ADD_RECIPE: '/recipe/add',
   USER: '/user',
+  PROFILE: '/profile',
   ALL: '*',
 };
