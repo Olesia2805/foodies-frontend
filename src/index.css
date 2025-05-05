@@ -12,6 +12,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color-scheme: light;
 
   @media (min-width: 768px) {
     font-size: 16px;
@@ -43,6 +44,17 @@ a {
   color: inherit;
 }
 
+/* styles from branch 'react-component-decomposition' */
+/* a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+} */
+
 ul,
 li {
   margin: 0;
@@ -62,6 +74,35 @@ button {
   outline: none;
 }
 
+/* styles from branch 'react-component-decomposition' */
+input,
+textarea,
+select,
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+button {
+  background-color: #f9f9f9;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -72,4 +113,8 @@ button {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+a:hover {
+  color: #747bff;
 }
