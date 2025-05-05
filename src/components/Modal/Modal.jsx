@@ -10,6 +10,7 @@ const Modal = ({ isOpen, onClose, children }) => {
         <button className={styles.close} onClick={onClose}>
           <Icon name="close" size={24} />
         </button>
+
         {children}
       </div>
     </div>
