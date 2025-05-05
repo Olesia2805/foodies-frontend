@@ -1,12 +1,15 @@
 import Container from '../Container/Container.jsx';
 import Logo from '../Logo/Logo.jsx';
-import SignActions from '../SignActions/SignActions.jsx';
+import AuthBar from '../AuthBar/AuthBar.jsx';
+import Nav from '../Nav/Nav.jsx';
+import styles from './Header.module.css';
+import UserBar from '../UserBar/UserBar.jsx';
+import MobileNav from '../MobileNav/MobileNav.jsx';
+
 import { useAuth } from '../../hooks';
 
-import styles from './Header.module.css';
-
 const Header = () => {
-  const { isAuthenticated, logOut } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   return (
     <header className={styles.header}>
@@ -14,9 +17,19 @@ const Header = () => {
         <div className={styles.wrapper}>
           <Logo />
 
-          {!isAuthenticated && <SignActions />}
+          {!isAuthenticated && <AuthBar />}
 
-          {isAuthenticated && <button onClick={() => logOut()}>Log out</button>}
+          {isAuthenticated && (
+            <>
+              <Nav />
+
+              <div className={styles.right}>
+                <UserBar />
+
+                <MobileNav />
+              </div>
+            </>
+          )}
         </div>
       </Container>
     </header>

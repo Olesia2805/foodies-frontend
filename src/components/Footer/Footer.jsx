@@ -1,7 +1,7 @@
 import Container from '../Container/Container.jsx';
 import Divider from '../Divider/Divider.jsx';
 import Logo from '../Logo/Logo.jsx';
-import SocialNetworks from '../SocianNetworks/SocialNetworks.jsx';
+import NetworkLinks from '../NetworkLinks/NetworkLinks.jsx';
 
 import styles from './Footer.module.css';
 
@@ -12,7 +12,7 @@ const Footer = () => {
         <div className={styles.wrapper}>
           <Logo />
 
-          <SocialNetworks />
+          <NetworkLinks />
         </div>
       </Container>
 
