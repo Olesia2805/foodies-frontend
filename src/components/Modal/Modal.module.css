@@ -13,18 +13,23 @@
 
 .modal {
   background: white;
-  padding: 80px;
   border-radius: 30px;
+  padding: 60px 30px;
   position: relative;
   width: 90%;
-  max-width: 400px;
+  max-width: 343px;
   animation: fadeIn 0.3s ease;
+
+  @media (min-width: 768px) {
+    padding: 80px;
+    max-width: 560px;
+  }
 }
 
 .close {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 16px;
+  right: 16px;
   padding: 0;
   background: transparent;
   border: none;
@@ -34,6 +39,11 @@
   }
   &:hover {
     fill: var(--grey);
+  }
+
+  @media (min-width: 768px) {
+    top: 20px;
+    right: 20px;
   }
 }
 

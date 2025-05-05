@@ -1,28 +1,48 @@
-import styles from './AuthBar.module.css';
-import SignUpModal from '../SignUpModal/SignUpModal.jsx';
-import SignInModal from '../SignInModal/SignInModal.jsx';
 import { useState } from 'react';
 
+import SignUpModal from '../SignUpModal/SignUpModal.jsx';
+import SignInModal from '../SignInModal/SignInModal.jsx';
+
+import styles from './AuthBar.module.css';
+
 const AuthBar = () => {
-  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
 
   return (
     <>
       <div className={styles.authBar}>
-        <button onClick={() => setIsSignInModalOpen(true)}>Sign in</button>
+        <button
+          className={isSignInModalOpen ? styles.active : undefined}
+          onClick={() => setIsSignInModalOpen(true)}
+        >
+          Sign in
+        </button>
 
-        <button onClick={() => setIsSignUpModalOpen(true)}>Sign up</button>
+        <button
+          className={isSignUpModalOpen ? styles.active : undefined}
+          onClick={() => setIsSignUpModalOpen(true)}
+        >
+          Sign up
+        </button>
       </div>
 
       <SignInModal
         isOpen={isSignInModalOpen}
         onClose={() => setIsSignInModalOpen(false)}
+        setOtherModal={() => {
+          setIsSignInModalOpen(false);
+          setIsSignUpModalOpen(true);
+        }}
       />
 
       <SignUpModal
         isOpen={isSignUpModalOpen}
         onClose={() => setIsSignUpModalOpen(false)}
+        setOtherModal={() => {
+          setIsSignUpModalOpen(false);
+          setIsSignInModalOpen(true);
+        }}
       />
     </>
   );
