@@ -1,14 +1,31 @@
-import styles from './LogOutModal.module.css';
+import Modal from '../Modal/Modal.jsx';
+import ModalHeader from '../ModalHeader/ModalHeader.jsx';
+import ModalActions from '../ModalActions/ModalActions.jsx';
+import Button from '../Button/Button.jsx';
 
-const LogOutModal = ({ onConfirm, onCancel }) => {
+import { useAuth } from '../../hooks';
+
+const LogOutModal = ({ isOpen, onClose }) => {
+  const { logOut } = useAuth();
+
   return (
-    <div className={styles.modal}>
-      <p>Are you sure you want to log out?</p>
-      <div className={styles.actions}>
-        <button onClick={onConfirm} className={styles.confirm}>Log Out</button>
-        <button onClick={onCancel} className={styles.cancel}>Cancel</button>
-      </div>
-    </div>
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalHeader
+        title="Are you logging out?"
+        description="You can always log back in at my time."
+        center
+      />
+
+      <ModalActions>
+        <Button onClick={logOut} fullWidth>
+          Log out
+        </Button>
+
+        <Button variant="outlined" onClick={onClose} fullWidth>
+          Cancel
+        </Button>
+      </ModalActions>
+    </Modal>
   );
 };
 

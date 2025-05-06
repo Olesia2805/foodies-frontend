@@ -1,0 +1,37 @@
+.nav {
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  display: none;
+
+  @media (min-width: 768px) {
+    display: flex;
+  }
+}
+
+.link {
+  display: block;
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 13px;
+  border: 1px solid transparent;
+  border-radius: 30px;
+  background: var(--white);
+  transition: all 0.3s ease;
+
+  &:hover, &:focus {
+    background: var(--black);
+    color: var(--white);
+  }
+}
+
+.activeLink {
+  border-color: var(--grey);
+  &:hover, &:focus {
+    background: var(--white);
+    color: var(--black);
+  }
+}

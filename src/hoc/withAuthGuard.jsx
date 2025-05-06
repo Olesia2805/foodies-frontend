@@ -4,7 +4,7 @@ import { ROUTER } from '../constants/router';
 import { useAuth } from '../hooks';
 
 const withAuthGuard = (Component) => {
-  return (props) => {
+  return function GuardedComponent(props) {
     const { isAuthenticated } = useAuth();
 
     return isAuthenticated ? (
@@ -14,5 +14,4 @@ const withAuthGuard = (Component) => {
     );
   };
 };
-
 export default withAuthGuard;

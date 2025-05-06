@@ -2,9 +2,12 @@ import { Link } from 'react-router-dom';
 
 import styles from './Logo.module.css';
 
-const Logo = () => {
+const Logo = ({ variant = 'primary' }) => {
   return (
-    <Link to="/" className={styles.logo}>
+    <Link
+      to="/"
+      className={`${styles.logo} ${variant === 'secondary' ? styles.logoSecondary : ''}`}
+    >
       Foodies
     </Link>
   );

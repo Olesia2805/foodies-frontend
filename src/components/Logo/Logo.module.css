@@ -6,3 +6,7 @@
   text-transform: lowercase;
   color: var(--dark-grey);
 }
+
+.logoSecondary {
+  color: var(--white);
+}

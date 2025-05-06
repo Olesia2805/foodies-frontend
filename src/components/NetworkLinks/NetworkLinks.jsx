@@ -4,11 +4,11 @@ import Icon from '../Icon/Icon.jsx';
 
 import { SOCIAL_NETWORKS } from '../../constants/socialNetworks.js';
 
-import styles from './SocialNetworks.module.css';
+import styles from './NetworkLinks.module.css';
 
-const SocialNetworks = () => {
+const NetworkLinks = () => {
   return (
-    <ul className={styles.socialList}>
+    <ul className={styles.networkLinks}>
       {SOCIAL_NETWORKS.map(({ link, icon }) => (
         <li className={styles.item} key={link}>
           <Link className={styles.link} to={link} target="_blank">
@@ -20,4 +20,4 @@ const SocialNetworks = () => {
   );
 };
 
-export default SocialNetworks;
+export default NetworkLinks;
