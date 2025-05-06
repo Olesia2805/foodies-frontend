@@ -4,7 +4,7 @@ import { NAV } from '../../constants/nav.js';
 
 import styles from './Nav.module.css';
 
-const Nav = () => {
+const Nav = ({ isHomePage = false }) => {
   return (
     <nav>
       <ul className={styles.nav}>
@@ -13,7 +13,9 @@ const Nav = () => {
             <NavLink
               to={href}
               className={({ isActive }) =>
-                `${styles.link} ${isActive ? styles.activeLink : ''}`
+                `${styles.link} ${isActive ? styles.activeLink : ''} ${
+                  isHomePage ? styles.homePageLink : ''
+                }`
               }
             >
               {title}

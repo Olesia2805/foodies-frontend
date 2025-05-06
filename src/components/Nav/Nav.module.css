@@ -35,3 +35,21 @@
     color: var(--black);
   }
 }
+
+.homePageLink {
+  background: var(--black);
+  color: var(--white);
+  &:hover, &:focus {
+    background: var(--white);
+    color: var(--black);
+  }
+}
+
+/* Стилі для активного посилання на головній сторінці */
+.homePageLink.activeLink {
+  border-color: var(--grey);
+  &:hover, &:focus {
+    background: var(--black);
+    color: var(--white);
+  }
+}
