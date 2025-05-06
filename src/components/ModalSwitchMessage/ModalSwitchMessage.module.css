@@ -1,0 +1,12 @@
+.message {
+  text-align: center;
+}
+
+.button {
+  display: inline-block;
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: var(--black);
+  cursor: pointer;
+}
