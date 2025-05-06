@@ -4,3 +4,8 @@ export const ERROR_MESSAGES = {
   PASSWORD_IS_REQUIRED: 'Password is required',
   INVALID_EMAIL: 'Email is invalid',
 };
+
+export const SUCCESS_MESSAGES = {
+  SIGN_IN_SUCCESSFUL: 'Sign-in was successful',
+  SIGN_UP_SUCCESSFUL: 'Sign-up was successful',
+};

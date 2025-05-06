@@ -4,9 +4,20 @@ import ModalActions from '../ModalActions/ModalActions.jsx';
 import Button from '../Button/Button.jsx';
 
 import { useAuth } from '../../hooks';
+import toast from 'react-hot-toast';
 
 const LogOutModal = ({ isOpen, onClose }) => {
-  const { logOut } = useAuth();
+  const { logOut, isLoading } = useAuth();
+
+  const logOutHandler = async () => {
+    try {
+      await logOut();
+      onClose();
+      toast.success('User logged out successfully');
+    } catch (error) {
+      toast.error(error);
+    }
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -17,7 +28,12 @@ const LogOutModal = ({ isOpen, onClose }) => {
       />
 
       <ModalActions>
-        <Button onClick={logOut} fullWidth>
+        <Button
+          fullWidth
+          onClick={logOutHandler}
+          loading={isLoading}
+          disabled={isLoading}
+        >
           Log out
         </Button>
 
