@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import Loader from 'components/Loader/Loader';
 import Layout from './components/Layout/Layout.jsx';
 import { ROUTER } from './constants/router.js';
+import { toastConfig } from './constants/toastConfig.js';
 import { useDispatch } from 'react-redux';
 import { getMeOps } from './redux/auth';
 import { useAuth } from './hooks';
@@ -43,7 +44,7 @@ const App = () => {
           </Route>
         </Routes>
       </Suspense>
-      <Toaster position="top-right" />
+      <Toaster position="top-center" toastOptions={toastConfig} />
     </>
   );
 };
