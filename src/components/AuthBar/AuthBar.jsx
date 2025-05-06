@@ -4,10 +4,12 @@ import SignUpModal from '../SignUpModal/SignUpModal.jsx';
 import SignInModal from '../SignInModal/SignInModal.jsx';
 
 import styles from './AuthBar.module.css';
+import VerifyEmailModal from '../VerifyEmailModal/VerifyEmailModal.jsx';
 
 const AuthBar = () => {
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+  const [isVerifyEmailModalOpen, setIsVerifyEmailModalOpen] = useState(false);
 
   return (
     <>
@@ -39,10 +41,19 @@ const AuthBar = () => {
       <SignUpModal
         isOpen={isSignUpModalOpen}
         onClose={() => setIsSignUpModalOpen(false)}
-        setOtherModal={() => {
+        setOtherModal={(type) => {
           setIsSignUpModalOpen(false);
-          setIsSignInModalOpen(true);
+          if (type === 'signIn') {
+            setIsSignInModalOpen(true);
+          } else {
+            setIsVerifyEmailModalOpen(true);
+          }
         }}
+      />
+
+      <VerifyEmailModal
+        isOpen={isVerifyEmailModalOpen}
+        onClose={() => setIsVerifyEmailModalOpen(false)}
       />
     </>
   );
