@@ -1,0 +1,26 @@
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.item {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s;
+}
+
+.item:hover {
+  background-color: #e0e0e0;
+}
+
+.empty {
+  text-align: center;
+  color: #888;
+  font-size: 16px;
+}
