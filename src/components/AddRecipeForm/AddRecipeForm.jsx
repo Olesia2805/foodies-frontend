@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PhotoUploader from '../PhotoUploader/PhotoUploader';
+import PhotoUploader from '../formComponents/PhotoUploader/PhotoUploader';
 import css from './AddRecipeForm.module.css';
 import { useForm } from 'react-hook-form';
 import InputTitle from '../formComponents/InputTitle/InputTitle';
@@ -10,6 +10,7 @@ import Icon from '../Icon/Icon';
 import Button from '../Button/Button';
 import Fieldset from '../formComponents/Fieldset/Fieldset';
 import FormTitle from '../formComponents/FormTitle/FormTitle';
+import clsx from 'clsx';
 
 export default function AddRecipeForm() {
   const { register, handleSubmit } = useForm({
@@ -27,6 +28,7 @@ export default function AddRecipeForm() {
     console.log(data);
     alert(JSON.stringify(data, null, 2));
   };
+
   const categoryOptions = [
     { value: 'seafood', label: 'Seafood' },
     { value: 'vegetarian', label: 'Vegetarian' },
@@ -47,26 +49,34 @@ export default function AddRecipeForm() {
           <InputTextCounter {...register('desc', { required: true })} />
         </Fieldset>
 
-        <Fieldset>
-          <FormTitle>Category</FormTitle>
-          <Dropdown options={categoryOptions} />
-        </Fieldset>
+        <div className={css['media-wrapper-row']}>
+          <Fieldset>
+            <FormTitle>Category</FormTitle>
+            <Dropdown options={categoryOptions} className={css.dropdown} />
+          </Fieldset>
 
-        <Fieldset>
-          <FormTitle>Cooking time</FormTitle>
-          <InputTimeCounter />
-        </Fieldset>
+          <Fieldset>
+            <FormTitle>Cooking time</FormTitle>
+            <InputTimeCounter />
+          </Fieldset>
+        </div>
 
-        <Fieldset>
+        <Fieldset className={css['fieldset-ingredients']}>
           <FormTitle>Add Ingredients</FormTitle>
-          <Dropdown
-            options={categoryOptions}
-            className={css['ingredients-margin-bottom-dropdown']}
-          />
-          <InputTextCounter
-            isCounter={false}
-            className={css['ingredients-margin-bottom-input']}
-          />
+          <div className={css['media-wrapper-row-ingredient']}>
+            <Dropdown
+              options={categoryOptions}
+              className={clsx(
+                css['ingredients-margin-bottom-dropdown'],
+                css.dropdown
+              )}
+            />
+            <InputTextCounter
+              isCounter={false}
+              isOneRow={true}
+              className={css['ingredients-margin-bottom-input']}
+            />
+          </div>
           <Button text="Add ingredient" variant="outline" />
 
           <ul>

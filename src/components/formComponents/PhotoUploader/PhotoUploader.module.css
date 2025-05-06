@@ -10,6 +10,17 @@
   gap: 8px;
 }
 
+@media screen and (min-width: 768px) {
+  .photo-uploader {
+    height: 400px;
+  }
+
+  .icon {
+    width: 64px;
+    height: 64px;
+  }
+}
+
 .photo-uploader:hover {
   cursor: pointer;
 }

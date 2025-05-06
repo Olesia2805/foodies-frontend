@@ -8,6 +8,7 @@ export default function InputTextCounter({
   placeholder = 'Enter a description of the dish',
   onInput = (e) => console.log(e),
   isCounter = true,
+  isOneRow = false,
   className,
   ...otherProps
 }) {
@@ -17,16 +18,22 @@ export default function InputTextCounter({
   // const classNameInput = clsx(css['input'], !isCounter && css['input-full-width']);
   const classNameCounter = clsx(maxLength > 0 && css['counter-current']);
   const wrapperClassName = clsx(css['input-wrapper'], className);
+
+  const inputProps = {
+    type: 'text',
+    placeholder: placeholder,
+    onInput: onInput,
+    className: css.input,
+    ...otherProps,
+  };
+
   return (
     <label className={wrapperClassName}>
-      <TextareaAutosize
-        type="text"
-        // value={value}
-        placeholder={placeholder}
-        onInput={onInput}
-        className={css.input}
-        {...otherProps}
-      ></TextareaAutosize>
+      {isOneRow ? (
+        <input {...inputProps} />
+      ) : (
+        <TextareaAutosize {...inputProps}></TextareaAutosize>
+      )}
       {isCounter && (
         <p className={css.counter}>
           <span className={classNameCounter}>{valueLength}</span>/
