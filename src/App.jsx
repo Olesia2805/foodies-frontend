@@ -1,3 +1,4 @@
+
 import { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
@@ -27,6 +28,7 @@ const App = () => {
   }, []);
 
   return (
+
     <>
       <Suspense fallback={<Loader />}>
         <Routes>
