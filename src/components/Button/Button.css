@@ -17,23 +17,26 @@
   outline: none;
 }
 
+@media screen and (min-width: 1440) {
+}
+
 .button:focus {
   outline: none;
 }
 
 .button-outline:hover {
   outline: none;
-  border: 1px solid #1A1A1A;
+  border: 1px solid #1a1a1a;
 }
 
 .button-primary {
-  background: #1A1A1A;
-  color: #FFFFFF;
+  background: #1a1a1a;
+  color: #ffffff;
 }
 
 .button-secondary {
-  background: #BFBEBE;
-  color: #FFFFFF;
+  background: #bfbebe;
+  color: #ffffff;
 }
 
 .button-outline {

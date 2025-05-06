@@ -2,15 +2,18 @@ import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import '../../assets/fonts.css';
 import './Dropdown.css';
+import chevronDownIcon from '../../assets/Icons/chevron-down.svg';
+import clsx from 'clsx';
 
 const Dropdown = ({
   value,
   onChange,
-  placeholder,
+  placeholder = 'Choose an option',
   options = [],
   required = false,
-  iconSrc,
+  iconSrc = chevronDownIcon,
   style,
+  className,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -48,16 +51,13 @@ const Dropdown = ({
   }, []);
 
   // Get the selected option display text
-  const selectedOption = options.find(option => option.value === value);
+  const selectedOption = options.find((option) => option.value === value);
   const displayText = selectedOption ? selectedOption.label : '';
+  const containerClassName = clsx('dropdown-container', className);
 
   return (
-    <div 
-      ref={dropdownRef}
-      className="dropdown-container"
-      style={style}
-    >
-      <div 
+    <div ref={dropdownRef} className={containerClassName} style={style}>
+      <div
         onClick={handleToggle}
         onBlur={handleBlur}
         tabIndex="0"
@@ -70,15 +70,15 @@ const Dropdown = ({
           </span>
         )}
       </div>
-      
+
       <div className="dropdown-icon">
-        <img 
-          src={iconSrc} 
-          alt="dropdown arrow" 
+        <img
+          src={iconSrc}
+          alt="dropdown arrow"
           className={isOpen ? 'dropdown-icon-rotate' : 'dropdown-icon-normal'}
         />
       </div>
-      
+
       {isOpen && (
         <div className="options-container">
           {options.map((option, index) => (
@@ -112,6 +112,7 @@ Dropdown.propTypes = {
   required: PropTypes.bool,
   iconSrc: PropTypes.string.isRequired,
   style: PropTypes.object,
+  className: PropTypes.string,
 };
 
 export default Dropdown;

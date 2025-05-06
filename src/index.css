@@ -105,7 +105,8 @@ button {
 
 /* end styles from branch 'react-component-decomposition' */
 
-input[type='text'] {
+input[type='text'],
+textarea[type='text'] {
   cursor: text;
 }
 

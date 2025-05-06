@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import '../../assets/fonts.css';
 import './Button.css';
 
-const Button = ({ 
-  text, 
-  variant = 'primary', 
+const Button = ({
+  text,
+  variant = 'primary',
   onClick,
   width,
   height,
   style,
-  disabled
+  disabled,
+  children,
+  type = 'button',
 }) => {
   const customStyle = {
     width: width || 'auto',
@@ -19,13 +21,15 @@ const Button = ({
   };
 
   return (
-    <button 
+    <button
       className={`button button-${variant}`}
       style={customStyle}
       onClick={onClick}
       disabled={disabled}
+      type={type}
     >
       {text}
+      {children}
     </button>
   );
 };
@@ -37,7 +41,8 @@ Button.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   style: PropTypes.object,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  type: PropTypes.string,
 };
 
 export default Button;

@@ -9,12 +9,21 @@
 }
 
 .input {
+  border-radius: 0px;
   padding: 0;
   background: none;
+  resize: none;
+  overflow: hidden;
+  flex: 1 1 0;
+  color: var(--black);
 }
 
 .input::placeholder {
   color: var(--grey);
+}
+
+.counter {
+  margin: 0;
 }
 
 .counter-current {

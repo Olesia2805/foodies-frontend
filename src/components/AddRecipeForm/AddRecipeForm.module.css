@@ -8,3 +8,34 @@
 .column-2 {
   gap: 32px;
 }
+
+.btn-container {
+  display: flex;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.btn-delete {
+  border: 1px solid var(--grey);
+  border-radius: 30px;
+  padding: 14px;
+  width: 48px;
+  height: 48px;
+  fill: var(--grey);
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.margin-preparation {
+  margin-top: 32px;
+}
+
+.ingredients-margin-bottom-dropdown {
+  margin-bottom: 20px;
+}
+
+.ingredients-margin-bottom-input {
+  margin-bottom: 32px;
+}
