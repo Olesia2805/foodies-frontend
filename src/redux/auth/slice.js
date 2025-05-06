@@ -3,7 +3,7 @@ import {
   getMeOps,
   refreshTokenOps,
   signInUserOps,
-  signOutUserOps,
+  logOutUserOps,
   signUpUserOps,
 } from './operations.js';
 
@@ -69,13 +69,21 @@ const authSlice = createSlice({
         localStorage.setItem('token', payload.token);
         localStorage.setItem('refreshToken', payload.refreshToken);
       })
-      .addCase(signOutUserOps.rejected, () => {
+
+      .addCase(logOutUserOps.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(logOutUserOps.fulfilled, (state) => {
+        state.user = null;
+        state.isAuthenticated = false;
+        state.loading = false;
+
         localStorage.removeItem('token');
         localStorage.removeItem('refreshToken');
       })
-
-      .addCase(signOutUserOps.fulfilled, (state) => {
-        state.user = null;
+      .addCase(logOutUserOps.rejected, (state) => {
+        state.loading = false;
+        state.error = payload;
 
         localStorage.removeItem('token');
         localStorage.removeItem('refreshToken');
