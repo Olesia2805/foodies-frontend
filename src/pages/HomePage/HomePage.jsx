@@ -8,11 +8,11 @@ const HomePage = () => {
   return (
     <div>
       <Container>
-      {selectedCategoryId ? (
-        <div>Recipes</div>
-      ) : (
-        <Categories onCategorySelect={setSelectedCategoryId} />
-      )}
+        {selectedCategoryId ? (
+          <div>Recipes</div>
+        ) : (
+          <Categories onCategorySelect={setSelectedCategoryId} />
+        )}
       </Container>
     </div>
   );
