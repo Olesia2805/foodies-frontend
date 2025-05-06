@@ -10,6 +10,7 @@
   position: relative;
   margin: 0 auto;
   overflow: hidden;
+  margin-top: -80px;
 }
 
 .header {
@@ -53,45 +54,20 @@
   letter-spacing: -2%;
   text-align: center;
   color: #ffffff;
-  margin-top: 40px;
-}
-
-.addRecipeBtn {
-  width: 159px;
-  height: 56px;
-  background-color: transparent;
-  color: white;
-  border: 1px solid white;
-  border-radius: 30px;
-  padding: 16px 24px;
-  gap: 10px;
-  font-family: 'Mulish', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: -2%;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 40px;
-}
-
-.addRecipeBtn:hover {
-  background-color: white;
-  color: black;
+  margin-top: -40px;
 }
 
 .imageGallery {
   position: absolute;
-  bottom: 50px;
+  bottom: 110px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 30px; /* відстань між картинками */
+  gap: 30px;
   align-items: flex-start;
 }
 
-.smallImage {
+.secondImage {
   width: 302px;
   height: 273px;
   overflow: hidden;
@@ -114,7 +90,7 @@
 }
 
 .mainImage img,
-.smallImage img {
+.secondImage img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -123,7 +99,6 @@
   align-items: flex-start;
 }
 
-/* Вертикальні лінії */
 .verticalLine {
   position: absolute;
   height: 970px;
@@ -198,7 +173,7 @@
     margin-top: 50px;
   }
 
-  .smallImage {
+  .secondlImage {
     right: 0;
     top: 0;
     align-self: center;
