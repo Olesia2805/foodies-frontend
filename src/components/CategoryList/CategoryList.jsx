@@ -9,7 +9,6 @@ import {
 import css from './CategoryList.module.css';
 import Icon from '../Icon/Icon';
 import Loader from '../Loader/Loader';
-import placeholderImg from '../../assets/img/placeholder.png';
 
 const CategoryList = ({ onCategorySelect }) => {
   const categoryClasses = [
@@ -40,7 +39,7 @@ const CategoryList = ({ onCategorySelect }) => {
         <div
           key={cat.id}
           className={`${css.card} ${css[categoryClasses[index]]}`}
-          style={{ backgroundImage: `url(${placeholderImg})` }}
+          style={{ backgroundImage: `url(${cat.thumb})` }}
         >
           <div className={css.chip}>
             <div className={css.nameWrapper}>
