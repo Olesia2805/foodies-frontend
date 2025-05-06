@@ -4,14 +4,15 @@ import Categories from '../../components/Categories/Categories';
 import Container from '../../components/Container/Container';
 
 const HomePage = () => {
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
   return (
     <div>
       <Container>
-        {selectedCategoryId ? (
+        {selectedCategory ? (
           <div>Recipes</div>
         ) : (
-          <Categories onCategorySelect={setSelectedCategoryId} />
+          <Categories onCategorySelect={setSelectedCategory} />
         )}
       </Container>
     </div>

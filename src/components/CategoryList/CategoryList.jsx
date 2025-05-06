@@ -61,7 +61,11 @@ const CategoryList = ({ onCategorySelect }) => {
               </div>
               <button
                 className={css.arrowButton}
-                onClick={() => onCategorySelect(cat._id)}
+                onClick={() => onCategorySelect({
+                  id: cat._id,
+                  name: cat.name,
+                  description: cat.description,
+                })}
               >
                 <Icon
                   name="arrow-up-right"
@@ -74,7 +78,11 @@ const CategoryList = ({ onCategorySelect }) => {
         ))}
         <li
           key="all"
-          onClick={() => onCategorySelect('all')}
+          onClick={() => onCategorySelect({
+                  id: "all",
+                  name: null,
+                  description: null,
+                })}
           className={`${css.card} ${css[categoryClasses[categories.length]]} ${css.allCard}`}
         >
           <p className={css.allCategoriesText}>All Categories</p>
