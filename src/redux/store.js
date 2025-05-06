@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './auth/slice';
-import recipesSlice from './recipes/slice';
+import recipesReducer from './recipes/slice';
+import commonReducer from './common/slice';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    recipes: recipesSlice,
+    recipes: recipesReducer,
+    common: commonReducer,
   },
 });
