@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import Container from '../../components/Container/Container';
 import Error from '../../components/Error/Error';
 import Loader from '../../components/Loader/Loader';
+import Nav from '../../components/Nav/Nav';
 import { fetchRecipeById } from '../../redux/recipes/operations';
 import { selectRecipeById } from '../../redux/recipes/selectors';
 import styles from './RecipePage.module.css';
@@ -32,58 +34,55 @@ const RecipePage = () => {
   if (loading) return <Loader />;
   if (error) return <Error message={error} />;
   if (!recipe || !recipe._id) return <div>Recipe not found</div>;
-  if (!recipe) return <div>Recipe not found</div>;
 
   return (
-    <div className={styles['recipe-page']}>
-      <div className={styles['recipe-image']}>
-        <img src={recipe.thumb} alt={recipe.title} />
-      </div>
-      <h1>{recipe?.title}</h1>
+    <Container>
+      <section className={styles.recipeSection}>
+        <div className={styles.imageWrapper}>
+          <img src={recipe.thumb} alt={recipe.title} className={styles.image} />
+        </div>
 
-      <ul className={styles['recipe-category']}>
-        <li>{recipe?.categoryOfRecipe.name}</li>
-        <li>{recipe.time} min</li>
-      </ul>
+        <div className={styles.recipeContent}>
+          <h1>{recipe.title}</h1>
+        </div>
 
-      <p>{recipe.description}</p>
+        <div className={styles.tags}>
+          <span className={styles.tag}>{recipe.categoryOfRecipe.name}</span>
+          <span className={styles.tag}>{recipe.time} min</span>
+        </div>
 
-      <div className={styles['recipe-author-block']}>
-        <img
-          className={styles['recipe-author-img']}
-          src={recipe?.owner.avatar}
-          alt="NA"
-        />
-        <ul>
-          <li className={styles['recipe-author-span']}>Created by </li>
-          <li className="recipe-author-name">{recipe?.owner.name} </li>
-        </ul>
-      </div>
+        <p className={styles.description}>{recipe.description}</p>
 
-      <div className={styles['recipe-content']}>
-        <h2>Ingredients</h2>
-        <ul className={styles['ingredients-list']}>
-          {recipe.ingredients.map((ingredient, index) => (
-            <li className={styles['ingredient-item']} key={index}>
-              <img
-                className={styles['ingredient-image']}
-                src={ingredient.img}
-                alt="NA"
-              />
-              <div>
-                <p className={styles['ingredient-name']}>{ingredient.name}</p>
-                <p className={styles['ingredient-measure']}>
-                  {ingredient.RecipeIngredient.measure}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <div className={styles.author}>
+          <img src={recipe.owner.avatar} alt="NA" />
+          <span>
+            Created by: <strong>{recipe.owner.name}</strong>
+          </span>
+        </div>
 
-        <h2>Recipe Preparation</h2>
-        <p>{recipe.instructions}</p>
-      </div>
-    </div>
+        {/* Ingredients */}
+        <section className={styles.ingredients}>
+          <h2>Ingredients</h2>
+          <ul className={styles.ingredientList}>
+            {recipe.ingredients.map((ingredient, index) => (
+              <li key={index}>
+                <img src={ingredient.img} alt={ingredient.name} />
+                {ingredient.name}
+                <span>{ingredient.recipe_ingredient.measure}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* Preparation */}
+        <section className={styles.preparation}>
+          <h2>Recipe Preparation</h2>
+          <p>{recipe.instructions}</p>
+        </section>
+
+        <button className={styles.favoriteButton}>Add to favorites</button>
+      </section>
+    </Container>
   );
 };
 
