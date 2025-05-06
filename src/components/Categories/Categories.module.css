@@ -1,0 +1,12 @@
+.description {
+  margin-bottom: 32px;
+  color: var(--grey);
+}
+
+@media (min-width: 768px) {
+  .description {
+    max-width: 531px;
+    margin-bottom: 40px;
+    color: #1a1a1a;
+  }
+}
