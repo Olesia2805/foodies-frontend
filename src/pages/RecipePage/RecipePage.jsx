@@ -31,31 +31,33 @@ const RecipePage = () => {
 
   if (loading) return <Loader />;
   if (error) return <Error message={error} />;
-  // if (!recipe || !recipe._id) return <div>Recipe not found</div>;
+  if (!recipe || !recipe._id) return <div>Recipe not found</div>;
   if (!recipe) return <div>Recipe not found</div>;
 
   return (
     <div className={styles['recipe-page']}>
-      <div className={styles['recipe-header']}>
-        <div className={styles['recipe-image']}>
-          <img src={recipe.thumb} alt={recipe.title} />
-        </div>
-        <h1>{recipe?.title}</h1>
+      <div className={styles['recipe-image']}>
+        <img src={recipe.thumb} alt={recipe.title} />
+      </div>
+      <h1>{recipe?.title}</h1>
 
-        <ul className={styles['recipe-category']}>
-          <li>{recipe?.categoryOfRecipe.name}</li>
-          <li>{recipe.time} min</li>
+      <ul className={styles['recipe-category']}>
+        <li>{recipe?.categoryOfRecipe.name}</li>
+        <li>{recipe.time} min</li>
+      </ul>
+
+      <p>{recipe.description}</p>
+
+      <div className={styles['recipe-author-block']}>
+        <img
+          className={styles['recipe-author-img']}
+          src={recipe?.owner.avatar}
+          alt="NA"
+        />
+        <ul>
+          <li className={styles['recipe-author-span']}>Created by </li>
+          <li className="recipe-author-name">{recipe?.owner.name} </li>
         </ul>
-
-        <p>{recipe.description}</p>
-
-        <div className={styles['recipe-author-block']}>
-          <img className={styles['recipe-author-img']} src={recipe?.owner.avatar} alt="NA" />
-          <ul>
-            <li className={styles['recipe-author-span']} >Created by </li>
-            <li className="recipe-author-name">{recipe?.owner.email} </li>
-          </ul>
-        </div>
       </div>
 
       <div className={styles['recipe-content']}>
@@ -80,8 +82,6 @@ const RecipePage = () => {
 
         <h2>Recipe Preparation</h2>
         <p>{recipe.instructions}</p>
-
-
       </div>
     </div>
   );
