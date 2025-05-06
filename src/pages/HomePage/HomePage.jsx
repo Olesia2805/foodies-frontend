@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Categories from '../../components/Categories/Categories';
 import Container from '../../components/Container/Container';
-import Hero from 'components/Hero/Hero';
+import Hero from '../../components/Hero/Hero';
 import Testimonials from '../../components/Testimonials/Testimonials';
 
 const HomePage = () => {
