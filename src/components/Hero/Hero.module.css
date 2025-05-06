@@ -55,6 +55,7 @@
   text-align: center;
   color: #ffffff;
   margin-top: -40px;
+  margin-bottom: 40px;
 }
 
 .imageGallery {
@@ -63,7 +64,6 @@
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 30px;
   align-items: flex-start;
 }
 
@@ -118,7 +118,7 @@
 }
 
 .line2 {
-  left: 257px;
+  left: 268px;
 }
 
 .line3 {
@@ -131,55 +131,156 @@
 
 @media (max-width: 1440px) {
   .hero {
-    width: 100%;
-    height: auto;
-    min-height: 800px;
-  }
-
-  .header,
-  .title,
-  .subtitle {
-    width: 90%;
-    left: 5%;
+    width: 1400px;
+    height: 970px;
   }
 
   .title {
-    font-size: 70px;
-    line-height: 70px;
-    height: auto;
+    font-size: 90px;
+    line-height: 90px;
+    margin-top: 154px;
+  }
+
+  .imageGallery {
+    bottom: 110px;
+  }
+
+  .subtitle {
+    overflow-wrap: break-word;
+  }
+
+  .line1 {
+    left: 60px;
+  }
+  
+  .line2 {
+    left: 268px;
+  }
+  
+  .line3 {
+    left: 1132px;
+  }
+  
+  .line4 {
+    left: 1340px;
   }
 }
 
 @media (max-width: 768px) {
   .hero {
-    padding: 40px 0;
-    min-height: 600px;
+    width: 736px;
+    height: 992px;
   }
 
   .title {
-    font-size: 50px;
-    line-height: 50px;
+    width: 678px;
+    height: 140px;
+    font-size: 70px;
+    line-height: 70px;
+    margin-top: 217px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    margin-top: -30px;
+  }
+
+  .imageGallery {
+    position: relative;
+    margin-top: 200px;
+    left: auto;
+    transform: none;
+    justify-content: center;
+  }
+
+  .secondImage {
+    width: 302px;
+    height: 273px;
+    transform: rotate(-11deg);
+  }
+
+  .mainImage {
+    width: 128px;
+    height: 116px;
+    transform: rotate(12deg);
+    left: -25px;
+  }
+
+  .line1 {
+    left: 16px;
+  }
+  
+  .line2 {
+    left: 224px;
+  }
+  
+  .line3 {
+    left: 512px;
+  }
+  
+  .line4 {
+    left: 720px;
+  }
+}
+
+@media (max-width: 375px) {
+  .hero {
+    width: 359px;
+    height: 796px;
+  }
+
+  .title {
+    width: 327px;
+    height: 120px;
+    font-size: 40px;
+    line-height: 40px;
+    margin-top: 194px;
   }
 
   .subtitle {
     font-size: 14px;
+    margin-top: -20px;
+    line-height: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    overflow-wrap: break-word;
   }
 
   .imageGallery {
-    flex-direction: column;
-    align-items: center;
     position: relative;
-    bottom: 0;
-    margin-top: 50px;
+    margin-top: 200px;
+    left: auto;
+    transform: none;
+    justify-content: center;
   }
 
-  .secondlImage {
-    right: 0;
-    top: 0;
-    align-self: center;
+  .secondImage {
+    width: 190px;
+    height: 172px;
+    transform: rotate(-11deg);
   }
 
-  .verticalLine {
-    display: none;
+  .mainImage {
+    width: 77px;
+    height: 70px;
+    transform: rotate(12deg);
+    top: 13px;
+    left: -11px;
+  }
+
+  .line1 {
+    left: 16px;
+  }
+  
+  .line2 {
+    left: 224px;
+  }
+  
+  .line3 {
+    left: 512px;
+  }
+  
+  .line4 {
+    left: 720px;
   }
 }
