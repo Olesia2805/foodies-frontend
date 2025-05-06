@@ -29,11 +29,13 @@ export const signInUserOps = createAsyncThunk(
   }
 );
 
-export const signOutUserOps = createAsyncThunk(
-  'auth/signOutUserOps',
+export const logOutUserOps = createAsyncThunk(
+  'auth/logOutUserOps',
   async (_, { rejectWithValue }) => {
     try {
-      return await axiosInstance.post('/auth/logout');
+      const response = await axiosInstance.post('/auth/logout');
+
+      return response.data;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || 'Logout failed');
     }
