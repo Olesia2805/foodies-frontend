@@ -24,25 +24,3 @@
   justify-content: center;
   gap: 4px;
 }
-
-.heroMode {
-  background-color: #000; /* Чорний фон */
-  /* color: #fff; */
-}
-
-.heroMode .navItem {
-  color: #fff; /* Білий колір для елементів навігації */
-}
-
-.heroMode .navItem:hover {
-  color: #000; /* Чорний колір при наведенні на елементи навігації */
-}
-
-.heroMode .wrapper {
-  background-color: transparent; /* Прозорий фон для wrapper, якщо потрібно */
-}
-
-/* Зміни для Logo */
-.heroMode .logo {
-  color: #fff; /* Білий колір для логотипа на головній сторінці */
-}
