@@ -7,6 +7,7 @@ import {
   getMeOps,
   selectUser,
   selectIsAuthLoading,
+  verifyUserWithTokenOps,
 } from '../redux/auth';
 
 const useAuth = () => {
@@ -31,7 +32,20 @@ const useAuth = () => {
     return await dispatch(getMeOps()).unwrap();
   };
 
-  return { isAuthenticated, user, isLoading, getUser, signUp, signIn, logOut };
+  const verifyUser = async (token) => {
+    return await dispatch(verifyUserWithTokenOps(token)).unwrap();
+  };
+
+  return {
+    isAuthenticated,
+    user,
+    isLoading,
+    getUser,
+    signUp,
+    signIn,
+    logOut,
+    verifyUser,
+  };
 };
 
 export default useAuth;

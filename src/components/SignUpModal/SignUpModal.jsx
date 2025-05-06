@@ -51,7 +51,7 @@ const SignUpModal = ({ isOpen, onClose, setOtherModal }) => {
   const onSubmit = async (values) => {
     try {
       await signUp(values);
-      onClose();
+      setOtherModal('verify');
     } catch (error) {
       toast.error(error);
     }
@@ -107,7 +107,7 @@ const SignUpModal = ({ isOpen, onClose, setOtherModal }) => {
             message="I already have an account?"
             buttonText="Sign in"
             onClick={() => {
-              setOtherModal();
+              setOtherModal('signIn');
               reset();
             }}
           />
