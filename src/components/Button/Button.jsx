@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import styles from './Button.module.css';
+import Loader from '../Loader/Loader.jsx';
 
 const Button = ({
   children,
@@ -10,6 +11,7 @@ const Button = ({
   style,
   disabled,
   fullWidth,
+  loading,
   ...props
 }) => {
   const customStyle = {
@@ -33,7 +35,8 @@ const Button = ({
       disabled={disabled}
       {...props}
     >
-      {children}
+      {/* TODO: Change Loader for button */}
+      {loading ? <Loader /> : children}
     </button>
   );
 };

@@ -34,7 +34,6 @@ axiosInstance.interceptors.response.use(
         const response = await store
           .dispatch(refreshTokenOps(refreshToken))
           .unwrap();
-        console.log(response, response);
         originalRequest.headers.Authorization = `Bearer ${response.token}`;
         return axiosInstance(originalRequest);
       } catch {
