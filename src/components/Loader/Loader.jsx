@@ -6,7 +6,7 @@ const Loader = ({ size = 'medium', className, fullScreen = false }) => {
   const sizeClassMap = {
     small: styles.small,
     medium: styles.medium,
-    large: styles.large
+    large: styles.large,
   };
 
   if (fullScreen) {
@@ -17,9 +17,7 @@ const Loader = ({ size = 'medium', className, fullScreen = false }) => {
     );
   }
 
-  return (
-    <div className={clsx(styles.loader, sizeClassMap[size], className)} />
-  );
+  return <div className={clsx(styles.loader, sizeClassMap[size], className)} />;
 };
 
 export default Loader;
