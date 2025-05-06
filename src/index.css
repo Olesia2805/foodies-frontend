@@ -103,6 +103,12 @@ button {
   background-color: #f9f9f9;
 }
 
+/* end styles from branch 'react-component-decomposition' */
+
+input[type='text'] {
+  cursor: text;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

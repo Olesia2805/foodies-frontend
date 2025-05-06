@@ -1,0 +1,22 @@
+.input-wrapper {
+  width: 100%;
+  border-bottom: 1px solid var(--grey);
+  display: flex;
+  gap: 28px;
+  justify-content: space-between;
+  padding: 0 0 16px 0;
+  cursor: text;
+}
+
+.input {
+  padding: 0;
+  background: none;
+}
+
+.input::placeholder {
+  color: var(--grey);
+}
+
+.counter-current {
+  color: var(--black);
+}

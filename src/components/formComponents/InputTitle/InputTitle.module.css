@@ -1,0 +1,19 @@
+.title {
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 133%;
+  text-transform: uppercase;
+  color: var(--black);
+  cursor: text;
+  background: none;
+  padding-left: 0;
+  width: 100%;
+  height: auto;
+  resize: both;
+  overflow: hidden;
+  resize: none;
+}
+
+.title::placeholder {
+  color: var(--grey);
+}
