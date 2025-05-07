@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import axiosInstance from '../../api/axiosInstance'; // шлях залежить від структури
 import Container from '../Container/Container';
 import styles from './Testimonials.module.css';
+import Icon from '../Icon/Icon';
 
 const AUTOPLAY_INTERVAL = 5000;
 
@@ -48,7 +49,7 @@ const Testimonials = () => {
         <div className={styles.content}>
           <p className={styles.subtitle}>What our customer say</p>
           <h2 className={styles.title}>TESTIMONIALS</h2>
-          <span className={styles.quoteMark}>“</span>
+          <img src="src/assets/img/quoteIcon.svg" alt="quote" className={styles.quoteMark}></img>
 
           <div className={styles.slider}>
             <div className={styles.testimonialContent}>

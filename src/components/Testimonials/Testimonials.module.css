@@ -4,6 +4,8 @@
 }
 
 .content {
+  width: 822px;
+  height: 432px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,21 +14,28 @@
 }
 
 .subtitle {
+  width: 261px;
+  height: 24px;
   font-size: 16px;
-  color: #777;
+  line-height: 24px;
+  font-weight: 500;
+  letter-spacing: -2%;
   margin-bottom: 10px;
   text-align: center;
 }
 
 .title {
-  font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 40px;
+  width: 291px;
+  height: 44px;
+  font-size: 40px;
+  line-height: 44px;
+  font-weight: 800;
+  letter-spacing: -2%;
+  margin-bottom: 10px;
   text-align: center;
 }
 
 .slider {
-  width: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -35,45 +44,54 @@
 }
 
 .quoteMark {
+  width: 59px;
+  height: 48px;
   font-size: 100px;
   color: #e0e0e0;
   font-family: serif;
   line-height: 0.6;
-  margin-top: -20px; /* щоб наблизити до заголовка */
-  margin-bottom: 0px;
-  margin-left: 130px;
-  align-self: flex-start; /* щоб вирівняти ліворуч */
+  margin-top: -20px;
+  margin-bottom: 20px;
+  margin-left: 35px;
+  align-self: flex-start;
 }
 
 .testimonialContent {
   text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-  min-height: 150px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .testimonialText {
-  font-size: 18px;
-  line-height: 1.6;
+  width: 822px;
+  height: 108px;
+  font-size: 24px;
+  line-height: 36px;
+  font-weight: 500;
+  letter-spacing: -2%;
   color: #333;
-  margin-bottom: 0px;
+  margin-bottom: 40px;
 }
 
 .testimonialAuthor {
-  font-size: 16px;
-  font-weight: 600;
+  height: 24px;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 800;
+  letter-spacing: -2%;
   color: #000;
+  gap: 8px;
   text-transform: uppercase;
 }
 
 .pagination {
+  width: 72px;
+  height: 16px;
   display: flex;
   justify-content: center;
-  margin-top: 40px;
-  gap: 10px;
+  margin-top: 20px;
+  gap: 12px;
 }
 
 .paginationDot {
@@ -92,10 +110,6 @@
 }
 
 @media (max-width: 768px) {
-  .testimonials {
-    padding: 50px 0;
-  }
-
   .title {
     font-size: 28px;
   }
