@@ -1,12 +1,23 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import toast from 'react-hot-toast';
 import * as yup from 'yup';
 
-import { emailRegexp } from '../../constants/regex.js';
-import { useState } from 'react';
 import Icon from '../Icon/Icon.jsx';
+import Modal from '../Modal/Modal.jsx';
+import ModalHeader from '../ModalHeader/ModalHeader.jsx';
+import Button from '../Button/Button.jsx';
+import Input from '../Input/Input.jsx';
+import ModalActions from '../ModalActions/ModalActions.jsx';
+
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '../../constants/messages.js';
+import { emailRegexp } from '../../constants/regex.js';
+
 import { useAuth } from '../../hooks';
-import { ERROR_MESSAGES } from '../../constants/validationMessages.js';
+
+import FormInputs from '../FormInputs/FormInputs.jsx';
+import ModalSwitchMessage from '../ModalSwitchMessage/ModalSwitchMessage.jsx';
 
 const SignInSchema = yup.object({
   email: yup
@@ -18,14 +29,16 @@ const SignInSchema = yup.object({
   password: yup.string().required(ERROR_MESSAGES.PASSWORD_IS_REQUIRED),
 });
 
-const SignInModal = () => {
+const SignInModal = ({ isOpen, onClose, setOtherModal }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const { signIn, signOut, getUser } = useAuth();
+  const { signIn, isLoading } = useAuth();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
+    watch,
   } = useForm({
     defaultValues: {
       email: '',
@@ -35,39 +48,66 @@ const SignInModal = () => {
   });
 
   const onSubmit = async (values) => {
-    await signIn(values);
+    try {
+      await signIn(values);
+      onClose();
+      toast.success(SUCCESS_MESSAGES.SIGN_IN_SUCCESSFUL);
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
-  const onSignOut = async () => {
-    await signOut();
-  };
+  const fields = watch(['email', 'password']);
 
-  const onGetUser = async () => {
-    await getUser();
-  };
+  const isDisabled = isLoading || fields.some((value) => !value);
 
   return (
-    <>
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalHeader title="Sign In" />
+
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register('email')} placeholder="Email*" />
-        <label>
-          <input
+        <FormInputs>
+          <Input
+            {...register('email')}
+            placeholder="Email"
+            required
+            error={errors.email?.message}
+          />
+
+          <Input
             {...register('password')}
             type={isPasswordVisible ? 'text' : 'Password'}
-            placeholder="password"
+            placeholder="Password"
+            required
+            icon={
+              <Icon name={isPasswordVisible ? 'eye' : 'closed-eye'} size={24} />
+            }
+            onIconClick={() => setIsPasswordVisible((prevState) => !prevState)}
+            error={errors.password?.message}
           />
-          <button
-            type="button"
-            onClick={() => setIsPasswordVisible((prevState) => !prevState)}
+        </FormInputs>
+
+        <ModalActions>
+          <Button
+            fullWidth
+            type="submit"
+            loading={isLoading}
+            disabled={isDisabled}
           >
-            <Icon name={isPasswordVisible ? 'eye' : 'closed-eye'} size={24} />
-          </button>
-        </label>
-        <button type="submit">Sign in</button>
+            Sign in
+          </Button>
+
+          <ModalSwitchMessage
+            message="Don't have an account?"
+            buttonText="Create an account"
+            onClick={() => {
+              setOtherModal();
+              reset();
+            }}
+          />
+        </ModalActions>
       </form>
-      <button onClick={onSignOut}>log out</button>
-      <button onClick={onGetUser}>get user</button>
-    </>
+    </Modal>
   );
 };
 

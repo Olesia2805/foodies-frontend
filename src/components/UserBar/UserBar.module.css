@@ -1,0 +1,125 @@
+.wrapper {
+  position: relative;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  background: var(--dark-grey);
+  border-radius: 30px;
+  cursor: pointer;
+  padding: 0;
+  padding-right: 6px;
+
+  @media (min-width: 768px) {
+    padding-right: 14px;
+  }
+
+  svg {
+    fill: var(--white);
+  }
+}
+
+.avatar {
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-left: -4px;
+  
+  @media (min-width: 768px) {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.name {
+  color: var(--white);
+  font-size: 12px;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-left: 6px;
+  margin-right: 4px;
+  max-width: 88px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chevron {
+  transition: rotate 0.3s ease;
+}
+
+.chevronUp {
+  rotate: 180deg;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background-color: var(--dark-grey);
+  border-radius: 15px;
+  padding: 15px;
+  z-index: 10;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: fadeIn 0.2s ease;
+  min-width: 122px;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+
+
+  }
+
+  @media (min-width: 768px) {
+    min-width: 148px;
+
+    ul {
+      gap: 6px;
+    }
+  }
+}
+
+.dropdownItem {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 12px;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0;
+  margin: 0;
+  transition: opacity 0.2s;
+
+  svg {
+    fill: var(--white);
+  }
+
+  &:hover, &:focus {
+    opacity: .8;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

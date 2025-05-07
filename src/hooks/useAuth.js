@@ -3,33 +3,49 @@ import {
   signInUserOps,
   selectIsAuthenticated,
   signUpUserOps,
-  signOutUserOps,
+  logOutUserOps,
   getMeOps,
   selectUser,
+  selectIsAuthLoading,
+  verifyUserWithTokenOps,
 } from '../redux/auth';
 
 const useAuth = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const user = useSelector(selectUser);
+  const isLoading = useSelector(selectIsAuthLoading);
 
   const signUp = async (credentials) => {
-    dispatch(signUpUserOps(credentials));
+    return await dispatch(signUpUserOps(credentials)).unwrap();
   };
 
   const signIn = async (credentials) => {
-    dispatch(signInUserOps(credentials));
+    return await dispatch(signInUserOps(credentials)).unwrap();
   };
 
-  const signOut = async () => {
-    dispatch(signOutUserOps());
+  const logOut = async () => {
+    return await dispatch(logOutUserOps()).unwrap();
   };
 
   const getUser = async () => {
-    dispatch(getMeOps());
+    return await dispatch(getMeOps()).unwrap();
   };
 
-  return { isAuthenticated, user, getUser, signUp, signIn, signOut };
+  const verifyUser = async (token) => {
+    return await dispatch(verifyUserWithTokenOps(token)).unwrap();
+  };
+
+  return {
+    isAuthenticated,
+    user,
+    isLoading,
+    getUser,
+    signUp,
+    signIn,
+    logOut,
+    verifyUser,
+  };
 };
 
 export default useAuth;

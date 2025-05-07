@@ -1,48 +1,44 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import '../../assets/fonts.css';
-import './Button.css';
+import clsx from 'clsx';
+import styles from './Button.module.css';
+import Loader from '../Loader/Loader.jsx';
 
 const Button = ({
-  text,
+  children,
   variant = 'primary',
-  onClick,
   width,
   height,
   style,
   disabled,
-  children,
-  type = 'button',
+  fullWidth,
+  loading,
+  ...props
 }) => {
   const customStyle = {
     width: width || 'auto',
-    height: height || '56px',
     ...style,
+  };
+
+  const variantClassMap = {
+    primary: styles.buttonPrimary,
+    secondary: styles.buttonSecondary,
+    outlined: styles.buttonOutlined,
   };
 
   return (
     <button
-      className={`button button-${variant}`}
-      style={customStyle}
-      onClick={onClick}
+      className={clsx(styles.button, variantClassMap[variant], props.className)}
+      style={{
+        ...customStyle,
+        width: fullWidth ? '100%' : customStyle.width,
+      }}
       disabled={disabled}
-      type={type}
+      {...props}
     >
-      {text}
-      {children}
+      {/* TODO: Change Loader for button */}
+      {loading ? <Loader /> : children}
     </button>
   );
-};
-
-Button.propTypes = {
-  text: PropTypes.string.isRequired,
-  variant: PropTypes.oneOf(['primary', 'secondary', 'outline']),
-  onClick: PropTypes.func,
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  style: PropTypes.object,
-  disabled: PropTypes.bool,
-  type: PropTypes.string,
 };
 
 export default Button;

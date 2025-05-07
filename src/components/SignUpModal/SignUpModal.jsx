@@ -1,12 +1,22 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import toast from 'react-hot-toast';
 import * as yup from 'yup';
 
-import { emailRegexp } from '../../constants/regex.js';
-import { useState } from 'react';
+import Modal from '../Modal/Modal.jsx';
+import ModalHeader from '../ModalHeader/ModalHeader.jsx';
+import Button from '../Button/Button.jsx';
 import Icon from '../Icon/Icon.jsx';
+import Input from '../Input/Input.jsx';
+import FormInputs from '../FormInputs/FormInputs.jsx';
+import ModalActions from '../ModalActions/ModalActions.jsx';
+import ModalSwitchMessage from '../ModalSwitchMessage/ModalSwitchMessage.jsx';
+
+import { emailRegexp } from '../../constants/regex.js';
+import { ERROR_MESSAGES } from '../../constants/messages.js';
+
 import { useAuth } from '../../hooks';
-import { ERROR_MESSAGES } from '../../constants/validationMessages.js';
 
 const SignUpSchema = yup.object({
   name: yup.string().required(ERROR_MESSAGES.NAME_IS_REQUIRED),
@@ -19,14 +29,16 @@ const SignUpSchema = yup.object({
   password: yup.string().required(ERROR_MESSAGES.PASSWORD_IS_REQUIRED),
 });
 
-const SignUpModal = () => {
+const SignUpModal = ({ isOpen, onClose, setOtherModal }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const { signUp } = useAuth();
+  const { signUp, isLoading } = useAuth();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
+    watch,
   } = useForm({
     defaultValues: {
       name: '',
@@ -37,28 +49,71 @@ const SignUpModal = () => {
   });
 
   const onSubmit = async (values) => {
-    await signUp(values);
+    try {
+      await signUp(values);
+      setOtherModal('verify');
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
+  const fields = watch(['name', 'email', 'password']);
+
+  const isDisabled = isLoading || fields.some((value) => !value);
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input {...register('name')} placeholder="Name*" />
-      <input {...register('email')} placeholder="Email*" />
-      <label>
-        <input
-          {...register('password')}
-          type={isPasswordVisible ? 'text' : 'Password'}
-          placeholder="password"
-        />
-        <button
-          type="button"
-          onClick={() => setIsPasswordVisible((prevState) => !prevState)}
-        >
-          <Icon name={isPasswordVisible ? 'eye' : 'closed-eye'} size={24} />
-        </button>
-      </label>
-      <button type="submit">Create</button>
-    </form>
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalHeader title="Sign Up" />
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormInputs>
+          <Input
+            {...register('name')}
+            placeholder="Name"
+            required
+            error={errors.name?.message}
+          />
+
+          <Input
+            {...register('email')}
+            placeholder="Email"
+            required
+            error={errors.email?.message}
+          />
+          <Input
+            {...register('password')}
+            type={isPasswordVisible ? 'text' : 'Password'}
+            placeholder="Password"
+            required
+            icon={
+              <Icon name={isPasswordVisible ? 'eye' : 'closed-eye'} size={24} />
+            }
+            onIconClick={() => setIsPasswordVisible((prevState) => !prevState)}
+            error={errors.password?.message}
+          />
+        </FormInputs>
+
+        <ModalActions>
+          <Button
+            fullWidth
+            type="submit"
+            loading={isLoading}
+            disabled={isDisabled}
+          >
+            Create
+          </Button>
+
+          <ModalSwitchMessage
+            message="I already have an account?"
+            buttonText="Sign in"
+            onClick={() => {
+              setOtherModal('signIn');
+              reset();
+            }}
+          />
+        </ModalActions>
+      </form>
+    </Modal>
   );
 };
 
