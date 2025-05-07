@@ -1,3 +1,6 @@
+import Hero from 'components/Hero/Hero';
+import Testimonials from '../../components/Testimonials/Testimonials';
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -55,28 +58,32 @@ const HomePage = () => {
   };
 
   return (
-    <Container>
-      {showRecipes ? (
-        <Recipes
-          onUserAvatarClick={handleUserAvatarClick}
-          onRecipeDetailsClick={handleRecipeDetailsClick}
-          onBackClick={handleBackClick}
-        />
-      ) : (
-        <div>
-          <button onClick={handleShowRecipes}>Show Recipes</button>
-        </div>
-      )}
+    <>
+      <Hero />
+        <Container>
+          {showRecipes ? (
+            <Recipes
+              onUserAvatarClick={handleUserAvatarClick}
+              onRecipeDetailsClick={handleRecipeDetailsClick}
+              onBackClick={handleBackClick}
+            />
+          ) : (
+            <div>
+              <button onClick={handleShowRecipes}>Show Recipes</button>
+            </div>
+          )}
 
-      {/* Модальне вікно для входу */}
-      <SignInModal
-        isOpen={isSignInModalOpen}
-        onClose={() => setIsSignInModalOpen(false)}
-        setOtherModal={() => {
-          setIsSignInModalOpen(false);
-        }}
-      />
-    </Container>
+          {/* Модальне вікно для входу */}
+          <SignInModal
+            isOpen={isSignInModalOpen}
+            onClose={() => setIsSignInModalOpen(false)}
+            setOtherModal={() => {
+              setIsSignInModalOpen(false);
+            }}
+          />
+        </Container>
+      <Testimonials />
+    </>
   );
 };
 
