@@ -4,7 +4,6 @@ import { Toaster } from 'react-hot-toast';
 import Loader from './components/Loader/Loader';
 import Layout from './components/Layout/Layout.jsx';
 import { ROUTER } from './constants/router.js';
-import { useAuth } from './hooks';
 import UIKit from './pages/UIKit/UIkit.jsx';
 import { NavLink } from 'react-router-dom';
 

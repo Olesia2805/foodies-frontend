@@ -8,4 +8,5 @@
   --error: red;
 
   --font-primary: 'Mulish', sans-serif;
+  --transition-duration: 250ms;
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PhotoUploader from '../formComponents/PhotoUploader/PhotoUploader';
 import css from './AddRecipeForm.module.css';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import InputTitle from '../formComponents/InputTitle/InputTitle';
 import InputTextCounter from '../formComponents/InputTextCounter/InputTextCounter';
 import Dropdown from '../Dropdown/Dropdown';
@@ -11,27 +11,26 @@ import Button from '../Button/Button';
 import Fieldset from '../formComponents/Fieldset/Fieldset';
 import FormTitle from '../formComponents/FormTitle/FormTitle';
 import clsx from 'clsx';
+import ingredientsAPI from '../../api/ingredientsAPI';
+import InputIngredients from '../formComponents/InputIngredients/InputIngredients';
+
+const maxInputLenght = 200;
 
 export default function AddRecipeForm() {
-  const { register, handleSubmit, control } = useForm({
-    mode: 'onSubmit',
+  const { register, handleSubmit, control, setValue } = useForm({
+    mode: 'onChange',
     defaultValues: {
       photo: '', // thumb
       title: '',
       description: '',
       category: '',
+      time: 0,
       area: '', // ???
       'ingredient-quantity': '',
       preparation: '', // instructions
     },
     // resolver: yupResolver(SignUpSchema),
   });
-
-  const [ingredients, setIngredients] = useState([]);
-
-  // useEffect(() => {
-  //   console.log(value);
-  // }, [value]);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -110,31 +109,60 @@ export default function AddRecipeForm() {
       <div className={css['column-2']}>
         <Fieldset>
           <InputTitle {...register('title', { required: true })} />
-          <InputTextCounter
-            name="description"
+          <Controller
             control={control}
-            placeholder="Enter a description of the dish"
+            name="description"
+            rules={{ required: true, maxLength: maxInputLenght }}
+            render={({
+              field: { onChange, value, name },
+              fieldState: { invalid, error },
+            }) => (
+              <InputTextCounter
+                name={name}
+                value={value}
+                onChange={onChange}
+                error={error}
+                maxInputLenght={maxInputLenght}
+                placeholder="Enter a description of the dish"
+              />
+            )}
           />
-          {/* <InputTextCounter {...register('desc', { required: true })} /> */}
         </Fieldset>
 
         <div className={css['media-wrapper-row']}>
           <Fieldset>
             <FormTitle>Category</FormTitle>
-            <Dropdown
-              options={categoryOptions}
-              className={css.dropdown}
+            <Controller
+              control={control}
               name="category"
+              render={({ field: { value, name } }) => (
+                <Dropdown
+                  onChange={(newValue) => setValue(name, newValue)}
+                  value={value}
+                  className={css.dropdown}
+                  placeholder="Select a category"
+                  options={categoryOptions}
+                />
+              )}
             />
           </Fieldset>
 
           <Fieldset>
             <FormTitle>Cooking time</FormTitle>
-            <InputTimeCounter />
+            <Controller
+              control={control}
+              name="time"
+              render={({
+                field: { onChange, onBlur, value, name, ref },
+                fieldState: { invalid, isTouched, isDirty, error },
+                formState,
+              }) => <InputTimeCounter onChange={onChange} value={value} />}
+            />
           </Fieldset>
         </div>
 
-        <Fieldset className={css['fieldset-ingredients']}>
+        <InputIngredients />
+        {/* <Fieldset className={css['fieldset-ingredients']}>
           <FormTitle>Add Ingredients</FormTitle>
           <div className={css['media-wrapper-row-ingredient']}>
             <Dropdown
@@ -152,29 +180,39 @@ export default function AddRecipeForm() {
               className={css['ingredients-margin-bottom-input']}
               placeholder="Enter quantity"
             />
-            {/* <InputTextCounter
-              isCounter={false}
-              isOneRow={true}
-              className={css['ingredients-margin-bottom-input']}
-            /> */}
           </div>
-          <Button text="Add ingredient" variant="outline" />
+          <Button variant="outline">
+            Add ingredient
+            <Icon name="plus" />
+          </Button>
 
           <ul>
             {ingredients.map((ingredient) => {
               return <li key={ingredient.id}>{ingredient.name}</li>;
             })}
           </ul>
-        </Fieldset>
+        </Fieldset> */}
 
         <Fieldset>
           <FormTitle>Recipe Preparation</FormTitle>
-          <InputTextCounter
-            name="instructions"
+          <Controller
             control={control}
-            className={css['margin-preparation']}
-            placeholder="Enter recipe"
-            // {...register('preparation', { required: true })}
+            name="preparation"
+            rules={{ required: true, maxLength: maxInputLenght }}
+            render={({
+              field: { onChange, value, name },
+              fieldState: { invalid, error },
+            }) => (
+              <InputTextCounter
+                name={name}
+                value={value}
+                onChange={onChange}
+                error={error}
+                maxInputLenght={maxInputLenght}
+                placeholder="Enter recipe"
+                className={css['margin-preparation']}
+              />
+            )}
           />
         </Fieldset>
 
@@ -182,7 +220,7 @@ export default function AddRecipeForm() {
           <button className={css['btn-delete']}>
             <Icon name="trash" size={20} />
           </button>
-          <Button text={'Publish'} type="submit" />
+          <Button type="submit">Publish</Button>
         </div>
       </div>
       {/* <input  /> */}

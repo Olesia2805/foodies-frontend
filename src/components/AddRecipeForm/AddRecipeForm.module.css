@@ -61,21 +61,10 @@
   }
 }
 
-.fieldset-ingredients {
-  margin-bottom: 64px;
-}
 @media screen and (min-width: 768px) {
-  .fieldset-ingredients {
-    margin-bottom: 80px;
+  .dropdown {
+    width: 315px;
   }
-}
-
-.ingredients-margin-bottom-dropdown {
-  margin-bottom: 20px;
-}
-
-.ingredients-margin-bottom-input {
-  margin-bottom: 32px;
 }
 
 @media screen and (min-width: 768px) {
@@ -90,11 +79,5 @@
     composes: media-wrapper-row;
 
     margin: 0 0 40px 0;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .dropdown {
-    width: 315px;
   }
 }

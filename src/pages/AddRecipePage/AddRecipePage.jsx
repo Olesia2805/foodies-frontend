@@ -15,4 +15,5 @@ const AddRecipePage = () => {
   );
 };
 
-export default withAuthGuard(AddRecipePage);
+export default AddRecipePage;
+// export default withAuthGuard(AddRecipePage);
