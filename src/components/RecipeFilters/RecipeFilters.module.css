@@ -35,26 +35,33 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 18px;
-    height: 18px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
-    background-color: var(--grey);
+    background-color: var(--white);
     z-index: 2;
 }
 
 .clearButton svg {
-    fill: var(--white);
-    stroke: var(--white);
+    fill: var(--black);
+    stroke: var(--black);
 }
 
 @media only screen and (min-width: 768px) {
     .filtersContainer {
         flex-direction: row;
+        flex-wrap: wrap;
+        gap: 14px;
+    }
+
+    .dropdownWithClear {
+        width: calc(50% - 7px);
     }
 
     .dropdownPlaceholder {
         font-size: 16px;
         padding: 16px 20px;
+        width: calc(50% - 7px);
     }
 }
 
@@ -62,5 +69,10 @@
     .filtersContainer {
         flex-direction: column;
         flex-grow: 1;
+    }
+
+    .dropdownWithClear,
+    .dropdownPlaceholder {
+        width: 100%;
     }
 }

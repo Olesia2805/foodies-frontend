@@ -14,7 +14,10 @@ const initialState = {
   isLoading: false,
   error: null,
   totalPages: 1,
-  page: 1
+  page: 1,
+  favorites: [],
+  isFavoriteLoading: false,
+  favoriteError: null
 };
 
 const recipesSlice = createSlice({
@@ -129,5 +132,4 @@ const recipesSlice = createSlice({
 });
 
 export const { setPage, clearRecipes } = recipesSlice.actions;
-// export const recipesReducer = recipesSlice.reducer;
 export default recipesSlice.reducer;

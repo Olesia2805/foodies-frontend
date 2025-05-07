@@ -6,7 +6,8 @@ import {
   selectRecipes,
   selectIsRecipesLoading,
   selectRecipesError
-} from '../../redux/recipes/selectors';
+} from '../../redux/recipes/index.js';
+import Loader from '../Loader/Loader';
 
 const RecipeList = ({ onUserAvatarClick, onRecipeDetailsClick }) => {
   const isRecipesLoading = useSelector(selectIsRecipesLoading);
@@ -18,7 +19,7 @@ const RecipeList = ({ onUserAvatarClick, onRecipeDetailsClick }) => {
   return (
     <>
       {isRecipesLoading && (
-        <div className={css.loadingContainer}>Loading recipes...</div>
+        <div className={css.loadingContainer}><Loader /></div>
       )}
 
       {!isRecipesLoading && recipes?.length > 0 && (

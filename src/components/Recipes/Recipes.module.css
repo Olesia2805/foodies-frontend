@@ -1,9 +1,10 @@
 .recipesMainContainer {
-    padding: 0 8px;
+    /*padding: 0 8px;*/
     display: flex;
     flex-direction: column;
     gap: 32px;
-    margin-bottom: 64px;
+    /*margin-bottom: 64px;*/
+    margin-top: 64px;
 }
 
 .recipesListFiltersContainer {
@@ -73,8 +74,9 @@
     }
 
     .recipesMainContainer {
-        padding: 0 16px;
+        /*padding: 0 16px;*/
         gap: 40px;
+        margin-top: 100px;
     }
 
     .recipesListFiltersContainer {
@@ -92,7 +94,8 @@
     }
 
     .recipesMainContainer {
-        padding: 0 60px;
+        /*padding: 0 60px;*/
+        margin-top: 120px;
     }
 
     .recipesListFiltersContainer {

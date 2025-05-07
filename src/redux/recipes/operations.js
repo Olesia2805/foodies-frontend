@@ -1,15 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../../api/axiosInstance';
 
-const handleRequestError = (error) => {
-  console.error('API request failed:', error);
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(error.response?.data?.message || 'Network error');
-    }, 1000);
-  });
-};
-
 export const fetchRecipes = createAsyncThunk(
   'recipes/fetchRecipes',
   async (params, { rejectWithValue }) => {
@@ -50,7 +41,6 @@ export const fetchRecipes = createAsyncThunk(
       if (error.response?.status === 404) {
         return rejectWithValue('Recipes not found');
       }
-
       return rejectWithValue(error.response?.data?.message || 'Network error');
     }
   }
@@ -128,8 +118,9 @@ export const fetchOwnerRecipes = createAsyncThunk(
 
       return formattedData;
     } catch (error) {
-      const errorMessage = await handleRequestError(error);
-      return rejectWithValue(errorMessage);
+      return rejectWithValue(
+        error.response?.data?.message || 'Failed to fetch owner recipes'
+      );
     }
   }
 );
@@ -140,9 +131,12 @@ export const toggleFavoriteRecipe = createAsyncThunk(
     try {
       const response = await axiosInstance.patch(`/recipes/favorite/${recipeId}`);
       return { recipeId, ...response.data };
-    } catch (error) {
-      const errorMessage = await handleRequestError(error);
-      return rejectWithValue(errorMessage);
+} catch (error) {
+      //const errorMessage = await handleRequestError(error);
+      //return rejectWithValue(errorMessage);
+      return rejectWithValue(
+        error.response?.data?.message || 'Failed to fetch '
+      );
     }
   }
 );

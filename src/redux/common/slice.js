@@ -1,17 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getIngredients, getAreas } from './operations';
+import { getIngredients, getAreas, getCategories } from './operations';
 
 const initialState = {
   isLoading: false,
   error: null,
   ingredients: [],
   areas: [],
+  categories: [],
   selectedCategory: null,
   selectedIngredients: [],
   selectedArea: null,
-  // Додаємо флаги для відстеження спроб завантаження на рівні Redux
   ingredientsFetchStatus: 'idle', // 'idle', 'loading', 'succeeded', 'failed'
   areasFetchStatus: 'idle', // 'idle', 'loading', 'succeeded', 'failed'
+  categoriesFetchStatus: 'idle', // 'idle', 'loading', 'succeeded', 'failed'
 };
 
 const commonSlice = createSlice({
@@ -27,15 +28,15 @@ const commonSlice = createSlice({
     setSelectedArea: (state, { payload }) => {
       state.selectedArea = payload;
     },
-    // Додаємо акції для скидання статусу спроб
     resetFetchStatus: (state) => {
       state.ingredientsFetchStatus = 'idle';
       state.areasFetchStatus = 'idle';
+      state.categoriesFetchStatus = 'idle';
     },
   },
   extraReducers: (builder) => {
     builder
-      // Обробка запитів інгредієнтів
+      // Fetching ingredients
       .addCase(getIngredients.pending, (state) => {
         if (state.ingredientsFetchStatus !== 'succeeded') {
           state.isLoading = true;
@@ -47,19 +48,14 @@ const commonSlice = createSlice({
         state.isLoading = false;
         state.ingredients = payload || [];
         state.ingredientsFetchStatus = 'succeeded';
-
-        // Додаємо логування для дебагу
-        console.log('Ingredients from API saved to Redux state:', payload);
       })
       .addCase(getIngredients.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
         state.ingredientsFetchStatus = 'failed';
-        // Встановлюємо порожній масив, щоб не зациклювати запити
         state.ingredients = [];
       })
-
-      // Обробка запитів областей
+      // Fetching areas
       .addCase(getAreas.pending, (state) => {
         if (state.areasFetchStatus !== 'succeeded') {
           state.isLoading = true;
@@ -71,16 +67,31 @@ const commonSlice = createSlice({
         state.isLoading = false;
         state.areas = payload || [];
         state.areasFetchStatus = 'succeeded';
-
-        // Додаємо логування для дебагу
-        console.log('Areas from API saved to Redux state:', payload);
       })
       .addCase(getAreas.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
         state.areasFetchStatus = 'failed';
-        // Встановлюємо порожній масив, щоб не зациклювати запити
         state.areas = [];
+      })
+      // Fetching categories
+      .addCase(getCategories.pending, (state) => {
+        if (state.categoriesFetchStatus !== 'succeeded') {
+          state.isLoading = true;
+          state.categoriesFetchStatus = 'loading';
+          state.error = null;
+        }
+      })
+      .addCase(getCategories.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.categories = payload || [];
+        state.categoriesFetchStatus = 'succeeded';
+      })
+      .addCase(getCategories.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
+        state.categoriesFetchStatus = 'failed';
+        state.categories = [];
       });
   },
 });

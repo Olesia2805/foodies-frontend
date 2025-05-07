@@ -1,14 +1,19 @@
-import Hero from 'components/Hero/Hero';
-import Testimonials from '../../components/Testimonials/Testimonials';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Container from '../../components/Container/Container';
+import Hero from '../../components/Hero/Hero';
+import Testimonials from '../../components/Testimonials/Testimonials';
 import Recipes from '../../components/Recipes/Recipes';
 import SignInModal from '../../components/SignInModal/SignInModal';
+import Categories from '../../components/Categories/Categories';
 import { ROUTER } from '../../constants/router';
 import { useAuth } from '../../hooks';
-import { setSelectedCategory, setSelectedIngredients, setSelectedArea } from '../../redux/common/slice';
+import {
+  setSelectedCategory,
+  setSelectedIngredients,
+  setSelectedArea
+} from '../../redux/common/slice';
 import { clearRecipes, setPage } from '../../redux/recipes/slice';
 
 const HomePage = () => {
@@ -30,57 +35,79 @@ const HomePage = () => {
     navigate(`${ROUTER.RECIPE}/${recipeId}`);
   };
 
-  const handleShowRecipes = () => {
+  const handleCategorySelect = (category) => {
+    dispatch(clearRecipes());
+    dispatch(setSelectedIngredients([]));
+    dispatch(setSelectedArea(null));
+    dispatch(setPage(1));
+    dispatch(setSelectedCategory(category));
+    setShowRecipes(true);
+  };
+
+  const handleBackClick = () => {
+    setShowRecipes(false);
+    dispatch(setSelectedCategory(null));
+    dispatch(clearRecipes());
+  };
+
+  // Test cases for different scenarios
+  const handleShowAllCategories = () => {
     dispatch(clearRecipes());
     dispatch(setSelectedIngredients([]));
     dispatch(setSelectedArea(null));
     dispatch(setPage(1));
 
-    setTimeout(() => {
-      // Створюємо фіктивну категорію
-      const dummyCategory = {
-        id: '6',
-        name: 'Dessert',
-        description: 'A sweet course typically served at the end of a meal. Desserts can include a wide variety of items such as cakes, pastries, ice cream, and fruit, and are often enjoyed for their rich flavors and textures.'
-      };
+    // This represents "all categories" case
+    const allCategory = {
+      id: 'all',
+      name: null,
+      description: null
+    };
 
-      // Встановлюємо вибрану категорію в Redux
-      dispatch(setSelectedCategory(dummyCategory));
-
-      // Показуємо компонент Recipes
-      setShowRecipes(true);
-    }, 0);
-  };
-
-  const handleBackClick = () => {
-    setShowRecipes(false);
+    dispatch(setSelectedCategory(allCategory));
+    setShowRecipes(true);
   };
 
   return (
     <>
       <Hero />
-        <Container>
-          {showRecipes ? (
-            <Recipes
-              onUserAvatarClick={handleUserAvatarClick}
-              onRecipeDetailsClick={handleRecipeDetailsClick}
-              onBackClick={handleBackClick}
-            />
-          ) : (
-            <div>
-              <button onClick={handleShowRecipes}>Show Recipes</button>
-            </div>
-          )}
-
-          {/* Модальне вікно для входу */}
-          <SignInModal
-            isOpen={isSignInModalOpen}
-            onClose={() => setIsSignInModalOpen(false)}
-            setOtherModal={() => {
-              setIsSignInModalOpen(false);
-            }}
+      <Container>
+        {showRecipes ? (
+          <Recipes
+            onUserAvatarClick={handleUserAvatarClick}
+            onRecipeDetailsClick={handleRecipeDetailsClick}
+            onBackClick={handleBackClick}
           />
-        </Container>
+        ) : (
+          <>
+            <Categories onCategorySelect={handleCategorySelect} />
+            {/* Тестова кнопка для різних сценаріїв */}
+            <div style={{ marginTop: '20px', textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '20px' }}>
+              <button
+                onClick={handleShowAllCategories}
+                style={{
+                  padding: '10px 20px',
+                  background: 'var(--dark-grey)',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '30px',
+                  cursor: 'pointer',
+                  fontWeight: 'bold'
+                }}
+              >
+                Show All Recipes
+              </button>
+            </div>
+          </>
+        )}
+        <SignInModal
+          isOpen={isSignInModalOpen}
+          onClose={() => setIsSignInModalOpen(false)}
+          setOtherModal={() => {
+            setIsSignInModalOpen(false);
+          }}
+        />
+      </Container>
       <Testimonials />
     </>
   );

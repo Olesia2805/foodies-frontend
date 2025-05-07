@@ -6,10 +6,18 @@ import Subtitle from '../Subtitle/Subtitle';
 import RecipeFilters from '../RecipeFilters/RecipeFilters';
 import RecipeList from '../RecipeList/RecipeList';
 import RecipePagination from '../RecipePagination/RecipePagination';
-import { selectSelectedCategory, selectSelectedArea, selectSelectedIngredients } from '../../redux/common/index.js';
-import { setSelectedCategory, setSelectedIngredients, setSelectedArea } from '../../redux/common/slice.js';
+import {
+  selectSelectedCategory,
+  selectSelectedArea,
+  selectSelectedIngredients
+} from '../../redux/common/index.js';
+import {
+  setSelectedCategory,
+  setSelectedIngredients,
+  setSelectedArea
+} from '../../redux/common/slice.js';
 import { clearRecipes, setPage } from '../../redux/recipes/slice';
-import { fetchRecipes } from '../../redux/recipes/operations';
+import { fetchRecipes } from '../../redux/recipes/index.js';
 import Icon from '../Icon/Icon';
 
 const Recipes = ({ onUserAvatarClick, onRecipeDetailsClick, onBackClick }) => {
@@ -21,12 +29,15 @@ const Recipes = ({ onUserAvatarClick, onRecipeDetailsClick, onBackClick }) => {
   const fetchExecutedRef = useRef(false);
   const lastFiltersRef = useRef({});
 
-  useEffect(() => {
-    if (!selectedCategory?.id) return;
+  const defaultTitle = "ALL CATEGORIES";
+  const defaultSubtitle = "Find your favorite dishes from our collection of the best recipes.";
 
+  useEffect(() => {
     const params = {
       page: 1,
-      categoryId: selectedCategory.id,
+      categoryId: selectedCategory && selectedCategory.id !== 'all'
+        ? selectedCategory.id
+        : undefined,
       areaId: selectedArea?.value || null,
       ingredientId: selectedIngredients?.length
         ? selectedIngredients.map(ing => ing.value).join(',')
@@ -59,6 +70,14 @@ const Recipes = ({ onUserAvatarClick, onRecipeDetailsClick, onBackClick }) => {
     }
   };
 
+  const title = (selectedCategory && selectedCategory.id !== 'all' && selectedCategory.name)
+    ? selectedCategory.name
+    : defaultTitle;
+
+  const subtitle = (selectedCategory && selectedCategory.id !== 'all' && selectedCategory.description)
+    ? selectedCategory.description
+    : defaultSubtitle;
+
   return (
     <div className={css.recipesMainContainer}>
       <div className={css.recipesTitleContainer}>
@@ -66,8 +85,8 @@ const Recipes = ({ onUserAvatarClick, onRecipeDetailsClick, onBackClick }) => {
           <Icon name="arrow-left" className={css.backIconContainer} />
           <span className={css.backText}>Back</span>
         </button>
-        <MainTitle title={selectedCategory?.name} />
-        <Subtitle subtitle={selectedCategory?.description} />
+        <MainTitle title={title} />
+        <Subtitle subtitle={subtitle} />
       </div>
       <div className={css.recipesListFiltersContainer}>
         <RecipeFilters />

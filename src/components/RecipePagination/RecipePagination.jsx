@@ -9,17 +9,17 @@ import {
 import {
   selectTotalPages,
   selectPage
-} from '../../redux/recipes/selectors';
+} from '../../redux/recipes/index.js';
 import {
   fetchRecipes,
   fetchOwnerRecipes
-} from '../../redux/recipes/operations';
+} from '../../redux/recipes/index.js';
 import { setPage } from '../../redux/recipes/slice';
 
 const RecipePagination = ({ variant = 'all' }) => {
+  const selectedCategory = useSelector(selectSelectedCategory);
   const selectedArea = useSelector(selectSelectedArea);
   const selectedIngredients = useSelector(selectSelectedIngredients);
-  const selectedCategory = useSelector(selectSelectedCategory);
   const totalPages = useSelector(selectTotalPages);
   const page = useSelector(selectPage);
 
@@ -40,7 +40,9 @@ const RecipePagination = ({ variant = 'all' }) => {
       dispatch(
         fetchRecipes({
           page: newPage,
-          categoryId: selectedCategory?.id,
+          categoryId: selectedCategory && selectedCategory.id !== 'all'
+            ? selectedCategory.id
+            : undefined,
           areaId: selectedArea?.value,
           ingredientId: selectedIngredients?.map(ing => ing.value).join(','),
         })
