@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
+  fetchRecipes,
+  fetchOwnerRecipes,
   addRecipe,
   deleteRecipe,
   fetchRecipeById,
-  fetchOwnerRecipes,
   updateRecipe,
 } from './operations';
 
@@ -31,6 +32,7 @@ const recipesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // Fetch recipes
       .addCase(fetchRecipes.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -48,7 +50,7 @@ const recipesSlice = createSlice({
           state.totalPages = 1;
         }
       })
-
+      // Fetch owner recipes
       .addCase(fetchOwnerRecipes.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -65,20 +67,6 @@ const recipesSlice = createSlice({
           state.items = [];
           state.totalPages = 1;
         }
-      });
-    builder
-      // Fetch all recipes
-      .addCase(fetchRecipes.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(fetchRecipes.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.items = action.payload;
-      })
-      .addCase(fetchRecipes.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.payload;
       })
       // Fetch recipe by ID
       .addCase(fetchRecipeById.pending, (state) => {

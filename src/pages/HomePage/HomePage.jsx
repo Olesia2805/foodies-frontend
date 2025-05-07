@@ -1,6 +1,5 @@
 import Hero from 'components/Hero/Hero';
 import Testimonials from '../../components/Testimonials/Testimonials';
-
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
