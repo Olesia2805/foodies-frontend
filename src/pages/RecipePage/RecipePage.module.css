@@ -2,7 +2,6 @@
   display: flex;
   gap: 32px;
   flex-direction: column;
-  align-items: center;
 }
 
 .imageWrapper {
@@ -11,7 +10,7 @@
 
 .image {
   width: 100%;
-  height: auto;
+  aspect-ratio: 1/1;
   object-fit: cover;
   border-radius: 30px;
 }
@@ -20,7 +19,7 @@
   display: flex;
   gap: 32px;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
 }
 .recipeHeader {
@@ -113,16 +112,13 @@ h1 {
   .ingredientList {
     grid-template-columns: repeat(3, 1fr);
   }
+  .image {
+    height: 400px;
+  }
 }
 
 @media (min-width: 1440px) {
   .recipeSection {
     flex-direction: row;
   }
-  /* .imageWrapper {
-    width: 50%;
-  } */
-  /* .recipeContent {
-    width: 50%;
-  } */
 }

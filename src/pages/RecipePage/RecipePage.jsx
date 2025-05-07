@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import Button from '../../components/Button/Button';
 import Container from '../../components/Container/Container';
 import Error from '../../components/Error/Error';
 import Loader from '../../components/Loader/Loader';
-import Nav from '../../components/Nav/Nav';
 import { fetchRecipeById } from '../../redux/recipes/operations';
 import { selectRecipeById } from '../../redux/recipes/selectors';
 import styles from './RecipePage.module.css';
@@ -91,7 +91,13 @@ const RecipePage = () => {
             <p>{recipe.instructions}</p>
           </section>
 
-          <button className={styles.favoriteButton}>Add to favorites</button>
+          {/* TODO: Add to favorites */}
+          <Button
+            variant="outlined"
+            onClick={() => console.log('Button "Add to favorites" clicked')}
+          >
+            Add to favorites
+          </Button>
         </div>
       </section>
     </Container>
