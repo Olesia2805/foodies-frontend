@@ -1,10 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axiosInstance from '../../api/axiosInstance';
 
 export const fetchCategories = createAsyncThunk(
   'categories/fetchCategories',
-  async () => {
-    const response = await axios.get('http://localhost:3000/api/categories');
-    return response.data;
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get('/categories');
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || 'Failed to fetch categories'
+      );
+    }
   }
 );

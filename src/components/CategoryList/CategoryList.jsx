@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../../redux/categories/operations';
 import {
   selectCategories,
-  selectIsLoading,
-  selectError,
+  selectCategoriesIsLoading,
+  selectCategoriesError,
 } from '../../redux/categories/selectors';
 import css from './CategoryList.module.css';
 import Icon from '../Icon/Icon';
@@ -33,8 +33,8 @@ const CategoryList = ({ onCategorySelect }) => {
   const dispatch = useDispatch();
 
   const categories = useSelector(selectCategories);
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+  const isLoading = useSelector(selectCategoriesIsLoading);
+  const error = useSelector(selectCategoriesError);
 
   useEffect(() => {
     dispatch(fetchCategories());
