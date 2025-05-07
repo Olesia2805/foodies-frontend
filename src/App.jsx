@@ -44,7 +44,7 @@ const App = () => {
           </Route>
         </Routes>
       </Suspense>
-      <Toaster position="top-center" toastOptions={toastConfig} />
+      <Toaster position="bottom-right" toastOptions={toastConfig} />
     </>
   );
 };
