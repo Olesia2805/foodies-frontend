@@ -3,13 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Container from '../../components/Container/Container';
 import Recipes from '../../components/Recipes/Recipes';
+import SignInModal from '../../components/SignInModal/SignInModal';
 import { ROUTER } from '../../constants/router';
 import { useAuth } from '../../hooks';
-import { setSelectedCategory } from '../../redux/common/slice';
-import { fetchRecipes } from '../../redux/recipes/operations';
+import { setSelectedCategory, setSelectedIngredients, setSelectedArea } from '../../redux/common/slice';
+import { clearRecipes, setPage } from '../../redux/recipes/slice';
 
 const HomePage = () => {
   const [showRecipes, setShowRecipes] = useState(false);
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -18,7 +20,7 @@ const HomePage = () => {
     if (isAuthenticated) {
       navigate(`${ROUTER.USER}/${userId}`);
     } else {
-      console.log('Open sign in modal');
+      setIsSignInModalOpen(true);
     }
   };
 
@@ -27,24 +29,29 @@ const HomePage = () => {
   };
 
   const handleShowRecipes = () => {
-    // Створюємо фіктивну категорію
-    const dummyCategory = {
-      id: '12',
-      name: 'Breakfast',
-      description: 'Delicious breakfast recipes for a great start to your day!'
-    };
+    dispatch(clearRecipes());
+    dispatch(setSelectedIngredients([]));
+    dispatch(setSelectedArea(null));
+    dispatch(setPage(1));
 
-    // Встановлюємо вибрану категорію в Redux
-    dispatch(setSelectedCategory(dummyCategory));
+    setTimeout(() => {
+      // Створюємо фіктивну категорію
+      const dummyCategory = {
+        id: '12',
+        name: 'Breakfast',
+        description: 'Delicious breakfast recipes for a great start to your day!'
+      };
 
-    // Завантажуємо рецепти для цієї категорії
-    dispatch(fetchRecipes({
-      page: 1,
-      category: dummyCategory.id
-    }));
+      // Встановлюємо вибрану категорію в Redux
+      dispatch(setSelectedCategory(dummyCategory));
 
-    // Показуємо компонент Recipes
-    setShowRecipes(true);
+      // Показуємо компонент Recipes
+      setShowRecipes(true);
+    }, 0);
+  };
+
+  const handleBackClick = () => {
+    setShowRecipes(false);
   };
 
   return (
@@ -53,12 +60,22 @@ const HomePage = () => {
         <Recipes
           onUserAvatarClick={handleUserAvatarClick}
           onRecipeDetailsClick={handleRecipeDetailsClick}
+          onBackClick={handleBackClick}
         />
       ) : (
         <div>
           <button onClick={handleShowRecipes}>Show Recipes</button>
         </div>
       )}
+
+      {/* Модальне вікно для входу */}
+      <SignInModal
+        isOpen={isSignInModalOpen}
+        onClose={() => setIsSignInModalOpen(false)}
+        setOtherModal={() => {
+          setIsSignInModalOpen(false);
+        }}
+      />
     </Container>
   );
 };

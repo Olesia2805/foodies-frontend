@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import css from './RecipeFilters.module.css';
 import Dropdown from '../Dropdown/Dropdown';
+import Icon from '../Icon/Icon';
 import { useShowError } from '../../hooks/useShowError';
 import {
   selectCommonError,
@@ -41,27 +42,59 @@ const RecipeFilters = () => {
     }
   }, [dispatch, ingredients, areas, isCommonLoading]);
 
+  const clearIngredients = () => {
+    dispatch(setSelectedIngredients([]));
+  };
+
+  const clearArea = () => {
+    dispatch(setSelectedArea(null));
+  };
+
   useShowError(error);
 
   return (
     <div className={css.filtersContainer}>
       {!isCommonLoading && !!ingredients?.length && (
-        <Dropdown
-          items={ingredients}
-          label="Ingredients"
-          selectedValue={selectedIngredients}
-          callback={setSelectedIngredients}
-          isMulti={true}
-        />
+        <div className={css.dropdownWithClear}>
+          <Dropdown
+            items={ingredients}
+            label="Ingredients"
+            selectedValue={selectedIngredients}
+            callback={setSelectedIngredients}
+            isMulti={true}
+          />
+          {selectedIngredients?.length > 0 && (
+            <button
+              onClick={clearIngredients}
+              className={css.clearButton}
+              title="Clear ingredients"
+            >
+              <Icon name="close" size={16} />
+            </button>
+          )}
+        </div>
       )}
+
       {!isCommonLoading && !!areas?.length && (
-        <Dropdown
-          items={areas}
-          label="Area"
-          selectedValue={selectedArea}
-          callback={setSelectedArea}
-        />
+        <div className={css.dropdownWithClear}>
+          <Dropdown
+            items={areas}
+            label="Area"
+            selectedValue={selectedArea}
+            callback={setSelectedArea}
+          />
+          {selectedArea && (
+            <button
+              onClick={clearArea}
+              className={css.clearButton}
+              title="Clear area"
+            >
+              <Icon name="close" size={16} />
+            </button>
+          )}
+        </div>
       )}
+
       {/* Відображаємо заглушки, якщо дані не завантажені */}
       {(!ingredients?.length || !areas?.length) && (
         <>

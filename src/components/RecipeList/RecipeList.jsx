@@ -13,11 +13,6 @@ const RecipeList = ({ onUserAvatarClick, onRecipeDetailsClick }) => {
   const error = useSelector(selectRecipesError);
   const recipes = useSelector(selectRecipes);
 
-  // Логування для діагностики
-  console.log('RecipeList rendering with recipes:', recipes);
-  console.log('Loading state:', isRecipesLoading);
-  console.log('Error state:', error);
-
   useShowError(error);
 
   return (
@@ -48,7 +43,10 @@ const RecipeList = ({ onUserAvatarClick, onRecipeDetailsClick }) => {
 
       {!isRecipesLoading && (!recipes || recipes.length === 0) && (
         <div className={css.emptyContainer}>
-          <p>No recipes found. Try selecting different filters or categories.</p>
+          <p className={css.emptyMessage}>
+            Recipes not found.<br />
+            Try selecting different filters.
+          </p>
         </div>
       )}
     </>

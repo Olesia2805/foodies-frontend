@@ -26,6 +26,7 @@
 
 .backContainer {
     display: flex;
+    align-items: center;
     gap: 4px;
     text-transform: uppercase;
     color: var(--black);
@@ -45,7 +46,12 @@
     width: 16px;
     height: 16px;
     stroke: var(--black);
-    /*fill: transparent;*/
+}
+
+.backText {
+    line-height: 1;
+    display: flex;
+    align-items: center;
 }
 
 @media only screen and (min-width: 768px) {

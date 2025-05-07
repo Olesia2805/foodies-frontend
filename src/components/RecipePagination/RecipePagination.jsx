@@ -40,9 +40,9 @@ const RecipePagination = ({ variant = 'all' }) => {
       dispatch(
         fetchRecipes({
           page: newPage,
-          category: selectedCategory?.id,
-          area: selectedArea?.value,
-          ingredients: selectedIngredients?.map(ing => ing.value),
+          categoryId: selectedCategory?.id,
+          areaId: selectedArea?.value,
+          ingredientId: selectedIngredients?.map(ing => ing.value).join(','),
         })
       );
     }

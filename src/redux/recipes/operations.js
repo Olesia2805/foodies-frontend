@@ -14,22 +14,20 @@ export const fetchRecipes = createAsyncThunk(
   'recipes/fetchRecipes',
   async (params, { rejectWithValue }) => {
     try {
-      const { page = 1, category, area, ingredients = [] } = params || {};
+      const { page = 1, categoryId, areaId, ingredientId } = params || {};
 
       let url = `/recipes?page=${page}&limit=12`;
 
-      if (category) {
-        url += `&category=${category}`;
+      if (categoryId) {
+        url += `&categoryId=${categoryId}`;
       }
 
-      if (area) {
-        url += `&area=${area}`;
+      if (areaId) {
+        url += `&areaId=${areaId}`;
       }
 
-      if (ingredients && ingredients.length > 0) {
-        ingredients.forEach(ingredient => {
-          url += `&ingredient=${ingredient}`;
-        });
+      if (ingredientId) {
+        url += `&ingredientId=${ingredientId}`;
       }
 
       console.log('Requesting URL:', url);
@@ -42,11 +40,18 @@ export const fetchRecipes = createAsyncThunk(
         currentPage: response.data.currentPage || 1
       };
 
+      if (!formattedData.recipes.length) {
+        return rejectWithValue('Recipes not found');
+      }
+
       return formattedData;
     } catch (error) {
       console.error('Error fetching recipes:', error);
-      const errorMessage = await handleRequestError(error);
-      return rejectWithValue(errorMessage);
+      if (error.response?.status === 404) {
+        return rejectWithValue('Recipes not found');
+      }
+
+      return rejectWithValue(error.response?.data?.message || 'Network error');
     }
   }
 );

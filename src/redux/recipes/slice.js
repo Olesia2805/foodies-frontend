@@ -36,6 +36,10 @@ const recipesSlice = createSlice({
       .addCase(fetchRecipes.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
+        if (payload === 'Recipes not found' || payload?.includes('404')) {
+          state.items = [];
+          state.totalPages = 1;
+        }
       })
 
       .addCase(fetchOwnerRecipes.pending, (state) => {
@@ -50,6 +54,10 @@ const recipesSlice = createSlice({
       .addCase(fetchOwnerRecipes.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
+        if (payload === 'Recipes not found' || payload?.includes('404')) {
+          state.items = [];
+          state.totalPages = 1;
+        }
       });
   },
 });

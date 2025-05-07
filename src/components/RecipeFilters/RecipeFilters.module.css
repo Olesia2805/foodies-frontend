@@ -19,6 +19,34 @@
     opacity: 0.6;
 }
 
+.dropdownWithClear {
+    position: relative;
+    width: 100%;
+}
+
+.clearButton {
+    position: absolute;
+    top: 50%;
+    right: 40px;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: var(--grey);
+    z-index: 2;
+}
+
+.clearButton svg {
+    fill: var(--white);
+    stroke: var(--white);
+}
+
 @media only screen and (min-width: 768px) {
     .filtersContainer {
         flex-direction: row;

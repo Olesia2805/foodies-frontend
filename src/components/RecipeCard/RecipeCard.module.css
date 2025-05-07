@@ -111,6 +111,9 @@
     color: var(--white);
     background-color: var(--black);
     border-color: transparent;
+    .icon {
+        fill: var(--white);
+    }
 }
 
 .cardBtnActive {
@@ -120,8 +123,10 @@
 }
 
 .icon {
-    stroke: currentColor;
-    /*fill: transparent;*/
+    fill: var(--black);
+}
+.icon:hover {
+    fill: var(--white);
 }
 
 @media only screen and (min-width: 768px) {
