@@ -43,44 +43,56 @@ const RecipePage = () => {
         </div>
 
         <div className={styles.recipeContent}>
-          <h1>{recipe.title}</h1>
+          <section className={styles.recipeHeader}>
+            <h1>{recipe.title}</h1>
+
+            <div className={styles.tags}>
+              <span className={styles.tag}>{recipe.categoryOfRecipe.name}</span>
+              <span className={styles.tag}>{recipe.time} min</span>
+            </div>
+
+            <p className={styles.description}>{recipe.description}</p>
+
+            <div className={styles.author}>
+              <img src={recipe.owner.avatar} alt="NA" />
+              <span>
+                Created by: <br />
+                <strong className={styles.authorName}>
+                  {recipe.owner.name}
+                </strong>
+              </span>
+            </div>
+          </section>
+
+          {/* Ingredients */}
+          <section className={styles.ingredients}>
+            <h2>Ingredients</h2>
+            <ul className={styles.ingredientList}>
+              {recipe.ingredients.map((ingredient, index) => (
+                <li key={index} className={styles.ingredientListItem}>
+                  <img src={ingredient.img} alt={ingredient.name} />
+
+                  <ul>
+                    <li className={styles.ingredientName}>
+                      {ingredient.name}{' '}
+                    </li>
+                    <li className={styles.ingredientMeasure}>
+                      {ingredient.recipe_ingredient.measure}
+                    </li>
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          {/* Preparation */}
+          <section className={styles.preparation}>
+            <h2>Recipe Preparation</h2>
+            <p>{recipe.instructions}</p>
+          </section>
+
+          <button className={styles.favoriteButton}>Add to favorites</button>
         </div>
-
-        <div className={styles.tags}>
-          <span className={styles.tag}>{recipe.categoryOfRecipe.name}</span>
-          <span className={styles.tag}>{recipe.time} min</span>
-        </div>
-
-        <p className={styles.description}>{recipe.description}</p>
-
-        <div className={styles.author}>
-          <img src={recipe.owner.avatar} alt="NA" />
-          <span>
-            Created by: <strong>{recipe.owner.name}</strong>
-          </span>
-        </div>
-
-        {/* Ingredients */}
-        <section className={styles.ingredients}>
-          <h2>Ingredients</h2>
-          <ul className={styles.ingredientList}>
-            {recipe.ingredients.map((ingredient, index) => (
-              <li key={index}>
-                <img src={ingredient.img} alt={ingredient.name} />
-                {ingredient.name}
-                <span>{ingredient.recipe_ingredient.measure}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* Preparation */}
-        <section className={styles.preparation}>
-          <h2>Recipe Preparation</h2>
-          <p>{recipe.instructions}</p>
-        </section>
-
-        <button className={styles.favoriteButton}>Add to favorites</button>
       </section>
     </Container>
   );
