@@ -1,0 +1,66 @@
+.inputContainer {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.input {
+  width: 100%;
+  border-radius: 30px;
+  height: 48px;
+  border: 1px solid var(--black);
+  font-size: 16px;
+  font-family: var(--font-primary), sans-serif;
+  outline: none;
+  background-color: transparent;
+  box-sizing: border-box;
+  padding: 14px 40px 14px 14px;
+  &::placeholder {
+    color: var(--grey);
+  }
+
+  @media (min-width: 768px) {
+    height: 56px;
+    padding: 16px 40px 16px 18px;
+  }
+}
+
+.inputLabel {
+  position: absolute;
+  left: 18px;
+  pointer-events: none;
+  font-family: var(--font-primary), sans-serif;
+  font-size: 16px;
+  color: #757575;
+  transition: all 0.2s ease;
+}
+
+.inputLabelDefault {
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+}
+
+.inputIcon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 2;
+}
+
+.inputError {
+  border: 1px solid var(--error);
+}
+
+.errorMessage {
+  color: var(--error);
+  font-size: 12px;
+  display: block;
+  position: absolute;
+  top: -12px;
+  left: 15px;
+  background: var(--white);
+  padding: 3px 6px;
+}

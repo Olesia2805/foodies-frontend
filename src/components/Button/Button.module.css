@@ -1,0 +1,62 @@
+.button {
+  font-family: var(--font-primary), sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  border-radius: 30px;
+  cursor: pointer;
+  border: none;
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .3s ease;
+  outline: none;
+  height: 48px;
+  padding: 14px 32px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 16px;
+    line-height: 1.5em;
+    padding: 16px 32px;
+    height: 56px;
+  }
+}
+
+.buttonPrimary {
+  background: var(--dark-grey);
+  color: var(--white);
+
+  &:hover, &:focus {
+    background: var(--black);
+    color: var(--white);
+  }
+}
+
+.buttonSecondary {
+  background: var(--grey);
+  color: var(--white);
+
+  /* TODO : Add hover and focus */
+}
+
+.buttonOutlined {
+  background: transparent;
+  color: var(--black);
+  border: 1px solid var(--black);
+
+  &:hover, &:focus {
+    background: var(--dark-grey);
+    color: var(--white);
+  }
+}
