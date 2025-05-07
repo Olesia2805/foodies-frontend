@@ -26,10 +26,10 @@ const RecipeList = ({ onUserAvatarClick, onRecipeDetailsClick }) => {
           {recipes.map(item => (
             <li key={item.id || item._id}>
               <RecipeCard
-                mealImage={item.thumb || item.preview || 'https://via.placeholder.com/300x200?text=No+Image'}
+                mealImage={item.thumb || item.preview || 'https://placehold.co/300x200?text=No+Image'}
                 title={item.title || item.name || 'Unnamed Recipe'}
                 description={item.description || 'No description available'}
-                userAvatar={item.owner?.avatar || 'https://via.placeholder.com/40x40?text=User'}
+                userAvatar={item.owner?.avatar || 'https://placehold.co/40x40?text=User'}
                 userName={item.owner?.name || 'Anonymous'}
                 userId={item.owner?.id || item.owner?._id || 'unknown'}
                 recipeId={item.id || item._id}

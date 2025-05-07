@@ -39,9 +39,9 @@ const HomePage = () => {
     setTimeout(() => {
       // Створюємо фіктивну категорію
       const dummyCategory = {
-        id: '12',
-        name: 'Breakfast',
-        description: 'Delicious breakfast recipes for a great start to your day!'
+        id: '6',
+        name: 'Dessert',
+        description: 'A sweet course typically served at the end of a meal. Desserts can include a wide variety of items such as cakes, pastries, ice cream, and fruit, and are often enjoyed for their rich flavors and textures.'
       };
 
       // Встановлюємо вибрану категорію в Redux
