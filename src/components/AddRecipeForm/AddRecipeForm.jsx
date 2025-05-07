@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PhotoUploader from '../formComponents/PhotoUploader/PhotoUploader';
 import css from './AddRecipeForm.module.css';
 import { useForm } from 'react-hook-form';
@@ -13,16 +13,25 @@ import FormTitle from '../formComponents/FormTitle/FormTitle';
 import clsx from 'clsx';
 
 export default function AddRecipeForm() {
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, control } = useForm({
+    mode: 'onSubmit',
     defaultValues: {
-      photo: '',
+      photo: '', // thumb
       title: '',
-      desc: '',
+      description: '',
+      category: '',
+      area: '', // ???
+      'ingredient-quantity': '',
+      preparation: '', // instructions
     },
     // resolver: yupResolver(SignUpSchema),
   });
 
   const [ingredients, setIngredients] = useState([]);
+
+  // useEffect(() => {
+  //   console.log(value);
+  // }, [value]);
 
   const onSubmit = (data) => {
     console.log(data);
@@ -30,11 +39,66 @@ export default function AddRecipeForm() {
   };
 
   const categoryOptions = [
-    { value: 'seafood', label: 'Seafood' },
-    { value: 'vegetarian', label: 'Vegetarian' },
-    { value: 'desserts', label: 'Desserts' },
-    { value: 'breakfast', label: 'Breakfast' },
-    { value: 'italian', label: 'Italian' },
+    {
+      value: 'seafood',
+      label: 'Seafood',
+    },
+    {
+      value: 'lamb',
+      label: 'Lamb',
+    },
+    {
+      value: 'starter',
+      label: 'Starter',
+    },
+    {
+      value: 'chicken',
+      label: 'Chicken',
+    },
+    {
+      value: 'beef',
+      label: 'Beef',
+    },
+    {
+      value: 'dessert',
+      label: 'Dessert',
+    },
+    {
+      value: 'vegan',
+      label: 'Vegan',
+    },
+    {
+      value: 'pork',
+      label: 'Pork',
+    },
+    {
+      value: 'vegetarian',
+      label: 'Vegetarian',
+    },
+    {
+      value: 'miscellaneous',
+      label: 'Miscellaneous',
+    },
+    {
+      value: 'pasta',
+      label: 'Pasta',
+    },
+    {
+      value: 'breakfast',
+      label: 'Breakfast',
+    },
+    {
+      value: 'side',
+      label: 'Side',
+    },
+    {
+      value: 'goat',
+      label: 'Goat',
+    },
+    {
+      value: 'soup',
+      label: 'Soup',
+    },
   ];
 
   return (
@@ -46,13 +110,22 @@ export default function AddRecipeForm() {
       <div className={css['column-2']}>
         <Fieldset>
           <InputTitle {...register('title', { required: true })} />
-          <InputTextCounter {...register('desc', { required: true })} />
+          <InputTextCounter
+            name="description"
+            control={control}
+            placeholder="Enter a description of the dish"
+          />
+          {/* <InputTextCounter {...register('desc', { required: true })} /> */}
         </Fieldset>
 
         <div className={css['media-wrapper-row']}>
           <Fieldset>
             <FormTitle>Category</FormTitle>
-            <Dropdown options={categoryOptions} className={css.dropdown} />
+            <Dropdown
+              options={categoryOptions}
+              className={css.dropdown}
+              name="category"
+            />
           </Fieldset>
 
           <Fieldset>
@@ -72,10 +145,18 @@ export default function AddRecipeForm() {
               )}
             />
             <InputTextCounter
+              name="ingredient-quantity"
+              control={control}
               isCounter={false}
               isOneRow={true}
               className={css['ingredients-margin-bottom-input']}
+              placeholder="Enter quantity"
             />
+            {/* <InputTextCounter
+              isCounter={false}
+              isOneRow={true}
+              className={css['ingredients-margin-bottom-input']}
+            /> */}
           </div>
           <Button text="Add ingredient" variant="outline" />
 
@@ -89,8 +170,11 @@ export default function AddRecipeForm() {
         <Fieldset>
           <FormTitle>Recipe Preparation</FormTitle>
           <InputTextCounter
+            name="instructions"
+            control={control}
             className={css['margin-preparation']}
-            {...register('preparation', { required: true })}
+            placeholder="Enter recipe"
+            // {...register('preparation', { required: true })}
           />
         </Fieldset>
 

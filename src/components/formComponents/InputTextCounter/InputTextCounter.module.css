@@ -29,3 +29,7 @@
 .counter-current {
   color: var(--black);
 }
+
+.counter-error {
+  color: var(--color-error);
+}

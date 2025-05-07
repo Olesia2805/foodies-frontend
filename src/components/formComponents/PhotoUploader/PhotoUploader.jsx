@@ -1,24 +1,87 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 
 import css from './PhotoUploader.module.css';
 import Icon from '../../Icon/Icon';
 
-export default function PhotoUploader({ image, onClick, ...otherProps }) {
-  if (!image)
-    return (
-      <div className={css['photo-uploader']} onClick={onClick}>
-        <Icon name={'upload_photo'} size={50} className={css.icon} />
-        <button className={css['btn-img-upload']}>Upload a photo</button>
-      </div>
-    );
+import { useDropzone } from 'react-dropzone';
+import clsx from 'clsx';
+
+export default function PhotoUploader({ onClick, ...otherProps }) {
+  const [image, setImage] = useState('');
+
+  const onDrop = useCallback((acceptedFiles) => {
+    acceptedFiles.forEach((file) => {
+      const reader = new FileReader();
+
+      reader.onabort = () => console.log('file reading was aborted');
+      reader.onerror = () => console.log('file reading has failed');
+      reader.onload = () => {
+        // Do whatever you want with the file contents
+        const base64 = reader.result;
+        setImage(base64);
+      };
+      reader.readAsDataURL(file);
+    });
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
+    onDrop,
+  });
+
+  // title
+  const subTitle = isDragActive
+    ? 'Drop the photo here ...'
+    : "Drag 'n' drop some photo here, or click to select photo";
+
+  const titleUpload = <p className={css['title-upload']}>{subTitle}</p>;
+
+  // Image after successful input
+  const backgroundStyle =
+    image.length > 0
+      ? {
+          backgroundImage: `url(${image})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }
+      : null;
 
   return (
     <>
-      <div className={'photo-uploader-image'} onClick={onClick}>
-        <img src={image} alt="Recipe Photo" />
-      </div>
+      <div
+        className={css['photo-uploader']}
+        {...getRootProps()}
+        style={backgroundStyle}
+      >
+        <input {...getInputProps()} accept="image/*" />
 
-      <button className={css['btn-img-upload']}>Upload another photo</button>
+        {image.length === 0 && (
+          <>
+            <Icon name={'upload_photo'} size={50} className={css.icon} />
+            {titleUpload}
+          </>
+        )}
+      </div>
+      {image.length > 0 && (
+        <button className={css['btn-img-upload']}>Upload another photo</button>
+      )}
     </>
   );
+
+  // if (!image)
+  //   return (
+  //     <div className={css['photo-uploader']} onClick={onClick}>
+  //       <Icon name={'upload_photo'} size={50} className={css.icon} />
+  //       <button className={css['btn-img-upload']}>Upload a photo</button>
+  //     </div>
+  //   );
+
+  // return (
+  //   <>
+  //     <div className={'photo-uploader-image'} onClick={onClick}>
+  //       <img src={image} alt="Recipe Photo" />
+  //     </div>
+
+  //     <button className={css['btn-img-upload']}>Upload another photo</button>
+  //   </>
+  // );
 }

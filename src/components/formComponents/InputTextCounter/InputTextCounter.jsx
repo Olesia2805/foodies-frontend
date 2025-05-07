@@ -1,28 +1,51 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import css from './InputTextCounter.module.css';
 import clsx from 'clsx';
 import TextareaAutosize from 'react-textarea-autosize';
+import { useController } from 'react-hook-form';
 
 export default function InputTextCounter({
-  value = '',
+  name: propName = 'inputField',
+  control,
   placeholder = 'Enter a description of the dish',
-  onInput = (e) => console.log(e),
   isCounter = true,
   isOneRow = false,
   className,
+
   ...otherProps
 }) {
-  const valueLength = value.length;
   const maxLength = 200;
 
+  const {
+    field: { onChange, onBlur, name, value = '', ref },
+    formState,
+  } = useController({
+    name: propName,
+    control,
+    rules: { required: true, maxLength: maxLength },
+  });
+
+  const error = formState.errors[name];
+
+  const valueLength = value.length;
+  // console.log(errors);
+  // useEffect(() => {
+  //   console.log(error);
+  // }, [error]);
+
   // const classNameInput = clsx(css['input'], !isCounter && css['input-full-width']);
-  const classNameCounter = clsx(maxLength > 0 && css['counter-current']);
+  const classNameCounter = clsx(
+    maxLength > 0 && css['counter-current'],
+    error && css['counter-error']
+  );
   const wrapperClassName = clsx(css['input-wrapper'], className);
 
   const inputProps = {
+    name: name,
+    value: value,
     type: 'text',
     placeholder: placeholder,
-    onInput: onInput,
+    onChange: onChange,
     className: css.input,
     ...otherProps,
   };
@@ -35,7 +58,7 @@ export default function InputTextCounter({
         <TextareaAutosize {...inputProps}></TextareaAutosize>
       )}
       {isCounter && (
-        <p className={css.counter}>
+        <p className={clsx(css.counter, error && css['counter-error'])}>
           <span className={classNameCounter}>{valueLength}</span>/
           <span className={css['counter-max']}>{maxLength}</span>
         </p>
