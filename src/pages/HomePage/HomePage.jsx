@@ -11,14 +11,14 @@ const HomePage = () => {
 
   return (
     <div>
-      <Container>
       <Hero />
+      <Container>
         {selectedCategory ? (
           <div>Recipes</div>
         ) : (
           <Categories onCategorySelect={setSelectedCategory} />
         )}
-      <Testimonials />
+        <Testimonials />
       </Container>
     </div>
   );
