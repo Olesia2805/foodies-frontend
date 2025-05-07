@@ -6,21 +6,22 @@ const Input = ({
   style,
   placeholder,
   required,
+  error,
   ...props
 }) => {
   return (
     <label className={styles.inputContainer} style={style}>
       <input
         placeholder={required ? `${placeholder}*` : placeholder}
-        className={styles.input}
+        className={`${styles.input} ${error ? styles.inputError : ''}`}
         {...props}
       />
-
       {icon && (
         <div className={styles.inputIcon} onClick={onIconClick}>
           {icon}
         </div>
       )}
+      {error && <span className={styles.errorMessage}>{error}</span>}
     </label>
   );
 };
