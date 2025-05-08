@@ -1,66 +1,12 @@
-/* src/components/Categories/Categories.module.css (заглушка) */
-.container {
-    padding: 40px 0;
-}
-
-.title {
-    font-size: 28px;
-    font-weight: 800;
-    margin-bottom: 24px;
-    text-align: center;
-}
-
-.categoriesGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-}
-
-.categoryCard {
-    background-color: var(--white);
-    border: 1px solid var(--grey);
-    border-radius: 15px;
-    padding: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.categoryCard:hover {
-    border-color: var(--dark-grey);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
-}
-
-.categoryName {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
-.categoryDescription {
-    font-size: 14px;
-    color: var(--dark-grey);
-    margin: 0;
-}
-
-.loading {
-    text-align: center;
-    padding: 40px 0;
-    font-size: 18px;
-    color: var(--dark-grey);
+.description {
+  margin-bottom: 32px;
+  color: var(--grey);
 }
 
 @media (min-width: 768px) {
-    .title {
-        font-size: 32px;
-        margin-bottom: 32px;
-    }
-
-    .categoryName {
-        font-size: 20px;
-    }
-
-    .categoryDescription {
-        font-size: 16px;
-    }
+  .description {
+    max-width: 531px;
+    margin-bottom: 40px;
+    color: var(--dark-grey);
+  }
 }

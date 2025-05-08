@@ -1,4 +1,9 @@
 import { useState } from 'react';
+
+import Categories from '../../components/Categories/Categories';
+import Container from '../../components/Container/Container';
+
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Container from '../../components/Container/Container';
@@ -17,6 +22,8 @@ import {
 import { clearRecipes, setPage } from '../../redux/recipes/slice';
 
 const HomePage = () => {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
   const [showRecipes, setShowRecipes] = useState(false);
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const { isAuthenticated } = useAuth();
@@ -73,8 +80,17 @@ const HomePage = () => {
   };
 
   return (
-    <>
+    <div>
       <Hero />
+      <Container>
+        {selectedCategory ? (
+          <div>Recipes</div>
+        ) : (
+          <Categories onCategorySelect={setSelectedCategory} />
+        )}
+        <Testimonials />
+      </Container>
+    </div>
       <Container>
         {showRecipes ? (
           <Recipes

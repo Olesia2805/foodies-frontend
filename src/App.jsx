@@ -4,7 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import Loader from './components/Loader/Loader';
 import Layout from './components/Layout/Layout.jsx';
 import { ROUTER } from './constants/router.js';
-
+import { toastConfig } from './constants/toastConfig.js';
 import { useAuth, useVerification } from './hooks';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
@@ -42,7 +42,7 @@ const App = () => {
           </Route>
         </Routes>
       </Suspense>
-      <Toaster position="top-right" />
+      <Toaster position="bottom-right" toastOptions={toastConfig} />
     </>
   );
 };
