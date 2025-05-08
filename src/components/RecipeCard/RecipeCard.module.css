@@ -1,8 +1,7 @@
-
 .recipeCard {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Ensure content is spaced out */
+    justify-content: left; /* Ensure content is spaced out */
     gap: 16px;
     padding: 16px;
     border: none; /* Removed border */
@@ -38,12 +37,13 @@
   }
   
   .recipeButton {
+    flex-shrink: 0; /* Prevent the button from shrinking */
     margin-left: auto; /* Push the button to the right side */
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%; /* Circular buttons */
     border: 1px solid #ccc; /* Gray border */
     background-color: white;

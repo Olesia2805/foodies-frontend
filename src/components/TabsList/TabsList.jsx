@@ -10,16 +10,18 @@ const TabsList = ({ tabs, onTabChange }) => {
   };
 
   return (
-    <div className={styles.tabsList}>
-      {tabs.map((tab, index) => (
-        <button
-          key={index}
-          className={`${styles.tab} ${index === activeTab ? styles.active : ''}`}
-          onClick={() => handleTabClick(index)}
-        >
-          {tab}
-        </button>
-      ))}
+    <div className={styles.tabsListContainer}>
+      <div className={styles.tabsList}>
+        {tabs.map((tab, index) => (
+          <button
+            key={index}
+            className={`${styles.tab} ${index === activeTab ? styles.active : ''}`}
+            onClick={() => handleTabClick(index)}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

@@ -117,8 +117,8 @@ const UserPage = () => {
   };
 
   const tabs = user?.isOwner
-    ? ['My Recipes', 'My Favorites', 'Followers', 'Following']
-    : ['Recipes', 'Followers'];
+    ? ['MY RECIPES', 'MY FAVORITES', 'FOLLOWERS', 'FOLLOWING']
+    : ['RECIPES', 'FOLLOWERS'];
 
   const renderItem = (item, index) => {
     if (activeTab === 0) {
