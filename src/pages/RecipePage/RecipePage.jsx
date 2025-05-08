@@ -6,6 +6,7 @@ import Container from '../../components/Container/Container';
 import Error from '../../components/Error/Error';
 import IngredientsList from '../../components/IngredientsList/IngredientsList';
 import Loader from '../../components/Loader/Loader';
+import RecipeImage from '../../components/RecipeImage/RecipeImage';
 import { fetchRecipeById } from '../../redux/recipes/operations';
 import { selectRecipeById } from '../../redux/recipes/selectors';
 import styles from './RecipePage.module.css';
@@ -39,9 +40,7 @@ const RecipePage = () => {
   return (
     <Container>
       <section className={styles.recipeSection}>
-        <div className={styles.imageWrapper}>
-          <img src={recipe.thumb} alt={recipe.title} className={styles.image} />
-        </div>
+        <RecipeImage src={recipe.thumb} alt={recipe.title}></RecipeImage>
 
         <div className={styles.recipeContent}>
           <section className={styles.recipeHeader}>
