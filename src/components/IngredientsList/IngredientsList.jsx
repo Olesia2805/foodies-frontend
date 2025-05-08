@@ -1,11 +1,12 @@
 import React from 'react';
 import styles from './IngredientsList.module.css';
 import clsx from 'clsx';
+import Icon from '../Icon/Icon';
 
-const IngredientsList = ({ ingredients, animation }) => {
+const IngredientsList = ({ ingredients, isPageAddRecipe, onDeleteClick }) => {
   const itemClassName = clsx(
     styles.ingredientListItem,
-    animation && styles.animation
+    isPageAddRecipe && styles.animation
   );
   return (
     <ul className={styles.ingredientList}>
@@ -17,6 +18,15 @@ const IngredientsList = ({ ingredients, animation }) => {
             <li className={styles.ingredientMeasure}>
               {ingredient.recipe_ingredient.measure}
             </li>
+            {onDeleteClick && (
+              <button
+                className={styles['icon-delete']}
+                type="button"
+                onClick={(event) => onDeleteClick(ingredient._id, event)}
+              >
+                <Icon name={'plus'} />
+              </button>
+            )}
           </ul>
         </li>
       ))}

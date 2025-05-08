@@ -6,6 +6,7 @@
 }
 
 .ingredientListItem {
+  position: relative;
   width: 152px;
   display: flex;
   flex-direction: row;
@@ -39,11 +40,30 @@
   }
 }
 
+.icon-delete {
+  transform: rotate(45deg);
+  background: none;
+  border: none;
+  outline: none;
+  transition-property: transform;
+  transition-duration: var(--transition-duration);
+  position: absolute;
+  right: -32px;
+  top: -16px;
+}
+
+.icon-delete:hover,
+.icon-delete:focus {
+  transform: rotate(45deg) scale(1.5);
+  outline: none;
+}
+
 .animation {
   animation-name: appearing;
   animation-duration: var(--transition-duration);
   animation-iteration-count: 1;
 }
+
 @keyframes appearing {
   0% {
     opacity: 0;

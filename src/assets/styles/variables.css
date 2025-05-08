@@ -4,9 +4,9 @@
   --dark-grey: #1a1a1a;
   --light-grey: rgba(255, 255, 255, 0.2);
   --black: #050505;
-  --color-error: tomato;
   --border: #e8e8e8;
   --error: #e53935;
+  --error-50: #e5373480;
 
   --font-primary: 'Mulish', sans-serif;
   --transition-duration: 250ms;

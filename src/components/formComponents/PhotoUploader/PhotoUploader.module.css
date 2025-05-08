@@ -8,6 +8,16 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
+  transition-property: box-shadow;
+  transition-duration: var(--transition-duration);
+}
+
+.error {
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='30' ry='30' stroke='%23e53935' stroke-width='2' stroke-dasharray='5%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+}
+
+.is-drag-active {
+  box-shadow: 0px 0px 35px 15px rgba(0, 0, 0, 0.5) inset;
 }
 
 @media screen and (min-width: 768px) {
@@ -19,6 +29,12 @@
     width: 64px;
     height: 64px;
   }
+}
+
+.icon-is-drag-active {
+  animation-name: tilt-shaking;
+  animation-iteration-count: infinite;
+  animation-duration: var(--transition-duration);
 }
 
 .photo-uploader:hover {
@@ -48,4 +64,25 @@
 
 .photo-uploader-image {
   margin-bottom: 16px;
+}
+
+@keyframes tilt-shaking {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  90% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }

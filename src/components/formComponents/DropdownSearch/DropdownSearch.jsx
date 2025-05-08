@@ -10,6 +10,7 @@ export default function DropdownSearch({
   value,
   options,
   placeholder = 'Select placeholder',
+  error,
   ...otherProps
 }) {
   return (
@@ -26,6 +27,13 @@ export default function DropdownSearch({
       // }}
       className="react-select-container"
       classNamePrefix="react-select"
+      classNames={{
+        control: (state) => {
+          return error
+            ? 'react-select__control react-select__control__error'
+            : 'react-select__control';
+        },
+      }}
       onChange={onChange}
       value={value}
       components={{

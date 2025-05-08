@@ -13,7 +13,6 @@
   resize: both;
   overflow: hidden;
   resize: none;
-  margin-bottom: 32px;
 }
 
 .title::placeholder {
@@ -24,6 +23,5 @@
   .title {
     font-size: 24px;
     line-height: 117%;
-    margin-bottom: 40px;
   }
 }

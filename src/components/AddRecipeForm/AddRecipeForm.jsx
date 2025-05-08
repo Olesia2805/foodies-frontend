@@ -1,25 +1,64 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import PhotoUploader from '../formComponents/PhotoUploader/PhotoUploader';
 import css from './AddRecipeForm.module.css';
 import { Controller, useForm } from 'react-hook-form';
 import InputTitle from '../formComponents/InputTitle/InputTitle';
 import InputTextCounter from '../formComponents/InputTextCounter/InputTextCounter';
-import Dropdown from '../Dropdown/Dropdown';
 import InputTimeCounter from '../formComponents/InputTimeCounter/InputTimeCounter';
 import Icon from '../Icon/Icon';
 import Button from '../Button/Button';
 import Fieldset from '../formComponents/Fieldset/Fieldset';
 import FormTitle from '../formComponents/FormTitle/FormTitle';
-import clsx from 'clsx';
-import ingredientsAPI from '../../api/ingredientsAPI';
 import InputIngredients from '../formComponents/InputIngredients/InputIngredients';
 import DropdownSearch from '../formComponents/DropdownSearch/DropdownSearch';
+import {
+  selectCategories,
+  selectCategoriesError,
+  selectCategoriesIsLoading,
+} from '../../redux/categories/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCategories } from '../../redux/categories/operations';
+import {
+  selectAreas,
+  selectAreasError,
+  selectAreasIsLoading,
+} from '../../redux/areas/selectors';
+import { fetchAreas } from '../../redux/areas/operations';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { recipeSchema } from './RecipeSchema';
+import ErrorWrapper from '../formComponents/ErrorWrapper/ErrorWrapper';
 
 const minInputLength = 4;
 const maxInputLenght = 200;
 
 export default function AddRecipeForm() {
-  const { register, handleSubmit, control, setValue } = useForm({
+  // Store Categories
+  const isCategoriesLoading = useSelector(selectCategoriesIsLoading);
+  const isCategoriesError = useSelector(selectCategoriesError);
+  const allCategories = useSelector(selectCategories);
+
+  // Areas
+  const isAreasLoading = useSelector(selectAreasIsLoading);
+  const isAreasError = useSelector(selectAreasError);
+  const allAreas = useSelector(selectAreas);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchAreas());
+  }, [dispatch]);
+
+  const {
+    register,
+    handleSubmit,
+    control,
+    setValue,
+    formState: { errors },
+  } = useForm({
     mode: 'onChange',
     defaultValues: {
       photo: '', // thumb
@@ -28,10 +67,10 @@ export default function AddRecipeForm() {
       category: '',
       time: 0,
       area: '', // ???
-      'ingredient-quantity': '',
+      ingredients: [],
       preparation: '', // instructions
     },
-    // resolver: yupResolver(SignUpSchema),
+    resolver: yupResolver(recipeSchema),
   });
 
   const onSubmit = (data) => {
@@ -39,78 +78,49 @@ export default function AddRecipeForm() {
     alert(JSON.stringify(data, null, 2));
   };
 
-  const categoryOptions = [
-    {
-      value: 'seafood',
-      label: 'Seafood',
-    },
-    {
-      value: 'lamb',
-      label: 'Lamb',
-    },
-    {
-      value: 'starter',
-      label: 'Starter',
-    },
-    {
-      value: 'chicken',
-      label: 'Chicken',
-    },
-    {
-      value: 'beef',
-      label: 'Beef',
-    },
-    {
-      value: 'dessert',
-      label: 'Dessert',
-    },
-    {
-      value: 'vegan',
-      label: 'Vegan',
-    },
-    {
-      value: 'pork',
-      label: 'Pork',
-    },
-    {
-      value: 'vegetarian',
-      label: 'Vegetarian',
-    },
-    {
-      value: 'miscellaneous',
-      label: 'Miscellaneous',
-    },
-    {
-      value: 'pasta',
-      label: 'Pasta',
-    },
-    {
-      value: 'breakfast',
-      label: 'Breakfast',
-    },
-    {
-      value: 'side',
-      label: 'Side',
-    },
-    {
-      value: 'goat',
-      label: 'Goat',
-    },
-    {
-      value: 'soup',
-      label: 'Soup',
-    },
-  ];
+  const createSelectOptions = function (item) {
+    return {
+      value: item._id,
+      label: item.name,
+    };
+  };
+
+  const areaOptions = useMemo(
+    () => allAreas.map(createSelectOptions),
+    [allAreas]
+  );
+
+  const categoryOptions = useMemo(
+    () => allCategories.map(createSelectOptions),
+    [allCategories]
+  );
 
   return (
     <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={css['column-1']}>
-        <PhotoUploader {...register('photo', { required: true })} />
+        <Controller
+          control={control}
+          name="photo"
+          rules={{
+            required: true,
+          }}
+          render={({
+            field: { onChange, value, name, ref },
+            fieldState: { invalid, isTouched, error, isDirty, onBlur },
+          }) => (
+            <ErrorWrapper errorMessage={error?.message} isShadow={false}>
+              <PhotoUploader onChange={onChange} error={error} />
+            </ErrorWrapper>
+          )}
+        />
       </div>
 
       <div className={css['column-2']}>
-        <Fieldset>
-          <InputTitle {...register('title', { required: true })} />
+        <Fieldset className={css['inputs-main-wrapper']}>
+          <ErrorWrapper errorMessage={errors?.title?.message}>
+            <InputTitle {...register('title', { required: true })} />
+          </ErrorWrapper>
+
           <Controller
             control={control}
             name="description"
@@ -123,19 +133,21 @@ export default function AddRecipeForm() {
               field: { onChange, value, name, ref },
               fieldState: { invalid, isTouched, error, isDirty, onBlur },
             }) => (
-              <InputTextCounter
-                name={name}
-                value={value}
-                onChange={onChange}
-                error={error}
-                invalid={invalid}
-                maxInputLenght={maxInputLenght}
-                placeholder="Enter a description of the dish"
-                isTouched={isTouched}
-                isDirty={isDirty}
-                onBlur={onBlur}
-                ref={ref}
-              />
+              <ErrorWrapper errorMessage={error?.message}>
+                <InputTextCounter
+                  name={name}
+                  value={value}
+                  onChange={onChange}
+                  error={error}
+                  invalid={invalid}
+                  maxInputLenght={maxInputLenght}
+                  placeholder="Enter a description of the dish"
+                  isTouched={isTouched}
+                  isDirty={isDirty}
+                  onBlur={onBlur}
+                  ref={ref}
+                />
+              </ErrorWrapper>
             )}
           />
         </Fieldset>
@@ -146,14 +158,18 @@ export default function AddRecipeForm() {
             <Controller
               control={control}
               name="category"
-              render={({ field: { value, name } }) => (
+              render={({ field: { value, name }, fieldState: { error } }) => (
                 <div className={css.dropdown}>
-                  <DropdownSearch
-                    onChange={(newValue) => setValue(name, newValue)}
-                    value={value}
-                    options={categoryOptions}
-                    placeholder="Select a category"
-                  />
+                  <ErrorWrapper errorMessage={error?.message} isShadow={false}>
+                    <DropdownSearch
+                      onChange={(newValue) => setValue(name, newValue)}
+                      value={value}
+                      options={categoryOptions}
+                      placeholder="Select a category"
+                      isDisabled={isCategoriesError && isCategoriesLoading}
+                      error={error}
+                    />
+                  </ErrorWrapper>
                 </div>
               )}
             />
@@ -168,7 +184,11 @@ export default function AddRecipeForm() {
                 field: { onChange, onBlur, value, name, ref },
                 fieldState: { invalid, isTouched, isDirty, error },
                 formState,
-              }) => <InputTimeCounter onChange={onChange} value={value} />}
+              }) => (
+                <ErrorWrapper errorMessage={error?.message}>
+                  <InputTimeCounter onChange={onChange} value={value} />
+                </ErrorWrapper>
+              )}
             />
           </Fieldset>
         </div>
@@ -179,21 +199,37 @@ export default function AddRecipeForm() {
             <Controller
               control={control}
               name="area"
-              render={({ field: { value, name } }) => (
+              render={({ field: { value, name }, fieldState: { error } }) => (
                 <div className={css.dropdown}>
-                  <DropdownSearch
-                    onChange={(newValue) => setValue(name, newValue)}
-                    value={value}
-                    options={categoryOptions}
-                    placeholder="Select an area"
-                  />
+                  <ErrorWrapper errorMessage={error?.message} isShadow={false}>
+                    <DropdownSearch
+                      onChange={(newValue) => setValue(name, newValue)}
+                      value={value}
+                      options={areaOptions}
+                      placeholder="Select an area"
+                      isDisabled={isAreasError && isAreasLoading}
+                      error={error}
+                    />
+                  </ErrorWrapper>
                 </div>
               )}
             />
           </Fieldset>
         </div>
 
-        <InputIngredients />
+        <Controller
+          control={control}
+          name="ingredients"
+          render={({
+            field: { onChange, onBlur, value, name, ref },
+            fieldState: { invalid, isTouched, isDirty, error },
+            formState,
+          }) => (
+            <ErrorWrapper errorMessage={errors?.ingredients?.message}>
+              <InputIngredients onChange={onChange} />
+            </ErrorWrapper>
+          )}
+        />
 
         <Fieldset>
           <FormTitle>Recipe Preparation</FormTitle>
@@ -209,20 +245,22 @@ export default function AddRecipeForm() {
               field: { onChange, value, name, ref },
               fieldState: { invalid, isTouched, error, isDirty, onBlur },
             }) => (
-              <InputTextCounter
-                name={name}
-                value={value}
-                onChange={onChange}
-                error={error}
-                invalid={invalid}
-                maxInputLenght={maxInputLenght}
-                placeholder="Enter recipe"
-                isTouched={isTouched}
-                isDirty={isDirty}
-                className={css['margin-preparation']}
-                onBlur={onBlur}
-                ref={ref}
-              />
+              <ErrorWrapper errorMessage={error?.message}>
+                <InputTextCounter
+                  name={name}
+                  value={value}
+                  onChange={onChange}
+                  error={error}
+                  invalid={invalid}
+                  maxInputLenght={maxInputLenght}
+                  placeholder="Enter recipe"
+                  isTouched={isTouched}
+                  isDirty={isDirty}
+                  className={css['margin-preparation']}
+                  onBlur={onBlur}
+                  ref={ref}
+                />
+              </ErrorWrapper>
             )}
           />
         </Fieldset>

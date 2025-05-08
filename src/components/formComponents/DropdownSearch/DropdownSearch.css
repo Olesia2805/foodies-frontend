@@ -36,6 +36,11 @@
   transition-duration: var(--transition-duration);
 }
 
+.react-select__control__error {
+  border: 1px solid var(--error);
+  box-shadow: 0px 0px 15px 5px var(--error-50);
+}
+
 .react-select__control--menu-is-open {
   border-color: #1a1a1a;
 }

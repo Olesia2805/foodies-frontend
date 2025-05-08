@@ -6,11 +6,12 @@ import Icon from '../../Icon/Icon';
 import { useDropzone } from 'react-dropzone';
 import clsx from 'clsx';
 
-export default function PhotoUploader({ onClick, ...otherProps }) {
+export default function PhotoUploader({ onChange, error, ...otherProps }) {
   const [image, setImage] = useState('');
 
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
+      onChange(file);
       const reader = new FileReader();
 
       reader.onabort = () => console.log('file reading was aborted');
@@ -48,15 +49,26 @@ export default function PhotoUploader({ onClick, ...otherProps }) {
   return (
     <>
       <div
-        className={css['photo-uploader']}
+        className={clsx(
+          css['photo-uploader'],
+          isDragActive && css['is-drag-active'],
+          error && css.error
+        )}
         {...getRootProps()}
         style={backgroundStyle}
       >
-        <input {...getInputProps()} accept="image/*" />
+        <input {...otherProps} {...getInputProps()} accept="image/*" />
 
         {image.length === 0 && (
           <>
-            <Icon name={'upload_photo'} size={50} className={css.icon} />
+            <Icon
+              name={'upload_photo'}
+              size={50}
+              className={clsx(
+                css.icon,
+                isDragActive && css['icon-is-drag-active']
+              )}
+            />
             {titleUpload}
           </>
         )}

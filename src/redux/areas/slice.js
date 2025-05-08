@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchIngredients } from './operations';
+import { fetchAreas } from './operations';
 
 const handlePending = (state) => {
   state.isLoading = true;
@@ -10,8 +10,8 @@ const handleRejected = (state, action) => {
   state.error = action.payload;
 };
 
-const ingredientsSlice = createSlice({
-  name: 'ingredients',
+const areasSlice = createSlice({
+  name: 'areas',
   initialState: {
     items: [],
     isLoading: false,
@@ -19,14 +19,14 @@ const ingredientsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchIngredients.pending, handlePending)
-      .addCase(fetchIngredients.fulfilled, (state, action) => {
+      .addCase(fetchAreas.pending, handlePending)
+      .addCase(fetchAreas.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
         state.items = action.payload;
       })
-      .addCase(fetchIngredients.rejected, handleRejected);
+      .addCase(fetchAreas.rejected, handleRejected);
   },
 });
 
-export default ingredientsSlice.reducer;
+export default areasSlice.reducer;

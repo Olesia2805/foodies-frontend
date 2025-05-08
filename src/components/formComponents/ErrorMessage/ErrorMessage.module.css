@@ -1,0 +1,25 @@
+.errorMessage {
+  margin: 0;
+  color: var(--error);
+  font-size: 1rem;
+  position: absolute;
+  /* max-height: 0px; */
+  height: auto;
+  transition-property: opacity, transform;
+  transition-duration: var(--transition-duration);
+  bottom: calc(-2rem);
+  width: 100%;
+  text-align: center;
+  transform: translateY(-100%);
+  opacity: 0;
+  white-space: nowrap;
+}
+.errorMessage:first-letter {
+  text-transform: uppercase;
+}
+
+.visiable {
+  opacity: 1;
+  /* max-height: 48px; */
+  transform: translateY(0%);
+}

@@ -1,0 +1,26 @@
+.error-wrapper {
+  position: relative;
+  box-shadow: 0px 0px 12px 5px transparent;
+}
+
+.visiable {
+  /* outline: var(--error) 1px solid; */
+}
+
+.error-wrapper::before {
+  content: '';
+  display: block;
+  width: calc(100% + 16px);
+  height: calc(100% + 12px);
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  background-color: var(--white);
+  z-index: -1;
+  transition-property: box-shadow;
+  transition-duration: var(--transition-duration);
+}
+
+.visiable::before {
+  box-shadow: 0px 0px 15px 5px var(--error-50);
+}

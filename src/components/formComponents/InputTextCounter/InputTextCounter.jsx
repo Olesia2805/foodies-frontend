@@ -3,6 +3,7 @@ import css from './InputTextCounter.module.css';
 import clsx from 'clsx';
 import TextareaAutosize from 'react-textarea-autosize';
 import { useController } from 'react-hook-form';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 export default function InputTextCounter({
   name = 'inputField',
@@ -22,13 +23,11 @@ export default function InputTextCounter({
   ...otherProps
 }) {
   const valueLength = value.length;
-
   const classNameCounter = clsx(
     maxInputLenght > 0 && css['counter-current'],
     invalid && css['counter-error']
   );
   const wrapperClassName = clsx(css['input-wrapper'], className);
-  console.log({ isTouched, isDirty, error, invalid });
   const inputProps = {
     name: name,
     value: value,
