@@ -5,7 +5,7 @@
   --light-grey: rgba(255, 255, 255, 0.2);
   --black: #050505;
   --border: #E8E8E8;
-  --error: red;
+  --error: #E53935;
 
   --font-primary: 'Mulish', sans-serif;
 }
