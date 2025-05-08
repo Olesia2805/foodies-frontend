@@ -9,7 +9,7 @@
 .layout {
   display: flex;
   gap: 20px;
-  margin-top: 20px; /* Added margin to create spacing between user panel and tabs section */
+  margin-top: 20px;
 }
 
 .leftColumn {
