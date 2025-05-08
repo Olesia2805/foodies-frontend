@@ -49,3 +49,18 @@
   cursor: pointer;
   z-index: 2;
 }
+
+.inputError {
+  border: 1px solid var(--error);
+}
+
+.errorMessage {
+  color: var(--error);
+  font-size: 12px;
+  display: block;
+  position: absolute;
+  top: -12px;
+  left: 15px;
+  background: var(--white);
+  padding: 3px 6px;
+}
