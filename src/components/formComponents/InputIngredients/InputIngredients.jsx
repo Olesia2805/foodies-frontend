@@ -142,6 +142,26 @@ export default function InputIngredients() {
     }
   };
 
+  // TODO: replace with reuseable element when ready
+  const AddedIngredients = useMemo(() => {
+    return () => (
+      <ul style={{ display: 'flex', gap: '16px' }}>
+        {ingredients.map(({ id, quantity }) => {
+          const ingredient = allIngredients.find((item) => item._id === id);
+          return (
+            <li key={id}>
+              <div style={{ width: '75px', height: '75px' }}>
+                <img src={ingredient.img} alt="" />
+              </div>
+              <p>{ingredient.name}</p>
+              <p>{quantity}</p>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  }, [allIngredients, ingredients]);
+
   return (
     <Fieldset className={css['fieldset-ingredients']}>
       <FormTitle>Add Ingredients</FormTitle>
@@ -168,11 +188,7 @@ export default function InputIngredients() {
         <Icon name="plus" />
       </Button>
 
-      <ul>
-        {ingredients.map((ingredient) => {
-          return <li key={ingredient.id}>{ingredient.quantity}</li>;
-        })}
-      </ul>
+      <AddedIngredients />
     </Fieldset>
   );
 }
