@@ -13,6 +13,7 @@ import {
   useUpdateUserAvatarMutation
 } from "../../redux/auth/profileServices";
 import { getAvatarURL } from "../../redux/auth/userSlicer";
+import Loader from '../Loader/Loader';
 
 export const UserInfo = () => {
   const dispatch = useDispatch();
@@ -96,7 +97,7 @@ export const UserInfo = () => {
   }, []);
   
   if (!isOwnProfile && isLoading) {
-    return <div className={styles.profile_card_wrapper}>Loading...</div>;
+    return <div className={styles.profile_card_wrapper}><Loader/></div>;
   }
   
   if (!userData) {
