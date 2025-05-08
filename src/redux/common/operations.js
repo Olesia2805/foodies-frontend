@@ -19,8 +19,6 @@ export const getIngredients = createAsyncThunk(
           name: item.name
         }));
       }
-
-      console.log('Unexpected ingredients API response structure:', response.data);
       return [];
     } catch (error) {
       return rejectWithValue(
@@ -47,8 +45,6 @@ export const getAreas = createAsyncThunk(
           name: item.name
         }));
       }
-
-      console.log('Unexpected areas API response structure:', response.data);
       return [];
     } catch (error) {
       return rejectWithValue(
@@ -81,7 +77,6 @@ export const getCategories = createAsyncThunk(
           description: item.description
         }));
       }
-
       return categoriesList;
     } catch (error) {
       return rejectWithValue(
