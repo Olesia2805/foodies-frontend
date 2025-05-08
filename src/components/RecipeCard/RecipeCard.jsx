@@ -27,9 +27,15 @@ const RecipeCard = ({ recipe, size = 'regular' }) => {
         [styles.largeCard]: size === 'large',
       })}
     >
-      <img src={thumb} alt="meal" className={styles.cardImg} />
-      <h2 className={styles.cardTitle}>{title}</h2>
-      <p className={styles.cardDescription}>{description}</p>
+      <Link
+        aria-label="Go to details"
+        to={`${ROUTER.RECIPE}/${_id}`}
+        target="_blank"
+      >
+        <img src={thumb} alt="meal" className={styles.cardImg} />
+        <h2 className={styles.cardTitle}>{title}</h2>
+        <p className={styles.cardDescription}>{description}</p>
+      </Link>
       <div className={styles.cardFooter}>
         {isAuthenticated ? (
           <Link
