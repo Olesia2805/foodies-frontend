@@ -1,5 +1,6 @@
 .imageWrapper {
   width: 100%;
+  flex-shrink: 0;
 }
 
 .image {
@@ -12,5 +13,11 @@
 @media screen and (min-width: 768px) {
   .image {
     height: 400px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .imageWrapper {
+    width: 551px;
   }
 }
