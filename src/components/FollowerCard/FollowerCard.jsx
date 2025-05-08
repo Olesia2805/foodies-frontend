@@ -13,7 +13,7 @@ const FollowerCard = ({ follower }) => {
       <img src={follower.avatar} alt={follower.name} className={styles.avatar} />
       <div className={styles.info}>
         <h3 className={styles.name}>{follower.name?.toUpperCase()}</h3>
-        <p className={styles.recipesCount}>Recipes: {follower.recipes?.length || 0}</p>
+        <p className={styles.recipesCount}>Own recipes: {follower.recipes?.length || 0}</p>
         <button className={styles.followButton}>FOLLOW</button>
       </div>
       <div className={styles.recipesPreview}>

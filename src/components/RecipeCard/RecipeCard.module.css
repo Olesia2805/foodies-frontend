@@ -62,3 +62,61 @@
   .recipeButtonIcon {
     font-size: 20px; /* Adjust icon size */
   }
+
+  @media (min-width: 320px) {
+    .recipeCard {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+  
+    .recipeImage {
+      width: 100%;
+      height: auto;
+    }
+  
+    .recipeButton {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+  
+  @media (min-width: 375px) {
+    .recipeCard {
+      gap: 12px;
+    }
+  
+    .recipeImage {
+      width: 100%;
+      height: auto;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .recipeCard {
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+    }
+  
+    .recipeImage {
+      width: 150px;
+      height: 150px;
+    }
+  
+    .recipeButton {
+      width: 50px;
+      margin-left: auto;
+    }
+  }
+  
+  @media (min-width: 1440px) {
+    .recipeCard {
+      gap: 24px;
+    }
+  
+    .recipeImage {
+      width: 100px;
+      height: 100px;
+    }
+  }
