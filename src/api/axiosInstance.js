@@ -2,8 +2,10 @@ import axios from 'axios';
 import { store } from '../redux/store';
 import { refreshTokenOps, logOutUserOps } from '../redux/auth/index.js';
 
+const { VITE_API_URL } = import.meta.env;
+
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: VITE_API_URL,
 });
 
 axiosInstance.interceptors.request.use((config) => {
@@ -31,7 +33,6 @@ axiosInstance.interceptors.response.use(
         const response = await store
           .dispatch(refreshTokenOps(refreshToken))
           .unwrap();
-        console.log(response, response);
         originalRequest.headers.Authorization = `Bearer ${response.token}`;
         return axiosInstance(originalRequest);
       } catch {
