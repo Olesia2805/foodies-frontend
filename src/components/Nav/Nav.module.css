@@ -49,7 +49,7 @@
 }
 
 .homePageLink.activeLink {
-  border-color: var(--grey);
+  border-color: var(--black);
   &:hover,
   &:focus {
     background: var(--black);
