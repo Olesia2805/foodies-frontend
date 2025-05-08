@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import Container from '../../components/Container/Container';
 import Error from '../../components/Error/Error';
+import IngredientsList from '../../components/IngredientsList/IngredientsList';
 import Loader from '../../components/Loader/Loader';
 import { fetchRecipeById } from '../../redux/recipes/operations';
 import { selectRecipeById } from '../../redux/recipes/selectors';
@@ -67,22 +68,7 @@ const RecipePage = () => {
           {/* Ingredients */}
           <section className={styles.ingredients}>
             <h2>Ingredients</h2>
-            <ul className={styles.ingredientList}>
-              {recipe.ingredients.map((ingredient, index) => (
-                <li key={index} className={styles.ingredientListItem}>
-                  <img src={ingredient.img} alt={ingredient.name} />
-
-                  <ul>
-                    <li className={styles.ingredientName}>
-                      {ingredient.name}{' '}
-                    </li>
-                    <li className={styles.ingredientMeasure}>
-                      {ingredient.recipe_ingredient.measure}
-                    </li>
-                  </ul>
-                </li>
-              ))}
-            </ul>
+            <IngredientsList ingredients={recipe.ingredients} />
           </section>
 
           {/* Preparation */}
