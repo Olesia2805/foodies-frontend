@@ -73,7 +73,7 @@ const RecipePage = () => {
           {/* Preparation */}
           <section className={styles.preparation}>
             <h2>Recipe Preparation</h2>
-            <p>{recipe.instructions}</p>
+            <p className={styles.instructions}>{recipe.instructions}</p>
           </section>
 
           {/* TODO: Add to favorites */}
