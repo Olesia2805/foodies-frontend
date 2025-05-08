@@ -1,10 +1,17 @@
 .button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: white;
+  width: 100%; /* Adjusted to span the full width of the user section */
+  height: 56px;
+  background-color: #1A1A1A;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 16px;
+  font-weight: bold;
+  border: none;
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -16,4 +23,19 @@
 .button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
+}
+
+.follow-button {
+  padding: 10px 20px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 16px;
+}
+
+.follow-button:hover {
+  background-color: #333;
 }

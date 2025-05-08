@@ -1,0 +1,64 @@
+
+.recipeCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Ensure content is spaced out */
+    gap: 16px;
+    padding: 16px;
+    border: none; /* Removed border */
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.5); /* Transparent background */
+    box-shadow: none; /* Removed shadow */
+  }
+  
+  .recipeImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 25%; /* Fully rounded corners */
+    object-fit: cover;
+  }
+  
+  .recipeContent {
+    display: flex;
+    flex-direction: column; /* Ensure title and description are stacked vertically */
+    justify-content: flex-start;
+    gap: 4px; /* Maintain spacing between title and description */
+  }
+  
+  .recipeTitle {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .recipeDescription {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+  }
+  
+  .recipeButton {
+    margin-left: auto; /* Push the button to the right side */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Circular buttons */
+    border: 1px solid #ccc; /* Gray border */
+    background-color: white;
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  .recipeButton:hover {
+    background-color: #f0f0f0;
+    border-color: #999;
+  }
+  
+  .recipeButtonIcon {
+    font-size: 20px; /* Adjust icon size */
+  }

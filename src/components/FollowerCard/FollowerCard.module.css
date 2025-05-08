@@ -1,0 +1,92 @@
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensure content is spaced out */
+  gap: 16px;
+  padding: 16px;
+  border: none; /* Removed border */
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.5); /* Transparent background */
+  box-shadow: none; /* Removed shadow */
+}
+
+.info {
+  flex: 1;
+}
+
+.recipesCount {
+  font-size: 14px;
+  color: #666;
+  margin: 4px 0;
+}
+
+.followButton {
+  padding: 8px 16px;
+  color: rgb(0, 0, 0);
+  border-radius: 16px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.followButton:hover {
+  background-color: #f0f0f0;
+  border-color: #999;
+}
+
+.recipesPreview {
+  display: flex;
+  gap: 8px;
+}
+
+.recipeImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%; /* Fully rounded corners */
+  object-fit: cover;
+}
+
+.name {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.profileButton {
+  margin-left: auto; /* Push the button to the right side */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Circular buttons */
+  border: 1px solid #ccc; /* Gray border */
+  background-color: white;
+  color: #333;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.profileButton:hover {
+  background-color: #f0f0f0;
+  border-color: #999;
+}
+
+.profileButtonIcon {
+  font-size: 20px; /* Adjust icon size */
+}
+
+.divider {
+  height: 2px;
+  background-color: red; /* Temporary color for debugging */
+  width: 100%;
+  margin: 16px 0;
+}
