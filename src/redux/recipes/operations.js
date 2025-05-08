@@ -21,8 +21,6 @@ export const fetchRecipes = createAsyncThunk(
         url += `&ingredientId=${ingredientId}`;
       }
 
-      console.log('Requesting URL:', url);
-
       const response = await axiosInstance.get(url);
 
       const formattedData = {
@@ -37,7 +35,6 @@ export const fetchRecipes = createAsyncThunk(
 
       return formattedData;
     } catch (error) {
-      console.error('Error fetching recipes:', error);
       if (error.response?.status === 404) {
         return rejectWithValue('Recipes not found');
       }
@@ -104,11 +101,7 @@ export const fetchOwnerRecipes = createAsyncThunk(
     try {
       const { page = 1 } = params || {};
 
-      console.log('Fetching owner recipes with page:', page);
-
       const response = await axiosInstance.get(`/recipes/own?page=${page}&limit=9`);
-
-      console.log('Owner recipes API response:', response.data);
 
       const formattedData = {
         recipes: response.data.data || [],
@@ -160,7 +153,6 @@ export const addToFavorites = createAsyncThunk(
       const response = await axiosInstance.post('/recipes/favorites', { id: recipeId });
       return { recipeId, ...response.data };
     } catch (error) {
-      console.error('Error adding to favorites:', error);
       return rejectWithValue(
         error.response?.data?.message || 'Failed to add to favorites'
       );
@@ -178,7 +170,6 @@ export const removeFromFavorites = createAsyncThunk(
 
       return { recipeId };
     } catch (error) {
-      console.error('Error removing from favorites:', error);
       return rejectWithValue(
         error.response?.data?.message || 'Failed to remove from favorites'
       );
