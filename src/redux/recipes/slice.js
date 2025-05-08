@@ -4,6 +4,7 @@ import {
   deleteRecipe,
   fetchRecipeById,
   fetchRecipes,
+  getPopularRecipesOps,
   updateRecipe,
 } from './operations';
 
@@ -12,6 +13,10 @@ const initialState = {
   item: null,
   isLoading: false,
   error: null,
+
+  popularRecipes: [],
+  isPopularRecipesLoading: false,
+  popularRecipesError: null,
 };
 
 const recipesSlice = createSlice({
@@ -89,6 +94,18 @@ const recipesSlice = createSlice({
       .addCase(deleteRecipe.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+
+      .addCase(getPopularRecipesOps.pending, (state) => {
+        state.isPopularRecipesLoading = true;
+      })
+      .addCase(getPopularRecipesOps.fulfilled, (state, { payload }) => {
+        state.isPopularRecipesLoading = false;
+        state.popularRecipes = payload;
+      })
+      .addCase(getPopularRecipesOps.rejected, (state, { payload }) => {
+        state.isPopularRecipesLoading = false;
+        state.popularRecipesError = payload;
       });
   },
 });

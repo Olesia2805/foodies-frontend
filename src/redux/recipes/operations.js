@@ -1,4 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
+
 import axiosInstance from '../../api/axiosInstance';
 
 // TODO: перевірити
@@ -61,6 +63,20 @@ export const deleteRecipe = createAsyncThunk(
       await axiosInstance.delete(`/recipes/${recipeId}`);
       return recipeId;
     } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getPopularRecipesOps = createAsyncThunk(
+  'recipes/getPopularRecipesOps',
+  async (_, thunkAPI) => {
+    try {
+      const response = await axiosInstance.get('/recipes/popular');
+
+      return response.data;
+    } catch (error) {
+      toast.error(error.message);
       return thunkAPI.rejectWithValue(error.message);
     }
   }

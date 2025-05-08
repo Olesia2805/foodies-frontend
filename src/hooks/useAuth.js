@@ -29,6 +29,9 @@ const useAuth = () => {
   };
 
   const getUser = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
     return await dispatch(getMeOps()).unwrap();
   };
 

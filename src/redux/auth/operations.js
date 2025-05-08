@@ -24,6 +24,9 @@ export const signInUserOps = createAsyncThunk(
     try {
       const response = await axiosInstance.post('/auth/login', credentials);
 
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('refreshToken', response.data.refreshToken);
+
       return response.data;
     } catch (err) {
       if (err.response?.data?.message === ERROR_MESSAGES.EMAIL_NOT_VERIFIED) {
@@ -46,6 +49,9 @@ export const logOutUserOps = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.post('/auth/logout');
+
+      localStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
 
       return response.data;
     } catch (err) {
@@ -75,10 +81,14 @@ export const refreshTokenOps = createAsyncThunk(
   'auth/refresh',
   async (refreshToken, { getState, rejectWithValue }) => {
     try {
-      const res = await axiosInstance.post('/auth/refresh-token', {
+      const response = await axiosInstance.post('/auth/refresh-token', {
         refreshToken,
       });
-      return res.data;
+
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('refreshToken', response.data.refreshToken);
+
+      return response.data;
     } catch (err) {
       return rejectWithValue(
         err.response?.data || ERROR_MESSAGES.SESSION_EXPIRED
@@ -91,9 +101,9 @@ export const verifyUserWithTokenOps = createAsyncThunk(
   'auth/verifyUserWithTokenOps',
   async (token, { rejectWithValue }) => {
     try {
-      const res = await axiosInstance.get(`/auth/verify/${token}`);
+      const response = await axiosInstance.get(`/auth/verify/${token}`);
 
-      return res.data;
+      return response.data;
     } catch (err) {
       return rejectWithValue(
         err.response?.data || ERROR_MESSAGES.INCORRECT_USER_VERIFICATION_TOKEN
