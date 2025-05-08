@@ -107,8 +107,8 @@ const HomePage = () => {
             setIsSignInModalOpen(false);
           }}
         />
+        <Testimonials />
       </Container>
-      <Testimonials />
     </>
   );
 };

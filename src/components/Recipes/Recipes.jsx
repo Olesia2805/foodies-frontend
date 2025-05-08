@@ -79,7 +79,7 @@ const Recipes = ({ onUserAvatarClick, onRecipeDetailsClick, onBackClick }) => {
     : defaultSubtitle;
 
   return (
-    <div className={css.recipesMainContainer}>
+    <section className={css.recipesMainContainer}>
       <div className={css.recipesTitleContainer}>
         <button className={css.backContainer} aria-label="Back Home" onClick={handleClick}>
           <Icon name="arrow-left" className={css.backIconContainer} />
@@ -98,7 +98,7 @@ const Recipes = ({ onUserAvatarClick, onRecipeDetailsClick, onBackClick }) => {
           <RecipePagination />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
