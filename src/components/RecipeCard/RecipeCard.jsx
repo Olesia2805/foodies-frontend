@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useMemo, useState } from 'react';
 import css from './RecipeCard.module.css';
 import Icon from '../Icon/Icon';
-import { selectFavoriteRecipesId } from '../../redux/authUser/index.js';
+import { selectFavoriteRecipesId } from '../../redux/auth/index.js';
 import { addToFavorites, removeFromFavorites } from '../../redux/recipes/index.js';
 import { selectIsAuthenticated } from '../../redux/auth/index.js';
 import clsx from 'clsx';
