@@ -1,7 +1,9 @@
-import withAuthGuard from '../../hoc/withAuthGuard.jsx';
+import withAuthGuard from '../../hoc/withAuthGuard';
+import UserProfile from '../../components/UserProfile/UserInfo';
 
 const UserPage = () => {
-  return <div>UserPage</div>;
+
+  return <UserProfile/>;
 };
 
 export default withAuthGuard(UserPage);
