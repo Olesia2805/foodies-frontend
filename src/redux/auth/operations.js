@@ -1,5 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosInstance from '../../api/axiosInstance.js';
+import toast from 'react-hot-toast';
+import { ERROR_MESSAGES } from '../../constants/messages.js';
 
 export const signUpUserOps = createAsyncThunk(
   'auth/signUpUserOps',
@@ -10,7 +12,7 @@ export const signUpUserOps = createAsyncThunk(
       return response.data;
     } catch (err) {
       return rejectWithValue(
-        err.response?.data?.message || 'Registration failed'
+        err.response?.data?.message || ERROR_MESSAGES.REGISTRATION_FAILED
       );
     }
   }
@@ -24,7 +26,17 @@ export const signInUserOps = createAsyncThunk(
 
       return response.data;
     } catch (err) {
-      return rejectWithValue(err.response?.data?.message || 'Login failed');
+      if (err.response?.data?.message === ERROR_MESSAGES.EMAIL_NOT_VERIFIED) {
+        await axiosInstance.post(`/auth/verify/`, {
+          email: credentials.email,
+        });
+
+        return rejectWithValue(ERROR_MESSAGES.EMAIL_NOT_VERIFIED_CHECK_EMAIL);
+      }
+
+      return rejectWithValue(
+        err.response?.data?.message || ERROR_MESSAGES.LOGIN_FAILED
+      );
     }
   }
 );
@@ -37,7 +49,9 @@ export const logOutUserOps = createAsyncThunk(
 
       return response.data;
     } catch (err) {
-      return rejectWithValue(err.response?.data?.message || 'Logout failed');
+      return rejectWithValue(
+        err.response?.data?.message || ERROR_MESSAGES.LOGOUT_FAILED
+      );
     }
   }
 );
@@ -50,7 +64,9 @@ export const getMeOps = createAsyncThunk(
 
       return response.data;
     } catch (err) {
-      return rejectWithValue(err.response?.data?.message || 'Logout failed');
+      return rejectWithValue(
+        err.response?.data?.message || ERROR_MESSAGES.CANT_GET_USER
+      );
     }
   }
 );
@@ -59,13 +75,29 @@ export const refreshTokenOps = createAsyncThunk(
   'auth/refresh',
   async (refreshToken, { getState, rejectWithValue }) => {
     try {
-      console.log('refreshToken', refreshToken);
       const res = await axiosInstance.post('/auth/refresh-token', {
         refreshToken,
       });
       return res.data;
     } catch (err) {
-      return rejectWithValue(err.response?.data || 'Session expired');
+      return rejectWithValue(
+        err.response?.data || ERROR_MESSAGES.SESSION_EXPIRED
+      );
+    }
+  }
+);
+
+export const verifyUserWithTokenOps = createAsyncThunk(
+  'auth/verifyUserWithTokenOps',
+  async (token, { rejectWithValue }) => {
+    try {
+      const res = await axiosInstance.get(`/auth/verify/${token}`);
+
+      return res.data;
+    } catch (err) {
+      return rejectWithValue(
+        err.response?.data || ERROR_MESSAGES.INCORRECT_USER_VERIFICATION_TOKEN
+      );
     }
   }
 );

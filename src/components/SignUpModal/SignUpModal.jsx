@@ -1,22 +1,22 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import toast from 'react-hot-toast';
 import * as yup from 'yup';
 
 import Modal from '../Modal/Modal.jsx';
 import ModalHeader from '../ModalHeader/ModalHeader.jsx';
 import Button from '../Button/Button.jsx';
 import Icon from '../Icon/Icon.jsx';
-
-import { emailRegexp } from '../../constants/regex.js';
-import { ERROR_MESSAGES } from '../../constants/validationMessages.js';
-
-import { useAuth } from '../../hooks';
 import Input from '../Input/Input.jsx';
 import FormInputs from '../FormInputs/FormInputs.jsx';
-import modalStyles from '../Modal/Modal.module.css';
 import ModalActions from '../ModalActions/ModalActions.jsx';
 import ModalSwitchMessage from '../ModalSwitchMessage/ModalSwitchMessage.jsx';
+
+import { emailRegexp } from '../../constants/regex.js';
+import { ERROR_MESSAGES } from '../../constants/messages.js';
+
+import { useAuth } from '../../hooks';
 
 const SignUpSchema = yup.object({
   name: yup.string().required(ERROR_MESSAGES.NAME_IS_REQUIRED),
@@ -31,13 +31,14 @@ const SignUpSchema = yup.object({
 
 const SignUpModal = ({ isOpen, onClose, setOtherModal }) => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const { signUp } = useAuth();
+  const { signUp, isLoading } = useAuth();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm({
     defaultValues: {
       name: '',
@@ -48,9 +49,17 @@ const SignUpModal = ({ isOpen, onClose, setOtherModal }) => {
   });
 
   const onSubmit = async (values) => {
-    await signUp(values);
-    onClose();
+    try {
+      await signUp(values);
+      setOtherModal('verify');
+    } catch (error) {
+      toast.error(error);
+    }
   };
+
+  const fields = watch(['name', 'email', 'password']);
+
+  const isDisabled = isLoading || fields.some((value) => !value);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -58,10 +67,19 @@ const SignUpModal = ({ isOpen, onClose, setOtherModal }) => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormInputs>
-          <Input {...register('name')} placeholder="Name" required />
+          <Input
+            {...register('name')}
+            placeholder="Name"
+            required
+            error={errors.name?.message}
+          />
 
-          <Input {...register('email')} placeholder="Email" required />
-
+          <Input
+            {...register('email')}
+            placeholder="Email"
+            required
+            error={errors.email?.message}
+          />
           <Input
             {...register('password')}
             type={isPasswordVisible ? 'text' : 'Password'}
@@ -71,11 +89,17 @@ const SignUpModal = ({ isOpen, onClose, setOtherModal }) => {
               <Icon name={isPasswordVisible ? 'eye' : 'closed-eye'} size={24} />
             }
             onIconClick={() => setIsPasswordVisible((prevState) => !prevState)}
+            error={errors.password?.message}
           />
         </FormInputs>
 
         <ModalActions>
-          <Button type="submit" fullWidth>
+          <Button
+            fullWidth
+            type="submit"
+            loading={isLoading}
+            disabled={isDisabled}
+          >
             Create
           </Button>
 
@@ -83,7 +107,7 @@ const SignUpModal = ({ isOpen, onClose, setOtherModal }) => {
             message="I already have an account?"
             buttonText="Sign in"
             onClick={() => {
-              setOtherModal();
+              setOtherModal('signIn');
               reset();
             }}
           />
