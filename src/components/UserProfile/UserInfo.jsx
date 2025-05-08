@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import IconButton from "../Button/iconButton/IconButton";
+import IconButton from "../Button/IconButton/IconButton";
 import styles from "./UserInfo.module.css";
 import { nanoid } from "@reduxjs/toolkit";
 import withoutAvatar from "../../assets/img/user_without_avatar.jpg";
