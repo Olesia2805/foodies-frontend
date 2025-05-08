@@ -9,7 +9,6 @@ import {
   selectIsAuthLoading,
   verifyUserWithTokenOps,
 } from '../redux/auth';
-import { fetchFavoriteRecipes } from '../redux/recipes/operations';
 
 const useAuth = () => {
   const dispatch = useDispatch();
