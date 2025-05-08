@@ -51,17 +51,13 @@
 }
 
 .react-select__indicators {
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
+  position: static;
   pointer-events: none;
-  z-index: 2;
   border: none;
 }
 
 .react-select__indicators {
-  transform: translateY(-50%) rotate(0deg);
+  transform: rotate(0deg);
   transition: transform 0.3s ease;
 }
 
@@ -70,12 +66,13 @@
 }
 
 .react-select__control--menu-is-open .react-select__indicators {
-  transform: translateY(-50%) rotate(180deg);
+  transform: rotate(180deg);
   transition: transform 0.3s ease;
 }
 
 .react-select__menu {
   top: calc(100% + 8px);
+  z-index: 1200000;
 }
 
 .react-select__menu-list {

@@ -1,4 +1,10 @@
-.form {
+@media screen and (min-width: 1440px) {
+  .form {
+    margin: 0 auto;
+    width: 1280px;
+    display: flex;
+    gap: 80px;
+  }
 }
 
 .column-1 {
@@ -8,6 +14,13 @@
 @media screen and (min-width: 768px) {
   .column-1 {
     margin-bottom: 80px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .column-1 {
+    width: 551px;
+    flex: 1 1 0;
   }
 }
 

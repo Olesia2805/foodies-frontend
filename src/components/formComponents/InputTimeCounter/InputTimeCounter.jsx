@@ -8,8 +8,8 @@ export default function InputTimeCounter({ value, onChange }) {
     onChange(newValue > 0 ? newValue : 0);
   };
 
-  const increase = () => updateValue(-5);
-  const decrease = () => updateValue(5);
+  const decrease = () => updateValue(-5);
+  const increase = () => updateValue(5);
 
   let time = '';
   if (value > 0) {
@@ -27,11 +27,11 @@ export default function InputTimeCounter({ value, onChange }) {
 
   return (
     <div className={css.wrapper}>
-      <button type="button" onClick={increase} className={css.button}>
+      <button type="button" onClick={decrease} className={css.button}>
         <Icon name="minus" size={16} />
       </button>
       <p className={css.value}>{time.trim()}</p>
-      <button type="button" onClick={decrease} className={css.button}>
+      <button type="button" onClick={increase} className={css.button}>
         <Icon name="plus" size={16} />
       </button>
     </div>

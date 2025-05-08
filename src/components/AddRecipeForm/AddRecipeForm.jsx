@@ -13,7 +13,9 @@ import FormTitle from '../formComponents/FormTitle/FormTitle';
 import clsx from 'clsx';
 import ingredientsAPI from '../../api/ingredientsAPI';
 import InputIngredients from '../formComponents/InputIngredients/InputIngredients';
+import DropdownSearch from '../formComponents/DropdownSearch/DropdownSearch';
 
+const minInputLength = 4;
 const maxInputLenght = 200;
 
 export default function AddRecipeForm() {
@@ -112,18 +114,27 @@ export default function AddRecipeForm() {
           <Controller
             control={control}
             name="description"
-            rules={{ required: true, maxLength: maxInputLenght }}
+            rules={{
+              required: true,
+              maxLength: maxInputLenght,
+              minLength: minInputLength,
+            }}
             render={({
-              field: { onChange, value, name },
-              fieldState: { invalid, error },
+              field: { onChange, value, name, ref },
+              fieldState: { invalid, isTouched, error, isDirty, onBlur },
             }) => (
               <InputTextCounter
                 name={name}
                 value={value}
                 onChange={onChange}
                 error={error}
+                invalid={invalid}
                 maxInputLenght={maxInputLenght}
                 placeholder="Enter a description of the dish"
+                isTouched={isTouched}
+                isDirty={isDirty}
+                onBlur={onBlur}
+                ref={ref}
               />
             )}
           />
@@ -136,13 +147,14 @@ export default function AddRecipeForm() {
               control={control}
               name="category"
               render={({ field: { value, name } }) => (
-                <Dropdown
-                  onChange={(newValue) => setValue(name, newValue)}
-                  value={value}
-                  className={css.dropdown}
-                  placeholder="Select a category"
-                  options={categoryOptions}
-                />
+                <div className={css.dropdown}>
+                  <DropdownSearch
+                    onChange={(newValue) => setValue(name, newValue)}
+                    value={value}
+                    options={categoryOptions}
+                    placeholder="Select a category"
+                  />
+                </div>
               )}
             />
           </Fieldset>
@@ -161,56 +173,55 @@ export default function AddRecipeForm() {
           </Fieldset>
         </div>
 
-        <InputIngredients />
-        {/* <Fieldset className={css['fieldset-ingredients']}>
-          <FormTitle>Add Ingredients</FormTitle>
-          <div className={css['media-wrapper-row-ingredient']}>
-            <Dropdown
-              options={categoryOptions}
-              className={clsx(
-                css['ingredients-margin-bottom-dropdown'],
-                css.dropdown
+        <div className={css['media-wrapper-row']}>
+          <Fieldset>
+            <FormTitle>Area</FormTitle>
+            <Controller
+              control={control}
+              name="area"
+              render={({ field: { value, name } }) => (
+                <div className={css.dropdown}>
+                  <DropdownSearch
+                    onChange={(newValue) => setValue(name, newValue)}
+                    value={value}
+                    options={categoryOptions}
+                    placeholder="Select an area"
+                  />
+                </div>
               )}
             />
-            <InputTextCounter
-              name="ingredient-quantity"
-              control={control}
-              isCounter={false}
-              isOneRow={true}
-              className={css['ingredients-margin-bottom-input']}
-              placeholder="Enter quantity"
-            />
-          </div>
-          <Button variant="outline">
-            Add ingredient
-            <Icon name="plus" />
-          </Button>
+          </Fieldset>
+        </div>
 
-          <ul>
-            {ingredients.map((ingredient) => {
-              return <li key={ingredient.id}>{ingredient.name}</li>;
-            })}
-          </ul>
-        </Fieldset> */}
+        <InputIngredients />
 
         <Fieldset>
           <FormTitle>Recipe Preparation</FormTitle>
           <Controller
             control={control}
             name="preparation"
-            rules={{ required: true, maxLength: maxInputLenght }}
+            rules={{
+              required: true,
+              maxLength: maxInputLenght,
+              minLength: minInputLength,
+            }}
             render={({
-              field: { onChange, value, name },
-              fieldState: { invalid, error },
+              field: { onChange, value, name, ref },
+              fieldState: { invalid, isTouched, error, isDirty, onBlur },
             }) => (
               <InputTextCounter
                 name={name}
                 value={value}
                 onChange={onChange}
                 error={error}
+                invalid={invalid}
                 maxInputLenght={maxInputLenght}
                 placeholder="Enter recipe"
+                isTouched={isTouched}
+                isDirty={isDirty}
                 className={css['margin-preparation']}
+                onBlur={onBlur}
+                ref={ref}
               />
             )}
           />

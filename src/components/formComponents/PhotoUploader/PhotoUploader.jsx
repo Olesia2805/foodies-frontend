@@ -62,26 +62,10 @@ export default function PhotoUploader({ onClick, ...otherProps }) {
         )}
       </div>
       {image.length > 0 && (
-        <button className={css['btn-img-upload']}>Upload another photo</button>
+        <button className={css['btn-img-upload']} onClick={open}>
+          Upload another photo
+        </button>
       )}
     </>
   );
-
-  // if (!image)
-  //   return (
-  //     <div className={css['photo-uploader']} onClick={onClick}>
-  //       <Icon name={'upload_photo'} size={50} className={css.icon} />
-  //       <button className={css['btn-img-upload']}>Upload a photo</button>
-  //     </div>
-  //   );
-
-  // return (
-  //   <>
-  //     <div className={'photo-uploader-image'} onClick={onClick}>
-  //       <img src={image} alt="Recipe Photo" />
-  //     </div>
-
-  //     <button className={css['btn-img-upload']}>Upload another photo</button>
-  //   </>
-  // );
 }

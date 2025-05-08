@@ -1,15 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import InputTextCounter from '../InputTextCounter/InputTextCounter';
-import Dropdown from '../../Dropdown/Dropdown';
 import Button from '../../Button/Button';
 import css from './InputIngredients.module.css';
 import Fieldset from '../Fieldset/Fieldset';
 import FormTitle from '../FormTitle/FormTitle';
-import clsx from 'clsx';
 import Icon from '../../Icon/Icon';
 import ingredientsAPI from '../../../api/ingredientsAPI';
-import Select from 'react-select';
-import './Select.css';
+import DropdownSearch from '../DropdownSearch/DropdownSearch';
 
 export default function InputIngredients() {
   const [currentIngredient, setCurrentIngredient] = useState(null); // option
@@ -140,15 +137,6 @@ export default function InputIngredients() {
     if (currentIngredient && quantity.length > 1) {
       setIngredients((prevState) => {
         return [...prevState, { id: currentIngredient.value, quantity }];
-
-        const prevIngredient = prevState.find(
-          (item) => item.id === currentIngredient.value
-        );
-        if (prevIngredient) {
-          prevIngredient.quantity = quantity;
-          return [...prevState];
-        }
-        return [...prevState, { id: currentIngredient.value, quantity }];
       });
       setCurrentIngredient(null);
     }
@@ -158,21 +146,11 @@ export default function InputIngredients() {
     <Fieldset className={css['fieldset-ingredients']}>
       <FormTitle>Add Ingredients</FormTitle>
       <div className={css['media-wrapper-row-ingredient']}>
-        <Select
-          // isOptionDisabled={(option) => allIngredients.includes(item => item)}
-          placeholder="Add the ingredient"
-          unstyled
-          options={dropdownOptions}
-          isOptionDisabled={(option) => option.disabled}
-          // classNames={{
-          //   control: (state) =>
-          //     (state.isFocused || state.isHovered) &&
-          //     'react-select__control--menu-is-open',
-          // }}
-          className="react-select-container"
-          classNamePrefix="react-select"
+        <DropdownSearch
           onChange={onSelectChange}
           value={currentIngredient}
+          options={dropdownOptions}
+          placeholder="Select placeholder"
         />
 
         <InputTextCounter

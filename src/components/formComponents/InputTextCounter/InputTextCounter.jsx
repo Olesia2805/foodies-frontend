@@ -10,9 +10,14 @@ export default function InputTextCounter({
   placeholder = 'text',
   isCounter = true,
   isOneRow = false,
+  isTouched,
+  isDirty,
   className,
   error,
+  invalid,
+  onBlur,
   value,
+  ref,
   maxInputLenght = 200,
   ...otherProps
 }) {
@@ -20,10 +25,10 @@ export default function InputTextCounter({
 
   const classNameCounter = clsx(
     maxInputLenght > 0 && css['counter-current'],
-    error && css['counter-error']
+    invalid && css['counter-error']
   );
   const wrapperClassName = clsx(css['input-wrapper'], className);
-
+  console.log({ isTouched, isDirty, error, invalid });
   const inputProps = {
     name: name,
     value: value,
@@ -31,6 +36,8 @@ export default function InputTextCounter({
     placeholder: placeholder,
     onChange: onChange,
     className: css.input,
+    onBlur: onBlur,
+    ref: ref,
     ...otherProps,
   };
 
@@ -42,7 +49,7 @@ export default function InputTextCounter({
         <TextareaAutosize {...inputProps}></TextareaAutosize>
       )}
       {isCounter && (
-        <p className={clsx(css.counter, error && css['counter-error'])}>
+        <p className={clsx(css.counter, invalid && css['counter-error'])}>
           <span className={classNameCounter}>{valueLength}</span>/
           <span className={css['counter-max']}>{maxInputLenght}</span>
         </p>
