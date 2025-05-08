@@ -9,7 +9,7 @@ import {
 } from '../../redux/recipes/index.js';
 import Loader from '../Loader/Loader';
 
-const RecipeList = ({ onUserAvatarClick, onRecipeDetailsClick }) => {
+const RecipeList = ({ onUserAvatarClick, onRecipeDetailsClick, onAuthRequired }) => {
   const isRecipesLoading = useSelector(selectIsRecipesLoading);
   const error = useSelector(selectRecipesError);
   const recipes = useSelector(selectRecipes);
@@ -36,6 +36,7 @@ const RecipeList = ({ onUserAvatarClick, onRecipeDetailsClick }) => {
                 recipeId={item.id || item._id}
                 onUserAvatarClick={onUserAvatarClick}
                 onRecipeDetailsClick={onRecipeDetailsClick}
+                onAuthRequired={onAuthRequired}
               />
             </li>
           ))}

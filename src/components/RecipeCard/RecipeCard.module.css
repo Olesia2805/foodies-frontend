@@ -120,6 +120,9 @@
     color: var(--white);
     background-color: var(--black);
     border-color: transparent;
+    .icon {
+        fill: var(--white);
+    }
 }
 
 .icon {

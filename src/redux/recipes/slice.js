@@ -6,7 +6,11 @@ import {
   deleteRecipe,
   fetchRecipeById,
   updateRecipe,
+  fetchFavoriteRecipes,
+  addToFavorites,
+  removeFromFavorites
 } from './operations';
+import { logOutUserOps } from '../auth/index.js';
 
 const initialState = {
   items: [],
@@ -15,7 +19,7 @@ const initialState = {
   error: null,
   totalPages: 1,
   page: 1,
-  favorites: [],
+  favorites: {},
   isFavoriteLoading: false,
   favoriteError: null
 };
@@ -127,6 +131,70 @@ const recipesSlice = createSlice({
       .addCase(deleteRecipe.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+      // Fetch favorite recipes
+      .addCase(fetchFavoriteRecipes.pending, (state) => {
+        state.isFavoriteLoading = true;
+        state.favoriteError = null;
+      })
+      .addCase(fetchFavoriteRecipes.fulfilled, (state, { payload }) => {
+        state.isFavoriteLoading = false;
+        state.favorites = payload; // Зберігаємо повну відповідь з API
+      })
+      .addCase(fetchFavoriteRecipes.rejected, (state, { payload }) => {
+        state.isFavoriteLoading = false;
+        state.favoriteError = payload;
+      })
+      // Add to favorites
+      .addCase(addToFavorites.pending, (state) => {
+        state.isFavoriteLoading = true;
+        state.favoriteError = null;
+      })
+      .addCase(addToFavorites.fulfilled, (state, { payload }) => {
+        state.isFavoriteLoading = false;
+        if (state.favorites && state.favorites.data) {
+          const existingIndex = state.favorites.data.findIndex(
+            item => (item._id === payload.recipeId || item.id === payload.recipeId)
+          );
+
+          if (existingIndex === -1) {
+            const recipe = state.items.find(
+              item => (item._id === payload.recipeId || item.id === payload.recipeId)
+            );
+
+            if (recipe) {
+              state.favorites.data.push(recipe);
+            }
+          }
+        }
+      })
+      .addCase(addToFavorites.rejected, (state, { payload }) => {
+        state.isFavoriteLoading = false;
+        state.favoriteError = payload;
+      })
+      // Remove from favorites
+      .addCase(removeFromFavorites.pending, (state, { payload }) => {
+        state.isFavoriteLoading = true;
+        state.favoriteError = null;
+      })
+      .addCase(removeFromFavorites.fulfilled, (state, { payload }) => {
+        state.isFavoriteLoading = false;
+        if (state.favorites && Array.isArray(state.favorites.data)) {
+          state.favorites.data = state.favorites.data.filter(item => {
+            const itemId = item._id || item.id;
+            return itemId != payload.recipeId;
+          });
+        }
+      })
+      .addCase(removeFromFavorites.rejected, (state, { payload }) => {
+        state.isFavoriteLoading = false;
+        state.favoriteError = payload;
+      })
+      // Log out user
+      .addCase(logOutUserOps.fulfilled, (state) => {
+        state.favorites = {
+          data: []
+        };
       });
   },
 });

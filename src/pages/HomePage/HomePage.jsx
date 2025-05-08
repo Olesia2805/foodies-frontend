@@ -23,6 +23,10 @@ const HomePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const handleAuthRequired = () => {
+    setIsSignInModalOpen(true);
+  };
+
   const handleUserAvatarClick = (userId) => {
     if (isAuthenticated) {
       navigate(`${ROUTER.USER}/${userId}`);
@@ -77,6 +81,7 @@ const HomePage = () => {
             onUserAvatarClick={handleUserAvatarClick}
             onRecipeDetailsClick={handleRecipeDetailsClick}
             onBackClick={handleBackClick}
+            onAuthRequired={handleAuthRequired}
           />
         ) : (
           <>

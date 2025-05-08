@@ -131,11 +131,56 @@ export const toggleFavoriteRecipe = createAsyncThunk(
     try {
       const response = await axiosInstance.patch(`/recipes/favorite/${recipeId}`);
       return { recipeId, ...response.data };
-} catch (error) {
-      //const errorMessage = await handleRequestError(error);
-      //return rejectWithValue(errorMessage);
+    } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || 'Failed to fetch '
+        error.response?.data?.message || 'Failed to toggle favorite'
+      );
+    }
+  }
+);
+
+export const fetchFavoriteRecipes = createAsyncThunk(
+  'recipes/fetchFavoriteRecipes',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.get('/recipes/favorites');
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || 'Failed to fetch favorite recipes'
+      );
+    }
+  }
+);
+
+export const addToFavorites = createAsyncThunk(
+  'recipes/addToFavorites',
+  async (recipeId, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post('/recipes/favorites', { id: recipeId });
+      return { recipeId, ...response.data };
+    } catch (error) {
+      console.error('Error adding to favorites:', error);
+      return rejectWithValue(
+        error.response?.data?.message || 'Failed to add to favorites'
+      );
+    }
+  }
+);
+
+export const removeFromFavorites = createAsyncThunk(
+  'recipes/removeFromFavorites',
+  async (recipeId, { rejectWithValue }) => {
+    try {
+      await axiosInstance.delete('/recipes/favorites', {
+        data: { id: recipeId }
+      });
+
+      return { recipeId };
+    } catch (error) {
+      console.error('Error removing from favorites:', error);
+      return rejectWithValue(
+        error.response?.data?.message || 'Failed to remove from favorites'
       );
     }
   }

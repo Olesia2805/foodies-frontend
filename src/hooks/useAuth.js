@@ -9,6 +9,7 @@ import {
   selectIsAuthLoading,
   verifyUserWithTokenOps,
 } from '../redux/auth';
+import { fetchFavoriteRecipes } from '../redux/recipes/operations';
 
 const useAuth = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,14 @@ const useAuth = () => {
   };
 
   const signIn = async (credentials) => {
-    return await dispatch(signInUserOps(credentials)).unwrap();
+    const result = await dispatch(signInUserOps(credentials)).unwrap();
+    // Fetch favorite recipes
+    try {
+      dispatch(fetchFavoriteRecipes());
+    } catch (e) {
+      console.error("Failed to load favorites after login:", e);
+    }
+    return result;
   };
 
   const logOut = async () => {

@@ -17,14 +17,16 @@ import {
   setSelectedArea
 } from '../../redux/common/slice.js';
 import { clearRecipes, setPage } from '../../redux/recipes/slice';
-import { fetchRecipes } from '../../redux/recipes/index.js';
+import { fetchRecipes, fetchFavoriteRecipes } from '../../redux/recipes/index.js';
 import Icon from '../Icon/Icon';
+import { selectIsAuthenticated } from '../../redux/auth/index.js';
 
-const Recipes = ({ onUserAvatarClick, onRecipeDetailsClick, onBackClick }) => {
+const Recipes = ({ onUserAvatarClick, onRecipeDetailsClick, onBackClick, onAuthRequired }) => {
   const dispatch = useDispatch();
   const selectedCategory = useSelector(selectSelectedCategory);
   const selectedArea = useSelector(selectSelectedArea);
   const selectedIngredients = useSelector(selectSelectedIngredients);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
   const fetchExecutedRef = useRef(false);
   const lastFiltersRef = useRef({});
@@ -53,8 +55,12 @@ const Recipes = ({ onUserAvatarClick, onRecipeDetailsClick, onBackClick }) => {
       lastFiltersRef.current = { ...params };
       dispatch(fetchRecipes(params));
       fetchExecutedRef.current = true;
+
+      if (isAuthenticated) {
+        dispatch(fetchFavoriteRecipes());
+      }
     }
-  }, [dispatch, selectedCategory, selectedArea, selectedIngredients]);
+  }, [dispatch, selectedCategory, selectedArea, selectedIngredients, isAuthenticated]);
 
   const handleClick = () => {
     dispatch(setSelectedCategory(null));
@@ -94,6 +100,7 @@ const Recipes = ({ onUserAvatarClick, onRecipeDetailsClick, onBackClick }) => {
           <RecipeList
             onUserAvatarClick={onUserAvatarClick}
             onRecipeDetailsClick={onRecipeDetailsClick}
+            onAuthRequired={onAuthRequired}
           />
           <RecipePagination />
         </div>
