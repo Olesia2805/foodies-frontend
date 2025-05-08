@@ -25,6 +25,7 @@
     "react-router-dom": "^7.5.3",
     "react-select": "^5.10.1",
     "react-textarea-autosize": "^8.5.9",
+    "react-window": "^1.8.11",
     "reselect": "^5.1.1",
     "yup": "^1.6.1"
   },

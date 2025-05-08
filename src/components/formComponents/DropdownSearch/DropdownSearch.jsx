@@ -1,19 +1,23 @@
 import Select from 'react-select';
-import './Select.css';
+import { createFilter } from 'react-select';
+import './DropdownSearch.css';
 
 import React from 'react';
+import MenuList from '../MenuList/MenuList';
 
 export default function DropdownSearch({
   onChange,
   value,
   options,
   placeholder = 'Select placeholder',
+  ...otherProps
 }) {
   return (
     <Select
+      options={options}
+      filterOption={createFilter({ ignoreAccents: false })}
       placeholder={placeholder}
       unstyled
-      options={options}
       isOptionDisabled={(option) => option.disabled}
       // classNames={{
       //   control: (state) =>
@@ -24,6 +28,10 @@ export default function DropdownSearch({
       classNamePrefix="react-select"
       onChange={onChange}
       value={value}
+      components={{
+        MenuList: MenuList,
+      }}
+      {...otherProps}
     />
   );
 }
