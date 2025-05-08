@@ -3,10 +3,24 @@
   color: var(--grey);
 }
 
+.categoriesTitle {
+  margin-top: 64px;
+}
+
 @media (min-width: 768px) {
   .description {
     max-width: 531px;
     margin-bottom: 40px;
     color: var(--dark-grey);
+  }
+
+  .categoriesTitle {
+    margin-top: 100px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .categoriesTitle {
+    margin-top: 120px;
   }
 }
