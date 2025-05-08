@@ -20,7 +20,7 @@ const Footer = () => {
 
       <Container>
         <div className={styles.copyright}>
-          &copy; 2024, Foodies. All rights reserved.
+          &copy; 2025, Foodies. All rights reserved.
         </div>
       </Container>
     </footer>
