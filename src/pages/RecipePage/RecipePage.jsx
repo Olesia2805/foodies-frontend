@@ -34,9 +34,17 @@ const RecipePage = () => {
     loadRecipe();
   }, [id, dispatch]);
 
-  if (loading) return <Loader />;
+  if (loading) return (
+    <Container>
+      <Loader fullScreen={true} />
+    </Container>
+  );
   if (error) return <Error message={error} />;
-  if (!recipe || !recipe._id) return <div>Recipe not found</div>;
+  if (!recipe || !recipe._id) return (
+    <Container>
+      <Error message="Recipe not found" />
+    </Container>
+  );
 
   return (
     <Container>
