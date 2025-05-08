@@ -10,7 +10,6 @@ import { useAuth } from './hooks';
 
 const HomePage = lazy(() => import('pages/HomePage/HomePage'));
 const RecipePage = lazy(() => import('pages/RecipePage/RecipePage'));
-
 const UserPage = lazy(() => import('pages/UserPage/UserPage'));
 const AddRecipePage = lazy(() => import('pages/AddRecipePage/AddRecipePage'));
 
@@ -24,7 +23,7 @@ const App = () => {
     if (isAuthenticated) {
       dispatch(getMeOps());
     }
-  }, []);
+  }, [dispatch, isAuthenticated]);
 
   return (
     <>
@@ -32,6 +31,8 @@ const App = () => {
         <Routes>
           <Route path={ROUTER.HOME} element={<Layout />}>
             <Route index element={<HomePage />} />
+
+            <Route path={`${ROUTER.PROFILE}`} element={<UserPage />} />
 
             <Route path={`${ROUTER.USER}/:id`} element={<UserPage />} />
 
