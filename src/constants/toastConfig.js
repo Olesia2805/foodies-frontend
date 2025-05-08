@@ -3,13 +3,11 @@ export const toastConfig = {
   style: {
     background: 'var(--white)',
     color: 'var(--dark-grey)',
-    border: '1px solid var(--border)',
     padding: '16px',
     fontFamily: 'var(--font-primary)',
     fontSize: '14px',
     fontWeight: '500',
-    borderRadius: '8px',
-    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+    borderRadius: '16px',
   },
   success: {
     iconTheme: {
@@ -20,11 +18,10 @@ export const toastConfig = {
   error: {
     style: {
       background: 'var(--white)',
-      color: '#E53935',
-      border: '1px solid #FFCDD2',
+      color: 'var(--error)',
     },
     iconTheme: {
-      primary: '#E53935',
+      primary: 'var(--error)',
       secondary: 'var(--white)',
     },
   },
