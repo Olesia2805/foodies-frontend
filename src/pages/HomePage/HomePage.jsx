@@ -11,10 +11,13 @@ const HomePage = () => {
     <>
       <Container>
         <Hero />
-        {selectedCategoryId ? (
+        {selectedCategory ? (
           <div>Recipes</div>
         ) : (
-          <Categories onCategorySelect={setSelectedCategory} />
+          <>
+            {/* TODO: перевірити вибір категорії */}
+            <Categories onCategorySelect={setSelectedCategory} />
+          </>
         )}
         <Testimonials />
       </Container>
