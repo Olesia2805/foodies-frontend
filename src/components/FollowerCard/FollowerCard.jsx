@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './FollowerCard.module.css';
 
 const FollowerCard = ({ follower }) => {
-  console.log('Follower data:', follower); // Debug log
+  console.log('Follower data:', follower);
 
   if (!follower) {
     return <div className={styles.card}>Follower data is not available.</div>;
@@ -21,8 +21,8 @@ const FollowerCard = ({ follower }) => {
           console.log('Recipe object:', recipe);
           return (
             <img
-              key={recipe.id || index} // Use recipe.id if available, otherwise fallback to index
-              src={recipe.thumb || 'default-image-url.jpg'} // Use default image if thumb is undefined
+              key={recipe.id || index}
+              src={recipe.thumb || 'default-image-url.jpg'}
               alt={recipe.title || 'No title'}
               className={styles.recipeImage}
             />
