@@ -37,4 +37,9 @@
   .ingredientList {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .ingredientListItem img {
+    width: 90px;
+    height: 90px;
+  }
 }
