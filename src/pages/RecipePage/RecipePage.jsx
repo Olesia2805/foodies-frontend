@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import Button from '../../components/Button/Button';
 import Container from '../../components/Container/Container';
 import Error from '../../components/Error/Error';
@@ -39,6 +40,13 @@ const RecipePage = () => {
 
   return (
     <Container>
+      {/* Breadcrumbs */}
+      <Breadcrumbs
+        items={[
+          { label: 'Home', link: '/' },
+          { label: recipe.title }, 
+        ]}
+      />
       <section className={styles.recipeSection}>
         <RecipeImage src={recipe.thumb} alt={recipe.title}></RecipeImage>
 
