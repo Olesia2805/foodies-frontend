@@ -7,6 +7,6 @@
   .description {
     max-width: 531px;
     margin-bottom: 40px;
-    color: #1a1a1a;
+    color: var(--dark-grey);
   }
 }
