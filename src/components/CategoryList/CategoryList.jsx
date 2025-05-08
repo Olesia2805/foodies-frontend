@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../../redux/categories/operations';
 import {
   selectCategories,
-  selectIsLoading,
-  selectError,
+  selectCategoriesIsLoading,
+  selectCategoriesError,
 } from '../../redux/categories/selectors';
 import css from './CategoryList.module.css';
 import Icon from '../Icon/Icon';
@@ -33,8 +33,8 @@ const CategoryList = ({ onCategorySelect }) => {
   const dispatch = useDispatch();
 
   const categories = useSelector(selectCategories);
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+  const isLoading = useSelector(selectCategoriesIsLoading);
+  const error = useSelector(selectCategoriesError);
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -61,7 +61,11 @@ const CategoryList = ({ onCategorySelect }) => {
               </div>
               <button
                 className={css.arrowButton}
-                onClick={() => onCategorySelect(cat._id)}
+                onClick={() => onCategorySelect({
+                  id: cat._id,
+                  name: cat.name,
+                  description: cat.description,
+                })}
               >
                 <Icon
                   name="arrow-up-right"
@@ -74,7 +78,11 @@ const CategoryList = ({ onCategorySelect }) => {
         ))}
         <li
           key="all"
-          onClick={() => onCategorySelect('all')}
+          onClick={() => onCategorySelect({
+                  id: "all",
+                  name: null,
+                  description: null,
+                })}
           className={`${css.card} ${css[categoryClasses[categories.length]]} ${css.allCard}`}
         >
           <p className={css.allCategoriesText}>All Categories</p>

@@ -1,3 +1,3 @@
-export const selectCategories = (state) => state.categories.items;
-export const selectIsLoading = (state) => state.categories.loading;
-export const selectError = (state) => state.categories.error;
+export const selectCategories = (state) => state.categories?.items || [];
+export const selectCategoriesIsLoading = (state) => state.categories?.loading || false;
+export const selectCategoriesError = (state) => state.categories?.error || null;
