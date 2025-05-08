@@ -7,6 +7,7 @@ import { ROUTER } from './constants/router.js';
 import UIKit from './pages/UIKit/UIkit.jsx';
 import { NavLink } from 'react-router-dom';
 
+import { toastConfig } from './constants/toastConfig.js';
 import { useAuth, useVerification } from './hooks';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
@@ -48,7 +49,7 @@ const App = () => {
           </Route>
         </Routes>
       </Suspense>
-      <Toaster position="top-right" />
+      <Toaster position="bottom-right" toastOptions={toastConfig} />
     </>
   );
 };
