@@ -49,7 +49,7 @@ const Testimonials = () => {
         <div className={styles.content}>
           <p className={styles.subtitle}>What our customer say</p>
           <h2 className={styles.title}>TESTIMONIALS</h2>
-          <img src="src/assets/img/quoteIcon.svg" alt="quote" className={styles.quoteMark}></img>
+          <Icon name="quotes" className={styles.quoteMark} />
 
           <div className={styles.slider}>
             <div className={styles.testimonialContent}>

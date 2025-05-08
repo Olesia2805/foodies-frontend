@@ -46,12 +46,8 @@
 }
 
 .quoteMark {
-  width: 59px;
-  height: 48px;
-  font-size: 100px;
-  color: #BFBEBE;
-  font-family: serif;
-  line-height: 0.6;
+  min-width: 59px;
+  min-height: 48px;
   margin-top: -20px;
   margin-bottom: 20px;
   margin-left: 40px;
@@ -196,12 +192,8 @@
   }
 
   .quoteMark {
-    width: 40px;
-    height: 32px;
-    font-size: 100px;
-    color: #BFBEBE;
-    font-family: serif;
-    line-height: 0.6;
+    min-width: 40px;
+    min-height: 32px;
     margin-top: 10px;
     margin-bottom: -20px;
     margin-left: 10px;
