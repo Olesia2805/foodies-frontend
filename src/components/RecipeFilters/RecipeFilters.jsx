@@ -12,17 +12,17 @@ import {
   selectCategories,
   selectSelectedIngredients,
   selectSelectedArea,
-  selectSelectedCategory
+  selectSelectedCategory,
 } from '../../redux/common/index.js';
 import {
   getIngredients,
   getAreas,
-  getCategories
+  getCategories,
 } from '../../redux/common/index.js';
 import {
   setSelectedIngredients,
   setSelectedArea,
-  setSelectedCategory
+  setSelectedCategory,
 } from '../../redux/common/slice';
 
 const RecipeFilters = () => {
@@ -38,13 +38,17 @@ const RecipeFilters = () => {
   const fetchedRef = useRef({
     ingredients: false,
     areas: false,
-    categories: false
+    categories: false,
   });
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!isCommonLoading && !ingredients?.length && !fetchedRef.current.ingredients) {
+    if (
+      !isCommonLoading &&
+      !ingredients?.length &&
+      !fetchedRef.current.ingredients
+    ) {
       fetchedRef.current.ingredients = true;
       dispatch(getIngredients());
     }
@@ -54,7 +58,11 @@ const RecipeFilters = () => {
       dispatch(getAreas());
     }
 
-    if (!isCommonLoading && !categories?.length && !fetchedRef.current.categories) {
+    if (
+      !isCommonLoading &&
+      !categories?.length &&
+      !fetchedRef.current.categories
+    ) {
       fetchedRef.current.categories = true;
       dispatch(getCategories());
     }
@@ -78,26 +86,6 @@ const RecipeFilters = () => {
 
   return (
     <div className={css.filtersContainer}>
-      {!isCommonLoading && !!categories?.length && (
-        <div className={css.dropdownWithClear}>
-          <Dropdown
-            items={categories}
-            label="Category"
-            selectedValue={isCategorySelected ? selectedCategory : null}
-            callback={setSelectedCategory}
-          />
-          {isCategorySelected && (
-            <button
-              onClick={clearCategory}
-              className={css.clearButton}
-              title="Clear category"
-            >
-              <Icon name="close" size={22} />
-            </button>
-          )}
-        </div>
-      )}
-
       {!isCommonLoading && !!ingredients?.length && (
         <div className={css.dropdownWithClear}>
           <Dropdown
@@ -139,7 +127,26 @@ const RecipeFilters = () => {
         </div>
       )}
 
-      {/* Відображаємо заглушки, якщо дані не завантажені */}
+      {!isCommonLoading && !!categories?.length && (
+        <div className={css.dropdownWithClear}>
+          <Dropdown
+            items={categories}
+            label="Category"
+            selectedValue={isCategorySelected ? selectedCategory : null}
+            callback={setSelectedCategory}
+          />
+          {isCategorySelected && (
+            <button
+              onClick={clearCategory}
+              className={css.clearButton}
+              title="Clear category"
+            >
+              <Icon name="close" size={22} />
+            </button>
+          )}
+        </div>
+      )}
+
       {(!categories?.length || !ingredients?.length || !areas?.length) && (
         <>
           {!categories?.length && (
