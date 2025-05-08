@@ -20,7 +20,7 @@ const Footer = () => {
 
       <Container>
         <div className={styles.copyright}>
-          &copy; 2025, Foodies. All rights reserved.
+          &copy; {new Date().getFullYear()}, Foodies. All rights reserved.
         </div>
       </Container>
     </footer>
