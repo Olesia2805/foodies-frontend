@@ -7,19 +7,11 @@ export const fetchRecipes = createAsyncThunk(
     try {
       const { page = 1, categoryId, areaId, ingredientId } = params || {};
 
-      let url = `/recipes?page=${page}&limit=12`;
+      const categoryUrl = categoryId ? `&categoryId=${categoryId}` : '';
+      const areaUrl = areaId ? `&areaId=${areaId}` : '';
+      const ingredientUrl = ingredientId ? `&ingredientId=${ingredientId}` : '';
 
-      if (categoryId) {
-        url += `&categoryId=${categoryId}`;
-      }
-
-      if (areaId) {
-        url += `&areaId=${areaId}`;
-      }
-
-      if (ingredientId) {
-        url += `&ingredientId=${ingredientId}`;
-      }
+      const url = `/recipes?page=${page}&limit=12${categoryUrl}${areaUrl}${ingredientUrl}`;
 
       const response = await axiosInstance.get(url);
 
