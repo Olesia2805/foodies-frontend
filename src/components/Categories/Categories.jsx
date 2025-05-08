@@ -3,7 +3,7 @@ import css from './Categories.module.css';
 
 const Categories = ({ onCategorySelect }) => {
   return (
-    <div>
+    <section>
       <h2 className={css.title}>Categories</h2>
       <p className={css.description}>
         Discover a limitless world of culinary possibilities and enjoy exquisite
@@ -11,7 +11,7 @@ const Categories = ({ onCategorySelect }) => {
         kitchen.
       </p>
       <CategoryList onCategorySelect={onCategorySelect}></CategoryList>
-    </div>
+    </section>
   );
 };
 
