@@ -111,6 +111,7 @@
 
   .card {
     height: 369px;
+    border-radius: 30px;
   }
 
   .card:nth-of-type(n + 12):not(.allCard) {
