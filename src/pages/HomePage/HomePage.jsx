@@ -12,9 +12,9 @@ import { useAuth } from '../../hooks';
 import {
   setSelectedCategory,
   setSelectedIngredients,
-  setSelectedArea
-} from '../../redux/common/slice';
-import { clearRecipes, setPage } from '../../redux/recipes/slice';
+  setSelectedArea,
+} from '../../redux/common/index.js';
+import { clearRecipes, setPage } from '../../redux/recipes/index.js';
 
 const HomePage = () => {
   const [showRecipes, setShowRecipes] = useState(false);
@@ -69,14 +69,30 @@ const HomePage = () => {
   };
 
   return (
-    <div>
+    <>
       <Hero />
       <Container>
-        {selectedCategory ? (
-          <div>Recipes</div>
+        {showRecipes ? (
+          <div ref={recipesRef}>
+            <Recipes
+              onUserAvatarClick={handleUserAvatarClick}
+              onRecipeDetailsClick={handleRecipeDetailsClick}
+              onBackClick={handleBackClick}
+              onAuthRequired={handleAuthRequired}
+            />
+          </div>
         ) : (
-          <Categories onCategorySelect={setSelectedCategory} />
+          <div ref={categoriesRef}>
+            <Categories onCategorySelect={handleCategorySelect} />
+          </div>
         )}
+        <SignInModal
+          isOpen={isSignInModalOpen}
+          onClose={() => setIsSignInModalOpen(false)}
+          setOtherModal={() => {
+            setIsSignInModalOpen(false);
+          }}
+        />
         <Testimonials />
       </Container>
     </>
