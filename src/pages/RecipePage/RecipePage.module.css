@@ -98,6 +98,11 @@ h2 {
     height: 50px;
   }
 
+  .authorName {
+    font-size: 16px;
+    color: var(--dark-grey);
+  }
+
   .instructions {
     color: var(--dark-grey);
   }
