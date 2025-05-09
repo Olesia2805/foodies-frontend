@@ -10,7 +10,8 @@ import { selectUser } from "../../redux/auth/selectors";
 import { 
   useFetchUserByIdQuery,
   useFetchCurrentUserQuery,
-  useUpdateUserAvatarMutation
+  useUpdateUserAvatarMutation,
+  useFetchFavoriteRecipesQuery
 } from "../../redux/auth/profileServices";
 import { getAvatarURL } from "../../redux/auth/userSlicer";
 import Loader from '../Loader/Loader';
@@ -20,9 +21,13 @@ export const UserInfo = () => {
   const { userId: urlUserId } = useParams();
   const [updateUserAvatar] = useUpdateUserAvatarMutation();
 
-  
   const currentUser = useSelector(selectUser);
   const { data: myProfileData } = useFetchCurrentUserQuery();
+  // Додаємо запит на отримання улюблених рецептів
+  const { data: favoriteRecipes } = useFetchFavoriteRecipesQuery(undefined, {
+    skip: !myProfileData && !currentUser
+  });
+  
   const myEmail = myProfileData?.email || currentUser?.email;
   const { 
     data: otherUserData, 
@@ -43,12 +48,20 @@ export const UserInfo = () => {
   }, [userData]);
   const [avatar, setAvatar] = useState(withoutAvatar);
 
-  const displayFields = [
-    { name: "email", visible: isOwnProfile },
-    { name: "createdRecipesCount", visible: true },
-    { name: "followersCount", visible: true },
-    { name: "followingCount", visible: true },
-  ];
+  // Оновлюємо масив displayFields для власних і чужих користувачів
+  const displayFields = isOwnProfile 
+    ? [
+        { name: "email", visible: true, label: "Email" },
+        { name: "createdRecipesCount", visible: true, label: "Added Recipes" },
+        { name: "favoritesCount", visible: true, label: "Favorites" },
+        { name: "followersCount", visible: true, label: "Followers" },
+        { name: "followingCount", visible: true, label: "Following" },
+      ]
+    : [
+        { name: "email", visible: true, label: "Email" },
+        { name: "createdRecipesCount", visible: true, label: "Added Recipes" },
+        { name: "followersCount", visible: true, label: "Followers" },
+      ];
   
   const handleAvatarUpdate = async (file) => {
     if (!isOwnProfile) return;
@@ -104,11 +117,13 @@ export const UserInfo = () => {
     return <div className={styles.profile_card_wrapper}>No user data found</div>;
   }
   
+  // Додаємо favoritesCount у розширені дані користувача
   const enhancedUserData = {
     email: userData.email || "",
     name: userData.name || "User",
     avatar: userData.avatar || withoutAvatar,
     createdRecipesCount: userData.recipes || 0,
+    favoritesCount: favoriteRecipes?.length || 0, // Додано поле для улюблених
     followersCount: userData.followers || 0,
     followingCount: userData.following || 0
   };
@@ -152,6 +167,7 @@ export const UserInfo = () => {
                 key={nanoid()}
                 name={field.name}
                 value={enhancedUserData[field.name]}
+                label={field.label} // Додаємо передачу мітки в компонент
               />
             )
           ))}

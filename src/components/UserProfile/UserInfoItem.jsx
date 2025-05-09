@@ -1,18 +1,20 @@
 import { toUpperCase } from "./UpperCase.js";
 import styles from "./UserInfo.module.css";
 
-export const UserInfoItem = ({ name, value }) => {
+export const UserInfoItem = ({ name, value, label }) => {
   const CONSTANTS_NAME = {
     email: "email",
     createdRecipesCount: "added recipes",
-    favoriteRecipesCount: "favorites",
+    favoritesCount: "favorites", 
     followersCount: "followers",
     followingCount: "following",
   };
 
+  const displayLabel = label || CONSTANTS_NAME[name] || name || "";
+
   return (
     <li className={styles.profile_info_item}>
-      {toUpperCase(CONSTANTS_NAME[name])}:
+      {displayLabel ? toUpperCase(displayLabel) : ""}:
       <span className={styles.profile_info_content}>{value}</span>
     </li>
   );
