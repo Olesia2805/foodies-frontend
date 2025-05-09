@@ -36,6 +36,7 @@
 
 @media screen and (min-width: 768px) {
   .ingredientList {
+    gap: 20px;
     grid-template-columns: repeat(3, 1fr);
     line-height: 150%;
   }
