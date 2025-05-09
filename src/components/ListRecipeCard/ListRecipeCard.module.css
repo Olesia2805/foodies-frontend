@@ -78,6 +78,22 @@
   .arrowIcon {
     fill: #000000;
   }
+
+  .deleteButton {
+    border: 1px solid var(--black);
+    background-color: transparent;
+    border-radius: 30px;
+    padding: 11px;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-left: auto;
+    display: flex;
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+  }
+  
+  .deleteIcon {
+    fill: #000000;
+  }
   
   .arrowButton:hover {
     background-color: var(--light-grey);
