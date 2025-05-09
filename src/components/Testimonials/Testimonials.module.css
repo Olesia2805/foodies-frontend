@@ -33,7 +33,6 @@
 
 .title {
   max-width: 291px;
-  height: 44px;
   font-size: 40px;
   line-height: 44px;
   font-weight: 800;
@@ -88,6 +87,7 @@
   color: #000;
   gap: 8px;
   text-transform: uppercase;
+  margin-bottom: 0px;
 }
 
 .pagination {
@@ -121,7 +121,6 @@
     flex-direction: column;
     align-items: center;
     margin: 0 auto;
-    margin-left: 0px;
   }
   .quoteMark {
     margin-left: 11px;
@@ -143,9 +142,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 800px;
     margin: 0 auto;
-    margin-left: -15px;
   }
 
   .testimonialText {
@@ -159,6 +156,14 @@
     box-sizing: border-box;
   }
 
+  .titles {
+    width: 261px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+  }
+
   .subtitle {
     max-width: 261px;
     font-size: 14px;
@@ -170,13 +175,13 @@
   }
 
   .title {
-    max-width: 204px;
+    width: 204px;
     font-size: 28px;
     line-height: 32px;
     font-weight: 800;
     letter-spacing: -2%;
     font-family: 'Mulish', sans-serif;
-    margin-bottom: 10px;
+    margin: 0px;
     text-align: center;
   }
 
@@ -185,17 +190,22 @@
     font-size: 18px;
     line-height: 24px;
     font-weight: 500;
-    letter-spacing: -2%;
+    letter-spacing: -0.36px;
     color: #333;
-    margin-bottom: 60px;
+    margin: 0px;
+  }
+
+  .testimonialAuthor {
+    margin-top: 60px;
   }
 
   .quoteMark {
     min-width: 40px;
     min-height: 32px;
     margin-top: 10px;
-    margin-bottom: -20px;
-    margin-left: 10px;
+    margin-bottom: 0px;
+    margin-top: 10px;
+    margin-left: -10px;
     align-self: flex-start;
   }
 
@@ -204,7 +214,7 @@
     height: 14px;
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 40px;
     gap: 8px;
   }
 
