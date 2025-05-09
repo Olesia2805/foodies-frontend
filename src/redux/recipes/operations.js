@@ -86,8 +86,6 @@ export const deleteRecipe = createAsyncThunk(
     }
   }
 );
-<<<<<<< HEAD
-=======
 
 export const fetchOwnerRecipes = createAsyncThunk(
   'recipes/fetchOwnerRecipes',
@@ -170,4 +168,3 @@ export const removeFromFavorites = createAsyncThunk(
     }
   }
 );
->>>>>>> 36e610c862f2dc592943d7450059f436ba07c888
