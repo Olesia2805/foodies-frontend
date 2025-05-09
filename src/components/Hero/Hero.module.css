@@ -41,6 +41,7 @@
   text-align: center;
   text-transform: uppercase;
   color: #ffffff;
+  margin-top: 145px;
   margin-bottom: 30px;
 }
 
@@ -152,7 +153,7 @@
   .title {
     font-size: 90px;
     line-height: 90px;
-    margin-top: 154px;
+    margin-top: 145px;
   }
 
   .imageGallery {
