@@ -3,7 +3,7 @@
   row-gap: 32px;
   column-gap: 80px;
   flex-direction: column;
-  color: var(--gray);
+  color: var(--grey);
 }
 
 .recipeContent {
@@ -65,7 +65,7 @@ h2 {
 
 .authorName {
   font-size: 14px;
-  color: var(--dark-grey);
+  color: var(--grey);
 }
 
 .ingredients {
