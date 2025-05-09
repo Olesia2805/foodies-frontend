@@ -10,7 +10,7 @@
   justify-content: flex-start;
   gap: 8px;
   overflow: visible;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 1.5px solid #ccc;
   padding-bottom: 0;
   scrollbar-width: none;
   margin-left: 20px;
