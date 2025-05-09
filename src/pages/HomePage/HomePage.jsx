@@ -12,9 +12,9 @@ import { useAuth } from '../../hooks';
 import {
   setSelectedCategory,
   setSelectedIngredients,
-  setSelectedArea
-} from '../../redux/common/slice';
-import { clearRecipes, setPage } from '../../redux/recipes/slice';
+  setSelectedArea,
+} from '../../redux/common/index.js';
+import { clearRecipes, setPage } from '../../redux/recipes/index.js';
 
 const HomePage = () => {
   const [showRecipes, setShowRecipes] = useState(false);
