@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './ErrorWrapper.module.css';
 import clsx from 'clsx';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';

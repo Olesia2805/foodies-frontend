@@ -11,10 +11,12 @@ export default function DropdownSearch({
   options,
   placeholder = 'Select placeholder',
   error,
+  name,
   ...otherProps
 }) {
   return (
     <Select
+      name={name}
       options={options}
       filterOption={createFilter({ ignoreAccents: false })}
       placeholder={placeholder}

@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './FormTitle.module.css';
 
 export default function FormTitle({ children }) {

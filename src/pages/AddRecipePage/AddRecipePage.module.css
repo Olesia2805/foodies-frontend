@@ -4,3 +4,12 @@
 .container {
   padding: 16px;
 }
+
+.title-container {
+  margin-bottom: 40px;
+  max-width: 443px;
+}
+
+.title-container h2 {
+  margin-bottom: 20px;
+}

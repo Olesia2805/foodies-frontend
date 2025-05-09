@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './Fieldset.module.css';
 import clsx from 'clsx';
 

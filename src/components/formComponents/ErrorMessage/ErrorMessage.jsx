@@ -1,4 +1,3 @@
-import React from 'react';
 import css from './ErrorMessage.module.css';
 import clsx from 'clsx';
 

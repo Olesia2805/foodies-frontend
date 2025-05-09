@@ -25,14 +25,6 @@ const Button = ({
     secondary: styles.buttonSecondary,
     outlined: styles.buttonOutlined,
   };
-  console.log(
-    clsx(
-      styles.button,
-      variantClassMap[variant],
-      props.className,
-      customClassName
-    )
-  );
   return (
     <button
       className={clsx(

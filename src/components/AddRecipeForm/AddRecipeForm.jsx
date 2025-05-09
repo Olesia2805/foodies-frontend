@@ -34,7 +34,7 @@ import {
 import recipeAPI from '../../api/recipeAPI';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import { PROFILE } from '../../constants/router';
+import { ROUTER } from '../../constants/router';
 
 export default function AddRecipeForm() {
   // Store Categories
@@ -61,11 +61,10 @@ export default function AddRecipeForm() {
     register,
     handleSubmit,
     control,
-    setValue,
     formState: { errors },
     reset,
   } = useForm({
-    mode: 'onChange',
+    mode: 'onSubmit',
     defaultValues: {
       photo: '', // thumb
       title: '',
@@ -82,7 +81,6 @@ export default function AddRecipeForm() {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    console.log('data before rename :>> ', data);
     const preparedData = {
       thumb: data.photo,
       title: data.title,
@@ -110,15 +108,12 @@ export default function AddRecipeForm() {
         formData.append(key, value);
       }
     }
-
     try {
       const response = await recipeAPI.createRecipe(formData);
-      console.log('response :>> ', response);
-      return;
-      navigate(PROFILE);
+      navigate(ROUTER.PROFILE);
     } catch (error) {
       // TODO: Review how to show errors from backend
-      toast.error(error);
+      toast.error(error?.response?.data?.message || 'Error');
     } finally {
       // TODO: Add show and hide loader
     }
@@ -182,8 +177,8 @@ export default function AddRecipeForm() {
               minLength: MIN_STRING_LENGTH,
             }}
             render={({
-              field: { onChange, value, name, ref },
-              fieldState: { invalid, isTouched, error, isDirty, onBlur },
+              field: { onChange, value, name, ref, onBlur },
+              fieldState: { invalid, isTouched, error, isDirty },
             }) => (
               <ErrorWrapper errorMessage={error?.message}>
                 <InputTextCounter
@@ -210,16 +205,20 @@ export default function AddRecipeForm() {
             <Controller
               control={control}
               name="category"
-              render={({ field: { value, name }, fieldState: { error } }) => (
+              render={({
+                field: { value, name, onChange },
+                fieldState: { error },
+              }) => (
                 <div className={css.dropdown}>
                   <ErrorWrapper errorMessage={error?.message} isShadow={false}>
                     <DropdownSearch
-                      onChange={(newValue) => setValue(name, newValue)}
+                      onChange={(newValue) => onChange(newValue)}
                       value={value}
                       options={categoryOptions}
                       placeholder="Select a category"
                       isDisabled={isCategoriesError && isCategoriesLoading}
                       error={error}
+                      name={name}
                     />
                   </ErrorWrapper>
                 </div>
@@ -251,16 +250,20 @@ export default function AddRecipeForm() {
             <Controller
               control={control}
               name="area"
-              render={({ field: { value, name }, fieldState: { error } }) => (
+              render={({
+                field: { value, name, onChange },
+                fieldState: { error },
+              }) => (
                 <div className={css.dropdown}>
                   <ErrorWrapper errorMessage={error?.message} isShadow={false}>
                     <DropdownSearch
-                      onChange={(newValue) => setValue(name, newValue)}
+                      onChange={(newValue) => onChange(newValue)}
                       value={value}
                       options={areaOptions}
                       placeholder="Select an area"
                       isDisabled={isAreasError && isAreasLoading}
                       error={error}
+                      name={name}
                     />
                   </ErrorWrapper>
                 </div>
@@ -294,8 +297,8 @@ export default function AddRecipeForm() {
               minLength: MIN_STRING_LENGTH,
             }}
             render={({
-              field: { onChange, value, name, ref },
-              fieldState: { invalid, isTouched, error, isDirty, onBlur },
+              field: { onChange, value, name, ref, onBlur },
+              fieldState: { invalid, isTouched, error, isDirty },
             }) => (
               <ErrorWrapper errorMessage={error?.message}>
                 <InputTextCounter

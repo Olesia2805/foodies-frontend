@@ -30,8 +30,6 @@ const App = () => {
 
   return (
     <>
-      <NavLink to={ROUTER.ADD_RECIPE}>Add recipe</NavLink>
-      <NavLink to={'/ui-kit'}>UI kit</NavLink>
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path={ROUTER.HOME} element={<Layout />}>

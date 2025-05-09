@@ -8,8 +8,10 @@ const AddRecipePage = () => {
   return (
     <section>
       <div className={css.container}>
-        <MainTitle title="Add recipe" />
-        <Subtitle subtitle="Reveal your culinary art, share your favorite recipe and create gastronomic masterpieces with us." />
+        <div className={css['title-container']}>
+          <MainTitle title="Add recipe" />
+          <Subtitle subtitle="Reveal your culinary art, share your favorite recipe and create gastronomic masterpieces with us." />
+        </div>
         <AddRecipeForm />
       </div>
     </section>
