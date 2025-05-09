@@ -27,9 +27,10 @@ import { fetchAreas } from '../../redux/areas/operations';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { recipeSchema } from './RecipeSchema';
 import ErrorWrapper from '../formComponents/ErrorWrapper/ErrorWrapper';
-
-const minInputLength = 4;
-const maxInputLenght = 200;
+import {
+  MAX_STRING_LENGTH,
+  MIN_STRING_LENGTH,
+} from '../../constants/recipeForm';
 
 export default function AddRecipeForm() {
   // Store Categories
@@ -118,7 +119,13 @@ export default function AddRecipeForm() {
       <div className={css['column-2']}>
         <Fieldset className={css['inputs-main-wrapper']}>
           <ErrorWrapper errorMessage={errors?.title?.message}>
-            <InputTitle {...register('title', { required: true })} />
+            <InputTitle
+              {...register('title', {
+                required: true,
+                maxLength: MAX_STRING_LENGTH,
+                minLength: MIN_STRING_LENGTH,
+              })}
+            />
           </ErrorWrapper>
 
           <Controller
@@ -126,8 +133,8 @@ export default function AddRecipeForm() {
             name="description"
             rules={{
               required: true,
-              maxLength: maxInputLenght,
-              minLength: minInputLength,
+              maxLength: MAX_STRING_LENGTH,
+              minLength: MIN_STRING_LENGTH,
             }}
             render={({
               field: { onChange, value, name, ref },
@@ -140,7 +147,7 @@ export default function AddRecipeForm() {
                   onChange={onChange}
                   error={error}
                   invalid={invalid}
-                  maxInputLenght={maxInputLenght}
+                  maxInputLenght={MAX_STRING_LENGTH}
                   placeholder="Enter a description of the dish"
                   isTouched={isTouched}
                   isDirty={isDirty}
@@ -238,8 +245,8 @@ export default function AddRecipeForm() {
             name="preparation"
             rules={{
               required: true,
-              maxLength: maxInputLenght,
-              minLength: minInputLength,
+              maxLength: MAX_STRING_LENGTH,
+              minLength: MIN_STRING_LENGTH,
             }}
             render={({
               field: { onChange, value, name, ref },
@@ -252,7 +259,7 @@ export default function AddRecipeForm() {
                   onChange={onChange}
                   error={error}
                   invalid={invalid}
-                  maxInputLenght={maxInputLenght}
+                  maxInputLenght={MAX_STRING_LENGTH}
                   placeholder="Enter recipe"
                   isTouched={isTouched}
                   isDirty={isDirty}

@@ -9,7 +9,7 @@
   height: 56px;
   padding: 16px 40px 16px 18px;
   border-radius: 30px;
-  border: 1px solid #E5E5E5;
+  border: 1px solid #e5e5e5;
   font-size: 16px;
   font-family: 'Mulish', sans-serif;
   outline: none;
@@ -23,7 +23,7 @@
 }
 
 .dropdown-open {
-  border-color: #1A1A1A;
+  border-color: var(--dark-grey);
 }
 
 .dropdown-label {
@@ -62,7 +62,7 @@
   width: 100%;
   max-height: 200px;
   overflow-y: auto;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   z-index: 10;
@@ -78,7 +78,7 @@
 }
 
 .option-hover {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 }
 
 .option-selected {

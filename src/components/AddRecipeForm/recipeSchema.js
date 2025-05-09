@@ -1,19 +1,18 @@
 import * as yup from 'yup';
-
-const MAX_FILE_SIZE = 10_485_760; // 10 Megabyte
-const MAX_STRING_LENGTH = 200;
+import {
+  MESSAGE_IS_REQUIRED,
+  MAX_FILE_SIZE,
+  MAX_STRING_LENGTH,
+  MIN_STRING_LENGTH,
+  MIN_INGREDIENTS_COUNT,
+  MIN_TIME,
+  MESSAGE_MIN_TIME,
+} from '../../constants/recipeForm';
 
 export const recipeSchema = yup.object({
-  // email: yup
-  //   .string()
-  //   .matches(emailRegexp, {
-  //     message: ERROR_MESSAGES.INVALID_EMAIL,
-  //   })
-  //   .required(ERROR_MESSAGES.EMAIL_IS_REQUIRED),
-  // password: yup.string().required(ERROR_MESSAGES.PASSWORD_IS_REQUIRED),
   photo: yup
     .mixed()
-    .required('Required')
+    .required(MESSAGE_IS_REQUIRED('Photo'))
     .test(
       'is-valid-type',
       'Not a valid image type',
@@ -26,28 +25,61 @@ export const recipeSchema = yup.object({
     ),
   title: yup
     .string()
-    .required('Title is Required')
-    .min(1)
+    .required(MESSAGE_IS_REQUIRED('Title'))
+    .min(MIN_STRING_LENGTH)
     .max(MAX_STRING_LENGTH),
   description: yup
     .string()
-    .required('Description is Required')
-    .min(1)
+    .required(MESSAGE_IS_REQUIRED('Description'))
+    .min(MIN_STRING_LENGTH)
     .max(MAX_STRING_LENGTH),
-  category: yup.string().required('Category is Required'),
-  time: yup.number().min(1).required('Time is Required'),
-  area: yup.number().required('Time is Required'),
+  category: yup.object().required(MESSAGE_IS_REQUIRED('Category')),
+  time: yup
+    .number()
+    .min(MIN_TIME, MESSAGE_MIN_TIME)
+    .required(MESSAGE_IS_REQUIRED('Time')),
+  area: yup.object().required(MESSAGE_IS_REQUIRED('Area')),
   ingredients: yup
     .array()
-    .of(yup.object())
-    .min(1)
-    .required('Ingredients is Required'),
+    .of(
+      yup.object({
+        id: yup.number().required(),
+        quantity: yup.string().required(),
+      })
+    )
+    .min(MIN_INGREDIENTS_COUNT)
+    .required(MESSAGE_IS_REQUIRED('Ingredients')),
   preparation: yup
     .string()
-    .required('Preparation is Required')
-    .min(1)
+    .required(MESSAGE_IS_REQUIRED('Preparation'))
+    .min(MIN_STRING_LENGTH)
     .max(MAX_STRING_LENGTH),
 });
+
+let x = {
+  photo: {
+    path: './chicken-kiev.jpg.webp',
+    relativePath: './chicken-kiev.jpg.webp',
+  },
+  title: 'Title',
+  description: 'text 1',
+  category: {
+    value: 12,
+    label: 'Breakfast',
+  },
+  time: 5,
+  area: {
+    value: 1,
+    label: 'Ukrainian',
+  },
+  ingredients: [
+    {
+      id: 1,
+      quantity: '100 g',
+    },
+  ],
+  preparation: 'text 2',
+};
 
 // {
 //       photo: '', // thumb

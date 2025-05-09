@@ -17,6 +17,26 @@
   user-select: none;
   display: inline;
   background: none;
+  transition-property: transform;
+  transition-duration: var(--transition-duration);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button:hover {
+  border-color: var(--dark-grey);
+}
+
+.button:active {
+  transform: scale(0.9);
+}
+
+@media screen and (min-width: 768px) {
+  .button svg {
+    min-width: 24px;
+    min-height: 24px;
+  }
 }
 
 .value {
