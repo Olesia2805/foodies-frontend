@@ -47,8 +47,10 @@ const Testimonials = () => {
     <section className={styles.testimonials}>
       <Container>
         <div className={styles.content}>
-          <p className={styles.subtitle}>What our customer say</p>
-          <h2 className={styles.title}>TESTIMONIALS</h2>
+          <div className={styles.titles}>
+            <p className={styles.subtitle}>What our customer say</p>
+            <h2 className={styles.title}>TESTIMONIALS</h2>
+          </div>
           <Icon name="quotes" className={styles.quoteMark} />
 
           <div className={styles.slider}>
