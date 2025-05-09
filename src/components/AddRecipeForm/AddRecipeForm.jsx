@@ -25,7 +25,7 @@ import {
 } from '../../redux/areas/selectors';
 import { fetchAreas } from '../../redux/areas/operations';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { recipeSchema } from './RecipeSchema';
+import { recipeSchema } from './recipeSchema';
 import ErrorWrapper from '../formComponents/ErrorWrapper/ErrorWrapper';
 import {
   MAX_STRING_LENGTH,
