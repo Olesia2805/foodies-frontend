@@ -24,7 +24,7 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(signUpUserOps.fulfilled, (state, { payload }) => {
+      .addCase(signUpUserOps.fulfilled, (state) => {
         state.loading = false;
       })
       .addCase(signUpUserOps.rejected, (state, { payload }) => {
@@ -81,7 +81,7 @@ const authSlice = createSlice({
         localStorage.removeItem('token');
         localStorage.removeItem('refreshToken');
       })
-      .addCase(logOutUserOps.rejected, (state) => {
+      .addCase(logOutUserOps.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
 

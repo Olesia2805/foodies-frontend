@@ -23,7 +23,7 @@ const App = () => {
     if (isAuthenticated) {
       getUser();
     }
-  }, [getUser, isAuthenticated]);
+  }, []);
 
   return (
     <>
