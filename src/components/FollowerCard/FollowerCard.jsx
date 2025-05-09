@@ -34,7 +34,7 @@ const FollowerCard = ({ follower }) => {
         className={styles.arrowButton}
         onClick={() => window.location.href = `http://localhost:3001/user/${follower.id}`}
       >
-                        <Icon
+                <Icon
                   name="arrow-up-right"
                   className={styles.arrowIcon}
                   size={18}

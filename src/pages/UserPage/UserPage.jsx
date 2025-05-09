@@ -1,18 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useAuth } from '../../hooks';
+import axios from 'axios';
+import withAuthGuard from '../../hoc/withAuthGuard.jsx';
+import styles from './UserPage.module.css';
+
 import PathInfo from '../../components/PathInfo/PathInfo.jsx';
 import MainTitle from '../../components/MainTitle/MainTitle.jsx';
 import Subtitle from '../../components/Subtitle/Subtitle.jsx';
 import UserInfo from '../../components/UserInfo/UserInfo.jsx';
 import FollowButton from '../../components/FollowButton/FollowButton.jsx';
-import withAuthGuard from '../../hoc/withAuthGuard.jsx';
-import { useAuth } from '../../hooks';
 import TabsList from '../../components/TabsList/TabsList.jsx';
 import ListItems from '../../components/ListItems/ListItems.jsx';
 import FollowerCard from '../../components/FollowerCard/FollowerCard.jsx';
 import Pagination from '../../components/Pagination/Pagination.jsx';
-import styles from './UserPage.module.css';
-import axios from 'axios';
 import RecipeCard from '../../components/ListRecipeCard/ListRecipeCard.jsx';
 
 const UserPage = () => {
