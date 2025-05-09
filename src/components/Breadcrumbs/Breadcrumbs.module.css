@@ -1,7 +1,7 @@
 .breadcrumbs {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 32px;
   font-weight: 700;
   font-size: 12px;
   text-transform: uppercase;
@@ -25,4 +25,10 @@
 .separator {
   margin: 0 8px;
   color: #aaa;
+}
+
+@media (min-width: 768px) {
+  .breadcrumbs {
+    margin-bottom: 40px;
+  }
 }
