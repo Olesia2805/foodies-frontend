@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
@@ -19,6 +19,9 @@ const RecipePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Створюємо реф для секції
+  const recipeSectionRef = useRef(null);
+
   useEffect(() => {
     const loadRecipe = async () => {
       try {
@@ -33,6 +36,13 @@ const RecipePage = () => {
 
     loadRecipe();
   }, [id, dispatch]);
+
+  useEffect(() => {
+    // Скролимо до секції після завантаження
+    if (!loading && !error && recipeSectionRef.current) {
+      recipeSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [loading, error]);
 
   if (loading)
     return (
