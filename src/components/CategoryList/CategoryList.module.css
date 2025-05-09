@@ -20,7 +20,14 @@
   left: 16px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
+}
+
+.categoriesLoader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
 }
 
 .nameWrapper {
@@ -44,7 +51,9 @@
   border-radius: 30px;
   padding: 11px;
   cursor: pointer;
-  transition: background-color 0.4s ease, border-color 0.4s ease;
+  transition:
+    background-color 0.4s ease,
+    border-color 0.4s ease;
 }
 
 .arrowIcon {
@@ -72,6 +81,12 @@
   color: var(--white);
 }
 
+@media (max-width: 767px) {
+  .card:nth-of-type(n + 9):not(.allCard) {
+    display: none;
+  }
+}
+
 @media (min-width: 768px) {
   .categoriesContainer {
     flex-direction: row;
@@ -97,6 +112,10 @@
   .card {
     height: 369px;
   }
+
+  .card:nth-of-type(n + 12):not(.allCard) {
+    display: none;
+  }
 }
 
 @media (min-width: 1440px) {
@@ -110,14 +129,14 @@
   .div12,
   .div13,
   .div14,
-  .div16{
+  .div16 {
     width: 325px;
   }
   .div3,
   .div4,
   .div8,
   .div10,
-  .div15{
+  .div15 {
     width: 590px;
   }
   .nameWrapper {
