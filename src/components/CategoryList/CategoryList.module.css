@@ -20,7 +20,18 @@
   left: 16px;
   display: flex;
   align-items: center;
+<<<<<<< HEAD
   gap: 8px;
+=======
+  gap: 4px;
+}
+
+.categoriesLoader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+>>>>>>> 36e610c862f2dc592943d7450059f436ba07c888
 }
 
 .nameWrapper {
@@ -44,7 +55,13 @@
   border-radius: 30px;
   padding: 11px;
   cursor: pointer;
+<<<<<<< HEAD
   transition: background-color 0.4s ease, border-color 0.4s ease;
+=======
+  transition:
+    background-color 0.4s ease,
+    border-color 0.4s ease;
+>>>>>>> 36e610c862f2dc592943d7450059f436ba07c888
 }
 
 .arrowIcon {
@@ -72,6 +89,15 @@
   color: var(--white);
 }
 
+<<<<<<< HEAD
+=======
+@media (max-width: 767px) {
+  .card:nth-of-type(n + 9):not(.allCard) {
+    display: none;
+  }
+}
+
+>>>>>>> 36e610c862f2dc592943d7450059f436ba07c888
 @media (min-width: 768px) {
   .categoriesContainer {
     flex-direction: row;
@@ -96,6 +122,11 @@
 
   .card {
     height: 369px;
+    border-radius: 30px;
+  }
+
+  .card:nth-of-type(n + 12):not(.allCard) {
+    display: none;
   }
 }
 
@@ -110,14 +141,14 @@
   .div12,
   .div13,
   .div14,
-  .div16{
+  .div16 {
     width: 325px;
   }
   .div3,
   .div4,
   .div8,
   .div10,
-  .div15{
+  .div15 {
     width: 590px;
   }
   .nameWrapper {

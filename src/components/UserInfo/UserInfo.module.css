@@ -15,10 +15,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+<<<<<<< HEAD
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
+=======
+  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 16px;
+>>>>>>> 36e610c862f2dc592943d7450059f436ba07c888
   text-align: center;
   border-radius: 30px;
   border: 1px solid #BFBEBE;
@@ -94,6 +100,7 @@
   font-size: 14px;
   margin-bottom: 4px;
 }
+<<<<<<< HEAD
 
 .addedRecipes,
 .followers {
@@ -166,3 +173,5 @@
     height: 120px;
   }
 }
+=======
+>>>>>>> 36e610c862f2dc592943d7450059f436ba07c888

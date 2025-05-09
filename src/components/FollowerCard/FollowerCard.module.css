@@ -49,8 +49,13 @@
 }
 
 .avatar {
+<<<<<<< HEAD
   width: 50px;
   height: 50px;
+=======
+  width: 100px;
+  height: 100px;
+>>>>>>> 36e610c862f2dc592943d7450059f436ba07c888
   border-radius: 100%;
   object-fit: cover;
 }
@@ -93,6 +98,7 @@
   width: 100%;
   margin: 16px 0;
 }
+<<<<<<< HEAD
 
 .arrowButton {
   border: 1px solid var(--black);
@@ -204,3 +210,5 @@
     display: none;
   }
 }
+=======
+>>>>>>> 36e610c862f2dc592943d7450059f436ba07c888

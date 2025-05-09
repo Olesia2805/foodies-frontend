@@ -8,7 +8,7 @@ import {
   selectUser,
   selectIsAuthLoading,
   verifyUserWithTokenOps,
-} from '../redux/auth';
+} from '../redux/auth/index.js';
 
 const useAuth = () => {
   const dispatch = useDispatch();

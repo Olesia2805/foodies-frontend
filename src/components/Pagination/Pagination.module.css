@@ -12,8 +12,8 @@
   align-items: center;
   width: 40px;
   height: 40px;
-  border-radius: 50%; /* Circular buttons */
-  border: 1px solid #ccc; /* Gray border */
+  border-radius: 50%;
+  border: 1px solid #ccc;
   background-color: white;
   color: #333;
   font-size: 14px;
