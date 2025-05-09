@@ -1,12 +1,13 @@
 .card {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: space-between; /* Ensure content is spaced out */
+  justify-content: space-between;
   gap: 16px;
   padding: 16px;
-  border: none; /* Removed border */
+  border: none;
   border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.5); /* Transparent background */
+  background-color: rgba(255, 255, 255, 0.5);
   box-shadow: none;
 }
 
@@ -50,7 +51,7 @@
 .avatar {
   width: 50px;
   height: 50px;
-  border-radius: 100%; /* Fully rounded corners */
+  border-radius: 100%;
   object-fit: cover;
 }
 
@@ -61,14 +62,14 @@
 }
 
 .profileButton {
-  margin-left: auto; /* Push the button to the right side */
+  margin-left: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 40px;
   height: 40px;
-  border-radius: 50%; /* Circular buttons */
-  border: 1px solid #ccc; /* Gray border */
+  border-radius: 50%;
+  border: 1px solid #ccc;
   background-color: white;
   color: #333;
   font-size: 14px;
@@ -83,12 +84,12 @@
 }
 
 .profileButtonIcon {
-  font-size: 20px; /* Adjust icon size */
+  font-size: 20px;
 }
 
 .divider {
   height: 2px;
-  background-color: red; /* Temporary color for debugging */
+  background-color: red;
   width: 100%;
   margin: 16px 0;
 }
@@ -100,6 +101,7 @@
   padding: 11px;
   cursor: pointer;
   transition: background-color 0.4s ease, border-color 0.4s ease;
+  flex-shrink: 0;
 }
 
 .arrowIcon {
@@ -112,7 +114,7 @@
 
 @media (min-width: 320px) {
   .card {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
     gap: 8px;
   }
@@ -126,8 +128,6 @@
     width: 100px;
     height: 100px;
   }
-
-
 }
 
 @media (min-width: 375px) {
@@ -177,5 +177,30 @@
   .recipeImage {
     width: 180px;
     height: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .followerCard {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .details {
+    flex: 1;
+  }
+}
+
+@media (max-width: 375px) {
+  .recipesPreview {
+    display: none;
   }
 }

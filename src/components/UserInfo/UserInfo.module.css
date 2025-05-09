@@ -14,7 +14,7 @@
   flex-direction: column;
   align-items: center;
   border-radius: 16px;
-  background-color: rgba(255, 255, 255, 0.5); /* Transparent background */
+  background-color: rgba(255, 255, 255, 0.5);
   padding: 16px;
   text-align: center;
 }
@@ -23,23 +23,35 @@
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   display: block;
-  border: 2px solid #007bff;
+  border: none;
 }
 
 .details {
   display: flex;
   flex-direction: column;
-  text-align: left; /* Align text to the left */
-  margin-left: 0; /* Ensure no unintended centering */
+  text-align: left;
+  margin-left: 0;
+}
+
+.details .email,
+.details .addedRecipes,
+.details .followers {
+  font-weight: bold;
+  color: black;
+}
+
+.details .value {
+  font-weight: bold;
+  color: black;
 }
 
 .name {
+  text-align: center;
+  margin-top: 0;
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 8px;
-  margin: 0;
 }
 
 .email {
@@ -47,7 +59,7 @@
   color: #666;
   margin-bottom: 4px;
   margin: 0;
-  text-align: left; /* Center fields by the left side */
+  text-align: left;
 }
 
 .stats {
@@ -57,7 +69,7 @@
 
 .addedRecipes,
 .followers {
-  text-align: left; /* Center fields by the left side */
+  text-align: left;
 }
 
 @media (min-width: 320px) {
@@ -67,7 +79,7 @@
     align-items: center;
     gap: 16px;
     width: 100%;
-    margin-bottom: 24px; /* Add spacing below the user info */
+    margin-bottom: 24px;
   }
 
   .avatar {
@@ -84,7 +96,7 @@
     align-items: center;
     gap: 16px;
     width: 100%;
-    margin-bottom: 24px; /* Add spacing below the user info */
+    margin-bottom: 24px;
   }
 
   .avatar {
@@ -100,7 +112,7 @@
     align-items: center;
     gap: 16px;
     width: 100%;
-    margin-bottom: 24px; /* Add spacing below the user info */
+    margin-bottom: 24px;
   }
 
   .tabsSection {
