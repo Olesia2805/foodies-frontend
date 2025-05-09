@@ -1,6 +1,6 @@
 import React from 'react';
 import Icon from '../Icon/Icon';
-import styles from './RecipeCard.module.css';
+import styles from './ListRecipeCard.module.css';
 
 const RecipeCard = ({ recipe }) => {
   return (
@@ -15,7 +15,7 @@ const RecipeCard = ({ recipe }) => {
           className={styles.arrowButton}
           onClick={() => window.location.href = `/recipes/${recipe._id}`}
         >
-                          <Icon
+                <Icon
                   name="arrow-up-right"
                   className={styles.arrowIcon}
                   size={18}

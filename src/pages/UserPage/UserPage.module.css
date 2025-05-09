@@ -13,7 +13,6 @@
 
 .leftColumn {
   flex: 1;
-  max-width: 300px;
 }
 
 .rightColumn {
@@ -30,7 +29,6 @@
 
   .leftColumn {
     order: -1;
-    width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;

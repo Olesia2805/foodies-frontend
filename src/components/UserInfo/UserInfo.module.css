@@ -2,8 +2,10 @@
   display: flex;
   align-items: center;
   gap: 15px;
-  padding: 20px;
-  margin-bottom: 20px;
+  /* padding: 20px; */
+  width: 100%;
+  height: 100%;
+  /* margin-bottom: 20px; */
   border: 1px solid #ccc;
   border-radius: 10px;
   background-color: #f9f9f9;
@@ -13,19 +15,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 16px;
-  background-color: rgba(255, 255, 255, 0.5);
-  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
   text-align: center;
+  border-radius: 30px;
+  border: 1px solid #BFBEBE;
+  background-color: rgba(255, 255, 255, 0.5);
+  
+  
 }
 
 .avatar {
   width: 120px;
   height: 120px;
-  border-radius: 50%;
-  margin-bottom: 8px;
-  display: block;
-  border: none;
+  border-radius: 100px;
+  display: flex;
+  margin-top: 40px;
+  align-items: flex-start;
+  gap: 10px;
 }
 
 .details {
@@ -33,13 +42,24 @@
   flex-direction: column;
   text-align: left;
   margin-left: 0;
+  /* width: 234px; */
+  align-items: flex-start;
+  gap: 6px;
+  padding-bottom: 40px;
+  padding-left: 80px;
+  padding-right: 80px;
 }
 
 .details .email,
 .details .addedRecipes,
 .details .followers {
-  font-weight: bold;
-  color: black;
+  color: #BFBEBE;
+  font-family: Mulish;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.28px;
 }
 
 .details .value {
@@ -49,9 +69,17 @@
 
 .name {
   text-align: center;
-  margin-top: 0;
-  font-size: 18px;
-  font-weight: bold;
+  margin: 0 auto;
+  display: block;
+  color: #050505;
+  font-family: Mulish;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 24px;
+  letter-spacing: -0.4px;
+  text-transform: uppercase;
+
 }
 
 .email {
@@ -79,7 +107,7 @@
     align-items: center;
     gap: 16px;
     width: 100%;
-    margin-bottom: 24px;
+    /* margin-bottom: 24px; */
   }
 
   .avatar {
@@ -96,12 +124,12 @@
     align-items: center;
     gap: 16px;
     width: 100%;
-    margin-bottom: 24px;
+    /* margin-bottom: 24px; */
   }
 
   .avatar {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
   }
 }
 
@@ -112,7 +140,7 @@
     align-items: center;
     gap: 16px;
     width: 100%;
-    margin-bottom: 24px;
+    /* margin-bottom: 24px; */
   }
 
   .tabsSection {
@@ -134,7 +162,7 @@
   }
 
   .avatar {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
   }
 }
