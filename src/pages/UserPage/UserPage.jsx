@@ -17,10 +17,7 @@ import RecipeCard from '../../components/RecipeCard/RecipeCard.jsx';
 
 const UserPage = () => {
   const { user } = useAuth();
-  const { id: userId } = useParams(); // Extract user ID from URL
-  console.log('User from useAuth:', user); // Debug log
-  console.log('User ID from URL:', userId); // Debug log
-  console.log('Extracted userId from useParams:', userId); // Debug log
+  const { id: userId } = useParams();
   const [isFollowing, setIsFollowing] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [items, setItems] = useState([]);
@@ -41,7 +38,6 @@ const UserPage = () => {
     setActiveTab(index);
 
     if (index === 1) {
-      console.log('Fetching followers for user ID:', user?.id); // Debug log
       fetchFollowers();
     } else {
       const fetchedItems = index === 0 ? [{ id: 1, name: 'Recipe 1' }] : [{ id: 2, name: 'User 1' }];
@@ -51,14 +47,13 @@ const UserPage = () => {
 
   const fetchUserRecipes = async (page = 1) => {
     try {
-      const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
+      const token = localStorage.getItem('token');
       const response = await axios.get(`http://localhost:3000/api/users/${userId}?page=${page}&limit=5`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }); // Added limit=5 for pagination
-      console.log('API response for recipes:', response.data); // Debug log
-      setItems(response.data.res.data); // Assuming the recipes are in the nested `data` field
+      });
+      setItems(response.data.res.data);
       setPaginationState((prevState) => ({
         ...prevState,
         recipes: {
@@ -78,14 +73,13 @@ const UserPage = () => {
         console.error('User ID is not defined. Cannot fetch followers.');
         return;
       }
-      const token = localStorage.getItem('token'); // Assuming the token is stored in localStorage
+      const token = localStorage.getItem('token');
       const response = await axios.get(`http://localhost:3000/api/users/followers/${userId}?page=${page}&limit=5`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log('API response for FOLLOWERS:', response.data); // Debug log
-      setItems(response.data); // Assuming the followers are in the nested `data` field
+      setItems(response.data);
       setPaginationState((prevState) => ({
         ...prevState,
         followers: {
@@ -95,7 +89,6 @@ const UserPage = () => {
         },
       }));
     } catch (error) {
-      console.log('Error fetching followers:', error); // Debug log
       console.error('Error fetching followers:', error);
     }
   };

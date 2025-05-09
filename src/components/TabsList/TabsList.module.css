@@ -5,26 +5,28 @@
 
 .tabsList {
   display: flex;
-  flex-direction: row; /* Ensure tabs are in a single line */
-  flex-wrap: nowrap; /* Prevent wrapping */
-  justify-content: flex-start; /* Align tabs to the left */
-  gap: 8px; /* Add spacing between tabs */
-  overflow: visible; /* Remove scrolling */
-  border-bottom: 2px solid #ccc; /* Gray divider aligned with tab underlines */
-  padding-bottom: 0; /* Remove extra padding */
-  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 8px;
+  overflow: visible;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 0;
+  scrollbar-width: none;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .tab {
   background: none;
   border: none;
-  padding: 8px 16px;
+  padding: 8px 0px;
   font-size: 16px;
-  font-weight: 700; /* Make tabs bold */
+  font-weight: 700;
   color: var(--grey);
   cursor: pointer;
   transition: color 0.3s ease;
-  flex: 0 0 auto; /* Prevent tabs from shrinking */
+  flex: 0 0 auto;
 }
 
 .tab:hover {
@@ -34,27 +36,26 @@
 .tab.active {
   color: var(--black);
   font-weight: 700;
-  border-bottom: 2px solid #333; /* Tab underline */
-  margin-bottom: -2px; /* Align underline with divider */
+  border-bottom: 4px solid #000000;
 }
 
 .divider {
-  height: 1px;
-  background-color: #ccc; /* Gray color */
+  height: 5px;
+  background-color: #ccc;
   width: 100%;
   margin-top: 8px;
 }
 
 @media (min-width: 320px) {
   .tabsList {
-    flex-direction: row; /* Ensure tabs remain in a single line */
-    flex-wrap: nowrap; /* Prevent wrapping */
-    overflow-x: auto; /* Allow horizontal scrolling if needed */
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
     gap: 8px;
   }
 
   .tab {
-    flex: 0 0 auto; /* Prevent tabs from shrinking */
+    flex: 0 0 auto;
     width: 100%;
     text-align: left;
   }
