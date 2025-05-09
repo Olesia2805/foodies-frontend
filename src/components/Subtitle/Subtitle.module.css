@@ -1,0 +1,15 @@
+.subtitle {
+    color: var(--dark-grey);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.42;
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+@media only screen and (min-width: 768px) {
+    .subtitle {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+}
