@@ -12,6 +12,7 @@
   transform: translateY(-100%);
   opacity: 0;
   white-space: nowrap;
+  fill: var(--error);
 }
 .errorMessage:first-letter {
   text-transform: uppercase;

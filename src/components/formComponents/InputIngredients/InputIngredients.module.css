@@ -33,3 +33,8 @@
 .ingredients-list-wrapper {
   margin-top: 20px;
 }
+
+.error {
+  color: var(--error);
+  fill: var(--error);
+}

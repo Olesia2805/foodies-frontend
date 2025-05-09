@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PhotoUploader from '../formComponents/PhotoUploader/PhotoUploader';
 import css from './AddRecipeForm.module.css';
 import { Controller, useForm } from 'react-hook-form';
@@ -36,6 +36,17 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { ROUTER } from '../../constants/router';
 
+const defaultValue = {
+  photo: '', // thumb
+  title: '',
+  description: '',
+  category: '',
+  time: 0,
+  area: '',
+  ingredients: [],
+  preparation: '', // instructions
+};
+
 export default function AddRecipeForm() {
   // Store Categories
   const isCategoriesLoading = useSelector(selectCategoriesIsLoading);
@@ -57,27 +68,20 @@ export default function AddRecipeForm() {
     dispatch(fetchAreas());
   }, [dispatch]);
 
+  const [resetTrigger, setResetTrigger] = useState(false); // For Component InputIngredients
+
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
+    getValues,
     reset,
   } = useForm({
     mode: 'onSubmit',
-    defaultValues: {
-      photo: '', // thumb
-      title: '',
-      description: '',
-      category: '',
-      time: 0,
-      area: '',
-      ingredients: [],
-      preparation: '', // instructions
-    },
+    defaultValues: defaultValue,
     resolver: yupResolver(recipeSchema),
   });
-
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
@@ -136,6 +140,11 @@ export default function AddRecipeForm() {
     [allCategories]
   );
 
+  const resetForm = () => {
+    reset(defaultValue);
+    setResetTrigger((prev) => !prev);
+  };
+
   return (
     <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={css['column-1']}>
@@ -150,7 +159,7 @@ export default function AddRecipeForm() {
             fieldState: { invalid, isTouched, error, isDirty, onBlur },
           }) => (
             <ErrorWrapper errorMessage={error?.message} isShadow={false}>
-              <PhotoUploader onChange={onChange} error={error} />
+              <PhotoUploader onChange={onChange} error={error} value={value} />
             </ErrorWrapper>
           )}
         />
@@ -237,7 +246,11 @@ export default function AddRecipeForm() {
                 formState,
               }) => (
                 <ErrorWrapper errorMessage={error?.message}>
-                  <InputTimeCounter onChange={onChange} value={value} />
+                  <InputTimeCounter
+                    onChange={onChange}
+                    value={value}
+                    error={error}
+                  />
                 </ErrorWrapper>
               )}
             />
@@ -281,7 +294,12 @@ export default function AddRecipeForm() {
             formState,
           }) => (
             <ErrorWrapper errorMessage={errors?.ingredients?.message}>
-              <InputIngredients onChange={onChange} />
+              <InputIngredients
+                onChange={onChange}
+                error={error}
+                value={value}
+                resetTrigger={resetTrigger}
+              />
             </ErrorWrapper>
           )}
         />
@@ -321,7 +339,11 @@ export default function AddRecipeForm() {
         </Fieldset>
 
         <div className={css['btn-container']}>
-          <button className={css['btn-delete']} type="button" onClick={reset}>
+          <button
+            className={css['btn-delete']}
+            type="button"
+            onClick={resetForm}
+          >
             <Icon name="trash" size={20} />
           </button>
           <Button type="submit">Publish</Button>

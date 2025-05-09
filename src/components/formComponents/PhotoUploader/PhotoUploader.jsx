@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import css from './PhotoUploader.module.css';
 import Icon from '../../Icon/Icon';
@@ -6,22 +6,31 @@ import Icon from '../../Icon/Icon';
 import { useDropzone } from 'react-dropzone';
 import clsx from 'clsx';
 
-export default function PhotoUploader({ onChange, error, ...otherProps }) {
+export default function PhotoUploader({
+  onChange,
+  error,
+  value,
+  ...otherProps
+}) {
   const [image, setImage] = useState('');
+
+  useEffect(() => {
+    if (!value) return setImage('');
+    const reader = new FileReader();
+
+    reader.onabort = () => console.log('file reading was aborted');
+    reader.onerror = () => console.log('file reading has failed');
+    reader.onload = () => {
+      // Do whatever you want with the file contents
+      const base64 = reader.result;
+      setImage(base64);
+    };
+    reader.readAsDataURL(value);
+  }, [value]);
 
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
       onChange(file);
-      const reader = new FileReader();
-
-      reader.onabort = () => console.log('file reading was aborted');
-      reader.onerror = () => console.log('file reading has failed');
-      reader.onload = () => {
-        // Do whatever you want with the file contents
-        const base64 = reader.result;
-        setImage(base64);
-      };
-      reader.readAsDataURL(file);
     });
   }, []);
 

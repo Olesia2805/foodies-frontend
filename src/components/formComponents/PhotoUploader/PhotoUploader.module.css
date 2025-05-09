@@ -17,7 +17,7 @@
 }
 
 .is-drag-active {
-  box-shadow: 0px 0px 35px 15px rgba(0, 0, 0, 0.5) inset;
+  box-shadow: 0px 0px 20px 2px rgb(217 217 217 / 50%) inset;
 }
 
 @media screen and (min-width: 768px) {

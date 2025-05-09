@@ -33,3 +33,7 @@
 .counter-error {
   color: var(--error);
 }
+
+.error {
+  border-color: var(--error);
+}

@@ -1,8 +1,9 @@
 import css from './InputTimeCounter.module.css';
 import Icon from '../../Icon/Icon';
 import { minToDays } from '../../../tools/minToDays';
+import clsx from 'clsx';
 
-export default function InputTimeCounter({ value, onChange }) {
+export default function InputTimeCounter({ value, onChange, error }) {
   const updateValue = (income) => {
     const newValue = value + income;
     onChange(newValue > 0 ? newValue : 0);
@@ -11,7 +12,10 @@ export default function InputTimeCounter({ value, onChange }) {
   const getValueToChange = (isDescrease) => {
     if (isDescrease && value <= 5) return 1;
     else if (value < 5) return 1;
+
+    if (isDescrease && value <= 60) return 5;
     if (value < 60) return 5;
+
     if (value < 60 * 8) return 15;
     if (value < 60 * 16) return 30;
     return 60;
@@ -19,20 +23,6 @@ export default function InputTimeCounter({ value, onChange }) {
 
   const decrease = () => updateValue(getValueToChange(true) * -1);
   const increase = () => updateValue(getValueToChange());
-
-  // let time = '';
-  // if (value > 0) {
-  //   const remainingTime = minToDays(value);
-  //   time = Object.keys(remainingTime)
-  //     .reduce((acc, value) => {
-  //       if (remainingTime[value] > 0)
-  //         acc.push(`${remainingTime[value]} ${value}`);
-  //       return acc;
-  //     }, [])
-  //     .join(', ');
-  // } else {
-  //   time = '0 min';
-  // }
 
   let time = '';
 
@@ -49,12 +39,14 @@ export default function InputTimeCounter({ value, onChange }) {
     time = '0 min';
   }
 
+  const valueClassName = clsx(css.value, error && css.error);
+
   return (
     <div className={css.wrapper}>
       <button type="button" onClick={decrease} className={css.button}>
         <Icon name="minus" size={16} />
       </button>
-      <p className={css.value}>{time.trim()}</p>
+      <p className={valueClassName}>{time.trim()}</p>
       <button type="button" onClick={increase} className={css.button}>
         <Icon name="plus" size={16} />
       </button>

@@ -24,7 +24,11 @@ export default function InputTextCounter({
     value.length > 0 && css['counter-current'],
     value.length > maxInputLenght && css['counter-error']
   );
-  const wrapperClassName = clsx(css['input-wrapper'], className);
+  const wrapperClassName = clsx(
+    css['input-wrapper'],
+    className,
+    error && css.error
+  );
   const inputProps = {
     name: name,
     value: value,

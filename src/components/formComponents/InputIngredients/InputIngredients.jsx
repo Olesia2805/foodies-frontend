@@ -15,8 +15,12 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import IngredientsList from '../../IngredientsList/IngredientsList';
 
-export default function InputIngredients({ onChange }) {
-  const [firstRender, setFirstRender] = useState(true); // measure
+export default function InputIngredients({
+  onChange,
+  error,
+  value,
+  resetTrigger,
+}) {
   const dispatch = useDispatch();
 
   // Store Ingredients
@@ -27,26 +31,26 @@ export default function InputIngredients({ onChange }) {
   const [selectedIngredient, setSelectedIngredient] = useState(null); // option
   const [quantity, setQuantity] = useState(''); // measure
 
-  const [ingredients, setIngredients] = useState([]);
-
   const dropdownOptions = useMemo(() => {
     return allIngredients.map((item) => {
       return {
         value: item._id,
         label: item.name,
-        disabled: Boolean(ingredients.find(({ id }) => id === item._id)),
+        disabled: Boolean(value.find(({ id }) => id === item._id)),
       };
     });
-  }, [allIngredients, ingredients]);
+  }, [allIngredients, value]);
 
   useEffect(() => {
     dispatch(fetchIngredients());
   }, [dispatch]);
 
   useEffect(() => {
-    if (firstRender) return setFirstRender(false); // prevent validation on init
-    onChange(ingredients);
-  }, [onChange, ingredients]);
+    if (typeof resetTrigger === 'boolean') {
+      setSelectedIngredient(null);
+      setQuantity('');
+    }
+  }, [resetTrigger]);
 
   const quantityOnChange = (event) => {
     let value = event.target.value.trim();
@@ -60,29 +64,25 @@ export default function InputIngredients({ onChange }) {
 
   const onClick = () => {
     if (selectedIngredient && quantity.length > 0) {
-      setIngredients((prevState) => {
-        return [...prevState, { id: selectedIngredient.value, quantity }];
-      });
+      onChange([...value, { id: selectedIngredient.value, quantity }]);
       setSelectedIngredient(null);
       setQuantity('');
     }
   };
 
-  const onDeleteClick = (id, event) => {
-    setIngredients((prevState) => {
-      return prevState.filter((item) => item.id !== id);
-    });
+  const onDeleteClick = (id) => {
+    onChange(value.filter((item) => item.id !== id));
   };
 
   const ingredientsToRender = useMemo(() => {
-    return ingredients.map(({ id, quantity }) => {
+    return value.map(({ id, quantity }) => {
       const originalIngredient = allIngredients.find((item) => item._id === id);
       return {
         ...originalIngredient,
         recipe_ingredient: { measure: quantity },
       };
     });
-  }, [allIngredients, ingredients]);
+  }, [allIngredients, value]);
 
   return (
     <Fieldset className={css['fieldset-ingredients']}>
@@ -94,6 +94,7 @@ export default function InputIngredients({ onChange }) {
           options={dropdownOptions}
           placeholder="Select placeholder"
           isDisabled={isIngredientsError && isIngredientsLoading}
+          error={!Boolean(selectedIngredient) && error}
         />
 
         <InputTextCounter
@@ -104,9 +105,15 @@ export default function InputIngredients({ onChange }) {
           placeholder="Enter quantity"
           value={quantity}
           onChange={quantityOnChange}
+          error={quantity.length === 0 && error}
         />
       </div>
-      <Button variant="outline" type="button" onClick={onClick}>
+      <Button
+        variant="outline"
+        type="button"
+        onClick={onClick}
+        customClassName={error && css.error}
+      >
         Add ingredient
         <Icon name="plus" />
       </Button>
