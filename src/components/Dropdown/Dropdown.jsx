@@ -2,18 +2,15 @@ import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import '../../assets/fonts.css';
 import './Dropdown.css';
-import chevronDownIcon from '../../assets/Icons/chevron-down.svg';
-import clsx from 'clsx';
 
 const Dropdown = ({
   value,
   onChange,
-  placeholder = 'Choose an option',
+  placeholder,
   options = [],
   required = false,
-  iconSrc = chevronDownIcon,
+  iconSrc,
   style,
-  className,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -53,10 +50,9 @@ const Dropdown = ({
   // Get the selected option display text
   const selectedOption = options.find((option) => option.value === value);
   const displayText = selectedOption ? selectedOption.label : '';
-  const containerClassName = clsx('dropdown-container', className);
 
   return (
-    <div ref={dropdownRef} className={containerClassName} style={style}>
+    <div ref={dropdownRef} className="dropdown-container" style={style}>
       <div
         onClick={handleToggle}
         onBlur={handleBlur}
@@ -112,7 +108,6 @@ Dropdown.propTypes = {
   required: PropTypes.bool,
   iconSrc: PropTypes.string.isRequired,
   style: PropTypes.object,
-  className: PropTypes.string,
 };
 
 export default Dropdown;
