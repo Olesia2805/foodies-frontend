@@ -20,7 +20,7 @@ const RecipePage = () => {
   const [error, setError] = useState(null);
 
   // Створюємо реф для секції
-  const recipeSectionRef = useRef(null);
+  const startScrollRef = useRef(null);
 
   useEffect(() => {
     const loadRecipe = async () => {
@@ -39,8 +39,10 @@ const RecipePage = () => {
 
   useEffect(() => {
     // Скролимо до секції після завантаження
-    if (!loading && !error && recipeSectionRef.current) {
-      recipeSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (!loading && !error && startScrollRef.current) {
+      startScrollRef.current.parentElement.parentElement.scrollIntoView({
+        behavior: 'smooth',
+      });
     }
   }, [loading, error]);
 
@@ -64,10 +66,7 @@ const RecipePage = () => {
       <Breadcrumbs
         items={[{ label: 'Home', link: '/' }, { label: recipe.title }]}
       />
-      <section
-        className={styles.recipeSection}
-        ref={recipeSectionRef} // Прив'язуємо реф до секції
-      >
+      <section className={styles.recipeSection} ref={startScrollRef}>
         <RecipeImage src={recipe.thumb} alt={recipe.title}></RecipeImage>
 
         <div className={styles.recipeContent}>
