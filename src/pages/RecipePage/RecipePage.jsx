@@ -64,7 +64,10 @@ const RecipePage = () => {
       <Breadcrumbs
         items={[{ label: 'Home', link: '/' }, { label: recipe.title }]}
       />
-      <section className={styles.recipeSection}>
+      <section
+        className={styles.recipeSection}
+        ref={recipeSectionRef} // Прив'язуємо реф до секції
+      >
         <RecipeImage src={recipe.thumb} alt={recipe.title}></RecipeImage>
 
         <div className={styles.recipeContent}>
