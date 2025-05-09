@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories } from '../../redux/categories/operations';
 import {
   selectCategories,
   selectCategoriesIsLoading,
   selectCategoriesError,
-} from '../../redux/categories/selectors';
+  fetchCategories,
+} from '../../redux/categories/index.js';
 import css from './CategoryList.module.css';
 import Icon from '../Icon/Icon';
 import Loader from '../Loader/Loader';
