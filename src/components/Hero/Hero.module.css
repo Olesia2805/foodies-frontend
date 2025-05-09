@@ -1,5 +1,5 @@
 .hero {
-  background-color: #000;
+  background-color: #050505;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@
   position: relative;
   margin: 0 auto;
   overflow: hidden;
-  margin-top: -160px;
+  margin-top: -145px;
 }
 
 .header {
@@ -31,7 +31,7 @@
 }
 
 .title {
-  width: 875px;
+  max-width: 875px;
   height: 180px;
   font-family: 'Mulish', sans-serif;
   font-weight: 800;
@@ -41,11 +41,11 @@
   text-align: center;
   text-transform: uppercase;
   color: #ffffff;
-  margin-top: 154px;
+  margin-bottom: 30px;
 }
 
 .subtitle {
-  width: 577px;
+  max-width: 577px;
   height: 48px;
   font-family: 'Mulish', sans-serif;
   font-weight: 500;
@@ -54,14 +54,28 @@
   letter-spacing: -2%;
   text-align: center;
   color: #ffffff;
-  margin-top: -40px;
+  margin-bottom: 50px;
+}
+
+.button {
+  gap: 10px;
+  border-radius: 30px;
+  border: 1px solid #ffffff;
+  padding: 16px 32px;
+  background-color: #050505;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+  font-family: 'Mulish', sans-serif;
+  color: #ffffff;
+  letter-spacing: -0.32px;
   margin-bottom: 40px;
 }
 
 .imageGallery {
   position: absolute;
   bottom: 110px;
-  left: 50%;
+  left: 51%;
   transform: translateX(-50%);
   display: flex;
   align-items: flex-start;
@@ -84,7 +98,7 @@
   border-radius: 15px;
   transform: rotate(12deg);
   position: relative;
-  right: 50px;
+  right: 34px;
   top: 60px;
   margin-top: 92px;
 }
@@ -131,7 +145,7 @@
 
 @media (max-width: 1440px) {
   .hero {
-    width: 1400px;
+    max-width: 1400px;
     height: 970px;
   }
 
@@ -168,26 +182,30 @@
 
 @media (max-width: 768px) {
   .hero {
-    width: 736px;
+    max-width: 736px;
     height: 992px;
   }
 
   .title {
-    width: 678px;
-    height: 140px;
+    max-width: 678px;
     font-size: 70px;
     line-height: 70px;
-    margin-top: 217px;
+    margin-top: 237px;
+    margin-bottom: 0px;
   }
 
   .subtitle {
-    font-size: 16px;
-    margin-top: -30px;
+    margin-bottom: 30px;
+    margin-top: 0px;
+  }
+
+  .button {
+    margin-bottom: 35px;
   }
 
   .imageGallery {
     position: relative;
-    margin-top: 200px;
+    margin-top: 135px;
     left: auto;
     transform: none;
     justify-content: center;
@@ -225,35 +243,43 @@
 
 @media (max-width: 375px) {
   .hero {
-    width: 359px;
+    max-width: 359px;
     height: 796px;
   }
 
   .title {
-    width: 327px;
+    max-width: 327px;
     height: 120px;
     font-size: 40px;
     line-height: 40px;
-    margin-top: 194px;
+    margin-top: 220px;
+    margin-bottom: 30px;
   }
 
   .subtitle {
-    width: 326px;
+    max-width: 326px;
     height: 60px;
     font-size: 14px;
-    margin-top: -20px;
     line-height: 20px;
     text-align: center;
     margin-bottom: 20px;
     overflow-wrap: break-word;
   }
 
+  .button {
+    padding: 12px 24px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
   .imageGallery {
     position: relative;
-    margin-top: 200px;
     left: auto;
     transform: none;
     justify-content: center;
+    left: 5px;
   }
 
   .secondImage {

@@ -34,7 +34,12 @@ const Hero = () => {
             Amazing recipes for beginners in the world of cooking, enveloping
             you in the aromas and tastes of various cuisines.
           </p>
-          <Button onClick={handleAddRecipeClick}>ADD RECIPE</Button>
+          <Button
+            onClick={handleAddRecipeClick}
+            className={styles.button}
+          >
+            ADD RECIPE
+          </Button>
         </div>
         <div className={styles.imageGallery}>
           <div className={styles.mainImage}>
