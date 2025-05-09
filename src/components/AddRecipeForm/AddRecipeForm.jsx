@@ -32,6 +32,9 @@ import {
   MIN_STRING_LENGTH,
 } from '../../constants/recipeForm';
 import recipeAPI from '../../api/recipeAPI';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { PROFILE } from '../../constants/router';
 
 export default function AddRecipeForm() {
   // Store Categories
@@ -60,6 +63,7 @@ export default function AddRecipeForm() {
     control,
     setValue,
     formState: { errors },
+    reset,
   } = useForm({
     mode: 'onChange',
     defaultValues: {
@@ -75,19 +79,21 @@ export default function AddRecipeForm() {
     resolver: yupResolver(recipeSchema),
   });
 
+  const navigate = useNavigate();
+
   const onSubmit = async (data) => {
-    // alert(JSON.stringify(data, null, 2));
     console.log('data before rename :>> ', data);
-    const renamedFieldsData = {
+    const preparedData = {
       thumb: data.photo,
       title: data.title,
       description: data.description,
+      // TODO: Choose how we send fields to the Backend: as Number(id) or String(name) ?
       // area: Number(data.area.value),
+      // category: Number(data.category.value),
+      category: String(data.category.label),
       area: String(data.area.label),
       instructions: data.preparation,
       time: Number(data.time),
-      // category: Number(data.category.value),
-      category: String(data.category.label),
       ingredients: data.ingredients.map(({ id, quantity }) => {
         return { ingredientId: Number(id), quantity: quantity };
       }),
@@ -95,8 +101,8 @@ export default function AddRecipeForm() {
 
     const formData = new FormData();
 
-    for (let key in renamedFieldsData) {
-      const value = renamedFieldsData[key];
+    for (let key in preparedData) {
+      const value = preparedData[key];
 
       if (typeof value === 'object' && !(value instanceof File)) {
         formData.append(key, JSON.stringify(value));
@@ -105,12 +111,17 @@ export default function AddRecipeForm() {
       }
     }
 
-    for (const value of formData.values()) {
-      console.log(value);
+    try {
+      const response = await recipeAPI.createRecipe(formData);
+      console.log('response :>> ', response);
+      return;
+      navigate(PROFILE);
+    } catch (error) {
+      // TODO: Review how to show errors from backend
+      toast.error(error);
+    } finally {
+      // TODO: Add show and hide loader
     }
-
-    const response = await recipeAPI.createRecipe(formData);
-    console.log('response :>> ', response);
   };
 
   const createSelectOptions = function (item) {
@@ -307,13 +318,12 @@ export default function AddRecipeForm() {
         </Fieldset>
 
         <div className={css['btn-container']}>
-          <button className={css['btn-delete']}>
+          <button className={css['btn-delete']} type="button" onClick={reset}>
             <Icon name="trash" size={20} />
           </button>
           <Button type="submit">Publish</Button>
         </div>
       </div>
-      {/* <input  /> */}
     </form>
   );
 }

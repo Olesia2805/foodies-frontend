@@ -20,11 +20,6 @@ export default function DropdownSearch({
       placeholder={placeholder}
       unstyled
       isOptionDisabled={(option) => option.disabled}
-      // classNames={{
-      //   control: (state) =>
-      //     (state.isFocused || state.isHovered) &&
-      //     'react-select__control--menu-is-open',
-      // }}
       className="react-select-container"
       classNamePrefix="react-select"
       classNames={{

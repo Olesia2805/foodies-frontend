@@ -12,6 +12,7 @@ const Button = ({
   disabled,
   fullWidth,
   loading,
+  customClassName,
   ...props
 }) => {
   const customStyle = {
@@ -24,10 +25,22 @@ const Button = ({
     secondary: styles.buttonSecondary,
     outlined: styles.buttonOutlined,
   };
-
+  console.log(
+    clsx(
+      styles.button,
+      variantClassMap[variant],
+      props.className,
+      customClassName
+    )
+  );
   return (
     <button
-      className={clsx(styles.button, variantClassMap[variant], props.className)}
+      className={clsx(
+        styles.button,
+        variantClassMap[variant],
+        props.className,
+        customClassName
+      )}
       style={{
         ...customStyle,
         width: fullWidth ? '100%' : customStyle.width,

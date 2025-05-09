@@ -1,0 +1,21 @@
+.mainTitle {
+  color: var(--black);
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+@media only screen and (min-width: 768px) {
+  .mainTitle {
+    font-size: 32px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .mainTitle {
+    font-size: 36px;
+  }
+}

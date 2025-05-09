@@ -1,3 +1,4 @@
+/* Sample of liraries' layout */
 /* <div class="react-select-container">
   <div class="react-select__control">
     <div class="react-select__value-container">...</div>
@@ -91,7 +92,6 @@
 
 .react-select__option.react-select__option--is-focused {
   background-color: #f5f5f5;
-  /* cursor: pointer; */
 }
 
 .react-select__option--is-selected {

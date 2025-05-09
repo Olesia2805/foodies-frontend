@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import css from './InputTimeCounter.module.css';
 import Icon from '../../Icon/Icon';
 import { minToDays } from '../../../tools/minToDays';

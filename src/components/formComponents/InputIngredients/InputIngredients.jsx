@@ -44,7 +44,7 @@ export default function InputIngredients({ onChange }) {
   }, [dispatch]);
 
   useEffect(() => {
-    if (firstRender) return setFirstRender(false); // prevent validation
+    if (firstRender) return setFirstRender(false); // prevent validation on init
     onChange(ingredients);
   }, [onChange, ingredients]);
 
@@ -55,7 +55,6 @@ export default function InputIngredients({ onChange }) {
   };
 
   const onSelectChange = (selectedValue) => {
-    // console.log(selectedValue);
     setSelectedIngredient(selectedValue);
   };
 

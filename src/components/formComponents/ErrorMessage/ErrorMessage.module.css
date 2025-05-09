@@ -3,7 +3,6 @@
   color: var(--error);
   font-size: 1rem;
   position: absolute;
-  /* max-height: 0px; */
   height: auto;
   transition-property: opacity, transform;
   transition-duration: var(--transition-duration);
@@ -20,6 +19,5 @@
 
 .visiable {
   opacity: 1;
-  /* max-height: 48px; */
   transform: translateY(0%);
 }
