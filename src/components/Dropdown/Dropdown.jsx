@@ -1,113 +1,145 @@
-import React, { useState, useRef, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import '../../assets/fonts.css';
-import './Dropdown.css';
+import { useState, useRef, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import Icon from '../Icon/Icon';
+import css from './Dropdown.module.css';
 
 const Dropdown = ({
-  value,
-  onChange,
-  placeholder,
-  options = [],
-  required = false,
-  iconSrc,
-  style,
+  items = [],
+  label,
+  selectedValue,
+  callback,
+  isMulti = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-
-  const [hoveredIndex, setHoveredIndex] = useState(-1);
+  const [searchTerm, setSearchTerm] = useState('');
   const dropdownRef = useRef(null);
+  const dispatch = useDispatch();
 
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
-  };
+  const validItems = Array.isArray(items)
+    ? items.filter((item) => item && item.name)
+    : [];
 
-  const handleBlur = () => {
-    // Small delay to allow option click to register before closing
-    setTimeout(() => {
+  const filteredItems = validItems.filter((item) =>
+    item?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsOpen(false);
-    }, 100);
+    }
   };
 
-  const handleOptionClick = (option) => {
-    onChange(option);
-    setIsOpen(false);
-  };
-
-  // Close dropdown when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
-  // Get the selected option display text
-  const selectedOption = options.find((option) => option.value === value);
-  const displayText = selectedOption ? selectedOption.label : '';
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleItemSelect = (item) => {
+    if (!item) return;
+
+    if (isMulti) {
+      const safeSelectedValue = Array.isArray(selectedValue)
+        ? selectedValue
+        : [];
+      const isSelected = safeSelectedValue.some(
+        (selected) => selected?.value === item.value
+      );
+
+      const newSelectedValue = isSelected
+        ? safeSelectedValue.filter((selected) => selected?.value !== item.value)
+        : [...safeSelectedValue, item];
+
+      dispatch(callback(newSelectedValue));
+    } else {
+      dispatch(callback(item));
+      setIsOpen(false);
+    }
+  };
+
+  const isItemSelected = (item) => {
+    if (!item) return false;
+
+    if (isMulti) {
+      const safeSelectedValue = Array.isArray(selectedValue)
+        ? selectedValue
+        : [];
+      return safeSelectedValue.some(
+        (selected) => selected?.value === item.value
+      );
+    }
+    return selectedValue?.value === item.value;
+  };
+
+  const displaySelectedValue = () => {
+    if (isMulti) {
+      const safeSelectedValue = Array.isArray(selectedValue)
+        ? selectedValue
+        : [];
+      return safeSelectedValue.length > 0
+        ? `Selected: ${safeSelectedValue.length}`
+        : label;
+    }
+    return selectedValue?.name || label;
+  };
 
   return (
-    <div ref={dropdownRef} className="dropdown-container" style={style}>
-      <div
-        onClick={handleToggle}
-        onBlur={handleBlur}
-        tabIndex="0"
-        className={`dropdown ${isOpen ? 'dropdown-open' : ''}`}
+    <div className={css.dropdownContainer} ref={dropdownRef}>
+      <button
+        className={css.dropdownButton}
+        onClick={toggleDropdown}
+        type="button"
       >
-        {displayText || (
-          <span className="placeholder">
-            {placeholder}
-            {required && <span className="required">*</span>}
-          </span>
-        )}
-      </div>
-
-      <div className="dropdown-icon">
-        <img
-          src={iconSrc}
-          alt="dropdown arrow"
-          className={isOpen ? 'dropdown-icon-rotate' : 'dropdown-icon-normal'}
+        <span>{displaySelectedValue()}</span>
+        <Icon
+          name={isOpen ? 'chevron-up' : 'chevron-down'}
+          className={css.dropdownIcon}
         />
-      </div>
+      </button>
 
       {isOpen && (
-        <div className="options-container">
-          {options.map((option, index) => (
-            <div
-              key={option.value}
-              onClick={() => handleOptionClick(option.value)}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(-1)}
-              className={`option ${hoveredIndex === index ? 'option-hover' : ''} ${option.value === value ? 'option-selected' : ''}`}
-            >
-              {option.label}
-            </div>
-          ))}
+        <div className={css.dropdownContent}>
+          <div className={css.searchContainer}>
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className={css.searchInput}
+            />
+          </div>
+
+          <ul className={css.optionsList}>
+            {filteredItems.length > 0 ? (
+              filteredItems.map((item) => (
+                <li
+                  key={item.value}
+                  className={`${css.optionItem} ${
+                    isItemSelected(item) ? css.selected : ''
+                  }`}
+                  onClick={() => handleItemSelect(item)}
+                >
+                  {item.name}
+                  {isItemSelected(item) && (
+                    <Icon name="check" className={css.checkIcon} />
+                  )}
+                </li>
+              ))
+            ) : (
+              <li className={css.noResults}>
+                {searchTerm ? 'No results found' : 'No items available'}
+              </li>
+            )}
+          </ul>
         </div>
       )}
     </div>
   );
-};
-
-Dropdown.propTypes = {
-  name: PropTypes.string,
-  value: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  required: PropTypes.bool,
-  iconSrc: PropTypes.string.isRequired,
-  style: PropTypes.object,
 };
 
 export default Dropdown;
