@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Container from '../../components/Container/Container';
@@ -22,6 +22,8 @@ const HomePage = () => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const recipesRef = useRef(null);
+  const categoriesRef = useRef(null);
 
   const handleAuthRequired = () => {
     setIsSignInModalOpen(true);
@@ -46,12 +48,24 @@ const HomePage = () => {
     dispatch(setPage(1));
     dispatch(setSelectedCategory(category));
     setShowRecipes(true);
+
+    setTimeout(() => {
+      if (recipesRef.current) {
+        recipesRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   const handleBackClick = () => {
     setShowRecipes(false);
     dispatch(setSelectedCategory(null));
     dispatch(clearRecipes());
+
+    setTimeout(() => {
+      if (categoriesRef.current) {
+        categoriesRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   return (
@@ -59,14 +73,18 @@ const HomePage = () => {
       <Hero />
       <Container>
         {showRecipes ? (
-          <Recipes
-            onUserAvatarClick={handleUserAvatarClick}
-            onRecipeDetailsClick={handleRecipeDetailsClick}
-            onBackClick={handleBackClick}
-            onAuthRequired={handleAuthRequired}
-          />
+          <div ref={recipesRef}>
+            <Recipes
+              onUserAvatarClick={handleUserAvatarClick}
+              onRecipeDetailsClick={handleRecipeDetailsClick}
+              onBackClick={handleBackClick}
+              onAuthRequired={handleAuthRequired}
+            />
+          </div>
         ) : (
-          <Categories onCategorySelect={handleCategorySelect} />
+          <div ref={categoriesRef}>
+            <Categories onCategorySelect={handleCategorySelect} />
+          </div>
         )}
         <SignInModal
           isOpen={isSignInModalOpen}

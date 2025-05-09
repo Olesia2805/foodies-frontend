@@ -3,7 +3,7 @@ import css from './Categories.module.css';
 
 const Categories = ({ onCategorySelect }) => {
   return (
-    <section>
+    <section className={css.categoriesMainContainer}>
       <h2 className={`${css.title} ${css.categoriesTitle}`}>Categories</h2>
       <p className={css.description}>
         Discover a limitless world of culinary possibilities and enjoy exquisite

@@ -86,6 +86,26 @@ const RecipeFilters = () => {
 
   return (
     <div className={css.filtersContainer}>
+      {!isCommonLoading && !!categories?.length && (
+        <div className={css.dropdownWithClear}>
+          <Dropdown
+            items={categories}
+            label="Category"
+            selectedValue={isCategorySelected ? selectedCategory : null}
+            callback={setSelectedCategory}
+          />
+          {isCategorySelected && (
+            <button
+              onClick={clearCategory}
+              className={css.clearButton}
+              title="Clear category"
+            >
+              <Icon name="close" size={22} />
+            </button>
+          )}
+        </div>
+      )}
+
       {!isCommonLoading && !!ingredients?.length && (
         <div className={css.dropdownWithClear}>
           <Dropdown
@@ -122,26 +142,6 @@ const RecipeFilters = () => {
               title="Clear area"
             >
               <Icon name="close" size={16} />
-            </button>
-          )}
-        </div>
-      )}
-
-      {!isCommonLoading && !!categories?.length && (
-        <div className={css.dropdownWithClear}>
-          <Dropdown
-            items={categories}
-            label="Category"
-            selectedValue={isCategorySelected ? selectedCategory : null}
-            callback={setSelectedCategory}
-          />
-          {isCategorySelected && (
-            <button
-              onClick={clearCategory}
-              className={css.clearButton}
-              title="Clear category"
-            >
-              <Icon name="close" size={22} />
             </button>
           )}
         </div>

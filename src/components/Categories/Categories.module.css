@@ -3,7 +3,7 @@
   color: var(--grey);
 }
 
-.categoriesTitle {
+.categoriesMainContainer {
   margin-top: 64px;
 }
 
@@ -14,13 +14,13 @@
     color: var(--dark-grey);
   }
 
-  .categoriesTitle {
+  .categoriesMainContainer {
     margin-top: 100px;
   }
 }
 
 @media (min-width: 1440px) {
-  .categoriesTitle {
+  .categoriesMainContainer {
     margin-top: 120px;
   }
 }
