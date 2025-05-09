@@ -31,6 +31,7 @@
     margin-bottom: 8px;
     width: 100%;
     white-space: nowrap;
+    margin-top: 0;
 }
 
 .cardDescription {
@@ -50,6 +51,7 @@
     height: 44px;
     align-self: stretch;
     margin-bottom: 8px;
+    margin-top: 0;
 }
 
 .cardFooter {
