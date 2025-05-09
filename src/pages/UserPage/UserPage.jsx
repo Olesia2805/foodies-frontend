@@ -13,7 +13,7 @@ import FollowerCard from '../../components/FollowerCard/FollowerCard.jsx';
 import Pagination from '../../components/Pagination/Pagination.jsx';
 import styles from './UserPage.module.css';
 import axios from 'axios';
-import RecipeCard from '../../components/RecipeCard/RecipeCard.jsx';
+import RecipeCard from '../../components/ListRecipeCard/ListRecipeCard.jsx';
 
 const UserPage = () => {
   const { user } = useAuth();
