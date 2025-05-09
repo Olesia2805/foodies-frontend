@@ -138,6 +138,9 @@
     .card {
         width: 342px;
     }
+    .cardImg {
+        border-radius: 30px;
+    }
     .cardBtn {
         width: 42px;
         height: 42px;
@@ -173,7 +176,6 @@
 
     .cardImg {
         height: 275px;
-        border-radius: 30px;
     }
 
     .userImg {
