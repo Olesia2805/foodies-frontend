@@ -1,4 +1,5 @@
 import React from 'react';
+import Icon from '../Icon/Icon';
 import styles from './FollowerCard.module.css';
 
 const FollowerCard = ({ follower }) => {
@@ -30,10 +31,14 @@ const FollowerCard = ({ follower }) => {
         })}
       </div>
       <button
-        className={styles.profileButton}
+        className={styles.arrowButton}
         onClick={() => window.location.href = `http://localhost:3001/user/${follower.id}`}
       >
-        /
+                        <Icon
+                  name="arrow-up-right"
+                  className={styles.arrowIcon}
+                  size={18}
+                />
       </button>
     </div>
   );

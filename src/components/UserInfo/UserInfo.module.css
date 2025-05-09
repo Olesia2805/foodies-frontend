@@ -31,6 +31,8 @@
 .details {
   display: flex;
   flex-direction: column;
+  text-align: left; /* Align text to the left */
+  margin-left: 0; /* Ensure no unintended centering */
 }
 
 .name {
@@ -45,9 +47,82 @@
   color: #666;
   margin-bottom: 4px;
   margin: 0;
+  text-align: left; /* Center fields by the left side */
 }
 
 .stats {
   font-size: 14px;
   margin-bottom: 4px;
+}
+
+.addedRecipes,
+.followers {
+  text-align: left; /* Center fields by the left side */
+}
+
+@media (min-width: 320px) {
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 24px; /* Add spacing below the user info */
+  }
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+}
+
+@media (min-width: 375px) {
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 24px; /* Add spacing below the user info */
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (min-width: 768px) {
+  .userInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 24px; /* Add spacing below the user info */
+  }
+
+  .tabsSection {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .avatar {
+    width: 120px;
+    height: 120px;
+  }
+
+}
+
+@media (min-width: 1440px) {
+  .userInfo {
+    gap: 32px;
+  }
+
+  .avatar {
+    width: 150px;
+    height: 150px;
+  }
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import Icon from '../Icon/Icon';
 import styles from './RecipeCard.module.css';
 
 const RecipeCard = ({ recipe }) => {
@@ -11,10 +12,14 @@ const RecipeCard = ({ recipe }) => {
       </div>
       
         <button
-          className={styles.recipeButton}
+          className={styles.arrowButton}
           onClick={() => window.location.href = `/recipes/${recipe._id}`}
         >
-          <span className={styles.recipeButtonIcon}>/</span>
+                          <Icon
+                  name="arrow-up-right"
+                  className={styles.arrowIcon}
+                  size={18}
+                />
         </button>
       
       

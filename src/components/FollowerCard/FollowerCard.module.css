@@ -93,6 +93,23 @@
   margin: 16px 0;
 }
 
+.arrowButton {
+  border: 1px solid var(--black);
+  background-color: transparent;
+  border-radius: 30px;
+  padding: 11px;
+  cursor: pointer;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.arrowIcon {
+  fill: #000000;
+}
+
+.arrowButton:hover {
+  background-color: var(--light-grey);
+}
+
 @media (min-width: 320px) {
   .card {
     flex-direction: column;

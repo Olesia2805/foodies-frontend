@@ -5,9 +5,14 @@
 
 .tabsList {
   display: flex;
-  gap: 8px;
+  flex-direction: row; /* Ensure tabs are in a single line */
+  flex-wrap: nowrap; /* Prevent wrapping */
+  justify-content: flex-start; /* Align tabs to the left */
+  gap: 8px; /* Add spacing between tabs */
+  overflow: visible; /* Remove scrolling */
   border-bottom: 2px solid #ccc; /* Gray divider aligned with tab underlines */
   padding-bottom: 0; /* Remove extra padding */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
 }
 
 .tab {
@@ -19,6 +24,7 @@
   color: var(--grey);
   cursor: pointer;
   transition: color 0.3s ease;
+  flex: 0 0 auto; /* Prevent tabs from shrinking */
 }
 
 .tab:hover {
@@ -41,12 +47,14 @@
 
 @media (min-width: 320px) {
   .tabsList {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row; /* Ensure tabs remain in a single line */
+    flex-wrap: nowrap; /* Prevent wrapping */
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
     gap: 8px;
   }
 
   .tab {
+    flex: 0 0 auto; /* Prevent tabs from shrinking */
     width: 100%;
     text-align: left;
   }
@@ -58,6 +66,7 @@
   }
 
   .tab {
+    width: auto;
     font-size: 14px;
   }
 }

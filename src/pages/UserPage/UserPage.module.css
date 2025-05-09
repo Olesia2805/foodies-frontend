@@ -20,3 +20,72 @@
 .rightColumn {
   flex: 2;
 }
+
+@media (min-width: 320px) {
+  .layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center align the user info card */
+    gap: 16px;
+  }
+
+  .leftColumn {
+    order: -1; /* Move user info and follow button to the top */
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Center the user info card */
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .rightColumn {
+    order: 0; /* Tabs and content below user info */
+    width: 100%;
+  }
+
+  .userInfo {
+    width: 100%;
+    max-width: 400px; /* Make the user card more stretched */
+    max-width: 400px; /* Match the width of the follow button */
+  }
+
+  .followButton {
+    width: 100%;
+    max-width: 400px; /* Match the width of the user card */
+    max-width: 400px; /* Ensure consistent width with user card */
+  }
+}
+
+@media (min-width: 768px) {
+  .layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .leftColumn {
+    margin-bottom: 24px; /* Add spacing below user info */
+    
+  }
+
+  .rightColumn {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .layout {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  .leftColumn {
+    order: 0; /* Reset order for desktop */
+    margin-bottom: 0;
+  }
+
+  .rightColumn {
+    width: auto;
+  }
+}

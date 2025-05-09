@@ -152,7 +152,9 @@ const UserPage = () => {
         </div>
 
         <div className={styles.rightColumn}>
-          <TabsList tabs={tabs} onTabChange={handleTabChange} />
+          <div className={styles.tabsWrapper}>
+            <TabsList tabs={tabs} onTabChange={handleTabChange} />
+          </div>
           <ListItems items={items} renderItem={renderItem} activeTab={activeTab} />
           <Pagination
             currentPage={paginationState[activeTab === 0 ? 'recipes' : 'followers'].currentPage}
