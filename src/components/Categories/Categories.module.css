@@ -1,6 +1,11 @@
 .description {
+  margin-top: 0;
   margin-bottom: 32px;
   color: var(--grey);
+}
+
+.categoriesMainContainer {
+  margin-top: 64px;
 }
 
 @media (min-width: 768px) {
@@ -8,5 +13,15 @@
     max-width: 531px;
     margin-bottom: 40px;
     color: var(--dark-grey);
+  }
+
+  .categoriesMainContainer {
+    margin-top: 100px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .categoriesMainContainer {
+    margin-top: 120px;
   }
 }

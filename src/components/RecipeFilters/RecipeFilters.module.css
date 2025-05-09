@@ -1,0 +1,78 @@
+.filtersContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.dropdownPlaceholder {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid var(--grey);
+    border-radius: 15px;
+    font-size: 14px;
+    color: var(--dark-grey);
+    font-weight: 500;
+    opacity: 0.6;
+}
+
+.dropdownWithClear {
+    position: relative;
+    width: 100%;
+}
+
+.clearButton {
+    position: absolute;
+    top: 50%;
+    right: 40px;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: var(--white);
+    z-index: 2;
+}
+
+.clearButton svg {
+    fill: var(--black);
+    stroke: var(--black);
+}
+
+@media only screen and (min-width: 768px) {
+    .filtersContainer {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 14px;
+    }
+
+    .dropdownWithClear {
+        width: calc(50% - 7px);
+    }
+
+    .dropdownPlaceholder {
+        font-size: 16px;
+        padding: 16px 20px;
+        width: calc(50% - 7px);
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .filtersContainer {
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .dropdownWithClear,
+    .dropdownPlaceholder {
+        width: 100%;
+    }
+}

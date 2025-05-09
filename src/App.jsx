@@ -1,11 +1,13 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useRef } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
 import Loader from './components/Loader/Loader';
 import Layout from './components/Layout/Layout.jsx';
 import { ROUTER } from './constants/router.js';
 import { toastConfig } from './constants/toastConfig.js';
 import { useAuth, useVerification } from './hooks';
+import { fetchFavoriteRecipes } from './redux/recipes/index.js';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 const RecipePage = lazy(() => import('./pages/RecipePage/RecipePage'));
@@ -17,13 +19,22 @@ const NotFoundPage = lazy(() => import('./pages/NotFoundPage/NotFoundPage'));
 
 const App = () => {
   const { isAuthenticated, getUser } = useAuth();
+  const dispatch = useDispatch();
   useVerification();
 
+  const initialDataLoadedRef = useRef(false);
+
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && !initialDataLoadedRef.current) {
+      initialDataLoadedRef.current = true;
+
       getUser();
+      dispatch(fetchFavoriteRecipes());
+
+    } else if (!isAuthenticated) {
+      initialDataLoadedRef.current = false;
     }
-  }, []);
+  }, [isAuthenticated, getUser, dispatch]);
 
   return (
     <>

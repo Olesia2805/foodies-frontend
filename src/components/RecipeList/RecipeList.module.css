@@ -1,0 +1,61 @@
+.recipeListContainer {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    width: 100%;
+    color: var(--dark-grey);
+    font-size: 16px;
+}
+
+.emptyContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    width: 100%;
+    padding: 40px 0;
+}
+
+.emptyMessage {
+    text-align: center;
+    color: var(--dark-grey);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+@media only screen and (min-width: 768px) {
+    .recipeListContainer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 704px;
+        gap: 40px 20px;
+    }
+
+    .loadingContainer {
+        min-height: 300px;
+        font-size: 18px;
+    }
+
+    .emptyMessage {
+        font-size: 18px;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .recipeListContainer {
+        margin: 0;
+        width: 100%;
+    }
+}
