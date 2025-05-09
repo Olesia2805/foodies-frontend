@@ -31,6 +31,7 @@ import {
   MAX_STRING_LENGTH,
   MIN_STRING_LENGTH,
 } from '../../constants/recipeForm';
+import recipeAPI from '../../api/recipeAPI';
 
 export default function AddRecipeForm() {
   // Store Categories
@@ -67,16 +68,49 @@ export default function AddRecipeForm() {
       description: '',
       category: '',
       time: 0,
-      area: '', // ???
+      area: '',
       ingredients: [],
       preparation: '', // instructions
     },
     resolver: yupResolver(recipeSchema),
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
-    alert(JSON.stringify(data, null, 2));
+  const onSubmit = async (data) => {
+    // alert(JSON.stringify(data, null, 2));
+    console.log('data before rename :>> ', data);
+    const renamedFieldsData = {
+      thumb: data.photo,
+      title: data.title,
+      description: data.description,
+      // area: Number(data.area.value),
+      area: String(data.area.label),
+      instructions: data.preparation,
+      time: Number(data.time),
+      // category: Number(data.category.value),
+      category: String(data.category.label),
+      ingredients: data.ingredients.map(({ id, quantity }) => {
+        return { ingredientId: Number(id), quantity: quantity };
+      }),
+    };
+
+    const formData = new FormData();
+
+    for (let key in renamedFieldsData) {
+      const value = renamedFieldsData[key];
+
+      if (typeof value === 'object' && !(value instanceof File)) {
+        formData.append(key, JSON.stringify(value));
+      } else {
+        formData.append(key, value);
+      }
+    }
+
+    for (const value of formData.values()) {
+      console.log(value);
+    }
+
+    const response = await recipeAPI.createRecipe(formData);
+    console.log('response :>> ', response);
   };
 
   const createSelectOptions = function (item) {

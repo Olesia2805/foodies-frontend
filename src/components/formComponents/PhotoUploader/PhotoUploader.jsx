@@ -74,7 +74,7 @@ export default function PhotoUploader({ onChange, error, ...otherProps }) {
         )}
       </div>
       {image.length > 0 && (
-        <button className={css['btn-img-upload']} onClick={open}>
+        <button className={css['btn-img-upload']} onClick={open} type="button">
           Upload another photo
         </button>
       )}

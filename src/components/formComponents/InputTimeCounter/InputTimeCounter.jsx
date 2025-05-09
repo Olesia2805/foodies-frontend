@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import css from './InputTimeCounter.module.css';
 import Icon from '../../Icon/Icon';
+import { minToDays } from '../../../tools/minToDays';
 
 export default function InputTimeCounter({ value, onChange }) {
   const updateValue = (income) => {
@@ -36,15 +37,4 @@ export default function InputTimeCounter({ value, onChange }) {
       </button>
     </div>
   );
-}
-
-// tools
-
-function minToDays(min, ep = 1) {
-  let days = Math.floor((min * ep) / 1440);
-  let remainingTime = parseInt(min * ep - Math.floor(days * 1440));
-  let hours = Math.floor(remainingTime / 60);
-  let remainingMin = Math.floor(remainingTime - hours * 60);
-  return { d: days, h: hours, min: remainingMin };
-  return `${days} day(s) and ${hours} hour(s) and ${remainingMin} minutes(s).`;
 }

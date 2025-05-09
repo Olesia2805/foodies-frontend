@@ -49,7 +49,7 @@ export default function InputIngredients({ onChange }) {
   }, [onChange, ingredients]);
 
   const quantityOnChange = (event) => {
-    let { value } = event.target;
+    let value = event.target.value.trim();
     if (value.length > 30) value = value.substring(0, 30);
     setQuantity(value);
   };
@@ -60,7 +60,7 @@ export default function InputIngredients({ onChange }) {
   };
 
   const onClick = () => {
-    if (selectedIngredient && quantity.length > 1) {
+    if (selectedIngredient && quantity.length > 0) {
       setIngredients((prevState) => {
         return [...prevState, { id: selectedIngredient.value, quantity }];
       });
