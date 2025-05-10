@@ -35,6 +35,7 @@ import recipeAPI from '../../api/recipeAPI';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { ROUTER } from '../../constants/router';
+import Loader from '../Loader/Loader';
 
 const defaultValue = {
   photo: '', // thumb
@@ -61,13 +62,18 @@ export default function AddRecipeForm() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchCategories());
-  }, [dispatch]);
+    if (allCategories.length === 0) {
+      dispatch(fetchCategories());
+    }
+  }, [allCategories.length, dispatch]);
 
   useEffect(() => {
-    dispatch(fetchAreas());
-  }, [dispatch]);
+    if (allAreas.length === 0) {
+      dispatch(fetchAreas());
+    }
+  }, [allAreas.length, dispatch]);
 
+  const [isPostingRecipe, setIsPostingRecipe] = useState(false); // For Component InputIngredients
   const [resetTrigger, setResetTrigger] = useState(false); // For Component InputIngredients
 
   const {
@@ -75,7 +81,6 @@ export default function AddRecipeForm() {
     handleSubmit,
     control,
     formState: { errors },
-    getValues,
     reset,
   } = useForm({
     mode: 'onSubmit',
@@ -113,12 +118,15 @@ export default function AddRecipeForm() {
       }
     }
     try {
+      setIsPostingRecipe(true);
       const response = await recipeAPI.createRecipe(formData);
+      if (response.status !== 201) throw new Error(response);
       navigate(ROUTER.PROFILE);
     } catch (error) {
       // TODO: Review how to show errors from backend
       toast.error(error?.response?.data?.message || 'Error');
     } finally {
+      setIsPostingRecipe(false);
       // TODO: Add show and hide loader
     }
   };
@@ -349,6 +357,12 @@ export default function AddRecipeForm() {
           <Button type="submit">Publish</Button>
         </div>
       </div>
+
+      {(isAreasLoading || isCategoriesLoading || isPostingRecipe) && (
+        <div className={css['loader-container']}>
+          <Loader fullScreen />
+        </div>
+      )}
     </form>
   );
 }

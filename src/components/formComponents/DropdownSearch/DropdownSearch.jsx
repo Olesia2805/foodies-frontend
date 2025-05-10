@@ -1,8 +1,6 @@
 import Select from 'react-select';
 import { createFilter } from 'react-select';
 import './DropdownSearch.css';
-
-import React from 'react';
 import MenuList from '../MenuList/MenuList';
 
 export default function DropdownSearch({
