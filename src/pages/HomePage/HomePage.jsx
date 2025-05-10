@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Container from '../../components/Container/Container';
@@ -12,13 +12,13 @@ import { useAuth } from '../../hooks';
 import {
   setSelectedCategory,
   setSelectedIngredients,
-  setSelectedArea
-} from '../../redux/common/slice';
-import { clearRecipes, setPage } from '../../redux/recipes/slice';
+  setSelectedArea,
+  setIsSignInModalOpen,
+} from '../../redux/common/index.js';
+import { clearRecipes, setPage } from '../../redux/recipes/index.js';
 
 const HomePage = () => {
   const [showRecipes, setShowRecipes] = useState(false);
-  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,14 +26,14 @@ const HomePage = () => {
   const categoriesRef = useRef(null);
 
   const handleAuthRequired = () => {
-    setIsSignInModalOpen(true);
+    dispatch(setIsSignInModalOpen(true));
   };
 
   const handleUserAvatarClick = (userId) => {
     if (isAuthenticated) {
       navigate(`${ROUTER.USER}/${userId}`);
     } else {
-      setIsSignInModalOpen(true);
+      dispatch(setIsSignInModalOpen(true));
     }
   };
 
@@ -86,15 +86,9 @@ const HomePage = () => {
             <Categories onCategorySelect={handleCategorySelect} />
           </div>
         )}
-        <SignInModal
-          isOpen={isSignInModalOpen}
-          onClose={() => setIsSignInModalOpen(false)}
-          setOtherModal={() => {
-            setIsSignInModalOpen(false);
-          }}
-        />
-        <Testimonials />
       </Container>
+
+      <Testimonials />
     </>
   );
 };

@@ -8,6 +8,7 @@ const IngredientsList = ({ ingredients, isPageAddRecipe, onDeleteClick }) => {
     styles.ingredientListItem,
     isPageAddRecipe && styles.animation
   );
+
   return (
     <ul className={styles.ingredientList}>
       {ingredients.map((ingredient) => (

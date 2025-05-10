@@ -45,7 +45,7 @@ const App = () => {
 
             <Route path={ROUTER.ADD_RECIPE} element={<AddRecipePage />} />
 
-            <Route path={`${ROUTER.USER}/:id`} element={<UserPage />} />
+            <Route path={`${ROUTER.USER}/:userId`} element={<UserPage />} />
 
             <Route path={`${ROUTER.RECIPE}/:id`} element={<RecipePage />} />
 
@@ -59,3 +59,4 @@ const App = () => {
 };
 
 export default App;
+

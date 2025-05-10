@@ -20,18 +20,40 @@
   border: 1px solid transparent;
   border-radius: 30px;
   background: var(--white);
+  color: var(--black);
   transition: all 0.3s ease;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     background: var(--black);
     color: var(--white);
   }
 }
 
 .activeLink {
-  border-color: var(--grey);
-  &:hover, &:focus {
+  border-color: var(--black);
+  &:hover,
+  &:focus {
     background: var(--white);
     color: var(--black);
+  }
+}
+
+.homePageLink {
+  background: var(--black);
+  color: var(--white);
+  &:hover,
+  &:focus {
+    background: var(--white);
+    color: var(--black);
+  }
+}
+
+.homePageLink.activeLink {
+  border-color: var(--black);
+  &:hover,
+  &:focus {
+    background: var(--black);
+    color: var(--white);
   }
 }

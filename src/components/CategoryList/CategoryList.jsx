@@ -52,10 +52,11 @@ const CategoryList = ({ onCategorySelect }) => {
   if (error) {
     return <Error message={error} />;
   }
+
   return (
     <div className={css.categoriesContainer}>
       <ul className={css.categoriesContainer}>
-        {categories.map((cat, index) => (
+        {categories?.map((cat, index) => (
           <li
             key={cat._id}
             className={`${css.card} ${css[categoryClasses[index]]}`}

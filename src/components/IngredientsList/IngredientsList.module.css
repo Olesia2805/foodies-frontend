@@ -3,6 +3,7 @@
   gap: 16px;
   grid-template-columns: repeat(2, 1fr);
   width: 100%;
+  line-height: 143%;
 }
 
 .ingredientListItem {
@@ -36,7 +37,14 @@
 
 @media screen and (min-width: 768px) {
   .ingredientList {
+    gap: 20px;
     grid-template-columns: repeat(3, 1fr);
+    line-height: 150%;
+  }
+
+  .ingredientListItem img {
+    width: 90px;
+    height: 90px;
   }
 }
 
