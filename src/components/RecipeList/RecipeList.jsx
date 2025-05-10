@@ -5,11 +5,12 @@ import { useShowError } from '../../hooks/useShowError';
 import {
   selectRecipes,
   selectIsRecipesLoading,
-  selectRecipesError
+  selectRecipesError,
 } from '../../redux/recipes/index.js';
 import Loader from '../Loader/Loader';
+import SimpleRecipeCard from '../SimpleRecipeCard/SimpleRecipeCard.jsx';
 
-const RecipeList = ({ onUserAvatarClick, onRecipeDetailsClick, onAuthRequired }) => {
+const RecipeList = () => {
   const isRecipesLoading = useSelector(selectIsRecipesLoading);
   const error = useSelector(selectRecipesError);
   const recipes = useSelector(selectRecipes);
@@ -19,25 +20,16 @@ const RecipeList = ({ onUserAvatarClick, onRecipeDetailsClick, onAuthRequired })
   return (
     <>
       {isRecipesLoading && (
-        <div className={css.loadingContainer}><Loader /></div>
+        <div className={css.loadingContainer}>
+          <Loader />
+        </div>
       )}
 
       {!isRecipesLoading && recipes?.length > 0 && (
         <ul className={css.recipeListContainer}>
-          {recipes.map(item => (
+          {recipes.map((item) => (
             <li key={item.id || item._id}>
-              <RecipeCard
-                mealImage={item.thumb || item.preview || 'https://placehold.co/300x200?text=No+Image'}
-                title={item.title || item.name || 'Unnamed Recipe'}
-                description={item.description || 'No description available'}
-                userAvatar={item.owner?.avatar || 'https://placehold.co/40x40?text=User'}
-                userName={item.owner?.name || 'Anonymous'}
-                userId={item.owner?.id || item.owner?._id || 'unknown'}
-                recipeId={item.id || item._id}
-                onUserAvatarClick={onUserAvatarClick}
-                onRecipeDetailsClick={onRecipeDetailsClick}
-                onAuthRequired={onAuthRequired}
-              />
+              <SimpleRecipeCard recipe={item} />
             </li>
           ))}
         </ul>
@@ -46,7 +38,8 @@ const RecipeList = ({ onUserAvatarClick, onRecipeDetailsClick, onAuthRequired })
       {!isRecipesLoading && (!recipes || recipes.length === 0) && (
         <div className={css.emptyContainer}>
           <p className={css.emptyMessage}>
-            Recipes not found.<br />
+            Recipes not found.
+            <br />
             Try selecting different filters.
           </p>
         </div>

@@ -25,7 +25,6 @@ const FollowerCard = ({ follower }) => {
       </div>
       <div className={styles.recipesPreview}>
         {follower.recipes?.slice(0, 4).map((recipe, index) => {
-          console.log('Recipe object:', recipe);
           return (
             <img
               key={recipe.id || index}

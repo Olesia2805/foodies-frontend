@@ -17,30 +17,18 @@ import {
 } from '../../redux/recipes/index.js';
 import toast from 'react-hot-toast';
 import { setIsSignInModalOpen } from '../../redux/common/index.js';
+import useFavorites from '../../hooks/useFavorites.js';
+import { useMemo } from 'react';
+import css from '../RecipeCard/RecipeCard.module.css';
 
 const SimpleRecipeCard = ({ recipe, size = 'regular' }) => {
   const dispatch = useDispatch();
-  const favoritesIds = useSelector(selectFavoriteRecipesId);
 
   const { isAuthenticated } = useAuth();
+
   const { owner, thumb, title, description, _id } = recipe;
 
-  const isFav = favoritesIds.includes(_id);
-
-  const handlerFavorite = async (recipeId) => {
-    if (!isAuthenticated) {
-      dispatch(setIsSignInModalOpen(true));
-      return;
-    }
-
-    if (isFav) {
-      await dispatch(removeFromFavorites(recipeId));
-      toast.success('Recipe removed from favorites');
-    } else {
-      await dispatch(addToFavorites(recipeId));
-      toast.success('Recipe added to favorites');
-    }
-  };
+  const { isFav, isFavoriteLoading, onFavoriteHandler } = useFavorites(_id);
 
   return (
     <div
@@ -51,9 +39,13 @@ const SimpleRecipeCard = ({ recipe, size = 'regular' }) => {
       <Link
         aria-label="Go to details"
         to={`${ROUTER.RECIPE}/${_id}`}
-        target="_blank"
+        className={styles.link}
       >
-        <img src={thumb} alt="meal" className={styles.cardImg} />
+        <img
+          src={thumb || 'https://placehold.co/300x200?text=No+Image'}
+          alt="meal"
+          className={styles.cardImg}
+        />
         <h2 className={styles.cardTitle}>{title}</h2>
         <p className={styles.cardDescription}>{description}</p>
       </Link>
@@ -61,7 +53,7 @@ const SimpleRecipeCard = ({ recipe, size = 'regular' }) => {
       <div className={styles.cardFooter}>
         {isAuthenticated ? (
           <Link
-            to={`${ROUTER.PROFILE}/${owner._id}`}
+            to={`${ROUTER.USER}/${owner._id}`}
             className={styles.userInfo}
             target="_blank"
           >
@@ -81,7 +73,9 @@ const SimpleRecipeCard = ({ recipe, size = 'regular' }) => {
             className={clsx(styles.cardBtn, {
               [styles.cardBtnActive]: isFav,
             })}
-            onClick={() => handlerFavorite(_id)}
+            aria-label="Toggle favorite"
+            disabled={isFavoriteLoading}
+            onClick={() => onFavoriteHandler(_id)}
           >
             <Icon name="heart" className={styles.icon} />
           </button>
@@ -90,7 +84,6 @@ const SimpleRecipeCard = ({ recipe, size = 'regular' }) => {
             className={styles.cardBtn}
             aria-label="Go to details"
             to={`${ROUTER.RECIPE}/${_id}`}
-            target="_blank"
           >
             <Icon name="arrow-up-right" className={styles.icon} />
           </Link>

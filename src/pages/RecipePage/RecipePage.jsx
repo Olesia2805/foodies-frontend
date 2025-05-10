@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import toast from 'react-hot-toast';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
@@ -9,78 +8,25 @@ import Error from '../../components/Error/Error';
 import IngredientsList from '../../components/IngredientsList/IngredientsList';
 import Loader from '../../components/Loader/Loader';
 import RecipeImage from '../../components/RecipeImage/RecipeImage';
-import {
-  selectFavoriteRecipesId,
-  selectIsAuthenticated,
-} from '../../redux/auth';
-import {
-  addToFavorites,
-  fetchRecipeById,
-  removeFromFavorites,
-} from '../../redux/recipes/operations';
+import { selectIsAuthenticated } from '../../redux/auth';
+import { fetchRecipeById } from '../../redux/recipes/operations';
 import { selectRecipeById } from '../../redux/recipes/selectors';
 import styles from './RecipePage.module.css';
 import PopularRecipes from '../../components/PopularRecipes/PopularRecipes.jsx';
+import useFavorites from '../../hooks/useFavorites.js';
 
-const RecipePage = ({
-  onFavoriteClick = () => {},
-  onAuthRequired = () => {},
-}) => {
+const RecipePage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const recipe = useSelector(selectRecipeById(id));
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Створюємо реф для секції
+  const { isFav, onFavoriteHandler } = useFavorites(id);
+
   const startScrollRef = useRef(null);
 
   const isAuthenticated = useSelector(selectIsAuthenticated);
-  const favoritesIds = useSelector(selectFavoriteRecipesId);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const isFav = useMemo(() => {
-    return favoritesIds.includes(id);
-  }, [favoritesIds, id]);
-
-  // Кнопка "Add to favorites" -
-  const handleFavoriteClick = async () => {
-    if (!isAuthenticated) {
-      onAuthRequired();
-      return;
-    }
-
-    if (isProcessing) {
-      return;
-    }
-
-    setIsProcessing(true);
-
-    try {
-      if (isFav) {
-        await dispatch(removeFromFavorites(id)).unwrap();
-        toast.success('Recipe removed from favorites');
-      } else {
-        await dispatch(addToFavorites(id)).unwrap();
-        toast.success('Recipe added to favorites');
-      }
-
-      if (onFavoriteClick) {
-        onFavoriteClick(id);
-      }
-    } catch (error) {
-      let errorMessage = 'Failed to update favorites';
-
-      if (typeof error === 'string') {
-        errorMessage = error;
-      } else if (error && typeof error.message === 'string') {
-        errorMessage = error.message;
-      }
-
-      toast.error(errorMessage);
-    } finally {
-      setIsProcessing(false);
-    }
-  };
 
   useEffect(() => {
     const loadRecipe = async () => {
@@ -166,13 +112,12 @@ const RecipePage = ({
               <p className={styles.instructions}>{recipe.instructions}</p>
             </section>
 
-            {/* TODO: Add to favorites */}
             <Button
               variant="outlined"
-              onClick={handleFavoriteClick}
-              disabled={isProcessing || !isAuthenticated}
+              onClick={() => onFavoriteHandler(id)}
+              // disabled={!isAuthenticated}
               title={
-                isProcessing || !isAuthenticated
+                !isAuthenticated
                   ? 'Sign in to add to favorites'
                   : isFav
                     ? 'Remove from favorites'
