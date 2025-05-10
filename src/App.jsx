@@ -12,7 +12,10 @@ import { fetchFavoriteRecipes } from './redux/recipes/index.js';
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 const RecipePage = lazy(() => import('./pages/RecipePage/RecipePage'));
 
-const UserPage = lazy(() => import('./pages/UserPage/UserPage'));
+// const UserPage = lazy(() => import('./pages/UserPage/UserPage'));
+const UserPageExample = lazy(
+  () => import('./pages/UserPageExample/UserPageExample.jsx')
+);
 const AddRecipePage = lazy(() => import('./pages/AddRecipePage/AddRecipePage'));
 
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage/NotFoundPage'));
@@ -30,7 +33,6 @@ const App = () => {
 
       getUser();
       dispatch(fetchFavoriteRecipes());
-
     } else if (!isAuthenticated) {
       initialDataLoadedRef.current = false;
     }
@@ -43,9 +45,11 @@ const App = () => {
           <Route path={ROUTER.HOME} element={<Layout />}>
             <Route index element={<HomePage />} />
 
-            <Route path={`${ROUTER.PROFILE}`} element={<UserPage />} />
+            {/* <Route path={`${ROUTER.PROFILE}`} element={<UserPage />} /> */}
+            <Route path={`${ROUTER.PROFILE}`} element={<UserPageExample />} />
 
-            <Route path={`${ROUTER.USER}/:id`} element={<UserPage />} />
+            {/* <Route path={`${ROUTER.USER}/:id`} element={<UserPage />} /> */}
+            <Route path={`${ROUTER.USER}/:id`} element={<UserPageExample />} />
 
             <Route path={`${ROUTER.RECIPE}/:id`} element={<RecipePage />} />
 
