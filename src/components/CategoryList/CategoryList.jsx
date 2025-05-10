@@ -37,8 +37,6 @@ const CategoryList = ({ onCategorySelect }) => {
   const isLoading = useSelector(selectCategoriesIsLoading);
   const error = useSelector(selectCategoriesError);
 
-  console.log('categories', categories);
-
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);

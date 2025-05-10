@@ -78,7 +78,6 @@ const UserPage = () => {
           (user) => user.id === urlUserId || user.id === parseInt(urlUserId)
         );
 
-      console.log('Checking if user is in followings:', isUserInFollowings);
       if (isUserInFollowings !== undefined) {
         setIsFollowing(isUserInFollowings);
       }

@@ -21,8 +21,6 @@ const RecipeCard = ({ recipe, size = 'regular' }) => {
   const dispatch = useDispatch();
   const favoritesIds = useSelector(selectFavoriteRecipesId);
 
-  console.log('favoritesIds', favoritesIds);
-
   const { isAuthenticated } = useAuth();
   const { owner, thumb, title, description, _id } = recipe;
 
