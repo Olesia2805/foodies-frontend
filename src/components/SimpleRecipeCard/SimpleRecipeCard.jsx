@@ -16,8 +16,9 @@ import {
   removeFromFavorites,
 } from '../../redux/recipes/index.js';
 import toast from 'react-hot-toast';
+import { setIsSignInModalOpen } from '../../redux/common/index.js';
 
-const RecipeCard = ({ recipe, size = 'regular' }) => {
+const SimpleRecipeCard = ({ recipe, size = 'regular' }) => {
   const dispatch = useDispatch();
   const favoritesIds = useSelector(selectFavoriteRecipesId);
 
@@ -27,6 +28,11 @@ const RecipeCard = ({ recipe, size = 'regular' }) => {
   const isFav = favoritesIds.includes(_id);
 
   const handlerFavorite = async (recipeId) => {
+    if (!isAuthenticated) {
+      dispatch(setIsSignInModalOpen(true));
+      return;
+    }
+
     if (isFav) {
       await dispatch(removeFromFavorites(recipeId));
       toast.success('Recipe removed from favorites');
@@ -51,6 +57,7 @@ const RecipeCard = ({ recipe, size = 'regular' }) => {
         <h2 className={styles.cardTitle}>{title}</h2>
         <p className={styles.cardDescription}>{description}</p>
       </Link>
+
       <div className={styles.cardFooter}>
         {isAuthenticated ? (
           <Link
@@ -61,7 +68,10 @@ const RecipeCard = ({ recipe, size = 'regular' }) => {
             <UserCard owner={owner} />
           </Link>
         ) : (
-          <div className={styles.userInfo}>
+          <div
+            className={styles.userInfo}
+            onClick={() => dispatch(setIsSignInModalOpen(true))}
+          >
             <UserCard owner={owner} />
           </div>
         )}
@@ -75,6 +85,7 @@ const RecipeCard = ({ recipe, size = 'regular' }) => {
           >
             <Icon name="heart" className={styles.icon} />
           </button>
+
           <Link
             className={styles.cardBtn}
             aria-label="Go to details"
@@ -89,7 +100,7 @@ const RecipeCard = ({ recipe, size = 'regular' }) => {
   );
 };
 
-export default RecipeCard;
+export default SimpleRecipeCard;
 
 const UserCard = ({ owner }) => {
   return (
