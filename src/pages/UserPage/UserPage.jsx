@@ -65,8 +65,7 @@ const UserPage = () => {
     });
 
   const [followUser, { isLoading: isFollowLoading }] = useFollowUserMutation();
-  const [unfollowUser, { isLoading: isUnfollowLoading }] =
-    useUnfollowUserMutation();
+  const [unfollowUser, { isLoading: isUnfollowLoading }] = useUnfollowUserMutation();
   const openLogOutModal = () => setIsLogOutModalOpen(true);
   const closeLogOutModal = () => setIsLogOutModalOpen(false);
 
@@ -108,7 +107,9 @@ const UserPage = () => {
         },
       }));
     } catch (error) {
-      console.error('Error fetching user recipes:', error);
+          console.error('Error fetching user recipes:', error);
+        }
+      };
 
   useEffect(() => {
     if (otherUserData && otherUserData.isFollowed !== undefined) {
@@ -134,8 +135,9 @@ const UserPage = () => {
         setIsFollowing(isUserInFollowings);
       }
 
+    try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://localhost:3000/api/users/followers/${userId}?page=${page}&limit=5`, {
+      const response = axios.get(`http://localhost:3000/api/users/followers/${userId}?page=${page}&limit=5`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -151,21 +153,16 @@ const UserPage = () => {
       }));
     } catch (error) {
       console.error('Error fetching followers:', error);
-
-
+    }
     }
   }, [myFollowings, urlUserId, isOwnProfile]);
 
   const isButtonLoading = isFollowLoading || isUnfollowLoading;
   const isDataLoading = isUserLoading || isFollowingsLoading;
+  const tabs = user?.isOwner ? ['MY RECIPES', 'MY FAVORITES', 'FOLLOWERS', 'FOLLOWING'] : ['RECIPES', 'FOLLOWERS'];
 
   const handleFollowToggle = async () => {
     if (!urlUserId) return;
-
-
-  const tabs = user?.isOwner
-    ? ['MY RECIPES', 'MY FAVORITES', 'FOLLOWERS', 'FOLLOWING']
-    : ['RECIPES', 'FOLLOWERS'];
 
     try {
       if (isFollowing) {
@@ -266,23 +263,22 @@ const UserPage = () => {
       )}
 
 
-        <div className={styles.rightColumn}>
-          <div className={styles.tabsWrapper}>
-            <TabsList tabs={tabs} onTabChange={handleTabChange} />
-          </div>
-          <ListItems items={items} renderItem={renderItem} activeTab={activeTab} />
-          <Pagination
-            currentPage={paginationState[activeTab === 0 ? 'recipes' : 'followers'].currentPage}
-            totalPages={paginationState[activeTab === 0 ? 'recipes' : 'followers'].pages}
-            onPageChange={handlePageChange}
-          />
+    <>
+      <div className={styles.rightColumn}>
+        <div className={styles.tabsWrapper}>
+          <TabsList tabs={tabs} onTabChange={handleTabChange} />
         </div>
+        <ListItems items={items} renderItem={renderItem} activeTab={activeTab} />
+        <Pagination
+          currentPage={paginationState[activeTab === 0 ? 'recipes' : 'followers'].currentPage}
+          totalPages={paginationState[activeTab === 0 ? 'recipes' : 'followers'].pages}
+          onPageChange={handlePageChange}
+        />
       </div>
 
       <LogOutModal isOpen={isLogOutModalOpen} onClose={closeLogOutModal} />
-
+    </>
     </div>
   );
-};
 
 export default withAuthGuard(UserPage);
