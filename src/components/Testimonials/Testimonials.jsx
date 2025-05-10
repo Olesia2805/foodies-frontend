@@ -14,7 +14,6 @@ const Testimonials = () => {
   const fetchTestimonials = async () => {
     try {
       const response = await axiosInstance.get('/testimonials?page=1');
-      console.log('response', response);
       const fetchedTestimonials = response.data.data.map((item) => ({
         id: item._id,
         text: item.testimonial,

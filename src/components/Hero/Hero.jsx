@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import Container from '../Container/Container';
-import SignInModal from '../SignInModal/SignInModal';
 import Button from '../Button/Button';
 import HeroImages from '../HeroImages/HeroImages';
 
@@ -10,10 +9,12 @@ import { ROUTER } from '../../constants/router';
 
 import { useAuth } from '../../hooks';
 
+import { setIsSignInModalOpen } from '../../redux/common/index.js';
+
 import styles from './Hero.module.css';
 
 const Hero = () => {
-  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
+  const dispatch = useDispatch();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
@@ -21,7 +22,7 @@ const Hero = () => {
     if (isAuthenticated) {
       navigate(ROUTER.ADD_RECIPE);
     } else {
-      setIsSignInModalOpen(true);
+      dispatch(setIsSignInModalOpen(true));
     }
   };
 
@@ -53,13 +54,9 @@ const Hero = () => {
               </Button>
             </div>
           </Container>
-
-          <SignInModal
-            isOpen={isSignInModalOpen}
-            onClose={() => setIsSignInModalOpen(false)}
-          />
         </section>
       </Container>
+
       <HeroImages />
     </>
   );
