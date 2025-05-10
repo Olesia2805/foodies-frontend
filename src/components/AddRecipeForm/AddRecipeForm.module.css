@@ -131,4 +131,5 @@
   height: 100vh;
   pointer-events: none;
   background-color: var(--dark-grey-50);
+  z-index: 10;
 }

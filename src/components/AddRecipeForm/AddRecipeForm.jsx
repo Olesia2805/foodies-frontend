@@ -28,8 +28,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { recipeSchema } from './recipeSchema';
 import ErrorWrapper from '../formComponents/ErrorWrapper/ErrorWrapper';
 import {
-  MAX_STRING_LENGTH,
-  MIN_STRING_LENGTH,
+  MAX_DESCRIPTION_LENGTH,
+  MAX_INSTRUCTIONS_LENGTH,
+  MAX_TITLE_LENGTH,
+  MIN_DESCRIPTION_LENGTH,
+  MIN_INSTRUCTIONS_LENGTH,
+  MIN_TITLE_LENGTH,
 } from '../../constants/recipeForm';
 import recipeAPI from '../../api/recipeAPI';
 import toast from 'react-hot-toast';
@@ -51,27 +55,33 @@ const defaultValue = {
 export default function AddRecipeForm() {
   // Store Categories
   const isCategoriesLoading = useSelector(selectCategoriesIsLoading);
-  const isCategoriesError = useSelector(selectCategoriesError);
+  const categoriesError = useSelector(selectCategoriesError);
   const allCategories = useSelector(selectCategories);
 
   // Areas
   const isAreasLoading = useSelector(selectAreasIsLoading);
-  const isAreasError = useSelector(selectAreasError);
+  const areasError = useSelector(selectAreasError);
   const allAreas = useSelector(selectAreas);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (categoriesError) {
+      return toast.error(categoriesError + '\nPlease Reload the page');
+    }
     if (allCategories.length === 0) {
       dispatch(fetchCategories());
     }
-  }, [allCategories.length, dispatch]);
+  }, [categoriesError, allCategories.length, dispatch]);
 
   useEffect(() => {
+    if (areasError) {
+      return toast.error(areasError + '\nPlease Reload the page');
+    }
     if (allAreas.length === 0) {
       dispatch(fetchAreas());
     }
-  }, [allAreas.length, dispatch]);
+  }, [areasError, allAreas.length, dispatch]);
 
   const [isPostingRecipe, setIsPostingRecipe] = useState(false); // For Component InputIngredients
   const [resetTrigger, setResetTrigger] = useState(false); // For Component InputIngredients
@@ -127,7 +137,6 @@ export default function AddRecipeForm() {
       toast.error(error?.response?.data?.message || 'Error');
     } finally {
       setIsPostingRecipe(false);
-      // TODO: Add show and hide loader
     }
   };
 
@@ -179,8 +188,8 @@ export default function AddRecipeForm() {
             <InputTitle
               {...register('title', {
                 required: true,
-                maxLength: MAX_STRING_LENGTH,
-                minLength: MIN_STRING_LENGTH,
+                maxLength: MAX_TITLE_LENGTH,
+                minLength: MIN_TITLE_LENGTH,
               })}
             />
           </ErrorWrapper>
@@ -190,8 +199,8 @@ export default function AddRecipeForm() {
             name="description"
             rules={{
               required: true,
-              maxLength: MAX_STRING_LENGTH,
-              minLength: MIN_STRING_LENGTH,
+              maxLength: MAX_DESCRIPTION_LENGTH,
+              minLength: MIN_DESCRIPTION_LENGTH,
             }}
             render={({
               field: { onChange, value, name, ref, onBlur },
@@ -204,7 +213,7 @@ export default function AddRecipeForm() {
                   onChange={onChange}
                   error={error}
                   invalid={invalid}
-                  maxInputLenght={MAX_STRING_LENGTH}
+                  maxInputLenght={MAX_DESCRIPTION_LENGTH}
                   placeholder="Enter a description of the dish"
                   isTouched={isTouched}
                   isDirty={isDirty}
@@ -233,7 +242,7 @@ export default function AddRecipeForm() {
                       value={value}
                       options={categoryOptions}
                       placeholder="Select a category"
-                      isDisabled={isCategoriesError && isCategoriesLoading}
+                      isDisabled={categoriesError && isCategoriesLoading}
                       error={error}
                       name={name}
                     />
@@ -282,7 +291,7 @@ export default function AddRecipeForm() {
                       value={value}
                       options={areaOptions}
                       placeholder="Select an area"
-                      isDisabled={isAreasError && isAreasLoading}
+                      isDisabled={areasError && isAreasLoading}
                       error={error}
                       name={name}
                     />
@@ -319,8 +328,8 @@ export default function AddRecipeForm() {
             name="preparation"
             rules={{
               required: true,
-              maxLength: MAX_STRING_LENGTH,
-              minLength: MIN_STRING_LENGTH,
+              maxLength: MAX_INSTRUCTIONS_LENGTH,
+              minLength: MIN_INSTRUCTIONS_LENGTH,
             }}
             render={({
               field: { onChange, value, name, ref, onBlur },
@@ -333,7 +342,7 @@ export default function AddRecipeForm() {
                   onChange={onChange}
                   error={error}
                   invalid={invalid}
-                  maxInputLenght={MAX_STRING_LENGTH}
+                  maxInputLenght={MAX_INSTRUCTIONS_LENGTH}
                   placeholder="Enter recipe"
                   isTouched={isTouched}
                   isDirty={isDirty}

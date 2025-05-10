@@ -2,11 +2,15 @@ import * as yup from 'yup';
 import {
   MESSAGE_IS_REQUIRED,
   MAX_FILE_SIZE,
-  MAX_STRING_LENGTH,
-  MIN_STRING_LENGTH,
+  MAX_TITLE_LENGTH,
+  MIN_TITLE_LENGTH,
   MIN_INGREDIENTS_COUNT,
   MIN_TIME,
   MESSAGE_MIN_TIME,
+  MIN_DESCRIPTION_LENGTH,
+  MAX_DESCRIPTION_LENGTH,
+  MIN_INSTRUCTIONS_LENGTH,
+  MAX_INSTRUCTIONS_LENGTH,
 } from '../../constants/recipeForm';
 
 const selectShape = yup.object({
@@ -31,13 +35,13 @@ export const recipeSchema = yup.object({
   title: yup
     .string()
     .required(MESSAGE_IS_REQUIRED('Title'))
-    .min(MIN_STRING_LENGTH)
-    .max(MAX_STRING_LENGTH),
+    .min(MIN_TITLE_LENGTH)
+    .max(MAX_TITLE_LENGTH),
   description: yup
     .string()
     .required(MESSAGE_IS_REQUIRED('Description'))
-    .min(MIN_STRING_LENGTH)
-    .max(MAX_STRING_LENGTH),
+    .min(MIN_DESCRIPTION_LENGTH)
+    .max(MAX_DESCRIPTION_LENGTH),
   category: selectShape
     .required(MESSAGE_IS_REQUIRED('Category'))
     .typeError(MESSAGE_IS_REQUIRED('Category')),
@@ -64,6 +68,6 @@ export const recipeSchema = yup.object({
   preparation: yup
     .string()
     .required(MESSAGE_IS_REQUIRED('Preparation'))
-    .min(MIN_STRING_LENGTH)
-    .max(MAX_STRING_LENGTH),
+    .min(MAX_INSTRUCTIONS_LENGTH)
+    .max(MIN_INSTRUCTIONS_LENGTH),
 });
