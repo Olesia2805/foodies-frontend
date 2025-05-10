@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import Loader from './components/Loader/Loader';
 import Layout from './components/Layout/Layout.jsx';
 import { ROUTER } from './constants/router.js';
-import UIKit from './pages/UIKit/UIkit.jsx';
 
 import { toastConfig } from './constants/toastConfig.js';
 import { useAuth, useVerification } from './hooks';
@@ -49,8 +48,6 @@ const App = () => {
             <Route path={`${ROUTER.USER}/:id`} element={<UserPage />} />
 
             <Route path={`${ROUTER.RECIPE}/:id`} element={<RecipePage />} />
-
-            <Route path={'/ui-kit'} element={<UIKit />} />
 
             <Route path={ROUTER.ALL} element={<NotFoundPage />} />
           </Route>

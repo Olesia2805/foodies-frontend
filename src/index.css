@@ -44,17 +44,6 @@ a {
   color: inherit;
 }
 
-/* styles from branch 'react-component-decomposition' */
-/* a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
-} */
-
 ul,
 li {
   margin: 0;
@@ -74,7 +63,18 @@ button {
   outline: none;
 }
 
-/* styles from branch 'react-component-decomposition' */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 input,
 textarea,
 select,
@@ -86,40 +86,26 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #f9f9f9;
-  cursor: pointer;
+
   transition: border-color 0.25s;
+}
+
+button,
+select {
+  cursor: pointer;
 }
 
 button:hover {
   border-color: #646cff;
 }
 
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
 button {
   background-color: #f9f9f9;
 }
 
-/* end styles from branch 'react-component-decomposition' */
-
 input[type='text'],
 textarea[type='text'] {
   cursor: text;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
 }
 
 a:hover {
