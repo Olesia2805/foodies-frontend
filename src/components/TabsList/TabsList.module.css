@@ -1,19 +1,32 @@
+.tabsListContainer {
+  display: flex;
+  flex-direction: column;
+}
+
 .tabsList {
   display: flex;
-  gap: 20px;
-  border-bottom: 2px solid var(--grey-light);
-  padding-bottom: 8px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 8px;
+  overflow: visible;
+  border-bottom: 1.5px solid #ccc;
+  padding-bottom: 0;
+  scrollbar-width: none;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .tab {
   background: none;
   border: none;
-  padding: 8px 16px;
+  padding: 8px 0px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 700;
   color: var(--grey);
   cursor: pointer;
   transition: color 0.3s ease;
+  flex: 0 0 auto;
 }
 
 .tab:hover {
@@ -23,5 +36,61 @@
 .tab.active {
   color: var(--black);
   font-weight: 700;
-  border-bottom: 2px solid var(--black);
+  border-bottom: 4px solid #000000;
+}
+
+.divider {
+  height: 5px;
+  background-color: #ccc;
+  width: 100%;
+  margin-top: 8px;
+}
+
+@media (min-width: 320px) {
+  .tabsList {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+  }
+
+  .tab {
+    flex: 0 0 auto;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+@media (min-width: 375px) {
+  .tabsList {
+    gap: 12px;
+  }
+
+  .tab {
+    width: auto;
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 768px) {
+  .tabsList {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .tab {
+    width: auto;
+    text-align: center;
+  }
+}
+
+@media (min-width: 1440px) {
+  .tabsList {
+    gap: 24px;
+  }
+
+  .tab {
+    font-size: 16px;
+  }
 }

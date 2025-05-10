@@ -92,7 +92,6 @@ const recipesSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-
       .addCase(addRecipe.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -105,7 +104,6 @@ const recipesSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-
       .addCase(updateRecipe.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -123,7 +121,6 @@ const recipesSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-
       .addCase(deleteRecipe.pending, (state) => {
         state.isLoading = true;
         state.error = null;

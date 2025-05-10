@@ -2,7 +2,6 @@
   margin: 0 auto;
   max-width: 1280px;
   width: 100%;
-  /* padding: 0 32px; */
   box-sizing: border-box;
 }
 
@@ -14,9 +13,73 @@
 
 .leftColumn {
   flex: 1;
-  max-width: 300px;
 }
 
 .rightColumn {
   flex: 2;
+}
+
+@media (min-width: 320px) {
+  .layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .leftColumn {
+    order: -1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .rightColumn {
+    order: 0;
+    width: 100%;
+  }
+
+  .userInfo {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .followButton {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+@media (min-width: 768px) {
+  .layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .leftColumn {
+    margin-bottom: 24px;
+  }
+
+  .rightColumn {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .layout {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  .leftColumn {
+    order: 0;
+    margin-bottom: 0;
+  }
+
+  .rightColumn {
+    width: auto;
+  }
 }

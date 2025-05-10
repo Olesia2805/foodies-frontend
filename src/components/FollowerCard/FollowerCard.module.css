@@ -1,5 +1,6 @@
 .card {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
@@ -23,9 +24,11 @@
 .followButton {
   padding: 8px 16px;
   color: rgb(0, 0, 0);
-  border-radius: 16px;
+  border-radius: 25px;
+  border-color: #999;
   cursor: pointer;
   font-size: 14px;
+  background-color: #ffffff;
 }
 
 .followButton:hover {
@@ -89,4 +92,115 @@
   background-color: red;
   width: 100%;
   margin: 16px 0;
+}
+
+.arrowButton {
+  border: 1px solid var(--black);
+  background-color: transparent;
+  border-radius: 30px;
+  padding: 11px;
+  cursor: pointer;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+  flex-shrink: 0;
+}
+
+.arrowIcon {
+  fill: #000000;
+}
+
+.arrowButton:hover {
+  background-color: var(--light-grey);
+}
+
+@media (min-width: 320px) {
+  .card {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .recipeImage {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media (min-width: 375px) {
+  .card {
+    gap: 12px;
+  }
+
+  .avatar {
+    width: 90px;
+    height: 90px;
+  }
+
+  .recipeImage {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (min-width: 768px) {
+  .card {
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .recipeImage {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .card {
+    gap: 24px;
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .recipeImage {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .followerCard {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .details {
+    flex: 1;
+  }
+}
+
+@media (max-width: 375px) {
+  .recipesPreview {
+    display: none;
+  }
 }

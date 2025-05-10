@@ -13,21 +13,41 @@ import {
   profileApi,
 } from '../../redux/auth/profileServices';
 import { useParams } from 'react-router-dom';
+import { useAuth } from '../../hooks';
+import axios from 'axios';
+import styles from './UserPage.module.css';
+
+import PathInfo from '../../components/PathInfo/PathInfo.jsx';
+import MainTitle from '../../components/MainTitle/MainTitle.jsx';
+import Subtitle from '../../components/Subtitle/Subtitle.jsx';
+import UserInfo from '../../components/UserInfo/UserInfo.jsx';
+import FollowButton from '../../components/FollowButton/FollowButton.jsx';
+import TabsList from '../../components/TabsList/TabsList.jsx';
+import ListItems from '../../components/ListItems/ListItems.jsx';
+import FollowerCard from '../../components/FollowerCard/FollowerCard.jsx';
+import Pagination from '../../components/Pagination/Pagination.jsx';
+import RecipeCard from '../../components/ListRecipeCard/ListRecipeCard.jsx';
+
 import LogOutModal from '../../components/LogOutModal/LogOutModal';
 import { toast } from 'react-hot-toast';
 import Loader from '../../components/Loader/Loader';
 
 const UserPage = () => {
+  const { user } = useAuth();
   const { userId: urlUserId } = useParams();
-
   const [isFollowing, setIsFollowing] = useState(null);
   const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
   const dispatch = useDispatch();
   const currentUser = useSelector(selectUser);
-
+  const [items, setItems] = useState([]);
   const { data: myProfileData } = useFetchCurrentUserQuery();
   const currentUserId = myProfileData?.id || currentUser?.id;
-
+  const [paginationState, setPaginationState] = useState({
+    recipes: { total: 0, pages: 0, currentPage: 1 },
+    followers: { total: 0, pages: 0, currentPage: 1 },
+  })
+  
   const {
     data: otherUserData,
     isLoading: isUserLoading,
@@ -44,8 +64,7 @@ const UserPage = () => {
     });
 
   const [followUser, { isLoading: isFollowLoading }] = useFollowUserMutation();
-  const [unfollowUser, { isLoading: isUnfollowLoading }] =
-    useUnfollowUserMutation();
+  const [unfollowUser, { isLoading: isUnfollowLoading }] = useUnfollowUserMutation();
   const openLogOutModal = () => setIsLogOutModalOpen(true);
   const closeLogOutModal = () => setIsLogOutModalOpen(false);
 
@@ -60,6 +79,37 @@ const UserPage = () => {
       myEmail &&
       preliminaryUserData.email === myEmail);
 
+  const handleTabChange = (index) => {
+    if (index === 1) {
+      fetchFollowers();
+    } else {
+      const fetchedItems = index === 0 ? [{ id: 1, name: 'Recipe 1' }] : [{ id: 2, name: 'User 1' }];
+      setItems(fetchedItems);
+    }
+  };
+
+  const fetchUserRecipes = async (page = 1) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`http://localhost:3000/api/users/${userId}?page=${page}&limit=5`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setItems(response.data.res.data);
+      setPaginationState((prevState) => ({
+        ...prevState,
+        recipes: {
+          total: response.data.res.total,
+          pages: response.data.res.pages,
+          currentPage: response.data.res.currentPage,
+        },
+      }));
+    } catch (error) {
+          console.error('Error fetching user recipes:', error);
+        }
+      };
+
   useEffect(() => {
     if (otherUserData && otherUserData.isFollowed !== undefined) {
       console.log(
@@ -67,6 +117,7 @@ const UserPage = () => {
         otherUserData.isFollowed
       );
       setIsFollowing(otherUserData.isFollowed);
+
     }
   }, [otherUserData]);
 
@@ -81,11 +132,32 @@ const UserPage = () => {
       if (isUserInFollowings !== undefined) {
         setIsFollowing(isUserInFollowings);
       }
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = axios.get(`http://localhost:3000/api/users/followers/${userId}?page=${page}&limit=5`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setItems(response.data);
+      setPaginationState((prevState) => ({
+        ...prevState,
+        followers: {
+          total: response.data.total,
+          pages: response.data.pages,
+          currentPage: response.data.currentPage,
+        },
+      }));
+    } catch (error) {
+      console.error('Error fetching followers:', error);
+    }
     }
   }, [myFollowings, urlUserId, isOwnProfile]);
 
   const isButtonLoading = isFollowLoading || isUnfollowLoading;
   const isDataLoading = isUserLoading || isFollowingsLoading;
+  const tabs = user?.isOwner ? ['MY RECIPES', 'MY FAVORITES', 'FOLLOWERS', 'FOLLOWING'] : ['RECIPES', 'FOLLOWERS'];
 
   const handleFollowToggle = async () => {
     if (!urlUserId) return;
@@ -109,6 +181,7 @@ const UserPage = () => {
           }
         }
       }
+
 
       dispatch(
         profileApi.util.updateQueryData('fetchUserById', urlUserId, (draft) => {
@@ -187,9 +260,24 @@ const UserPage = () => {
         </>
       )}
 
-      <LogOutModal isOpen={isLogOutModalOpen} onClose={closeLogOutModal} />
-    </div>
-  );
-};
 
+    <>
+      <div className={styles.rightColumn}>
+        <div className={styles.tabsWrapper}>
+          <TabsList tabs={tabs} onTabChange={handleTabChange} />
+        </div>
+        <ListItems items={items} renderItem={renderItem} activeTab={activeTab} />
+        <Pagination
+          currentPage={paginationState[activeTab === 0 ? 'recipes' : 'followers'].currentPage}
+          totalPages={paginationState[activeTab === 0 ? 'recipes' : 'followers'].pages}
+          onPageChange={handlePageChange}
+        />
+      </div>
+
+      <LogOutModal isOpen={isLogOutModalOpen} onClose={closeLogOutModal} />
+      </>
+      </div>
+    );
+  }
+  
 export default withAuthGuard(UserPage);
