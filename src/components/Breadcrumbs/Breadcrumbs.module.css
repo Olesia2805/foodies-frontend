@@ -14,7 +14,7 @@
 }
 
 .link:hover {
-  color: var(--main);
+  color: var(--black);
 }
 
 .current {

@@ -1,60 +1,37 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import SignUpModal from '../SignUpModal/SignUpModal.jsx';
-import SignInModal from '../SignInModal/SignInModal.jsx';
+import {
+  selectIsSignInModalOpen,
+  selectIsSignUpModalOpen,
+  setIsSignInModalOpen,
+  setIsSignUpModalOpen,
+} from '../../redux/common/index.js';
 
 import styles from './AuthBar.module.css';
-import VerifyEmailModal from '../VerifyEmailModal/VerifyEmailModal.jsx';
 
 const AuthBar = () => {
-  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
-  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
-  const [isVerifyEmailModalOpen, setIsVerifyEmailModalOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  const isSignInModalOpen = useSelector(selectIsSignInModalOpen);
+  const isSignUpModalOpen = useSelector(selectIsSignUpModalOpen);
 
   return (
     <>
       <div className={styles.authBar}>
         <button
           className={isSignInModalOpen ? styles.active : undefined}
-          onClick={() => setIsSignInModalOpen(true)}
+          onClick={() => dispatch(setIsSignInModalOpen(true))}
         >
           Sign in
         </button>
 
         <button
           className={isSignUpModalOpen ? styles.active : undefined}
-          onClick={() => setIsSignUpModalOpen(true)}
+          onClick={() => dispatch(setIsSignUpModalOpen(true))}
         >
           Sign up
         </button>
       </div>
-
-      <SignInModal
-        isOpen={isSignInModalOpen}
-        onClose={() => setIsSignInModalOpen(false)}
-        setOtherModal={() => {
-          setIsSignInModalOpen(false);
-          setIsSignUpModalOpen(true);
-        }}
-      />
-
-      <SignUpModal
-        isOpen={isSignUpModalOpen}
-        onClose={() => setIsSignUpModalOpen(false)}
-        setOtherModal={(type) => {
-          setIsSignUpModalOpen(false);
-          if (type === 'signIn') {
-            setIsSignInModalOpen(true);
-          } else {
-            setIsVerifyEmailModalOpen(true);
-          }
-        }}
-      />
-
-      <VerifyEmailModal
-        isOpen={isVerifyEmailModalOpen}
-        onClose={() => setIsVerifyEmailModalOpen(false)}
-      />
     </>
   );
 };

@@ -11,6 +11,7 @@ import RecipeImage from '../../components/RecipeImage/RecipeImage';
 import { fetchRecipeById } from '../../redux/recipes/operations';
 import { selectRecipeById } from '../../redux/recipes/selectors';
 import styles from './RecipePage.module.css';
+import PopularRecipes from '../../components/PopularRecipes/PopularRecipes.jsx';
 
 const RecipePage = () => {
   const { id } = useParams();
@@ -61,58 +62,64 @@ const RecipePage = () => {
     );
 
   return (
-    <Container>
-      {/* Breadcrumbs */}
-      <Breadcrumbs
-        items={[{ label: 'Home', link: '/' }, { label: recipe.title }]}
-      />
-      <section className={styles.recipeSection} ref={startScrollRef}>
-        <RecipeImage src={recipe.thumb} alt={recipe.title}></RecipeImage>
+    <>
+      <Container>
+        {/* Breadcrumbs */}
+        <Breadcrumbs
+          items={[{ label: 'Home', link: '/' }, { label: recipe.title }]}
+        />
+        <section className={styles.recipeSection} ref={startScrollRef}>
+          <RecipeImage src={recipe.thumb} alt={recipe.title}></RecipeImage>
 
-        <div className={styles.recipeContent}>
-          <section className={styles.recipeHeader}>
-            <h1>{recipe.title}</h1>
+          <div className={styles.recipeContent}>
+            <section className={styles.recipeHeader}>
+              <h1>{recipe.title}</h1>
 
-            <div className={styles.tags}>
-              <span className={styles.tag}>{recipe.categoryOfRecipe.name}</span>
-              <span className={styles.tag}>{recipe.time} min</span>
-            </div>
+              <div className={styles.tags}>
+                <span className={styles.tag}>
+                  {recipe.categoryOfRecipe.name}
+                </span>
+                <span className={styles.tag}>{recipe.time} min</span>
+              </div>
 
-            <p className={styles.description}>{recipe.description}</p>
+              <p className={styles.description}>{recipe.description}</p>
 
-            <div className={styles.author}>
-              <img src={recipe.owner.avatar} alt="NA" />
-              <span>
-                Created by: <br />
-                <strong className={styles.authorName}>
-                  {recipe.owner.name}
-                </strong>
-              </span>
-            </div>
-          </section>
+              <div className={styles.author}>
+                <img src={recipe.owner.avatar} alt="NA" />
+                <span>
+                  Created by: <br />
+                  <strong className={styles.authorName}>
+                    {recipe.owner.name}
+                  </strong>
+                </span>
+              </div>
+            </section>
 
-          {/* Ingredients */}
-          <section className={styles.ingredients}>
-            <h2>Ingredients</h2>
-            <IngredientsList ingredients={recipe.ingredients} />
-          </section>
+            {/* Ingredients */}
+            <section className={styles.ingredients}>
+              <h2>Ingredients</h2>
+              <IngredientsList ingredients={recipe.ingredients} />
+            </section>
 
-          {/* Preparation */}
-          <section className={styles.preparation}>
-            <h2>Recipe Preparation</h2>
-            <p className={styles.instructions}>{recipe.instructions}</p>
-          </section>
+            {/* Preparation */}
+            <section className={styles.preparation}>
+              <h2>Recipe Preparation</h2>
+              <p className={styles.instructions}>{recipe.instructions}</p>
+            </section>
 
-          {/* TODO: Add to favorites */}
-          <Button
-            variant="outlined"
-            onClick={() => console.log('Button "Add to favorites" clicked')}
-          >
-            Add to favorites
-          </Button>
-        </div>
-      </section>
-    </Container>
+            {/* TODO: Add to favorites */}
+            <Button
+              variant="outlined"
+              onClick={() => console.log('Button "Add to favorites" clicked')}
+            >
+              Add to favorites
+            </Button>
+          </div>
+        </section>
+      </Container>
+
+      <PopularRecipes />
+    </>
   );
 };
 

@@ -5,28 +5,36 @@ import Nav from '../Nav/Nav.jsx';
 import styles from './Header.module.css';
 import UserBar from '../UserBar/UserBar.jsx';
 import MobileNav from '../MobileNav/MobileNav.jsx';
+import { useLocation } from 'react-router-dom';
 
 import { useAuth } from '../../hooks';
+import clsx from 'clsx';
 
 const Header = () => {
   const { isAuthenticated } = useAuth();
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   return (
-    <header className={styles.header}>
+    <header
+      className={clsx(styles.header, {
+        [styles.homePageHeader]: isHomePage,
+      })}
+    >
       <Container>
         <div className={styles.wrapper}>
-          <Logo />
+          <Logo variant={isHomePage ? 'secondary' : 'primary'} />
 
           {!isAuthenticated && <AuthBar />}
 
           {isAuthenticated && (
             <>
-              <Nav />
+              <Nav isHomePage={isHomePage} />
 
               <div className={styles.right}>
                 <UserBar />
 
-                <MobileNav />
+                <MobileNav isHomePage={isHomePage} />
               </div>
             </>
           )}

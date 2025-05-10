@@ -12,7 +12,11 @@ const initialState = {
   selectedArea: null,
   ingredientsFetchStatus: 'idle', // 'idle', 'loading', 'succeeded', 'failed'
   areasFetchStatus: 'idle', // 'idle', 'loading', 'succeeded', 'failed'
-  categoriesFetchStatus: 'idle', // 'idle', 'loading', 'succeeded', 'failed'
+  categoriesFetchStatus: 'idle', // 'idle', 'loading', 'succeeded', 'failed',
+
+  isSignInModalOpen: false,
+  isSignUpModalOpen: false,
+  isVerifyEmailModalOpen: false,
 };
 
 const commonSlice = createSlice({
@@ -32,6 +36,16 @@ const commonSlice = createSlice({
       state.ingredientsFetchStatus = 'idle';
       state.areasFetchStatus = 'idle';
       state.categoriesFetchStatus = 'idle';
+    },
+
+    setIsSignInModalOpen: (state, { payload }) => {
+      state.isSignInModalOpen = payload;
+    },
+    setIsSignUpModalOpen: (state, { payload }) => {
+      state.isSignUpModalOpen = payload;
+    },
+    setIsVerifyEmailModalOpen: (state, { payload }) => {
+      state.isVerifyEmailModalOpen = payload;
     },
   },
   extraReducers: (builder) => {
@@ -100,6 +114,9 @@ export const {
   setSelectedCategory,
   setSelectedIngredients,
   setSelectedArea,
-  resetFetchStatus
+  resetFetchStatus,
+  setIsSignInModalOpen,
+  setIsSignUpModalOpen,
+  setIsVerifyEmailModalOpen,
 } = commonSlice.actions;
 export default commonSlice.reducer;
