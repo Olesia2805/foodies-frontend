@@ -1,0 +1,13 @@
+.fieldsset {
+  border: none;
+  padding: 0;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 150%;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 8px;
+}

@@ -1,0 +1,40 @@
+.fieldset-ingredients {
+  margin-bottom: 64px;
+}
+@media screen and (min-width: 768px) {
+  .fieldset-ingredients {
+    margin-bottom: 80px;
+  }
+}
+
+.ingredients-margin-bottom-dropdown {
+  margin-bottom: 20px;
+}
+
+.ingredients-margin-bottom-input {
+  margin-bottom: 32px;
+}
+
+@media screen and (min-width: 768px) {
+  .media-wrapper-row {
+    display: flex;
+    gap: 19px;
+    margin: 60px 0;
+    align-items: baseline;
+  }
+
+  .media-wrapper-row-ingredient {
+    composes: media-wrapper-row;
+
+    margin: 0 0 40px 0;
+  }
+}
+
+.ingredients-list-wrapper {
+  margin-top: 20px;
+}
+
+.error {
+  color: var(--error);
+  fill: var(--error);
+}

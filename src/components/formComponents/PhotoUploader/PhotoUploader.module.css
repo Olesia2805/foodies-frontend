@@ -1,0 +1,88 @@
+.photo-uploader {
+  width: 100%;
+  height: 318px;
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='30' ry='30' stroke='%23BFBEBEFF' stroke-width='1' stroke-dasharray='5%2c 5' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition-property: box-shadow;
+  transition-duration: var(--transition-duration);
+}
+
+.error {
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='30' ry='30' stroke='%23e53935' stroke-width='2' stroke-dasharray='5%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+}
+
+.is-drag-active {
+  box-shadow: 0px 0px 20px 2px rgb(217 217 217 / 50%) inset;
+}
+
+@media screen and (min-width: 768px) {
+  .photo-uploader {
+    height: 400px;
+  }
+
+  .icon {
+    width: 64px;
+    height: 64px;
+  }
+}
+
+.icon-is-drag-active {
+  animation-name: tilt-shaking;
+  animation-iteration-count: infinite;
+  animation-duration: var(--transition-duration);
+}
+
+.photo-uploader:hover {
+  cursor: pointer;
+}
+
+.title-upload {
+  font-family: var(--font-family);
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: var(--black);
+  background: none;
+  margin: 0 auto;
+  display: block;
+}
+
+.btn-img-upload {
+  composes: title-upload;
+  margin-top: 16px;
+}
+
+@media screen and (min-width: 768px) {
+  .btn-img-upload {
+    margin-top: 20px;
+  }
+}
+
+.photo-uploader-image {
+  margin-bottom: 16px;
+}
+
+@keyframes tilt-shaking {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  90% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
