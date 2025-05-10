@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Icon from '../Icon/Icon';
 import styles from './FollowerCard.module.css';
 
 const FollowerCard = ({ follower }) => {
@@ -11,14 +12,21 @@ const FollowerCard = ({ follower }) => {
   return (
     <div className={styles.card}>
       <img
+       
         src={follower.avatar}
+       
         alt={follower.name}
+       
         className={styles.avatar}
+     
       />
       <div className={styles.info}>
         <h3 className={styles.name}>{follower.name?.toUpperCase()}</h3>
         <p className={styles.recipesCount}>
           Recipes: {follower.recipes?.length || 0}
+        </p>
+        <p className={styles.recipesCount}>
+          Own recipes: {follower.recipes?.length || 0}
         </p>
         <button className={styles.followButton}>FOLLOW</button>
       </div>
@@ -35,11 +43,13 @@ const FollowerCard = ({ follower }) => {
           );
         })}
       </div>
-      <Link
-        to={`http://localhost:3001/user/${follower.id}`}
+      <button
         className={styles.profileButton}
+        onClick={() =>
+          (window.location.href = `http://localhost:3001/user/${follower.id}`)
+        }
       >
-        /
+        <Icon name="arrow-up-right" className={styles.arrowIcon} size={18} />
       </Link>
     </div>
   );

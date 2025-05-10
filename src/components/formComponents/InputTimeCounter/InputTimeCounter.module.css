@@ -1,0 +1,52 @@
+.wrapper {
+  width: 240px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  border: 1px solid var(--grey);
+  border-radius: 30px;
+  padding: 16px;
+  width: 48px;
+  height: 48px;
+  color: var(--black);
+  line-height: 0;
+  font-size: 16px;
+  font-weight: 800;
+  user-select: none;
+  display: inline;
+  background: none;
+  transition-property: transform;
+  transition-duration: var(--transition-duration);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button:hover {
+  border-color: var(--dark-grey);
+}
+
+.button:active {
+  transform: scale(0.9);
+}
+
+@media screen and (min-width: 768px) {
+  .button svg {
+    min-width: 24px;
+    min-height: 24px;
+  }
+}
+
+.value {
+  display: inline-block;
+  padding: 0 12px;
+  color: var(--black);
+  min-width: 80px;
+  text-align: center;
+  transition: width, 250ms;
+}
+.error {
+  color: var(--error);
+}

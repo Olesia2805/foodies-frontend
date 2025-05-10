@@ -16,7 +16,7 @@ import {
 } from '../../redux/recipes/index.js';
 import { setPage } from '../../redux/recipes/slice';
 
-const RecipePagination = ({ variant = 'all' }) => {
+const RecipePagination = ({ variant = 'all', recipesListRef }) => {
   const selectedCategory = useSelector(selectSelectedCategory);
   const selectedArea = useSelector(selectSelectedArea);
   const selectedIngredients = useSelector(selectSelectedIngredients);
@@ -47,6 +47,15 @@ const RecipePagination = ({ variant = 'all' }) => {
           ingredientId: selectedIngredients?.map(ing => ing.value).join(','),
         })
       );
+    }
+
+    if (recipesListRef && recipesListRef.current) {
+      requestAnimationFrame(() => {
+        recipesListRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      });
     }
   };
 

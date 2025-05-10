@@ -14,6 +14,7 @@ const Button = ({
   disabled,
   fullWidth,
   loading,
+  customClassName,
   ...props
 }) => {
   const customStyle = {
@@ -43,7 +44,8 @@ const Button = ({
         colorClassMap[color],
         variantClassMap[variant],
         sizeClassMap[size],
-        props.className
+        props.className,
+        customClassName
       )}
       style={{
         ...customStyle,

@@ -1,0 +1,9 @@
+.popularProducts {
+  padding-top: 64px;
+}
+
+.popularList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}

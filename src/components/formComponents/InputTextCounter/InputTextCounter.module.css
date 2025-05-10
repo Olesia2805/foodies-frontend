@@ -1,0 +1,39 @@
+.input-wrapper {
+  width: 100%;
+  border-bottom: 1px solid var(--grey);
+  display: flex;
+  gap: 28px;
+  justify-content: space-between;
+  padding: 0 0 16px 0;
+  cursor: text;
+}
+
+.input {
+  border-radius: 0px;
+  padding: 0;
+  background: none;
+  resize: none;
+  overflow: hidden;
+  flex: 1 1 0;
+  color: var(--black);
+}
+
+.input::placeholder {
+  color: var(--grey);
+}
+
+.counter {
+  margin: 0;
+}
+
+.counter-current {
+  color: var(--black);
+}
+
+.counter-error {
+  color: var(--error);
+}
+
+.error {
+  border-color: var(--error);
+}

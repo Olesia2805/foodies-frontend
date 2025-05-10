@@ -4,8 +4,11 @@
   --black: #050505;
   --border: #e8e8e8;
   --dark-grey: #1a1a1a;
-  --error: #e53935;
+  --dark-grey-50: #1a1a1a88;
   --light-grey: rgba(255, 255, 255, 0.2);
+  --error: #e53935;
+  --error-50: #e5373480;
 
   --font-primary: 'Mulish', sans-serif;
+  --transition-duration: 250ms;
 }

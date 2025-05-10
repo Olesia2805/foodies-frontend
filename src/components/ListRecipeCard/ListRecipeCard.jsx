@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom';
+import React from 'react';
+import Icon from '../Icon/Icon';
 import styles from './ListRecipeCard.module.css';
 
-const ListRecipeCard = (recipe) => {
+const RecipeCard = (recipe, isCurrentUser) => {
   return (
     <div className={styles.recipeCard}>
       <img
@@ -13,11 +14,20 @@ const ListRecipeCard = (recipe) => {
         <h3 className={styles.recipeTitle}>{recipe.title}</h3>
         <p className={styles.recipeDescription}>{recipe.description}</p>
       </div>
-      <Link to={`/recipes/${recipe.id}`} className={styles.recipeButton}>
-        <span className={styles.recipeButtonIcon}>/</span>
-      </Link>
+      <button
+        className={styles.arrowButton}
+        onClick={() => (window.location.href = `/recipes/${recipe._id}`)}
+      >
+        <Icon name="arrow-up-right" className={styles.arrowIcon} size={18} />
+      </button>
+
+      {isCurrentUser && (
+        <button className={styles.deleteButton}>
+          <Icon name="trash" className={styles.deleteIcon} size={18}></Icon>
+        </button>
+      )}
     </div>
   );
 };
 
-export default ListRecipeCard;
+export default RecipeCard;

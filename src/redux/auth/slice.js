@@ -1,14 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   getMeOps,
-  refreshTokenOps,
   signInUserOps,
   logOutUserOps,
   signUpUserOps,
 } from './operations.js';
 
 const initialState = {
-  isAuthenticated: !!localStorage.getItem('token') ?? false,
+  isAuthenticated: !!localStorage.getItem('token'),
   user: null,
 
   loading: false,
@@ -41,9 +40,6 @@ const authSlice = createSlice({
         state.loading = false;
         state.user = payload.user;
         state.isAuthenticated = true;
-
-        localStorage.setItem('token', payload.token);
-        localStorage.setItem('refreshToken', payload.refreshToken);
       })
       .addCase(signInUserOps.rejected, (state, { payload }) => {
         state.loading = false;
@@ -65,11 +61,6 @@ const authSlice = createSlice({
         state.user = null;
       })
 
-      .addCase(refreshTokenOps.fulfilled, (state, { payload }) => {
-        localStorage.setItem('token', payload.token);
-        localStorage.setItem('refreshToken', payload.refreshToken);
-      })
-
       .addCase(logOutUserOps.pending, (state) => {
         state.loading = true;
       })
@@ -77,16 +68,10 @@ const authSlice = createSlice({
         state.user = null;
         state.isAuthenticated = false;
         state.loading = false;
-
-        localStorage.removeItem('token');
-        localStorage.removeItem('refreshToken');
       })
       .addCase(logOutUserOps.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
-
-        localStorage.removeItem('token');
-        localStorage.removeItem('refreshToken');
       });
   },
 });
