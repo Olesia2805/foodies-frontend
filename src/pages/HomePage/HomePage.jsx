@@ -1,53 +1,58 @@
-import { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useState, useRef, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import Container from '../../components/Container/Container';
 import Hero from '../../components/Hero/Hero';
 import Testimonials from '../../components/Testimonials/Testimonials';
 import Recipes from '../../components/Recipes/Recipes';
 import Categories from '../../components/Categories/Categories';
-import SignInModal from '../../components/SignInModal/SignInModal';
-import { ROUTER } from '../../constants/router';
-import { useAuth } from '../../hooks';
+
 import {
   setSelectedCategory,
   setSelectedIngredients,
   setSelectedArea,
-  setIsSignInModalOpen,
 } from '../../redux/common/index.js';
 import { clearRecipes, setPage } from '../../redux/recipes/index.js';
+import { useSearchParams } from 'react-router-dom';
+import { selectCategories } from '../../redux/categories/index.js';
 
 const HomePage = () => {
-  const [showRecipes, setShowRecipes] = useState(false);
-  const { isAuthenticated } = useAuth();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const recipesRef = useRef(null);
   const categoriesRef = useRef(null);
+  const categories = useSelector(selectCategories);
 
-  const handleAuthRequired = () => {
-    dispatch(setIsSignInModalOpen(true));
-  };
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleUserAvatarClick = (userId) => {
-    if (isAuthenticated) {
-      navigate(`${ROUTER.USER}/${userId}`);
-    } else {
-      dispatch(setIsSignInModalOpen(true));
+  const [showRecipes, setShowRecipes] = useState(false);
+
+  useEffect(() => {
+    const isRecipesList = Boolean(searchParams.get('recipesList'));
+    const categoryId = searchParams.get('categoryId');
+
+    setShowRecipes(isRecipesList);
+
+    if (!isRecipesList) return;
+
+    const category = categories.find(
+      (category) => category._id === Number(categoryId)
+    );
+
+    if (category) {
+      dispatch(setSelectedCategory(category));
     }
-  };
-
-  const handleRecipeDetailsClick = (recipeId) => {
-    navigate(`${ROUTER.RECIPE}/${recipeId}`);
-  };
+  }, [searchParams, categories]);
 
   const handleCategorySelect = (category) => {
     dispatch(clearRecipes());
     dispatch(setSelectedIngredients([]));
     dispatch(setSelectedArea(null));
-    dispatch(setPage(1));
     dispatch(setSelectedCategory(category));
-    setShowRecipes(true);
+    dispatch(setPage(1));
+
+    searchParams.set('recipesList', true);
+    searchParams.set('categoryId', category.id);
+    setSearchParams(searchParams);
 
     setTimeout(() => {
       if (recipesRef.current) {
@@ -57,7 +62,10 @@ const HomePage = () => {
   };
 
   const handleBackClick = () => {
-    setShowRecipes(false);
+    searchParams.delete('recipesList');
+    searchParams.delete('categoryId');
+    setSearchParams(searchParams);
+
     dispatch(setSelectedCategory(null));
     dispatch(clearRecipes());
 
@@ -74,12 +82,7 @@ const HomePage = () => {
       <Container>
         {showRecipes ? (
           <div ref={recipesRef}>
-            <Recipes
-              onUserAvatarClick={handleUserAvatarClick}
-              onRecipeDetailsClick={handleRecipeDetailsClick}
-              onBackClick={handleBackClick}
-              onAuthRequired={handleAuthRequired}
-            />
+            <Recipes onBackClick={handleBackClick} />
           </div>
         ) : (
           <div ref={categoriesRef}>
