@@ -7,7 +7,7 @@ const Button = ({
   children,
   variant = 'primary',
   width,
-  height,
+  // height,
   style,
   disabled,
   fullWidth,
@@ -23,6 +23,7 @@ const Button = ({
     primary: styles.buttonPrimary,
     secondary: styles.buttonSecondary,
     outlined: styles.buttonOutlined,
+    logoutOrFollowBtn: styles.logoutOrFollowBtn,
   };
 
   return (
