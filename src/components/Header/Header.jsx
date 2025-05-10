@@ -8,6 +8,7 @@ import MobileNav from '../MobileNav/MobileNav.jsx';
 import { useLocation } from 'react-router-dom';
 
 import { useAuth } from '../../hooks';
+import clsx from 'clsx';
 
 const Header = () => {
   const { isAuthenticated } = useAuth();
@@ -15,7 +16,11 @@ const Header = () => {
   const isHomePage = location.pathname === '/';
 
   return (
-    <header className={styles.header}>
+    <header
+      className={clsx(styles.header, {
+        [styles.homePageHeader]: isHomePage,
+      })}
+    >
       <Container>
         <div className={styles.wrapper}>
           <Logo variant={isHomePage ? 'secondary' : 'primary'} />
@@ -29,7 +34,7 @@ const Header = () => {
               <div className={styles.right}>
                 <UserBar />
 
-                <MobileNav />
+                <MobileNav isHomePage={isHomePage} />
               </div>
             </>
           )}

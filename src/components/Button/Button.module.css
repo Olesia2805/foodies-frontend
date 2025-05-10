@@ -33,30 +33,45 @@
   }
 }
 
-.buttonPrimary {
-  background: var(--dark-grey);
-  color: var(--white);
-
-  &:hover, &:focus {
-    background: var(--black);
+.buttonContained {
+  &.buttonPrimary {
+    background: var(--dark-grey);
     color: var(--white);
+
+    &:hover, &:focus {
+      background: var(--black);
+      color: var(--white);
+    }
   }
-}
-
-.buttonSecondary {
-  background: var(--grey);
-  color: var(--white);
-
-  /* TODO : Add hover and focus */
 }
 
 .buttonOutlined {
   background: transparent;
-  color: var(--black);
-  border: 1px solid var(--black);
 
-  &:hover, &:focus {
-    background: var(--dark-grey);
+  &.buttonPrimary {
+    color: var(--black);
+    border: 1px solid var(--black);
+
+    &:hover, &:focus {
+      background: var(--dark-grey);
+      color: var(--white);
+    }
+  }
+
+  &.buttonSecondary {
     color: var(--white);
+    border: 1px solid var(--white);
+
+    &:hover, &:focus {
+      background: var(--dark-grey);
+    }
+  }
+}
+
+.buttonSmall {
+  height: 44px;
+
+  @media (min-width: 768px) {
+    height: 56px;
   }
 }

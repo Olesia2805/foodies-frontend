@@ -86,15 +86,17 @@ const HomePage = () => {
             <Categories onCategorySelect={handleCategorySelect} />
           </div>
         )}
-        <SignInModal
-          isOpen={isSignInModalOpen}
-          onClose={() => setIsSignInModalOpen(false)}
-          setOtherModal={() => {
-            setIsSignInModalOpen(false);
-          }}
-        />
-        <Testimonials />
       </Container>
+
+      <Testimonials />
+
+      <SignInModal
+        isOpen={isSignInModalOpen}
+        onClose={() => setIsSignInModalOpen(false)}
+        setOtherModal={() => {
+          setIsSignInModalOpen(false);
+        }}
+      />
     </>
   );
 };

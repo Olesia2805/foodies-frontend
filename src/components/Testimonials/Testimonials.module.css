@@ -1,5 +1,5 @@
 .testimonials {
-  padding: 80px 0;
+  padding: 64px 0 0;
   background-color: white;
 }
 
@@ -9,38 +9,36 @@
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-}
-
-.titles {
-  max-width: 291px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: center;
+  text-align: center;
 }
 
 .subtitle {
-  max-width: 261px;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 14px;
   font-weight: 500;
-  letter-spacing: -0.32px;
-  font-family: 'Mulish', sans-serif;
-  color: #1a1a1a;
-  text-align: center;
-  margin: 0px;
+  letter-spacing: -0.02em;
+  font-family: var(--font-primary);
+  color: var(--dark-grey);
+  margin: 0 0 16px;
+
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
 }
 
 .title {
-  max-width: 291px;
-  font-size: 40px;
-  line-height: 44px;
+  font-size: 24px;
+  line-height: 1.3375em;
   font-weight: 800;
   letter-spacing: -0.8px;
-  font-family: 'Mulish', sans-serif;
-  color: #050505;
-  text-align: center;
-  margin: 0px;
+  font-family: var(--font-primary);
+  color: var(--black);
+  margin: 0 0 12px;
+
+  @media (min-width: 768px) {
+    font-size: 40px;
+    line-height: 1.1em;
+    margin-bottom: 0;
+  }
 }
 
 .slider {
@@ -48,184 +46,82 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 0;
+
+
 }
 
 .quoteMark {
-  min-width: 59px;
-  min-height: 48px;
-  margin-top: -7px;
+  width: 40px;
+  height: 32px;
+  margin-left: 8px;
   margin-bottom: 20px;
-  margin-left: 30px;
   align-self: flex-start;
-}
 
-.testimonialContent {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  @media (min-width: 768px) {
+    margin-top: -12px;
+    margin-left: 40px;
+    margin-bottom: 40px;
+    min-width: 59px;
+    min-height: 48px;
+  }
+
+  @media (min-width: 768px) {
+
+  }
 }
 
 .testimonialText {
-  max-width: 822px;
-  font-size: 24px;
-  line-height: 36px;
+  font-size: 18px;
+  line-height: 1.34em;
   font-weight: 500;
-  font-family: 'Mulish', sans-serif;
-  letter-spacing: -0.48px;
-  color: #050505;
-  margin: 0px;
+  font-family: var(--font-primary);
+  letter-spacing: -0.02em;
+  color: var(--black);
+  margin: 0 0 64px;
+
+  @media (min-width: 768px) {
+    font-size: 24px;
+    line-height: 1.5em;
+    margin-bottom: 80px;
+  }
 }
 
 .testimonialAuthor {
-  height: 24px;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 16px;
   font-weight: 800;
-  letter-spacing: -2%;
-  color: #000;
-  gap: 8px;
+  letter-spacing: -0.02em;
+  color: var(--black);
   text-transform: uppercase;
-  margin-bottom: 0px;
+  margin: 0 0 40px;
+
+  @media (min-width: 768px) {
+    font-size: 20px;
+    line-height: 1.2em;
+  }
 }
 
 .pagination {
-  width: 72px;
-  height: 16px;
   display: flex;
   justify-content: center;
-  margin-top: 20px;
-  gap: 12px;
+  gap: 8px;
 }
 
 .paginationDot {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  background-color: #e0e0e0;
+  background-color: var(--grey);
   border: none;
   padding: 0;
   cursor: pointer;
   transition: background-color 0.3s ease;
+
+  @media (min-width: 768px) {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 .paginationDot.active {
-  background-color: #333;
-}
-
-@media (max-width: 768px) {
-  .content {
-    max-width: 704px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-  }
-  .quoteMark {
-    margin-left: 11px;
-  }
-
-  .testimonialText {
-    width: 704px;
-    font-size: 24px;
-    line-height: 36px;
-    font-weight: 500;
-    letter-spacing: -0.48px;
-    color: #050505;
-  }
-}
-
-@media (max-width: 375px) {
-  .content {
-    max-width: 343px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-  }
-
-  .testimonialText {
-    max-width: 343px;
-    font-size: 18px;
-    line-height: 24px;
-    font-weight: 500;
-    letter-spacing: -0.36px;
-    color: #333;
-    margin-bottom: 70px;
-    box-sizing: border-box;
-  }
-
-  .titles {
-    width: 261px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    align-items: center;
-  }
-
-  .subtitle {
-    max-width: 261px;
-    font-size: 14px;
-    line-height: 20px;
-    font-weight: 500;
-    letter-spacing: -2%;
-    font-family: 'Mulish', sans-serif;
-    text-align: center;
-  }
-
-  .title {
-    width: 204px;
-    font-size: 28px;
-    line-height: 32px;
-    font-weight: 800;
-    letter-spacing: -2%;
-    font-family: 'Mulish', sans-serif;
-    margin: 0px;
-    text-align: center;
-  }
-
-  .testimonialText {
-    max-width: 343px;
-    font-size: 18px;
-    line-height: 24px;
-    font-weight: 500;
-    letter-spacing: -0.36px;
-    color: #333;
-    margin: 0px;
-  }
-
-  .testimonialAuthor {
-    margin-top: 60px;
-  }
-
-  .quoteMark {
-    min-width: 40px;
-    min-height: 32px;
-    margin-top: 10px;
-    margin-bottom: 0px;
-    margin-top: 10px;
-    margin-left: -10px;
-    align-self: flex-start;
-  }
-
-  .pagination {
-    width: 58px;
-    height: 14px;
-    display: flex;
-    justify-content: center;
-    margin-top: 40px;
-    gap: 8px;
-  }
-
-  .paginationDot {
-    max-width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background-color: #e0e0e0;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
+  background-color: var(--black);
 }

@@ -3,8 +3,9 @@ import axiosInstance from '../../api/axiosInstance'; // шлях залежит�
 import Container from '../Container/Container';
 import styles from './Testimonials.module.css';
 import Icon from '../Icon/Icon';
+import toast from 'react-hot-toast';
 
-const AUTOPLAY_INTERVAL = 5000;
+const AUTOPLAY_INTERVAL = 20000;
 
 const Testimonials = () => {
   const [testimonials, setTestimonials] = useState([]);
@@ -20,7 +21,7 @@ const Testimonials = () => {
       }));
       setTestimonials(fetchedTestimonials);
     } catch (error) {
-      console.error('Error fetching testimonials:', error);
+      toast.error('Error fetching testimonials');
     }
   };
 
@@ -47,21 +48,20 @@ const Testimonials = () => {
     <section className={styles.testimonials}>
       <Container>
         <div className={styles.content}>
-          <div className={styles.titles}>
-            <p className={styles.subtitle}>What our customer say</p>
-            <h2 className={styles.title}>TESTIMONIALS</h2>
-          </div>
+          <p className={styles.subtitle}>What our customer say</p>
+
+          <h2 className={styles.title}>TESTIMONIALS</h2>
+
           <Icon name="quotes" className={styles.quoteMark} />
 
           <div className={styles.slider}>
-            <div className={styles.testimonialContent}>
-              <p className={styles.testimonialText}>
-                {testimonials[activeIndex].text}
-              </p>
-              <p className={styles.testimonialAuthor}>
-                {testimonials[activeIndex].author}
-              </p>
-            </div>
+            <p className={styles.testimonialText}>
+              {testimonials[activeIndex].text}
+            </p>
+
+            <p className={styles.testimonialAuthor}>
+              {testimonials[activeIndex].author}
+            </p>
 
             <div className={styles.pagination}>
               {testimonials.map((_, index) => (
