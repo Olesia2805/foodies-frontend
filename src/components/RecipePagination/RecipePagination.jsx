@@ -49,14 +49,14 @@ const RecipePagination = ({ variant = 'all', recipesListRef }) => {
       );
     }
 
-    setTimeout(() => {
-      if (recipesListRef && recipesListRef.current) {
+    if (recipesListRef && recipesListRef.current) {
+      requestAnimationFrame(() => {
         recipesListRef.current.scrollIntoView({
           behavior: 'smooth',
           block: 'start'
         });
-      }
-    }, 10);
+      });
+    }
   };
 
   return (
