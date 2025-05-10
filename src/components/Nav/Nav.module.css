@@ -20,6 +20,7 @@
   border: 1px solid transparent;
   border-radius: 30px;
   background: var(--white);
+  color: var(--black);
   transition: all 0.3s ease;
 
   &:hover,
@@ -30,7 +31,7 @@
 }
 
 .activeLink {
-  border-color: var(--grey);
+  border-color: var(--black);
   &:hover,
   &:focus {
     background: var(--white);
