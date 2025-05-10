@@ -14,7 +14,7 @@
   white-space: nowrap;
   fill: var(--error);
 }
-.errorMessage:first-letter {
+.errorMessageText:first-letter {
   text-transform: uppercase;
 }
 

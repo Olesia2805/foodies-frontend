@@ -1,4 +1,4 @@
-export const selectAreas = (state) => state.areas.items;
+export const selectAreas = (state) => state.areas.items || [];
 
 export const selectAreasIsLoading = (state) => state.areas.isLoading;
 

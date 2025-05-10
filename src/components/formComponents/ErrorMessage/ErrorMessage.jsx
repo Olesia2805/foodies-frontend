@@ -6,7 +6,8 @@ export default function ErrorMessage({ children }) {
   const errorClassName = clsx(css.errorMessage, children && css.visiable);
   return (
     <p className={errorClassName}>
-      {children && <Icon name="error" />} {children}
+      {children && <Icon name="error" />}{' '}
+      <span className={css['errorMessageText']}>{children}</span>
     </p>
   );
 }

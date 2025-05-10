@@ -101,7 +101,7 @@ export default function InputIngredients({
           name="ingredient-quantity"
           isCounter={false}
           isOneRow={true}
-          className={css['ingredients-margin-bottom-input']}
+          className={css['ingredients-input']}
           placeholder="Enter quantity"
           value={quantity}
           onChange={quantityOnChange}
@@ -109,13 +109,13 @@ export default function InputIngredients({
         />
       </div>
       <Button
-        variant="outline"
+        variant="outlined"
         type="button"
         onClick={onClick}
         customClassName={error && css.error}
       >
         Add ingredient
-        <Icon name="plus" />
+        <Icon name="plus" className={css.icon} />
       </Button>
 
       <div className={css['ingredients-list-wrapper']}>

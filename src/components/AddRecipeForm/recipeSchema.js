@@ -38,19 +38,26 @@ export const recipeSchema = yup.object({
     .required(MESSAGE_IS_REQUIRED('Description'))
     .min(MIN_STRING_LENGTH)
     .max(MAX_STRING_LENGTH),
-  category: selectShape.required(MESSAGE_IS_REQUIRED('Category')),
+  category: selectShape
+    .required(MESSAGE_IS_REQUIRED('Category'))
+    .typeError(MESSAGE_IS_REQUIRED('Category')),
   time: yup
     .number()
     .min(MIN_TIME, MESSAGE_MIN_TIME)
     .required(MESSAGE_IS_REQUIRED('Time')),
-  area: selectShape.required(MESSAGE_IS_REQUIRED('Area')),
+  area: selectShape
+    .required(MESSAGE_IS_REQUIRED('Area'))
+    .typeError(MESSAGE_IS_REQUIRED('Area')),
   ingredients: yup
     .array()
     .of(
-      yup.object({
-        id: yup.number().required(),
-        quantity: yup.string().required(),
-      })
+      yup.object(
+        {
+          id: yup.number().required(),
+          quantity: yup.string().required(),
+        },
+        MESSAGE_IS_REQUIRED('Ingredients')
+      )
     )
     .min(MIN_INGREDIENTS_COUNT)
     .required(MESSAGE_IS_REQUIRED('Ingredients')),

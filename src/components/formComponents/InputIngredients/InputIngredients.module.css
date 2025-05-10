@@ -11,7 +11,8 @@
   margin-bottom: 20px;
 }
 
-.ingredients-margin-bottom-input {
+.ingredients-input {
+  margin-top: 20px;
   margin-bottom: 32px;
 }
 
@@ -28,6 +29,10 @@
 
     margin: 0 0 40px 0;
   }
+
+  .ingredients-input {
+    margin-top: unset;
+  }
 }
 
 .ingredients-list-wrapper {
@@ -37,4 +42,8 @@
 .error {
   color: var(--error);
   fill: var(--error);
+}
+
+.icon {
+  fill: currentColor;
 }
