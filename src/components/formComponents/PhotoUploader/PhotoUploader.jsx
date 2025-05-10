@@ -10,6 +10,7 @@ export default function PhotoUploader({
   onChange,
   error,
   value,
+  name,
   ...otherProps
 }) {
   const [image, setImage] = useState('');
@@ -39,9 +40,7 @@ export default function PhotoUploader({
   });
 
   // title
-  const subTitle = isDragActive
-    ? 'Drop the photo here ...'
-    : "Drag 'n' drop some photo here, or click to select photo";
+  const subTitle = isDragActive ? 'Drop the photo here ...' : 'Upload a photo';
 
   const titleUpload = <p className={css['title-upload']}>{subTitle}</p>;
 
@@ -66,7 +65,13 @@ export default function PhotoUploader({
         {...getRootProps()}
         style={backgroundStyle}
       >
-        <input {...otherProps} {...getInputProps()} accept="image/*" />
+        <input
+          {...otherProps}
+          {...getInputProps()}
+          accept="image/*"
+          name={name}
+          aria-labelledby="photo of recipe"
+        />
 
         {image.length === 0 && (
           <>

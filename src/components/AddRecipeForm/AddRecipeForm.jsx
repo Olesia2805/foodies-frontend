@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import PhotoUploader from '../formComponents/PhotoUploader/PhotoUploader';
 import css from './AddRecipeForm.module.css';
 import { Controller, useForm } from 'react-hook-form';
@@ -172,11 +172,16 @@ export default function AddRecipeForm() {
             required: true,
           }}
           render={({
-            field: { onChange, value, name, ref },
-            fieldState: { invalid, isTouched, error, isDirty, onBlur },
+            field: { onChange, value, name },
+            fieldState: { error },
           }) => (
             <ErrorWrapper errorMessage={error?.message} isShadow={false}>
-              <PhotoUploader onChange={onChange} error={error} value={value} />
+              <PhotoUploader
+                onChange={onChange}
+                error={error}
+                value={value}
+                name={name}
+              />
             </ErrorWrapper>
           )}
         />
@@ -258,9 +263,8 @@ export default function AddRecipeForm() {
               control={control}
               name="time"
               render={({
-                field: { onChange, onBlur, value, name, ref },
-                fieldState: { invalid, isTouched, isDirty, error },
-                formState,
+                field: { onChange, value, name },
+                fieldState: { error },
               }) => (
                 <ErrorWrapper errorMessage={error?.message}>
                   <InputTimeCounter
@@ -305,11 +309,7 @@ export default function AddRecipeForm() {
         <Controller
           control={control}
           name="ingredients"
-          render={({
-            field: { onChange, onBlur, value, name, ref },
-            fieldState: { invalid, isTouched, isDirty, error },
-            formState,
-          }) => (
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
             <ErrorWrapper errorMessage={errors?.ingredients?.message}>
               <InputIngredients
                 onChange={onChange}
@@ -360,6 +360,7 @@ export default function AddRecipeForm() {
             className={css['btn-delete']}
             type="button"
             onClick={resetForm}
+            aria-label="Reset form"
           >
             <Icon name="trash" size={20} />
           </button>

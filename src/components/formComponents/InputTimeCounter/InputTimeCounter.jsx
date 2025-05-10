@@ -43,11 +43,21 @@ export default function InputTimeCounter({ value, onChange, error }) {
 
   return (
     <div className={css.wrapper}>
-      <button type="button" onClick={decrease} className={css.button}>
+      <button
+        type="button"
+        onClick={decrease}
+        className={css.button}
+        aria-label="Decrease time"
+      >
         <Icon name="minus" size={16} />
       </button>
       <p className={valueClassName}>{time.trim()}</p>
-      <button type="button" onClick={increase} className={css.button}>
+      <button
+        type="button"
+        onClick={increase}
+        className={css.button}
+        aria-label="Increase time"
+      >
         <Icon name="plus" size={16} />
       </button>
     </div>

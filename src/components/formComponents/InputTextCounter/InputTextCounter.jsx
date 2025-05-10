@@ -38,6 +38,7 @@ export default function InputTextCounter({
     className: css.input,
     onBlur: onBlur,
     ref: ref,
+    'aria-labelledby': name,
     ...otherProps,
   };
 
