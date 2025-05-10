@@ -100,7 +100,7 @@ const RecipeFilters = () => {
               className={css.clearButton}
               title="Clear category"
             >
-              <Icon name="close" size={22} />
+              <Icon name="close" size={16} />
             </button>
           )}
         </div>
