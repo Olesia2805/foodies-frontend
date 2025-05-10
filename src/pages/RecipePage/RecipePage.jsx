@@ -8,10 +8,12 @@ import Error from '../../components/Error/Error';
 import IngredientsList from '../../components/IngredientsList/IngredientsList';
 import Loader from '../../components/Loader/Loader';
 import RecipeImage from '../../components/RecipeImage/RecipeImage';
+import { selectIsAuthenticated } from '../../redux/auth';
 import { fetchRecipeById } from '../../redux/recipes/operations';
 import { selectRecipeById } from '../../redux/recipes/selectors';
 import styles from './RecipePage.module.css';
 import PopularRecipes from '../../components/PopularRecipes/PopularRecipes.jsx';
+import useFavorites from '../../hooks/useFavorites.js';
 
 const RecipePage = () => {
   const { id } = useParams();
@@ -20,8 +22,11 @@ const RecipePage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Створюємо реф для секції
+  const { isFav, onFavoriteHandler } = useFavorites(id);
+
   const startScrollRef = useRef(null);
+
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
   useEffect(() => {
     const loadRecipe = async () => {
@@ -54,7 +59,7 @@ const RecipePage = () => {
       </Container>
     );
   if (error) return <Error message={error} />;
-  if (!recipe || !recipe._id)
+  if (!recipe || !id)
     return (
       <Container>
         <Error message="Recipe not found" />
@@ -107,12 +112,19 @@ const RecipePage = () => {
               <p className={styles.instructions}>{recipe.instructions}</p>
             </section>
 
-            {/* TODO: Add to favorites */}
             <Button
               variant="outlined"
-              onClick={() => console.log('Button "Add to favorites" clicked')}
+              onClick={() => onFavoriteHandler(id)}
+              // disabled={!isAuthenticated}
+              title={
+                !isAuthenticated
+                  ? 'Sign in to add to favorites'
+                  : isFav
+                    ? 'Remove from favorites'
+                    : 'Add to favorites'
+              }
             >
-              Add to favorites
+              {isFav ? 'Remove from favorites' : 'Add to favorites'}
             </Button>
           </div>
         </section>

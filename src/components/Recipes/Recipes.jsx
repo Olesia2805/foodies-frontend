@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import css from './Recipes.module.css';
 import MainTitle from '../MainTitle/MainTitle';
@@ -9,19 +9,24 @@ import RecipePagination from '../RecipePagination/RecipePagination';
 import {
   selectSelectedCategory,
   selectSelectedArea,
-  selectSelectedIngredients
+  selectSelectedIngredients,
 } from '../../redux/common/index.js';
 import {
   setSelectedCategory,
   setSelectedIngredients,
-  setSelectedArea
+  setSelectedArea,
 } from '../../redux/common/slice.js';
 import { clearRecipes, setPage } from '../../redux/recipes/slice';
-import { fetchRecipes, fetchFavoriteRecipes } from '../../redux/recipes/index.js';
+import {
+  fetchRecipes,
+  fetchFavoriteRecipes,
+} from '../../redux/recipes/index.js';
 import Icon from '../Icon/Icon';
 import { selectIsAuthenticated } from '../../redux/auth/index.js';
+import { useSearchParams } from 'react-router-dom';
 
-const Recipes = ({ onUserAvatarClick, onRecipeDetailsClick, onBackClick, onAuthRequired }) => {
+const Recipes = ({ onBackClick }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
   const selectedCategory = useSelector(selectSelectedCategory);
   const selectedArea = useSelector(selectSelectedArea);
@@ -31,21 +36,25 @@ const Recipes = ({ onUserAvatarClick, onRecipeDetailsClick, onBackClick, onAuthR
   const fetchExecutedRef = useRef(false);
   const lastFiltersRef = useRef({});
 
-  const defaultTitle = "ALL CATEGORIES";
-  const defaultSubtitle = "Find your favorite dishes from our collection of the best recipes.";
+  const defaultTitle = 'ALL CATEGORIES';
+  const defaultSubtitle =
+    'Find your favorite dishes from our collection of the best recipes.';
 
   const recipesListRef = useRef(null);
 
   useEffect(() => {
+    const categoryId = searchParams.get('categoryID');
+
     const params = {
       page: 1,
-      categoryId: selectedCategory && selectedCategory.id !== 'all'
-        ? selectedCategory.id
-        : undefined,
+      categoryId:
+        selectedCategory && selectedCategory._id !== 'all'
+          ? selectedCategory._id
+          : undefined,
       areaId: selectedArea?.value || null,
       ingredientId: selectedIngredients?.length
-        ? selectedIngredients.map(ing => ing.value).join(',')
-        : null
+        ? selectedIngredients.map((ing) => ing.value).join(',')
+        : null,
     };
 
     const filtersChanged =
@@ -62,7 +71,13 @@ const Recipes = ({ onUserAvatarClick, onRecipeDetailsClick, onBackClick, onAuthR
         dispatch(fetchFavoriteRecipes());
       }
     }
-  }, [dispatch, selectedCategory, selectedArea, selectedIngredients, isAuthenticated]);
+  }, [
+    dispatch,
+    selectedCategory,
+    selectedArea,
+    selectedIngredients,
+    isAuthenticated,
+  ]);
 
   const handleClick = () => {
     dispatch(setSelectedCategory(null));
@@ -78,18 +93,26 @@ const Recipes = ({ onUserAvatarClick, onRecipeDetailsClick, onBackClick, onAuthR
     }
   };
 
-  const title = (selectedCategory && selectedCategory.id !== 'all' && selectedCategory.name)
-    ? selectedCategory.name
-    : defaultTitle;
+  const title =
+    selectedCategory && selectedCategory.id !== 'all' && selectedCategory.name
+      ? selectedCategory.name
+      : defaultTitle;
 
-  const subtitle = (selectedCategory && selectedCategory.id !== 'all' && selectedCategory.description)
-    ? selectedCategory.description
-    : defaultSubtitle;
+  const subtitle =
+    selectedCategory &&
+    selectedCategory.id !== 'all' &&
+    selectedCategory.description
+      ? selectedCategory.description
+      : defaultSubtitle;
 
   return (
     <section className={css.recipesMainContainer} ref={recipesListRef}>
       <div className={css.recipesTitleContainer}>
-        <button className={css.backContainer} aria-label="Back Home" onClick={handleClick}>
+        <button
+          className={css.backContainer}
+          aria-label="Back Home"
+          onClick={handleClick}
+        >
           <Icon name="arrow-left" className={css.backIconContainer} />
           <span className={css.backText}>Back</span>
         </button>
@@ -99,14 +122,8 @@ const Recipes = ({ onUserAvatarClick, onRecipeDetailsClick, onBackClick, onAuthR
       <div className={css.recipesListFiltersContainer}>
         <RecipeFilters />
         <div className={css.recipesListContainer}>
-          <RecipeList
-            onUserAvatarClick={onUserAvatarClick}
-            onRecipeDetailsClick={onRecipeDetailsClick}
-            onAuthRequired={onAuthRequired}
-          />
-          <RecipePagination
-            recipesListRef={recipesListRef}
-          />
+          <RecipeList />
+          <RecipePagination recipesListRef={recipesListRef} />
         </div>
       </div>
     </section>

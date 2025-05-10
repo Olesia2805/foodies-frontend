@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import css from './RecipeFilters.module.css';
 import Dropdown from '../Dropdown/Dropdown';
@@ -26,6 +27,7 @@ import {
 } from '../../redux/common/slice';
 
 const RecipeFilters = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const isCommonLoading = useSelector(selectIsCommonLoading);
   const error = useSelector(selectCommonError);
   const ingredients = useSelector(selectIngredients);
@@ -78,6 +80,9 @@ const RecipeFilters = () => {
 
   const clearCategory = () => {
     dispatch(setSelectedCategory(null));
+
+    searchParams.set('categoryId', 'all');
+    setSearchParams(searchParams);
   };
 
   const isCategorySelected = selectedCategory && selectedCategory.id !== 'all';
@@ -92,7 +97,12 @@ const RecipeFilters = () => {
             items={categories}
             label="Category"
             selectedValue={isCategorySelected ? selectedCategory : null}
-            callback={setSelectedCategory}
+            callback={(values) => {
+              searchParams.set('categoryId', values.id);
+              setSearchParams(searchParams);
+
+              dispatch(setSelectedCategory(values));
+            }}
           />
           {isCategorySelected && (
             <button
@@ -100,7 +110,7 @@ const RecipeFilters = () => {
               className={css.clearButton}
               title="Clear category"
             >
-              <Icon name="close" size={22} />
+              <Icon name="close" size={16} />
             </button>
           )}
         </div>
@@ -112,7 +122,7 @@ const RecipeFilters = () => {
             items={ingredients}
             label="Ingredients"
             selectedValue={selectedIngredients}
-            callback={setSelectedIngredients}
+            callback={(values) => dispatch(setSelectedIngredients(values))}
             isMulti={true}
           />
           {selectedIngredients?.length > 0 && (
@@ -133,7 +143,7 @@ const RecipeFilters = () => {
             items={areas}
             label="Area"
             selectedValue={selectedArea}
-            callback={setSelectedArea}
+            callback={(values) => dispatch(setSelectedArea(values))}
           />
           {selectedArea && (
             <button

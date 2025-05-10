@@ -13,7 +13,6 @@ const Dropdown = ({
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const dropdownRef = useRef(null);
-  const dispatch = useDispatch();
 
   const validItems = Array.isArray(items)
     ? items.filter((item) => item && item.name)
@@ -55,9 +54,9 @@ const Dropdown = ({
         ? safeSelectedValue.filter((selected) => selected?.value !== item.value)
         : [...safeSelectedValue, item];
 
-      dispatch(callback(newSelectedValue));
+      callback(newSelectedValue);
     } else {
-      dispatch(callback(item));
+      callback(item);
       setIsOpen(false);
     }
   };

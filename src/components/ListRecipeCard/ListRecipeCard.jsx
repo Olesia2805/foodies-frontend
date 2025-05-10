@@ -16,7 +16,7 @@ const RecipeCard = (recipe, isCurrentUser) => {
       </div>
       <button
         className={styles.arrowButton}
-        onClick={() => (window.location.href = `/recipes/${recipe._id}`)}
+        onClick={() => (window.location.href = `/recipe/${recipe._id}`)}
       >
         <Icon name="arrow-up-right" className={styles.arrowIcon} size={18} />
       </button>

@@ -97,20 +97,6 @@ export const UserInfo = () => {
     fileInputRef.current.click();
   };
 
-  const [iconSize, setIconSize] = useState({ width: 16, height: 16 });
-  useEffect(() => {
-    const updateIconSize = () => {
-      if (window.matchMedia('(max-width: 768px)').matches) {
-        setIconSize({ width: 12, height: 12 });
-      } else {
-        setIconSize({ width: 16, height: 16 });
-      }
-    };
-    updateIconSize();
-    window.addEventListener('resize', updateIconSize);
-    return () => window.removeEventListener('resize', updateIconSize);
-  }, []);
-
   if (!isOwnProfile && isLoading) {
     return (
       <div className={styles.profile_card_wrapper}>
@@ -137,51 +123,46 @@ export const UserInfo = () => {
   };
 
   return (
-    <div className={styles.profile_card_wrapper}>
-      <div className={styles.profile_card}>
-        <img
-          className={styles.profile_photo}
-          src={avatar}
-          alt={`${enhancedUserData.name} avatar`}
-        />
+    <div className={styles.profile_card}>
+      <img
+        className={styles.profile_photo}
+        src={avatar}
+        alt={`${enhancedUserData.name} avatar`}
+      />
 
-        {isOwnProfile && (
-          <>
-            <input
-              type="file"
-              ref={fileInputRef}
-              style={{ display: 'none' }}
-              onChange={handleFileChange}
-              accept="image/*"
-            />
-            <IconButton
-              iconId="plus"
-              style={styles.profile_big_card_button}
-              styleSVG={styles.profile_big_card_icon}
-              stroke="#FFF"
-              width={iconSize.width}
-              height={iconSize.height}
-              onClick={handleButtonClick}
-            />
-          </>
+      {isOwnProfile && (
+        <>
+          <input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            onChange={handleFileChange}
+            accept="image/*"
+          />
+          <IconButton
+            iconId="plus"
+            style={styles.profile_big_card_button}
+            color="#FFF"
+            onClick={handleButtonClick}
+          />
+        </>
+      )}
+
+      <h3 className={styles.profile_name}>{enhancedUserData.name}</h3>
+
+      <ul className={styles.profile_info}>
+        {displayFields.map(
+          (field) =>
+            field.visible && (
+              <UserInfoItem
+                key={nanoid()}
+                name={field.name}
+                value={enhancedUserData[field.name]}
+                label={field.label} // Додаємо передачу мітки в компонент
+              />
+            )
         )}
-
-        <h3 className={styles.profile_name}>{enhancedUserData.name}</h3>
-
-        <ul className={styles.profile_info}>
-          {displayFields.map(
-            (field) =>
-              field.visible && (
-                <UserInfoItem
-                  key={nanoid()}
-                  name={field.name}
-                  value={enhancedUserData[field.name]}
-                  label={field.label} // Додаємо передачу мітки в компонент
-                />
-              )
-          )}
-        </ul>
-      </div>
+      </ul>
     </div>
   );
 };

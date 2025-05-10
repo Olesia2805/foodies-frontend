@@ -13,18 +13,22 @@
   align-items: center;
 }
 
+.link {
+  transition: color 0.3s ease;
+}
+
 .link:hover {
   color: var(--black);
 }
 
 .current {
   font-weight: bold;
-  color: #333;
+  color: var(--black);
 }
 
 .separator {
   margin: 0 8px;
-  color: #aaa;
+  color: var(--grey);
 }
 
 @media (min-width: 768px) {

@@ -24,18 +24,20 @@ import {
   selectUserError,
 } from '../../redux/user';
 import withAuthGuard from '../../hoc/withAuthGuard.jsx';
-import UserProfile from '../../components/UserProfile/UserInfo';
-import LogOutModal from '../../components/LogOutModal/LogOutModal';
+import Container from '../../components/Container/Container';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+import MainTitle from '../../components/MainTitle/MainTitle.jsx';
+import Subtitle from '../../components/Subtitle/Subtitle.jsx';
+import UserBlock from '../../components/UserBlock/UserBlock.jsx';
 import TabsList from '../../components/TabsList/TabsList.jsx';
 import TabsContent from '../../components/TabsContent/TabsContent.jsx';
 import ListRecipeCard from '../../components/ListRecipeCard/ListRecipeCard.jsx';
-import Button from '../../components/Button/Button';
-import Loader from '../../components/Loader/Loader';
 import {
   USER_TABS,
   USER_TABS_DATA,
   USER_TABS_MESSAGES,
 } from '../../constants/userTabs.js';
+import styles from './UserPage.module.css';
 
 const UserPage = () => {
   const [activeTab, setActiveTab] = useState(USER_TABS.RECIPES);
@@ -214,82 +216,44 @@ const UserPage = () => {
   };
 
   return (
-    <>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          width: '100%',
-          gap: '30px',
-          minHeight: '50vh',
-        }}
-      >
-        {isDataLoading ? (
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '100%',
-              height: '100%',
-              padding: '40px 0',
-            }}
-          >
-            <Loader />
+    <Container>
+      <Breadcrumbs
+        items={[{ label: 'Home', link: '/' }, { label: 'Profile' }]}
+      />
+      <MainTitle title="Profile" />
+      <Subtitle subtitle="Reveal your culinary art, share your favorite recipe and create gastronomic masterpieces with us." />
+
+      <div className={styles.layout}>
+        <div className={styles.leftColumn}>
+          <UserBlock
+            isDataLoading={isDataLoading}
+            isOwnProfile={isOwnProfile}
+            openLogOutModal={openLogOutModal}
+            handleFollowToggle={handleFollowToggle}
+            isButtonLoading={isButtonLoading}
+            isFollowing={isFollowing}
+            isLogOutModalOpen={isLogOutModalOpen}
+            closeLogOutModal={closeLogOutModal}
+          />
+        </div>
+
+        <div className={styles.rightColumn}>
+          <div className={styles.tabsWrapper}>
+            <TabsList
+              tabs={visibleTabs}
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+            />
           </div>
-        ) : (
-          <>
-            <div style={{ width: '100%', maxWidth: '394px' }}>
-              <UserProfile />
-            </div>
-
-            <div
-              style={{
-                width: '100%',
-                maxWidth: '394px',
-                padding: '20px 0',
-              }}
-            >
-              {isOwnProfile ? (
-                <Button
-                  type="button"
-                  variant="primary"
-                  onClick={openLogOutModal}
-                  fullWidth={true}
-                >
-                  Log Out
-                </Button>
-              ) : (
-                <Button
-                  type="button"
-                  variant="primary"
-                  onClick={handleFollowToggle}
-                  fullWidth={true}
-                  disabled={isButtonLoading}
-                  loading={isButtonLoading}
-                >
-                  {isFollowing ? 'Unfollow' : 'Follow'}
-                </Button>
-              )}
-            </div>
-          </>
-        )}
-
-        <LogOutModal isOpen={isLogOutModalOpen} onClose={closeLogOutModal} />
+          <TabsContent
+            activeTab={activeTab}
+            tabsConfig={tabsConfig}
+            loading={loading}
+            error={error}
+          />
+        </div>
       </div>
-      <TabsList
-        tabs={visibleTabs}
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-      />
-      <TabsContent
-        activeTab={activeTab}
-        tabsConfig={tabsConfig}
-        loading={loading}
-        error={error}
-      />
-    </>
+    </Container>
   );
 };
 

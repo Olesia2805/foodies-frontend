@@ -1,10 +1,10 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-export const selectRecipes = state => state.recipes.items;
-export const selectIsRecipesLoading = state => state.recipes.isLoading;
-export const selectRecipesError = state => state.recipes.error;
-export const selectTotalPages = state => state.recipes.totalPages;
-export const selectPage = state => state.recipes.page;
+export const selectRecipes = (state) => state.recipes.items;
+export const selectIsRecipesLoading = (state) => state.recipes.isLoading;
+export const selectRecipesError = (state) => state.recipes.error;
+export const selectTotalPages = (state) => state.recipes.totalPages;
+export const selectPage = (state) => state.recipes.page;
 
 //* DONE
 export const selectRecipeById = () => (state) => {
@@ -30,3 +30,6 @@ export const selectPopularRecipes = (state) => state.recipes.popularRecipes;
 
 export const selectPopularRecipesIsLoading = (state) =>
   state.recipes.isPopularRecipesLoading;
+
+export const selectIsFavoritesLoading = (state) =>
+  state.recipes.isFavoriteLoading;

@@ -1,8 +1,7 @@
 .mainTitle {
   color: var(--black);
-  font-size: 24px;
-  font-weight: 800;
-  line-height: 1;
+  font-size: 28px;
+  line-height: 1.14;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   margin: 0;
@@ -10,12 +9,7 @@
 
 @media only screen and (min-width: 768px) {
   .mainTitle {
-    font-size: 32px;
-  }
-}
-
-@media only screen and (min-width: 1440px) {
-  .mainTitle {
-    font-size: 36px;
+    font-size: 40px;
+    line-height: 1.1;
   }
 }
