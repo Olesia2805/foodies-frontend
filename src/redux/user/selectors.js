@@ -1,5 +1,3 @@
-export const selectUserInfo = (state) => state.user.userInfo;
-
 export const selectUserRecipes = (state) => state.user.recipes;
 
 export const selectUserFavorites = (state) => state.user.favorites;

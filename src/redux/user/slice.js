@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  fetchUserInfo,
   fetchUserRecipes,
   fetchUserFavorites,
   fetchUserFollowers,
@@ -9,7 +8,6 @@ import {
 import { logOutUserOps } from '../auth';
 
 const initialState = {
-  userInfo: null,
   recipes: [],
   favorites: [],
   followers: [],
@@ -23,9 +21,6 @@ const userSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUserInfo.fulfilled, (state, { payload }) => {
-        state.userInfo = payload;
-      })
       .addCase(fetchUserRecipes.fulfilled, (state, { payload }) => {
         state.recipes = payload;
       })

@@ -12,10 +12,7 @@ import { fetchFavoriteRecipes } from './redux/recipes/index.js';
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 const RecipePage = lazy(() => import('./pages/RecipePage/RecipePage'));
 
-// const UserPage = lazy(() => import('./pages/UserPage/UserPage'));
-const UserPageExample = lazy(
-  () => import('./pages/UserPageExample/UserPageExample.jsx')
-);
+const UserPage = lazy(() => import('./pages/UserPage/UserPage'));
 const AddRecipePage = lazy(() => import('./pages/AddRecipePage/AddRecipePage'));
 
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage/NotFoundPage'));
@@ -44,6 +41,8 @@ const App = () => {
         <Routes>
           <Route path={ROUTER.HOME} element={<Layout />}>
             <Route index element={<HomePage />} />
+
+            <Route path={`${ROUTER.PROFILE}`} element={<UserPage />} />
 
             <Route path={`${ROUTER.USER}/:userId`} element={<UserPage />} />
 

@@ -7,7 +7,6 @@ import {
   fetchUserFavorites,
   fetchUserFollowers,
   fetchUserFollowing,
-  // selectUserInfo,
   selectUserRecipes,
   selectUserFavorites,
   selectUserFollowers,
@@ -32,8 +31,8 @@ const UserPageExample = () => {
   const { id } = useParams();
   const { user: currentUser } = useAuth();
 
-  const isCurrentUser = !id;
-  const userId = isCurrentUser ? currentUser?.id : id;
+  const isUrlOwnProfile = !id;
+  const userId = isUrlOwnProfile ? currentUser?.id : id;
 
   useEffect(() => {
     if (!userId) return;
@@ -61,7 +60,6 @@ const UserPageExample = () => {
     }
   }, [activeTab, userId, dispatch]);
 
-  // const userInfo = useSelector(selectUserInfo);
   const recipes = useSelector(selectUserRecipes);
   const favorites = useSelector(selectUserFavorites);
   const followers = useSelector(selectUserFollowers);
@@ -71,9 +69,9 @@ const UserPageExample = () => {
 
   const visibleTabs = useMemo(() => {
     return USER_TABS_DATA.filter((tab) =>
-      isCurrentUser ? true : tab.visibleTo === 'all'
+      isUrlOwnProfile ? true : tab.visibleTo === 'all'
     );
-  }, [isCurrentUser]);
+  }, [isUrlOwnProfile]);
 
   const tabsConfig = {
     [USER_TABS.RECIPES]: {

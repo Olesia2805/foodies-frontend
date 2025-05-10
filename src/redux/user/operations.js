@@ -1,22 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
-  getUserInfoApi,
   getUserRecipesApi,
   getUserFavoritesApi,
   getUserFollowersApi,
   getUserFollowingApi,
 } from 'api/userApi';
-
-export const fetchUserInfo = createAsyncThunk(
-  'user/fetchUserInfo',
-  async (userId, thunkAPI) => {
-    try {
-      return await getUserInfoApi(userId);
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err.message);
-    }
-  }
-);
 
 export const fetchUserRecipes = createAsyncThunk(
   'user/fetchUserRecipes',

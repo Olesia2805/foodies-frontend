@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import styles from './ListRecipeCard.module.css';
 
-const RecipeCard = ({ recipe }) => {
+const ListRecipeCard = (recipe) => {
   return (
     <div className={styles.recipeCard}>
       <img
@@ -12,14 +13,11 @@ const RecipeCard = ({ recipe }) => {
         <h3 className={styles.recipeTitle}>{recipe.title}</h3>
         <p className={styles.recipeDescription}>{recipe.description}</p>
       </div>
-      <button
-        className={styles.recipeButton}
-        onClick={() => (window.location.href = `/recipes/${recipe._id}`)}
-      >
+      <Link to={`/recipes/${recipe.id}`} className={styles.recipeButton}>
         <span className={styles.recipeButtonIcon}>/</span>
-      </button>
+      </Link>
     </div>
   );
 };
 
-export default RecipeCard;
+export default ListRecipeCard;
