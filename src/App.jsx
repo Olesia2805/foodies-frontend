@@ -43,7 +43,7 @@ const App = () => {
           <Route path={ROUTER.HOME} element={<Layout />}>
             <Route index element={<HomePage />} />
 
-            <Route path={`${ROUTER.USER}/:id`} element={<UserPage />} />
+            <Route path={`${ROUTER.USER}/:userId`} element={<UserPage />} />
 
             <Route path={`${ROUTER.RECIPE}/:id`} element={<RecipePage />} />
 

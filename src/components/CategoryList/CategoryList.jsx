@@ -52,6 +52,7 @@ const CategoryList = ({ onCategorySelect }) => {
   if (error) {
     return <Error message={error} />;
   }
+
   return (
     <div className={css.categoriesContainer}>
       <ul className={css.categoriesContainer}>
