@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Container from '../../components/Container/Container';
@@ -86,15 +86,17 @@ const HomePage = () => {
             <Categories onCategorySelect={handleCategorySelect} />
           </div>
         )}
-        <SignInModal
-          isOpen={isSignInModalOpen}
-          onClose={() => setIsSignInModalOpen(false)}
-          setOtherModal={() => {
-            setIsSignInModalOpen(false);
-          }}
-        />
-        <Testimonials />
       </Container>
+
+      <Testimonials />
+
+      <SignInModal
+        isOpen={isSignInModalOpen}
+        onClose={() => setIsSignInModalOpen(false)}
+        setOtherModal={() => {
+          setIsSignInModalOpen(false);
+        }}
+      />
     </>
   );
 };

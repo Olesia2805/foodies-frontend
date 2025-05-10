@@ -1,5 +1,7 @@
 .header {
   padding-top: 24px;
+  position: relative;
+  z-index: 3;
 
   @media (min-width: 768px) {
     padding-top: 36px;
@@ -14,6 +16,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  .homePageHeader & {
+    padding: 0 8px;
+
+    @media (min-width: 768px) {
+      padding: 0 32px;
+    }
+  }
 }
 
 .right {

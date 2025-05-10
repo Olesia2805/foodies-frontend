@@ -7,14 +7,23 @@ import Logo from '../Logo/Logo.jsx';
 import { NAV } from '../../constants/nav.js';
 
 import styles from './MobileNav.module.css';
+import clsx from 'clsx';
+import HeroImages from '../HeroImages/HeroImages.jsx';
+import Container from '../Container/Container.jsx';
 
-const MobileNav = () => {
+const MobileNav = ({ isHomePage }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className={styles.wrapper}>
       <button className={styles.button} onClick={() => setIsOpen(true)}>
-        <Icon name="burger" className={styles.openIcon} size={28} />
+        <Icon
+          name="burger"
+          className={clsx(styles.openIcon, {
+            [styles.homePageOpenIcon]: isHomePage,
+          })}
+          size={28}
+        />
       </button>
 
       <div className={`${styles.menu} ${isOpen ? styles.menuOpen : ''}`}>
@@ -37,6 +46,8 @@ const MobileNav = () => {
             ))}
           </ul>
         </nav>
+
+        <HeroImages />
       </div>
     </div>
   );
