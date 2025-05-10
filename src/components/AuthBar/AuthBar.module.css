@@ -19,7 +19,10 @@
     border: 1px solid var(--border);
     z-index: 0;
 
-    @media (min-width: 768px) {
+  }
+
+  @media (min-width: 768px) {
+    &::before {
       width: 104px;
     }
   }
