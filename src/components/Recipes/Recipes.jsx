@@ -34,6 +34,8 @@ const Recipes = ({ onUserAvatarClick, onRecipeDetailsClick, onBackClick, onAuthR
   const defaultTitle = "ALL CATEGORIES";
   const defaultSubtitle = "Find your favorite dishes from our collection of the best recipes.";
 
+  const recipesListRef = useRef(null);
+
   useEffect(() => {
     const params = {
       page: 1,
@@ -85,7 +87,7 @@ const Recipes = ({ onUserAvatarClick, onRecipeDetailsClick, onBackClick, onAuthR
     : defaultSubtitle;
 
   return (
-    <section className={css.recipesMainContainer}>
+    <section className={css.recipesMainContainer} ref={recipesListRef}>
       <div className={css.recipesTitleContainer}>
         <button className={css.backContainer} aria-label="Back Home" onClick={handleClick}>
           <Icon name="arrow-left" className={css.backIconContainer} />
@@ -102,7 +104,9 @@ const Recipes = ({ onUserAvatarClick, onRecipeDetailsClick, onBackClick, onAuthR
             onRecipeDetailsClick={onRecipeDetailsClick}
             onAuthRequired={onAuthRequired}
           />
-          <RecipePagination />
+          <RecipePagination
+            recipesListRef={recipesListRef}
+          />
         </div>
       </div>
     </section>
