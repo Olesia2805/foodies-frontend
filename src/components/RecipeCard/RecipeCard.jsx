@@ -2,24 +2,30 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useMemo, useState } from 'react';
 import css from './RecipeCard.module.css';
 import Icon from '../Icon/Icon';
-import { selectFavoriteRecipesId, selectIsAuthenticated } from '../../redux/auth/index.js';
-import { addToFavorites, removeFromFavorites } from '../../redux/recipes/index.js';
+import {
+  selectFavoriteRecipesId,
+  selectIsAuthenticated,
+} from '../../redux/auth/index.js';
+import {
+  addToFavorites,
+  removeFromFavorites,
+} from '../../redux/recipes/index.js';
 import clsx from 'clsx';
 import toast from 'react-hot-toast';
 
 const RecipeCard = ({
-                      mealImage,
-                      title,
-                      description,
-                      userId,
-                      userAvatar,
-                      userName,
-                      recipeId,
-                      onUserAvatarClick = () => {},
-                      onRecipeDetailsClick = () => {},
-                      onFavoriteClick = () => {},
-                      onAuthRequired = () => {},
-                    }) => {
+  mealImage,
+  title,
+  description,
+  userId,
+  userAvatar,
+  userName,
+  recipeId,
+  onUserAvatarClick = () => {},
+  onRecipeDetailsClick = () => {},
+  onFavoriteClick = () => {},
+  onAuthRequired = () => {},
+}) => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const favoritesIds = useSelector(selectFavoriteRecipesId);
@@ -80,7 +86,10 @@ const RecipeCard = ({
       <h2 className={css.cardTitle}>{title}</h2>
       <p className={css.cardDescription}>{description}</p>
       <div className={css.cardFooter}>
-        <button className={css.userInfo} onClick={() => onUserAvatarClick(userId)}>
+        <button
+          className={css.userInfo}
+          onClick={() => onUserAvatarClick(userId)}
+        >
           <img src={userAvatar} alt={userName} className={css.userImg} />
           <p className={css.userName}>{userName}</p>
         </button>

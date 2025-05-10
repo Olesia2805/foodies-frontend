@@ -1,0 +1,52 @@
+.imageContainer {
+  position: relative;
+}
+
+.image {
+  position: absolute;
+  z-index: 2;
+}
+
+.leftImage {
+  display: block;
+  width: 77px;
+  height: 70px;
+  overflow: hidden;
+  border-radius: 15px;
+  rotate: 12deg;
+  bottom: 132px;
+  left: 26px;
+
+  @media (min-width: 768px) {
+    width: 128px;
+    height: 116px;
+    left: 118px;
+  }
+
+  @media (min-width: 1440px) {
+    left: auto;
+    right: 50%;
+    transform: translateX(-120px);
+  }
+}
+
+.rightImage {
+  display: block;
+  width: 190px;
+  height: 172px;
+  border-radius: 30px;
+  rotate: -12deg;
+  right: 32px;
+  bottom: 100px;
+
+  @media (min-width: 768px) {
+    width: 302px;
+    height: 273px;
+    right: 132px;
+  }
+
+  @media (min-width: 1440px) {
+    left: 50%;
+    transform: translateX(-80px);
+  }
+}

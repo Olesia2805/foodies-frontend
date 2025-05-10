@@ -14,6 +14,7 @@
   background-color: var(--black);
   transition: left 0.4s ease;
   padding: 29px 24px;
+  z-index: 100;
 }
 
 .menuOpen {
@@ -34,6 +35,10 @@
 
 .openIcon {
   color: var(--black);
+}
+
+.homePageOpenIcon {
+  color: var(--white);
 }
 
 .closeIcon {

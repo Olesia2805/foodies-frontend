@@ -25,3 +25,8 @@ export const selectRecipesStatus = createSelector(
   [selectIsLoading, selectError],
   (isLoading, error) => ({ isLoading, error })
 );
+
+export const selectPopularRecipes = (state) => state.recipes.popularRecipes;
+
+export const selectPopularRecipesIsLoading = (state) =>
+  state.recipes.isPopularRecipesLoading;

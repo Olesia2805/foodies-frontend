@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import Loader from './components/Loader/Loader';
 import Layout from './components/Layout/Layout.jsx';
 import { ROUTER } from './constants/router.js';
+
 import { toastConfig } from './constants/toastConfig.js';
 import { useAuth, useVerification } from './hooks';
 import { fetchFavoriteRecipes } from './redux/recipes/index.js';
@@ -30,7 +31,6 @@ const App = () => {
 
       getUser();
       dispatch(fetchFavoriteRecipes());
-
     } else if (!isAuthenticated) {
       initialDataLoadedRef.current = false;
     }
@@ -43,11 +43,11 @@ const App = () => {
           <Route path={ROUTER.HOME} element={<Layout />}>
             <Route index element={<HomePage />} />
 
-            <Route path={`${ROUTER.USER}/:id`} element={<UserPage />} />
+            <Route path={ROUTER.ADD_RECIPE} element={<AddRecipePage />} />
+
+            <Route path={`${ROUTER.USER}/:userId`} element={<UserPage />} />
 
             <Route path={`${ROUTER.RECIPE}/:id`} element={<RecipePage />} />
-
-            <Route path={ROUTER.ADD_RECIPE} element={<AddRecipePage />} />
 
             <Route path={ROUTER.ALL} element={<NotFoundPage />} />
           </Route>
@@ -59,3 +59,4 @@ const App = () => {
 };
 
 export default App;
+

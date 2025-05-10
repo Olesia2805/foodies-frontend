@@ -4,20 +4,22 @@ import Icon from '../Icon/Icon';
 import css from './Dropdown.module.css';
 
 const Dropdown = ({
-                    items = [],
-                    label,
-                    selectedValue,
-                    callback,
-                    isMulti = false
-                  }) => {
+  items = [],
+  label,
+  selectedValue,
+  callback,
+  isMulti = false,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const dropdownRef = useRef(null);
   const dispatch = useDispatch();
 
-  const validItems = Array.isArray(items) ? items.filter(item => item && item.name) : [];
+  const validItems = Array.isArray(items)
+    ? items.filter((item) => item && item.name)
+    : [];
 
-  const filteredItems = validItems.filter(item =>
+  const filteredItems = validItems.filter((item) =>
     item?.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -42,13 +44,15 @@ const Dropdown = ({
     if (!item) return;
 
     if (isMulti) {
-      const safeSelectedValue = Array.isArray(selectedValue) ? selectedValue : [];
+      const safeSelectedValue = Array.isArray(selectedValue)
+        ? selectedValue
+        : [];
       const isSelected = safeSelectedValue.some(
-        selected => selected?.value === item.value
+        (selected) => selected?.value === item.value
       );
 
       const newSelectedValue = isSelected
-        ? safeSelectedValue.filter(selected => selected?.value !== item.value)
+        ? safeSelectedValue.filter((selected) => selected?.value !== item.value)
         : [...safeSelectedValue, item];
 
       dispatch(callback(newSelectedValue));
@@ -62,15 +66,21 @@ const Dropdown = ({
     if (!item) return false;
 
     if (isMulti) {
-      const safeSelectedValue = Array.isArray(selectedValue) ? selectedValue : [];
-      return safeSelectedValue.some(selected => selected?.value === item.value);
+      const safeSelectedValue = Array.isArray(selectedValue)
+        ? selectedValue
+        : [];
+      return safeSelectedValue.some(
+        (selected) => selected?.value === item.value
+      );
     }
     return selectedValue?.value === item.value;
   };
 
   const displaySelectedValue = () => {
     if (isMulti) {
-      const safeSelectedValue = Array.isArray(selectedValue) ? selectedValue : [];
+      const safeSelectedValue = Array.isArray(selectedValue)
+        ? selectedValue
+        : [];
       return safeSelectedValue.length > 0
         ? `Selected: ${safeSelectedValue.length}`
         : label;

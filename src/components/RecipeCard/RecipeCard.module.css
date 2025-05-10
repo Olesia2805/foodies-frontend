@@ -174,9 +174,15 @@
         width: 290px;
     }
 
-    .cardImg {
-        height: 275px;
-    }
+  .largeCard {
+    width: 100%;
+    max-width: 305px;
+  }
+
+  .cardImg {
+    height: 275px;
+    border-radius: 30px;
+  }
 
     .userImg {
         width: 40px;

@@ -5,6 +5,7 @@ import {
   addRecipe,
   deleteRecipe,
   fetchRecipeById,
+  getPopularRecipesOps,
   updateRecipe,
   fetchFavoriteRecipes,
   addToFavorites,
@@ -17,6 +18,10 @@ const initialState = {
   item: null,
   isLoading: false,
   error: null,
+
+  popularRecipes: [],
+  isPopularRecipesLoading: false,
+  popularRecipesError: null,
   totalPages: 1,
   page: 1,
   favorites: {},
@@ -87,7 +92,6 @@ const recipesSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-
       .addCase(addRecipe.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -100,7 +104,6 @@ const recipesSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-
       .addCase(updateRecipe.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -118,7 +121,6 @@ const recipesSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-
       .addCase(deleteRecipe.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -152,20 +154,8 @@ const recipesSlice = createSlice({
       .addCase(addToFavorites.fulfilled, (state, { payload }) => {
         state.isFavoriteLoading = false;
         if (state.favorites && state.favorites.data) {
-          const existingIndex = state.favorites.data.findIndex(
-            (item) =>
-              item._id === payload.recipeId || item.id === payload.recipeId
-          );
-
-          if (existingIndex === -1) {
-            const recipe = state.items.find(
-              (item) =>
-                item._id === payload.recipeId || item.id === payload.recipeId
-            );
-
-            if (recipe) {
-              state.favorites.data = [...state.favorites.data, recipe];
-            }
+          if (payload.recipe) {
+            state.favorites.data = [...state.favorites.data, payload.recipe];
           }
         }
       })
@@ -196,6 +186,18 @@ const recipesSlice = createSlice({
         state.favorites = {
           data: [],
         };
+      })
+
+      .addCase(getPopularRecipesOps.pending, (state) => {
+        state.isPopularRecipesLoading = true;
+      })
+      .addCase(getPopularRecipesOps.fulfilled, (state, { payload }) => {
+        state.isPopularRecipesLoading = false;
+        state.popularRecipes = payload;
+      })
+      .addCase(getPopularRecipesOps.rejected, (state, { payload }) => {
+        state.isPopularRecipesLoading = false;
+        state.popularRecipesError = payload;
       });
   },
 });

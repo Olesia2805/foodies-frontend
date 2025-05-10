@@ -15,6 +15,8 @@
   background-color: transparent;
   box-sizing: border-box;
   padding: 14px 40px 14px 14px;
+  color: var(--grey);
+
   &::placeholder {
     color: var(--grey);
   }
@@ -22,6 +24,13 @@
   @media (min-width: 768px) {
     height: 56px;
     padding: 16px 40px 16px 18px;
+  }
+
+  @media (min-width: 1440px) {
+    color: var(--black);
+    &::placeholder {
+      color: var(--black);
+    }
   }
 }
 

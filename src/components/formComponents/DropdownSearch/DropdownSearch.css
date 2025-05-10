@@ -1,0 +1,113 @@
+/* Sample of liraries' layout */
+/* Custom prefix is: react-select*/
+
+/* <div class="react-select-container">
+  <div class="react-select__control">
+    <div class="react-select__value-container">...</div>
+    <div class="react-select__indicators">...</div>
+  </div>
+  <div class="react-select__menu">
+    <div class="react-select__menu-list">
+      <div class="react-select__option">...</div>
+    </div>
+  </div>
+</div> */
+
+.react-select-container {
+  position: relative;
+  min-width: 315px;
+  max-width: 315px;
+}
+
+.react-select__control {
+  width: 100%;
+  height: 56px;
+  padding: 16px 18px 16px 18px;
+  border-radius: 30px;
+  border: 1px solid #e5e5e5;
+  outline: none;
+  background-color: transparent;
+  box-sizing: border-box;
+  appearance: none;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  outline: none;
+  transition-property: border-color;
+  transition-duration: var(--transition-duration);
+}
+
+.react-select__control__error {
+  border: 1px solid var(--error);
+}
+
+.react-select__control--menu-is-open {
+  border-color: var(--dark-grey);
+}
+
+.dropdown-label {
+  position: absolute;
+  left: 18px;
+  pointer-events: none;
+  font-family: 'Mulish', sans-serif;
+  font-size: 16px;
+  color: #757575;
+  transition: all 0.2s ease;
+}
+
+.react-select__indicators {
+  position: static;
+  pointer-events: none;
+  border: none;
+}
+
+.react-select__indicators {
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
+
+.react-select__indicator-separator {
+  display: none;
+}
+
+.react-select__control--menu-is-open .react-select__indicators {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
+
+.react-select__menu {
+  top: calc(100% + 8px);
+  z-index: 12;
+}
+
+.react-select__option {
+  color: var(--black);
+  padding: 12px 18px;
+  font-family: 'Mulish', sans-serif;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+  text-align: left;
+}
+
+.react-select__option.react-select__option--is-focused {
+  background-color: #f5f5f5;
+}
+
+.react-select__option--is-selected {
+  font-weight: bold;
+}
+
+.react-select__option--is-disabled[aria-disabled='true'] {
+  opacity: 50%;
+  cursor: not-allowed;
+}
+
+.react-select__placeholder {
+  color: #757575;
+}
+
+.required {
+  color: #000000;
+}

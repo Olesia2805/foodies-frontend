@@ -1,4 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
+
 import axiosInstance from '../../api/axiosInstance';
 
 export const fetchRecipes = createAsyncThunk(
@@ -18,7 +20,7 @@ export const fetchRecipes = createAsyncThunk(
       const formattedData = {
         recipes: response.data.data || [],
         totalPages: response.data.pages || 1,
-        currentPage: response.data.currentPage || 1
+        currentPage: response.data.currentPage || 1,
       };
 
       if (!formattedData.recipes.length) {
@@ -87,18 +89,34 @@ export const deleteRecipe = createAsyncThunk(
   }
 );
 
+export const getPopularRecipesOps = createAsyncThunk(
+  'recipes/getPopularRecipesOps',
+  async (_, thunkAPI) => {
+    try {
+      const response = await axiosInstance.get('/recipes/popular');
+
+      return response.data;
+    } catch (error) {
+      toast.error(error.message);
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 export const fetchOwnerRecipes = createAsyncThunk(
   'recipes/fetchOwnerRecipes',
   async (params, { rejectWithValue }) => {
     try {
       const { page = 1 } = params || {};
 
-      const response = await axiosInstance.get(`/recipes/own?page=${page}&limit=9`);
+      const response = await axiosInstance.get(
+        `/recipes/own?page=${page}&limit=9`
+      );
 
       const formattedData = {
         recipes: response.data.data || [],
         totalPages: response.data.pages || 1,
-        currentPage: response.data.currentPage || 1
+        currentPage: response.data.currentPage || 1,
       };
 
       return formattedData;
@@ -114,7 +132,9 @@ export const toggleFavoriteRecipe = createAsyncThunk(
   'recipes/toggleFavorite',
   async (recipeId, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.patch(`/recipes/favorite/${recipeId}`);
+      const response = await axiosInstance.patch(
+        `/recipes/favorite/${recipeId}`
+      );
       return { recipeId, ...response.data };
     } catch (error) {
       return rejectWithValue(
@@ -142,7 +162,9 @@ export const addToFavorites = createAsyncThunk(
   'recipes/addToFavorites',
   async (recipeId, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post('/recipes/favorites', { id: recipeId });
+      const response = await axiosInstance.post('/recipes/favorites', {
+        id: recipeId,
+      });
       return { recipeId, ...response.data };
     } catch (error) {
       return rejectWithValue(
@@ -157,7 +179,7 @@ export const removeFromFavorites = createAsyncThunk(
   async (recipeId, { rejectWithValue }) => {
     try {
       await axiosInstance.delete('/recipes/favorites', {
-        data: { id: recipeId }
+        data: { id: recipeId },
       });
 
       return { recipeId };
