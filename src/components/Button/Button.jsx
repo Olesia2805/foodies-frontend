@@ -2,7 +2,6 @@ import React from 'react';
 import clsx from 'clsx';
 import styles from './Button.module.css';
 import Loader from '../Loader/Loader.jsx';
-import container from '../Container/Container.jsx';
 
 const Button = ({
   children,
@@ -25,6 +24,7 @@ const Button = ({
   const variantClassMap = {
     contained: styles.buttonContained,
     outlined: styles.buttonOutlined,
+    logoutOrFollowBtn: styles.logoutOrFollowBtn,
   };
 
   const colorClassMap = {
