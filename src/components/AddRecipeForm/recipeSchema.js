@@ -9,6 +9,11 @@ import {
   MESSAGE_MIN_TIME,
 } from '../../constants/recipeForm';
 
+const selectShape = yup.object({
+  value: yup.number().required(),
+  label: yup.string().required(),
+});
+
 export const recipeSchema = yup.object({
   photo: yup
     .mixed()
@@ -33,12 +38,12 @@ export const recipeSchema = yup.object({
     .required(MESSAGE_IS_REQUIRED('Description'))
     .min(MIN_STRING_LENGTH)
     .max(MAX_STRING_LENGTH),
-  category: yup.object().required(MESSAGE_IS_REQUIRED('Category')),
+  category: selectShape.required(MESSAGE_IS_REQUIRED('Category')),
   time: yup
     .number()
     .min(MIN_TIME, MESSAGE_MIN_TIME)
     .required(MESSAGE_IS_REQUIRED('Time')),
-  area: yup.object().required(MESSAGE_IS_REQUIRED('Area')),
+  area: selectShape.required(MESSAGE_IS_REQUIRED('Area')),
   ingredients: yup
     .array()
     .of(
@@ -55,39 +60,3 @@ export const recipeSchema = yup.object({
     .min(MIN_STRING_LENGTH)
     .max(MAX_STRING_LENGTH),
 });
-
-let x = {
-  photo: {
-    path: './chicken-kiev.jpg.webp',
-    relativePath: './chicken-kiev.jpg.webp',
-  },
-  title: 'Title',
-  description: 'text 1',
-  category: {
-    value: 12,
-    label: 'Breakfast',
-  },
-  time: 5,
-  area: {
-    value: 1,
-    label: 'Ukrainian',
-  },
-  ingredients: [
-    {
-      id: 1,
-      quantity: '100 g',
-    },
-  ],
-  preparation: 'text 2',
-};
-
-// {
-//       photo: '', // thumb
-//       title: '',
-//       description: '',
-//       category: '',
-//       time: 0,
-//       area: '', // ???
-//       'ingredient-quantity': '',
-//       preparation: '', // instructions
-//     },
