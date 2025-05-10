@@ -80,6 +80,9 @@ const RecipeFilters = () => {
 
   const clearCategory = () => {
     dispatch(setSelectedCategory(null));
+
+    searchParams.set('categoryId', 'all');
+    setSearchParams(searchParams);
   };
 
   const isCategorySelected = selectedCategory && selectedCategory.id !== 'all';
