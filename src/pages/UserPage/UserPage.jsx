@@ -15,7 +15,6 @@ import {
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../../hooks';
 import axios from 'axios';
-import withAuthGuard from '../../hoc/withAuthGuard.jsx';
 import styles from './UserPage.module.css';
 
 import PathInfo from '../../components/PathInfo/PathInfo.jsx';
@@ -80,7 +79,7 @@ const UserPage = () => {
       myEmail &&
       preliminaryUserData.email === myEmail);
 
-
+  const handleTabChange = (index) => {
     if (index === 1) {
       fetchFollowers();
     } else {
@@ -277,8 +276,9 @@ const UserPage = () => {
       </div>
 
       <LogOutModal isOpen={isLogOutModalOpen} onClose={closeLogOutModal} />
-    </>
-    </div>
-  );
-
+      </>
+      </div>
+    );
+  }
+  
 export default withAuthGuard(UserPage);
