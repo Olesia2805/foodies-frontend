@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCategories } from '../../redux/categories/operations';
 import {
   selectCategories,
   selectCategoriesIsLoading,
   selectCategoriesError,
-} from '../../redux/categories/selectors';
+  fetchCategories,
+} from '../../redux/categories/index.js';
 import css from './CategoryList.module.css';
 import Icon from '../Icon/Icon';
 import Loader from '../Loader/Loader';
+import Error from '../Error/Error';
 
 const CategoryList = ({ onCategorySelect }) => {
   const categoryClasses = [
@@ -36,20 +37,28 @@ const CategoryList = ({ onCategorySelect }) => {
   const isLoading = useSelector(selectCategoriesIsLoading);
   const error = useSelector(selectCategoriesError);
 
+  console.log('categories', categories);
+
   useEffect(() => {
     dispatch(fetchCategories());
   }, [dispatch]);
 
   if (isLoading) {
-    return <Loader />;
+    return (
+      <div className={css.categoriesLoader}>
+        <Loader />
+      </div>
+    );
   }
+
   if (error) {
-    return <div>Error: {error}</div>;
+    return <Error message={error} />;
   }
+
   return (
     <div className={css.categoriesContainer}>
       <ul className={css.categoriesContainer}>
-        {categories.map((cat, index) => (
+        {categories?.map((cat, index) => (
           <li
             key={cat._id}
             className={`${css.card} ${css[categoryClasses[index]]}`}
@@ -61,11 +70,13 @@ const CategoryList = ({ onCategorySelect }) => {
               </div>
               <button
                 className={css.arrowButton}
-                onClick={() => onCategorySelect({
-                  id: cat._id,
-                  name: cat.name,
-                  description: cat.description,
-                })}
+                onClick={() =>
+                  onCategorySelect({
+                    id: cat._id,
+                    name: cat.name,
+                    description: cat.description,
+                  })
+                }
               >
                 <Icon
                   name="arrow-up-right"
@@ -78,11 +89,13 @@ const CategoryList = ({ onCategorySelect }) => {
         ))}
         <li
           key="all"
-          onClick={() => onCategorySelect({
-                  id: "all",
-                  name: null,
-                  description: null,
-                })}
+          onClick={() =>
+            onCategorySelect({
+              id: 'all',
+              name: null,
+              description: null,
+            })
+          }
           className={`${css.card} ${css[categoryClasses[categories.length]]} ${css.allCard}`}
         >
           <p className={css.allCategoriesText}>All Categories</p>

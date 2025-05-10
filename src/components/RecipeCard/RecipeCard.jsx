@@ -1,73 +1,114 @@
-import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useMemo, useState } from 'react';
+import css from './RecipeCard.module.css';
+import Icon from '../Icon/Icon';
+import {
+  selectFavoriteRecipesId,
+  selectIsAuthenticated,
+} from '../../redux/auth/index.js';
+import {
+  addToFavorites,
+  removeFromFavorites,
+} from '../../redux/recipes/index.js';
 import clsx from 'clsx';
+import toast from 'react-hot-toast';
 
-import Icon from '../Icon/Icon.jsx';
+const RecipeCard = ({
+  mealImage,
+  title,
+  description,
+  userId,
+  userAvatar,
+  userName,
+  recipeId,
+  onUserAvatarClick = () => {},
+  onRecipeDetailsClick = () => {},
+  onFavoriteClick = () => {},
+  onAuthRequired = () => {},
+}) => {
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const favoritesIds = useSelector(selectFavoriteRecipesId);
+  const [isProcessing, setIsProcessing] = useState(false);
 
-import { useAuth } from '../../hooks/index.js';
+  const isFav = useMemo(() => {
+    return favoritesIds.includes(recipeId);
+  }, [favoritesIds, recipeId]);
 
-import { ROUTER } from '../../constants/router.js';
+  const heartClass = useMemo(() => {
+    return clsx(css.cardBtn, {
+      [css.cardBtnActive]: isFav,
+    });
+  }, [isFav]);
 
-import styles from './RecipeCard.module.css';
+  const handleFavoriteClick = async () => {
+    if (!isAuthenticated) {
+      onAuthRequired();
+      return;
+    }
 
-const RecipeCard = ({ recipe, size = 'regular' }) => {
-  const favoritesIds = []; // TODO: Get favorites from the Store;
+    if (isProcessing) {
+      return;
+    }
 
-  const { isAuthenticated } = useAuth();
-  const { owner, thumb, title, description, _id } = recipe;
+    setIsProcessing(true);
 
-  const isFav = favoritesIds.includes(_id);
+    try {
+      if (isFav) {
+        await dispatch(removeFromFavorites(recipeId)).unwrap();
+        toast.success('Recipe removed from favorites');
+      } else {
+        await dispatch(addToFavorites(recipeId)).unwrap();
+        toast.success('Recipe added to favorites');
+      }
 
-  const handlerFavorite = (recipeId) => {
-    // TODO: Implement favorite logic;
+      if (onFavoriteClick) {
+        onFavoriteClick(recipeId);
+      }
+    } catch (error) {
+      let errorMessage = 'Failed to update favorites';
+
+      if (typeof error === 'string') {
+        errorMessage = error;
+      } else if (error && typeof error.message === 'string') {
+        errorMessage = error.message;
+      }
+
+      toast.error(errorMessage);
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (
-    <div
-      className={clsx(styles.card, {
-        [styles.largeCard]: size === 'large',
-      })}
-    >
-      <Link
-        aria-label="Go to details"
-        to={`${ROUTER.RECIPE}/${_id}`}
-        target="_blank"
-      >
-        <img src={thumb} alt="meal" className={styles.cardImg} />
-        <h2 className={styles.cardTitle}>{title}</h2>
-        <p className={styles.cardDescription}>{description}</p>
-      </Link>
-      <div className={styles.cardFooter}>
-        {isAuthenticated ? (
-          <Link
-            to={`${ROUTER.PROFILE}/${owner._id}`}
-            className={styles.userInfo}
-            target="_blank"
-          >
-            <UserCard owner={owner} />
-          </Link>
-        ) : (
-          <div className={styles.userInfo}>
-            <UserCard owner={owner} />
-          </div>
-        )}
-
-        <div className={styles.cardActions}>
+    <div className={css.card}>
+      <img src={mealImage} alt="meal" className={css.cardImg} />
+      <h2 className={css.cardTitle}>{title}</h2>
+      <p className={css.cardDescription}>{description}</p>
+      <div className={css.cardFooter}>
+        <button
+          className={css.userInfo}
+          onClick={() => onUserAvatarClick(userId)}
+        >
+          <img src={userAvatar} alt={userName} className={css.userImg} />
+          <p className={css.userName}>{userName}</p>
+        </button>
+        <div className={css.cardActions}>
           <button
-            className={clsx(styles.cardBtn, {
-              [styles.cardBtnActive]: isFav,
-            })}
-            onClick={() => handlerFavorite(_id)}
+            className={heartClass}
+            aria-label="Toggle favorite"
+            onClick={handleFavoriteClick}
+            disabled={isProcessing}
           >
-            <Icon name="heart" className={styles.icon} />
+            <Icon name="heart" className={css.icon} />
           </button>
-          <Link
-            className={styles.cardBtn}
+          <button
+            className={css.cardBtn}
+            onClick={() => onRecipeDetailsClick(recipeId)}
             aria-label="Go to details"
-            to={`${ROUTER.RECIPE}/${_id}`}
-            target="_blank"
           >
-            <Icon name="arrow-up-right" className={styles.icon} />
-          </Link>
+            <Icon name="arrow-up-right" className={css.icon} />
+          </button>
         </div>
       </div>
     </div>
@@ -75,12 +116,3 @@ const RecipeCard = ({ recipe, size = 'regular' }) => {
 };
 
 export default RecipeCard;
-
-const UserCard = ({ owner }) => {
-  return (
-    <>
-      <img src={owner.avatar} alt={owner.name} className={styles.userImg} />
-      <p className={styles.userName}>{owner.name}</p>
-    </>
-  );
-};

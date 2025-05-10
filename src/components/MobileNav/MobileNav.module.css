@@ -37,6 +37,10 @@
   color: var(--black);
 }
 
+.homePageOpenIcon {
+  color: var(--white);
+}
+
 .closeIcon {
   fill: var(--white);
 }

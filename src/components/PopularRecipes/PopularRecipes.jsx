@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 
-import RecipeCard from '../RecipeCard/RecipeCard.jsx';
 import Container from '../Container/Container.jsx';
 import Loader from '../Loader/Loader.jsx';
 import Typography from '../Typography/Typography.jsx';
@@ -8,6 +7,7 @@ import Typography from '../Typography/Typography.jsx';
 import useRecipe from '../../hooks/useRecipe.js';
 
 import styles from './PopularRecipes.module.css';
+import SimpleRecipeCard from '../SimpleRecipeCard/SimpleRecipeCard.jsx';
 
 const PopularRecipes = () => {
   const { popularRecipes, getPopularRecipes, isPopularRecipesLoading } =
@@ -26,7 +26,7 @@ const PopularRecipes = () => {
 
         <div className={styles.popularList}>
           {popularRecipes.map((recipe) => (
-            <RecipeCard size="large" key={recipe._id} recipe={recipe} />
+            <SimpleRecipeCard size="large" key={recipe._id} recipe={recipe} />
           ))}
         </div>
       </Container>

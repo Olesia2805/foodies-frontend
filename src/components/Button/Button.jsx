@@ -5,7 +5,9 @@ import Loader from '../Loader/Loader.jsx';
 
 const Button = ({
   children,
-  variant = 'primary',
+  variant = 'contained',
+  color = 'primary',
+  size = 'medium',
   width,
   height,
   style,
@@ -20,14 +22,29 @@ const Button = ({
   };
 
   const variantClassMap = {
+    contained: styles.buttonContained,
+    outlined: styles.buttonOutlined,
+    logoutOrFollowBtn: styles.logoutOrFollowBtn,
+  };
+
+  const colorClassMap = {
     primary: styles.buttonPrimary,
     secondary: styles.buttonSecondary,
-    outlined: styles.buttonOutlined,
+  };
+
+  const sizeClassMap = {
+    small: styles.buttonSmall,
   };
 
   return (
     <button
-      className={clsx(styles.button, variantClassMap[variant], props.className)}
+      className={clsx(
+        styles.button,
+        colorClassMap[color],
+        variantClassMap[variant],
+        sizeClassMap[size],
+        props.className
+      )}
       style={{
         ...customStyle,
         width: fullWidth ? '100%' : customStyle.width,
