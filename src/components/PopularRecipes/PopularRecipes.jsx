@@ -17,7 +17,7 @@ const PopularRecipes = () => {
     getPopularRecipes();
   }, []);
 
-  if (isPopularRecipesLoading) return <Loader />;
+  if (isPopularRecipesLoading) return <Loader fullScreen />;
 
   return (
     <div className={styles.popularProducts}>
