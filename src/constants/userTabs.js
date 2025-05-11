@@ -15,3 +15,6 @@ export const USER_TABS_MESSAGES = {
   NO_FOLLOWING:
     'Your account currently has no subscriptions to other users. Learn more about our users and select those whose content interests you.',
 };
+
+export const RECIPES_PER_PAGE = 9;
+export const USERS_PER_PAGE = 5;

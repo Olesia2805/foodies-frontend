@@ -23,6 +23,7 @@ import {
   selectUserLoading,
   selectUserError,
 } from '../../redux/user';
+import { deleteRecipe, removeFromFavorites } from '../../redux/recipes';
 import withAuthGuard from '../../hoc/withAuthGuard.jsx';
 import Container from '../../components/Container/Container';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
@@ -33,7 +34,11 @@ import TabsList from '../../components/TabsList/TabsList.jsx';
 import TabsContent from '../../components/TabsContent/TabsContent.jsx';
 import ListRecipeCard from '../../components/ListRecipeCard/ListRecipeCard.jsx';
 import FollowerCard from '../../components/FollowerCard/FollowerCard.jsx';
-import { USER_TABS, USER_TABS_MESSAGES } from '../../constants/userTabs.js';
+import {
+  USER_TABS,
+  USER_TABS_MESSAGES,
+  RECIPES_PER_PAGE,
+} from '../../constants/userTabs.js';
 import styles from './UserPage.module.css';
 
 const UserPage = () => {
@@ -141,6 +146,28 @@ const UserPage = () => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
+  };
+
+  const handleDelete = async (recipeId) => {
+    try {
+      let updatedTotal;
+      if (activeTab === USER_TABS.RECIPES) {
+        await dispatch(deleteRecipe(recipeId)).unwrap();
+        updatedTotal = recipes.total - 1;
+      } else if (activeTab === USER_TABS.FAVORITES) {
+        await dispatch(removeFromFavorites(recipeId)).unwrap();
+        updatedTotal = favorites.total - 1;
+      }
+
+      const newTotalPages = Math.ceil(updatedTotal / RECIPES_PER_PAGE);
+      if (currentPage > newTotalPages) {
+        setCurrentPage(newTotalPages);
+      }
+
+      toast.success('Recipe removed');
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   const handleFollowToggle = async () => {
@@ -271,6 +298,7 @@ const UserPage = () => {
             isOwnProfile={isOwnProfile}
             onPageChange={handlePageChange}
             currentPage={currentPage}
+            handleDelete={handleDelete}
             loading={loading}
             error={error}
           />
