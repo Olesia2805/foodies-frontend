@@ -23,23 +23,37 @@ axiosInstance.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
     const refreshToken = localStorage.getItem('refreshToken');
+
+    if (
+      error.response?.status === 403 &&
+      originalRequest.url.includes('/auth/refresh-token')
+    ) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('refreshToken');
+
+      return Promise.reject(error);
+    }
+
     if (
       error.response?.status === 401 &&
       !originalRequest._retry &&
       refreshToken
     ) {
       originalRequest._retry = true;
-
       try {
         const response = await store
           .dispatch(refreshTokenOps(refreshToken))
           .unwrap();
+
+        originalRequest.headers = originalRequest.headers ?? {};
         originalRequest.headers.Authorization = `Bearer ${response.token}`;
         return axiosInstance(originalRequest);
-      } catch {
+      } catch (e) {
         store.dispatch(logOutUserOps());
+        return Promise.reject(e);
       }
     }
+
     return Promise.reject(error);
   }
 );
