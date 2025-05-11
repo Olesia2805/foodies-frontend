@@ -1,29 +1,20 @@
-import { useState } from 'react';
 import styles from './TabsList.module.css';
 
-const TabsList = ({ tabs, onTabChange }) => {
-  const [activeTab, setActiveTab] = useState(0);
-
-  const handleTabClick = (index) => {
-    setActiveTab(index);
-    onTabChange(index);
-  };
-
+const TabsList = ({ tabs, activeTab, onTabChange }) => {
   return (
     <div className={styles.tabsListContainer}>
       <div className={styles.tabsList}>
-        {tabs.map((tab, index) => (
+        {tabs.map((tab) => (
           <button
-            key={index}
-            className={`${styles.tab} ${index === activeTab ? styles.active : ''}`}
-            onClick={() => handleTabClick(index)}
+            key={tab.id}
+            className={`${styles.tab} ${tab.id === activeTab ? styles.active : ''}`}
+            onClick={() => onTabChange(tab.id)}
           >
-            {tab}
+            {tab.label}
           </button>
         ))}
       </div>
     </div>
   );
 };
-
 export default TabsList;

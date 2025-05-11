@@ -15,6 +15,7 @@ export default defineConfig({
       pages: '/src/pages',
       styles: '/src/assets/styles',
       img: '/src/assets/img',
+      api: '/src/api',
     },
   },
   server: {

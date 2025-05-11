@@ -29,7 +29,6 @@ axiosInstance.interceptors.response.use(
       refreshToken
     ) {
       originalRequest._retry = true;
-
       try {
         const response = await store
           .dispatch(refreshTokenOps(refreshToken))

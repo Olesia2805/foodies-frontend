@@ -1,206 +1,154 @@
 .card {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  padding: 16px;
-  border: none;
-  border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.5);
-  box-shadow: none;
 }
 
-.info {
-  flex: 1;
-}
-
-.recipesCount {
-  font-size: 14px;
-  color: #666;
-  margin: 4px 0;
-}
-
-.followButton {
-  padding: 8px 16px;
-  color: rgb(0, 0, 0);
-  border-radius: 25px;
-  border-color: #999;
-  cursor: pointer;
-  font-size: 14px;
-  background-color: #ffffff;
-}
-
-.followButton:hover {
-  background-color: #f0f0f0;
-  border-color: #999;
-}
-
-.recipesPreview {
+.user {
   display: flex;
-  gap: 8px;
-}
-
-.recipeImage {
-  width: 150px;
-  height: 150px;
-  border-radius: 4px;
-  object-fit: cover;
+  align-items: flex-start;
+  gap: 16px;
 }
 
 .avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 100%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
   object-fit: cover;
 }
 
 .name {
+  margin-bottom: 4px;
   font-size: 16px;
-  font-weight: bold;
-  margin: 0;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
 }
 
-.profileButton {
-  margin-left: auto;
+.text {
+  margin: 0 0 8px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--grey);
+}
+
+.followBtn {
+  padding: 8px 16px;
+  border-radius: 30px;
+  border: 1px solid var(--grey);
+  background-color: transparent;
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 1.42;
+  font-weight: 700;
+  color: var(--grey);
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--black);
+    border-color: var(--black);
+    color: var(--white);
+  }
+}
+
+.recipes {
+  display: none;
+}
+
+.btn {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
   border-radius: 50%;
-  border: 1px solid #ccc;
-  background-color: white;
-  color: #333;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s, border-color 0.3s;
-}
-
-.profileButton:hover {
-  background-color: #f0f0f0;
-  border-color: #999;
-}
-
-.profileButtonIcon {
-  font-size: 20px;
-}
-
-.divider {
-  height: 2px;
-  background-color: red;
-  width: 100%;
-  margin: 16px 0;
-}
-
-.arrowButton {
-  border: 1px solid var(--black);
+  border: 1px solid var(--grey);
   background-color: transparent;
-  border-radius: 30px;
-  padding: 11px;
   cursor: pointer;
-  transition: background-color 0.4s ease, border-color 0.4s ease;
-  flex-shrink: 0;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s,
+    color 0.3s;
 }
 
-.arrowIcon {
-  fill: #000000;
-}
+.btn:hover {
+  background-color: var(--black);
+  border-color: var(--black);
 
-.arrowButton:hover {
-  background-color: var(--light-grey);
-}
-
-@media (min-width: 320px) {
-  .card {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  .avatar {
-    width: 80px;
-    height: 80px;
-  }
-
-  .recipeImage {
-    width: 100px;
-    height: 100px;
+  .btnIcon {
+    fill: var(--white);
   }
 }
 
-@media (min-width: 375px) {
-  .card {
-    gap: 12px;
-  }
-
-  .avatar {
-    width: 90px;
-    height: 90px;
-  }
-
-  .recipeImage {
-    width: 120px;
-    height: 120px;
-  }
+.btnIcon {
+  transition: fill 0.3s ease;
 }
 
 @media (min-width: 768px) {
-  .card {
-    flex-direction: row;
-    align-items: center;
-    gap: 16px;
+  .avatar {
+    width: 85px;
+    height: 85px;
   }
 
-  .avatar {
+  .name {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  .text {
+    font-size: 14px;
+    line-height: 1.42;
+  }
+
+  .followBtn {
+    padding: 10px 24px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .recipes {
+    display: flex;
+    gap: 12px;
+  }
+
+  .recipeLink {
+    display: flex;
     width: 100px;
     height: 100px;
+    border-radius: 15px;
+    overflow: hidden;
+
+    &:last-child {
+      display: none;
+    }
   }
 
   .recipeImage {
-    width: 150px;
-    height: 150px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .btn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .btnIcon {
+    width: 18px;
+    height: 18px;
   }
 }
 
 @media (min-width: 1440px) {
-  .card {
-    gap: 24px;
-  }
-
-  .avatar {
-    width: 100px;
-    height: 100px;
-  }
-
-  .recipeImage {
-    width: 180px;
-    height: 180px;
-  }
-}
-
-@media (max-width: 768px) {
-  .followerCard {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 16px;
-  }
-
-  .avatar {
-    width: 100px;
-    height: 100px;
-  }
-
-  .details {
-    flex: 1;
-  }
-}
-
-@media (max-width: 375px) {
-  .recipesPreview {
-    display: none;
+  .recipeLink {
+    &:last-child {
+      display: flex;
+    }
   }
 }
