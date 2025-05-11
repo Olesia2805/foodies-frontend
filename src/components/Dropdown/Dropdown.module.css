@@ -135,6 +135,47 @@
   }
 }
 
+.tooltipItem {
+  padding: 5px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tooltipItemText {
+  flex: 1;
+}
+
+.removeItemButton {
+  background: transparent;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.removeItemButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.removeIcon {
+  color: var(--dark-grey);
+  fill: var(--dark-grey);
+}
+
+.removeItemButton:hover .removeIcon {
+  color: var(--black);
+  fill: var(--black);
+}
+
+.tooltipItem:not(:last-child) {
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+}
+
 .checkIcon {
   width: 18px;
   height: 18px;

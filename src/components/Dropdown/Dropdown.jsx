@@ -25,22 +25,12 @@ const Dropdown = ({
     item?.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleClickOutside = useCallback(
-    (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-
-      if (
-        selectedTextRef.current &&
-        !selectedTextRef.current.contains(event.target) &&
-        showSelectedTooltip
-      ) {
-        setShowSelectedTooltip(false);
-      }
-    },
-    [showSelectedTooltip]
-  );
+  const handleClickOutside = useCallback((event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false);
+      setShowSelectedTooltip(false);
+    }
+  }, []);
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -77,6 +67,21 @@ const Dropdown = ({
       dispatch(callback(item));
       setIsOpen(false);
     }
+  };
+
+  const handleRemoveItem = (e, itemToRemove) => {
+    e.stopPropagation();
+
+    if (!itemToRemove) return;
+
+    const safeSelectedValue = Array.isArray(selectedValue) ? selectedValue : [];
+    const newSelectedValue = safeSelectedValue.filter(
+      (item) => item.value !== itemToRemove.value
+    );
+
+    dispatch(callback(newSelectedValue));
+
+    e.nativeEvent.stopImmediatePropagation();
   };
 
   const isItemSelected = (item) => {
@@ -156,7 +161,15 @@ const Dropdown = ({
             <ul className={css.tooltipList}>
               {selectedValue.map((item) => (
                 <li key={item.value} className={css.tooltipItem}>
-                  - {item.name}
+                  <span className={css.tooltipItemText}>- {item.name}</span>
+                  <button
+                    className={css.removeItemButton}
+                    onClick={(e) => handleRemoveItem(e, item)}
+                    aria-label={`Remove ${item.name}`}
+                    type="button"
+                  >
+                    <Icon name="close" className={css.removeIcon} size={14} />
+                  </button>
                 </li>
               ))}
             </ul>
