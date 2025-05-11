@@ -1,5 +1,5 @@
 .subtitle {
-  color: var(--dark-grey);
+  color: var(--grey);
   font-size: 14px;
   font-weight: 500;
   line-height: 1.42;
@@ -9,6 +9,7 @@
 
 @media only screen and (min-width: 768px) {
   .subtitle {
+    color: var(--dark-grey);
     font-size: 16px;
     line-height: 1.5;
   }

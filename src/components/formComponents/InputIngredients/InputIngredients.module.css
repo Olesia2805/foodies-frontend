@@ -36,7 +36,13 @@
 }
 
 .ingredients-list-wrapper {
-  margin-top: 20px;
+  margin-top: 32px;
+}
+
+@media screen and (min-width: 768px) {
+  .ingredients-list-wrapper {
+    margin-top: 40px;
+  }
 }
 
 .error {
@@ -46,4 +52,14 @@
 
 .icon {
   fill: currentColor;
+}
+
+button[type='button'].button {
+  border-color: var(--grey);
+}
+
+@media screen and (min-width: 768px) {
+  button[type='button'].button {
+    border-color: var(--dark-grey);
+  }
 }

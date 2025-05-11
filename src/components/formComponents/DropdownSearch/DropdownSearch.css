@@ -15,8 +15,16 @@
 
 .react-select-container {
   position: relative;
-  min-width: 315px;
-  max-width: 315px;
+  min-width: 100%;
+  max-width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+  .react-select-container {
+    position: relative;
+    min-width: 315px;
+    max-width: 315px;
+  }
 }
 
 .react-select__control {
@@ -37,6 +45,7 @@
   outline: none;
   transition-property: border-color;
   transition-duration: var(--transition-duration);
+  color: var(--black);
 }
 
 .react-select__control__error {
@@ -61,6 +70,7 @@
   position: static;
   pointer-events: none;
   border: none;
+  color: var(--black);
 }
 
 .react-select__indicators {
@@ -95,8 +105,8 @@ div.react-select__menu {
 }
 
 .react-select__option.react-select__option--is-focused {
-  color: var(--white);
-  background-color: var(--black);
+  /* color: var(--white); */
+  background-color: var(--grey);
 }
 
 .react-select__option--is-selected {

@@ -68,6 +68,6 @@ export const recipeSchema = yup.object({
   preparation: yup
     .string()
     .required(MESSAGE_IS_REQUIRED('Preparation'))
-    .min(MAX_INSTRUCTIONS_LENGTH)
-    .max(MIN_INSTRUCTIONS_LENGTH),
+    .min(MIN_INSTRUCTIONS_LENGTH)
+    .max(MAX_INSTRUCTIONS_LENGTH),
 });

@@ -28,7 +28,6 @@ export default function InputTimeCounter({ value, onChange, error }) {
 
   if (value > 0) {
     const { d, h, min } = minToDays(value);
-    const days = String(d);
     const hours = String(h);
     const minutes = String(min);
     if (d)
@@ -39,7 +38,10 @@ export default function InputTimeCounter({ value, onChange, error }) {
     time = '0 min';
   }
 
-  const valueClassName = clsx(css.value, error && css.error);
+  const valueClassName = clsx(
+    value > 0 ? css.value : css['value-initial'],
+    error && css.error
+  );
 
   return (
     <div className={css.wrapper}>
