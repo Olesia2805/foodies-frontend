@@ -30,5 +30,5 @@ export const getUserFollowingApi = async (userId, { page, limit }) => {
 
 export const getUserRecipesCountApi = async (userId) => {
   const { data } = await axiosInstance.get(`/recipes?userId=${userId}`);
-  return data.total; // Assumes the API returns the total count of recipes
+  return data.total;
 };
