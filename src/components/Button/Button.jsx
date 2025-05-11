@@ -54,8 +54,7 @@ const Button = ({
       disabled={disabled}
       {...props}
     >
-      {/* TODO: Change Loader for button */}
-      {loading ? <Loader /> : children}
+      {loading ? <Loader size="small" /> : children}
     </button>
   );
 };

@@ -1,39 +1,43 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
+import { ROUTER } from '../../constants/router.js';
 import Icon from '../Icon/Icon';
 import styles from './ListRecipeCard.module.css';
 
-const RecipeCard = ({ recipe, isCurrentUser }) => {
+const ListRecipeCard = ({ item, isOwnProfile, onDelete }) => {
   return (
     <div className={styles.recipeCard}>
-      <img src={recipe.thumb} alt={recipe.title} className={styles.recipeImage} />
-      <div>
-        <h3 className={styles.recipeTitle}>{recipe.title}</h3>
-        <p className={styles.recipeDescription}>{recipe.description}</p>
+      <img src={item.thumb} alt={item.title} className={styles.recipeImage} />
+      <div className={styles.recipeInfo}>
+        <h3 className={styles.recipeTitle}>{item.title}</h3>
+        <p className={styles.recipeDescription}>{item.description}</p>
       </div>
-      <button
-        className={styles.arrowButton}
-        onClick={() => window.location.href = `/recipes/${recipe._id}`}
-      >
-        <Icon
-          name="arrow-up-right"
-          className={styles.arrowIcon}
-          size={18}
-        />
-      </button>
+      <div className={styles.recipeButtons}>
+        <Link
+          to={`${ROUTER.RECIPE}/${item._id}`}
+          className={styles.recipeButton}
+        >
+          <Icon
+            name="arrow-up-right"
+            className={styles.recipeBtnIcon}
+            size={16}
+          />
+        </Link>
 
-      {isCurrentUser && (
-      <button className={styles.deleteButton}>
-        <Icon
-          name="trash"
-          className={styles.deleteIcon}
-          size={18}
-        ></Icon>
-      </button>
-      )}
-      
-
+        {isOwnProfile && (
+          <button
+            className={styles.recipeButton}
+            onClick={() => onDelete(item._id)}
+          >
+            <Icon
+              name="trash"
+              className={styles.recipeBtnIcon}
+              size={16}
+            ></Icon>
+          </button>
+        )}
+      </div>
     </div>
   );
 };
 
-export default RecipeCard;
+export default ListRecipeCard;
