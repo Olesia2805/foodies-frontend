@@ -27,3 +27,8 @@ export const getUserFollowingApi = async (userId, { page, limit }) => {
   );
   return data;
 };
+
+export const getUserRecipesCountApi = async (userId) => {
+  const { data } = await axiosInstance.get(`/recipes?userId=${userId}`);
+  return data.total;
+};

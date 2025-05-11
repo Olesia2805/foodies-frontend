@@ -11,6 +11,7 @@ import {
 } from '../../redux/auth/profileServices';
 import { selectUser } from '../../redux/auth/selectors';
 import styles from './FollowerCard.module.css';
+import { getUserRecipesCountApi } from '../../api/userApi';
 
 const FOLLOW_STATUSES_KEY = 'user_follow_statuses';
 
@@ -141,6 +142,21 @@ const FollowerCard = ({ item }) => {
   };
   
   const isOwnProfile = String(userId) === String(currentUserId);
+
+  const [recipeCount, setRecipeCount] = useState(0);
+  
+    useEffect(() => {
+      const fetchRecipeCount = async () => {
+        try {
+          const count = await getUserRecipesCountApi(item._id);
+          setRecipeCount(count);
+        } catch (error) {
+          console.error('Error fetching recipe count:', error);
+        }
+      };
+  
+      fetchRecipeCount();
+    }, [item._id]);
   
   return (
     <div className={styles.card}>
@@ -148,9 +164,7 @@ const FollowerCard = ({ item }) => {
         <img src={item.avatar} alt={item.name} className={styles.avatar} />
         <div className={styles.info}>
           <h3 className={styles.name}>{item.name}</h3>
-          <p className={styles.text}>
-            Own recipes: {item.recipes?.length || 0}
-          </p>
+          <p className={styles.text}>Own recipes: {recipeCount}</p>
           {!isOwnProfile && (
             <button 
               className={`${styles.followBtn} ${isFollowing ? styles.followingBtn : ''}`}
