@@ -134,7 +134,10 @@ export default function AddRecipeForm() {
       navigate(ROUTER.PROFILE);
     } catch (error) {
       // TODO: Review how to show errors from backend
-      toast.error(error?.response?.data?.message || 'Error');
+      toast.error(
+        error?.response?.data?.message ||
+          'An unexpected error occurred while posting the recipe. \nPlease try submitting again or refresh the page.'
+      );
     } finally {
       setIsPostingRecipe(false);
     }
