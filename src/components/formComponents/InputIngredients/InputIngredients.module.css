@@ -45,7 +45,7 @@
   }
 }
 
-.error {
+button[type='button'].error {
   color: var(--error);
   fill: var(--error);
 }
