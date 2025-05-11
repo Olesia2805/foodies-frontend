@@ -3,7 +3,7 @@ import { ROUTER } from '../../constants/router.js';
 import Icon from '../Icon/Icon';
 import styles from './ListRecipeCard.module.css';
 
-const ListRecipeCard = ({ item, isOwnProfile }) => {
+const ListRecipeCard = ({ item, isOwnProfile, onDelete }) => {
   return (
     <div className={styles.recipeCard}>
       <img src={item.thumb} alt={item.title} className={styles.recipeImage} />
@@ -24,7 +24,10 @@ const ListRecipeCard = ({ item, isOwnProfile }) => {
         </Link>
 
         {isOwnProfile && (
-          <button className={styles.recipeButton}>
+          <button
+            className={styles.recipeButton}
+            onClick={() => onDelete(item._id)}
+          >
             <Icon
               name="trash"
               className={styles.recipeBtnIcon}

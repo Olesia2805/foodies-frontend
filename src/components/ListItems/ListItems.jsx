@@ -8,6 +8,7 @@ const ListItems = ({
   isOwnProfile,
   emptyMessage,
   activeTab,
+  onDelete,
 }) => {
   if (!Array.isArray(items) || items.length === 0) {
     return <div className={styles.empty}>{emptyMessage}</div>;
@@ -26,7 +27,11 @@ const ListItems = ({
     >
       {items.map((item) => (
         <li key={item._id} className={styles.item}>
-          <RenderItem item={item} isOwnProfile={isOwnProfile} />
+          <RenderItem
+            item={item}
+            isOwnProfile={isOwnProfile}
+            onDelete={onDelete}
+          />
         </li>
       ))}
     </ul>

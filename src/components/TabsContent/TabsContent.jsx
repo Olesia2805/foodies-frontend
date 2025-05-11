@@ -10,10 +10,12 @@ const TabsContent = ({
   isOwnProfile,
   onPageChange,
   currentPage,
+  handleDelete,
   loading,
   error,
 }) => {
   const tab = tabsConfig[activeTab];
+
   return (
     <>
       {loading && (
@@ -29,6 +31,7 @@ const TabsContent = ({
           isOwnProfile={isOwnProfile}
           emptyMessage={tab.emptyMessage}
           activeTab={activeTab}
+          onDelete={handleDelete}
         />
       )}
       {tab.totalPages > 1 && (
