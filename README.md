@@ -1,42 +1,46 @@
 # Foodies Frontend
 
-This is the frontend for the Foodies application, built with React and Vite.
+Foodies Frontend — це клієнтська частина веб-додатку Foodies, створеного з використанням React та Vite. Додаток дозволяє користувачам знаходити, додавати та ділитися рецептами, переглядати інгредієнти, фоловити інших користувачів і багато іншого.
 
-## Links
+## Посилання
 
-- **Backend**: [Foodies Backend](https://foodies-backend-yutr.onrender.com)
-- **Frontend**: [Foodies Frontend](https://foodies-frontend-bice.vercel.app/)
-- **API Documentation (Swagger)**: [Swagger Docs](https://foodies-frontend-bice.vercel.app/api-docs/)
+- **Бекенд**: [Foodies Backend](https://foodies-backend-yutr.onrender.com)
+- **Фронтенд**: [Foodies Frontend](https://foodies-frontend-bice.vercel.app/)
+- **Swagger документація API**: [Swagger Docs](https://foodies-frontend-bice.vercel.app/api-docs/)
+- **Макет**: [Figma](https://www.figma.com/file/TKl7kDNvwtz62RsuWNnQ5E/Foodies?type=design&node-id=127-2517&mode=design&t=UejayJaJevVrIG5E-0)
 
-## Getting Started
+## Як запустити локально
 
-To run the project locally:
-
-1. Clone the repository.
-2. Install dependencies:
+1. Клонуйте репозиторій:
+   ```bash
+   git clone https://github.com/your-username/foodies-frontend.git
+   cd foodies-frontend
+   ```
+2. Встановіть залежності:
    ```bash
    npm install
    ```
-3. Start the development server:
+3. Запустіть дев-сервер:
    ```bash
    npm run dev
    ```
 
-## Build
+## Скрипти
 
-To create a production build:
+- **Запуск локального сервера**:
+  ```bash
+  npm run dev
+  ```
+- **Збірка для продакшну**:
+  ```bash
+  npm run build
+  ```
 
-```bash
-npm run build
-```
+## Деплой
 
-## Deployment
+Проєкт задеплоєно на Vercel. Для налаштування деплою перегляньте [документацію Vercel](https://vercel.com/docs).
 
-This project is deployed on Vercel. For more details, check the [Vercel Documentation](https://vercel.com/docs).
-
-## Project Structure
-
-The project has the following structure:
+## Структура проєкту
 
 ```
 foodies-frontend/
@@ -44,55 +48,31 @@ foodies-frontend/
 ├── eslint.config.js
 ├── index.html
 ├── package.json
-├── README-deploy.md
 ├── README.md
+├── README-deploy.md
 ├── vercel.json
 ├── vite.config.js
 ├── public/
-│   ├── favicon.svg
-│   └── icons/
-│       ├── demo.html
-│       ├── style.css
-│       ├── symbol-defs.svg
-│       └── demo-files/
+│   └── icons/, favicon.svg, demo.html ...
 ├── src/
-│   ├── App.jsx
-│   ├── index.css
-│   ├── main.jsx
-│   ├── api/
-│   │   ├── areasAPI.js
-│   │   ├── axiosInstance.js
-│   │   └── ingredientsAPI.js
-│   │   └── recipeAPI.js
-│   ├── assets/
-│   │   ├── fonts/
-│   │   ├── img/
-│   │   └── styles/
-│   ├── components/
-│   │   ├── AddRecipeForm/
-│   │   ├── AuthBar/
-│   │   ├── Breadcrumbs/
-│   │   ├── Button/
-│   │   ├── Categories/
-│   │   ├── CategoryList/
-│   │   ├── Container/
-│   │   ├── Divider/
-│   │   ├── Dropdown/
-│   │   ├── Error/
-│   │   ├── FollowButton/
-│   │   ├── FollowerCard/
-│   │   ├── Footer/
-│   │   ├── formComponents/
-│   │   ├── FormInputs/
-│   │   ├── Header/
-│   │   ├── Hero/
-│   │   └── ...
-│   ├── constants/
-│   │   └── ...
-│   ├── hoc/
-│   │   └── ...
-│   ├── hooks/
-│   ├── pages/
-│   ├── redux/
-│   └── tools/
+│   ├── App.jsx, main.jsx, index.css
+│   ├── api/            // робота з API
+│   ├── assets/         // зображення, стилі, шрифти
+│   ├── components/     // повторно використовувані UI-компоненти
+│   ├── constants/      // константи
+│   ├── hoc/            // HOC-компоненти
+│   ├── hooks/          // кастомні хуки
+│   ├── pages/          // сторінки додатку
+│   ├── redux/          // стан додатку (Redux Toolkit)
+│   └── tools/          // утиліти та хелпери
 ```
+
+## Технології
+
+- **React + Vite**
+- **Redux Toolkit**
+- **Axios**
+- **React Router**
+- **SCSS / CSS Modules**
+- **Docker** (для продакшн-зборки)
+- **Vercel** (деплой)
