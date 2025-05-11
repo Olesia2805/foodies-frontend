@@ -21,7 +21,6 @@ export default function PhotoUploader({
     reader.onabort = () => console.log('file reading was aborted');
     reader.onerror = () => console.log('file reading has failed');
     reader.onload = () => {
-      // Do whatever you want with the file contents
       const base64 = reader.result;
       setImage(base64);
     };
@@ -38,14 +37,12 @@ export default function PhotoUploader({
     onDrop,
   });
 
-  // title
   const subTitle = isDragActive
     ? 'Drop the photo here ...'
     : "Drag 'n' drop some photo here, or click to select photo";
 
   const titleUpload = <p className={css['title-upload']}>{subTitle}</p>;
 
-  // Image after successful input
   const backgroundStyle =
     image.length > 0
       ? {

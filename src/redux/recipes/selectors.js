@@ -6,7 +6,7 @@ export const selectRecipesError = (state) => state.recipes.error;
 export const selectTotalPages = (state) => state.recipes.totalPages;
 export const selectPage = (state) => state.recipes.page;
 
-//* DONE
+
 export const selectRecipeById = () => (state) => {
   return state.recipes.item?.recipe || null;
 };

@@ -1,4 +1,4 @@
-export const MAX_FILE_SIZE = 10_485_760; // 10 Megabyte
+export const MAX_FILE_SIZE = 10_485_760;
 export const MAX_STRING_LENGTH = 1600;
 export const MIN_STRING_LENGTH = 4;
 export const MESSAGE_IS_REQUIRED = (propName) => propName + 'is Required';

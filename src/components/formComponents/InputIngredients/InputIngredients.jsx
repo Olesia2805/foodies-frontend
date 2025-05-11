@@ -23,13 +23,12 @@ export default function InputIngredients({
 }) {
   const dispatch = useDispatch();
 
-  // Store Ingredients
   const isIngredientsLoading = useSelector(selectIngredientsIsLoading);
   const isIngredientsError = useSelector(selectIngredientsError);
   const allIngredients = useSelector(selectIngredients);
 
-  const [selectedIngredient, setSelectedIngredient] = useState(null); // option
-  const [quantity, setQuantity] = useState(''); // measure
+  const [selectedIngredient, setSelectedIngredient] = useState(null);
+  const [quantity, setQuantity] = useState('');
 
   const dropdownOptions = useMemo(() => {
     return allIngredients.map((item) => {

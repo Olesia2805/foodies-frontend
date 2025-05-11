@@ -23,7 +23,7 @@ export const UserInfo = () => {
 
   const currentUser = useSelector(selectUser);
   const { data: myProfileData } = useFetchCurrentUserQuery();
-  // Додаємо запит на отримання улюблених рецептів
+  
   const { data: favoriteRecipes } = useFetchFavoriteRecipesQuery(undefined, {
     skip: !myProfileData && !currentUser
   });
@@ -48,7 +48,7 @@ export const UserInfo = () => {
   }, [userData]);
   const [avatar, setAvatar] = useState(withoutAvatar);
 
-  // Оновлюємо масив displayFields для власних і чужих користувачів
+  
   const displayFields = isOwnProfile 
     ? [
         { name: "email", visible: true, label: "Email" },
@@ -117,13 +117,13 @@ export const UserInfo = () => {
     return <div className={styles.profile_card_wrapper}>No user data found</div>;
   }
   
-  // Додаємо favoritesCount у розширені дані користувача
+  
   const enhancedUserData = {
     email: userData.email || "",
     name: userData.name || "User",
     avatar: userData.avatar || withoutAvatar,
     createdRecipesCount: userData.recipes || 0,
-    favoritesCount: favoriteRecipes?.length || 0, // Додано поле для улюблених
+    favoritesCount: favoriteRecipes?.length || 0,
     followersCount: userData.followers || 0,
     followingCount: userData.following || 0
   };
@@ -167,7 +167,7 @@ export const UserInfo = () => {
                 key={nanoid()}
                 name={field.name}
                 value={enhancedUserData[field.name]}
-                label={field.label} // Додаємо передачу мітки в компонент
+                label={field.label}
               />
             )
           ))}
