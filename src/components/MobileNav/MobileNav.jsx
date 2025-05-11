@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import Icon from '../Icon/Icon.jsx';
@@ -13,6 +13,18 @@ import Container from '../Container/Container.jsx';
 
 const MobileNav = ({ isHomePage }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+
+    return () => {
+      document.body.classList.remove('no-scroll');
+    };
+  }, [isOpen]);
 
   return (
     <div className={styles.wrapper}>
