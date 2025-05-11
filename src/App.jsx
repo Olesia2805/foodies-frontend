@@ -43,6 +43,8 @@ const App = () => {
           <Route path={ROUTER.HOME} element={<Layout />}>
             <Route index element={<HomePage />} />
 
+            <Route path={`${ROUTER.PROFILE}`} element={<UserPage />} />
+
             <Route path={ROUTER.ADD_RECIPE} element={<AddRecipePage />} />
 
             <Route path={`${ROUTER.USER}/:userId`} element={<UserPage />} />

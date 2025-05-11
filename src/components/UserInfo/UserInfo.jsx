@@ -3,7 +3,9 @@ import clsx from 'clsx';
 
 const UserInfo = ({ user }) => {
   if (!user) {
-    return <div className={styles.userInfo}>User information is not available.</div>;
+    return (
+      <div className={styles.userInfo}>User information is not available.</div>
+    );
   }
 
   return (

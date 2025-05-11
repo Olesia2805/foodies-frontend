@@ -1,69 +1,23 @@
-.container {
-  margin: 0 auto;
-  max-width: 1280px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
 .layout {
   display: flex;
-  gap: 20px;
-  margin-top: 20px;
+  flex-direction: column;
+  align-items: center;
+  gap: 64px;
+  margin-top: 32px;
 }
 
 .leftColumn {
-  flex: 1;
+  width: 100%;
+  max-width: 394px;
 }
 
 .rightColumn {
-  flex: 2;
-}
-
-@media (min-width: 320px) {
-  .layout {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .leftColumn {
-    order: -1;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .rightColumn {
-    order: 0;
-    width: 100%;
-  }
-
-  .userInfo {
-    width: 100%;
-    max-width: 400px;
-  }
-
-  .followButton {
-    width: 100%;
-    max-width: 400px;
-  }
+  width: 100%;
 }
 
 @media (min-width: 768px) {
   .layout {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .leftColumn {
-    margin-bottom: 24px;
-  }
-
-  .rightColumn {
-    width: 100%;
+    gap: 80px;
   }
 }
 
@@ -71,15 +25,10 @@
   .layout {
     flex-direction: row;
     align-items: flex-start;
-    gap: 32px;
-  }
-
-  .leftColumn {
-    order: 0;
-    margin-bottom: 0;
+    gap: 40px;
   }
 
   .rightColumn {
-    width: auto;
+    flex: 1;
   }
 }
