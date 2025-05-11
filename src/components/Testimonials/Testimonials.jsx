@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import axiosInstance from '../../api/axiosInstance'; // шлях залежить від структури
+import axiosInstance from '../../api/axiosInstance';
 import Container from '../Container/Container';
 import styles from './Testimonials.module.css';
 import Icon from '../Icon/Icon';

@@ -23,10 +23,14 @@ export const UserInfo = () => {
 
   const currentUser = useSelector(selectUser);
   const { data: myProfileData } = useFetchCurrentUserQuery();
+  
+  const { data: favoriteRecipes } = useFetchFavoriteRecipesQuery(undefined, {
+    skip: !myProfileData && !currentUser,
+  });
+
 const { data: favoriteRecipesResponse } = useFetchFavoriteRecipesQuery(undefined, {
   skip: !myProfileData && !currentUser
 });
-  
   const myEmail = myProfileData?.email || currentUser?.email;
   const { 
     data: otherUserData, 
@@ -46,6 +50,7 @@ const { data: favoriteRecipesResponse } = useFetchFavoriteRecipesQuery(undefined
     setAvatar(userData?.avatar || withoutAvatar);
   }, [userData]);
   const [avatar, setAvatar] = useState(withoutAvatar);
+
 
   const displayFields = isOwnProfile 
     ? [
@@ -114,12 +119,12 @@ const { data: favoriteRecipesResponse } = useFetchFavoriteRecipesQuery(undefined
   if (!userData) {
     return <div className={styles.profile_card_wrapper}>No user data found</div>;
   }
-  
   const enhancedUserData = {
     email: userData.email || "",
     name: userData.name || "User",
     avatar: userData.avatar || withoutAvatar,
     createdRecipesCount: userData.recipes || 0,
+    favoritesCount: favoriteRecipes?.length || 0,
     favoritesCount: favoriteRecipesResponse?.total || 0,
     followersCount: userData.followers || 0,
     followingCount: userData.following || 0
@@ -164,7 +169,7 @@ const { data: favoriteRecipesResponse } = useFetchFavoriteRecipesQuery(undefined
                 key={nanoid()}
                 name={field.name}
                 value={enhancedUserData[field.name]}
-                label={field.label} 
+                label={field.label}
               />
             )
           ))}

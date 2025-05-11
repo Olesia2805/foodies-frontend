@@ -37,7 +37,7 @@ export const fetchRecipes = createAsyncThunk(
   }
 );
 
-// * DONE
+
 export const fetchRecipeById = createAsyncThunk(
   'recipes/fetchRecipeById',
   async (recipeId, thunkAPI) => {

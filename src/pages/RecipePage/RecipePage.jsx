@@ -44,7 +44,6 @@ const RecipePage = () => {
   }, [id, dispatch]);
 
   useEffect(() => {
-    // Скролимо до секції після завантаження
     if (!loading && !error && startScrollRef.current) {
       startScrollRef.current.parentElement.parentElement.scrollIntoView({
         behavior: 'smooth',
@@ -69,7 +68,7 @@ const RecipePage = () => {
   return (
     <>
       <Container>
-        {/* Breadcrumbs */}
+        
         <Breadcrumbs
           items={[{ label: 'Home', link: '/' }, { label: recipe.title }]}
         />
@@ -100,13 +99,13 @@ const RecipePage = () => {
               </div>
             </section>
 
-            {/* Ingredients */}
+            
             <section className={styles.ingredients}>
               <h2>Ingredients</h2>
               <IngredientsList ingredients={recipe.ingredients} />
             </section>
 
-            {/* Preparation */}
+            
             <section className={styles.preparation}>
               <h2>Recipe Preparation</h2>
               <p className={styles.instructions}>{recipe.instructions}</p>
@@ -115,7 +114,7 @@ const RecipePage = () => {
             <Button
               variant="outlined"
               onClick={() => onFavoriteHandler(id)}
-              // disabled={!isAuthenticated}
+              
               title={
                 !isAuthenticated
                   ? 'Sign in to add to favorites'
