@@ -8,7 +8,8 @@ import {
 } from '../../redux/common/index.js';
 import {
   selectTotalPages,
-  selectPage
+  selectPage,
+  selectRecipes
 } from '../../redux/recipes/index.js';
 import {
   fetchRecipes,
@@ -22,6 +23,7 @@ const RecipePagination = ({ variant = 'all', recipesListRef }) => {
   const selectedIngredients = useSelector(selectSelectedIngredients);
   const totalPages = useSelector(selectTotalPages);
   const page = useSelector(selectPage);
+  const recipes = useSelector(selectRecipes);
 
   const dispatch = useDispatch();
 
@@ -58,6 +60,10 @@ const RecipePagination = ({ variant = 'all', recipesListRef }) => {
       });
     }
   };
+
+  if (totalPages <= 1 || !recipes?.length) {
+    return null;
+  }
 
   return (
     <div>
