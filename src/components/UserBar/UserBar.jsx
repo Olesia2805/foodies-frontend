@@ -53,7 +53,10 @@ const UserBar = () => {
         <div className={styles.dropdown}>
           <ul>
             <li onClick={closeDropdown}>
-              <Link className={styles.dropdownItem} to={ROUTER.PROFILE}>
+              <Link
+                className={styles.dropdownItem}
+                to={`${ROUTER.USER}/${user.id}`}
+              >
                 Profile
               </Link>
             </li>

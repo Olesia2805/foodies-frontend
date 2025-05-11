@@ -38,7 +38,7 @@ const App = () => {
 
   return (
     <>
-      <Suspense fallback={<Loader />}>
+      <Suspense fallback={<Loader pageLoader />}>
         <Routes>
           <Route path={ROUTER.HOME} element={<Layout />}>
             <Route index element={<HomePage />} />
@@ -59,4 +59,3 @@ const App = () => {
 };
 
 export default App;
-
