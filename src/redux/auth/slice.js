@@ -4,6 +4,7 @@ import {
   signInUserOps,
   logOutUserOps,
   signUpUserOps,
+  verifyUserWithTokenOps,
 } from './operations.js';
 
 const initialState = {
@@ -42,6 +43,22 @@ const authSlice = createSlice({
         state.isAuthenticated = true;
       })
       .addCase(signInUserOps.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = payload;
+        state.isAuthenticated = false;
+      })
+
+      .addCase(verifyUserWithTokenOps.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.isAuthenticated = false;
+      })
+      .addCase(verifyUserWithTokenOps.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.user = payload.user;
+        state.isAuthenticated = true;
+      })
+      .addCase(verifyUserWithTokenOps.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
         state.isAuthenticated = false;
