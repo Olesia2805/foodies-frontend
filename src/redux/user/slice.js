@@ -8,10 +8,10 @@ import {
 import { logOutUserOps } from '../auth';
 
 const initialState = {
-  recipes: [],
-  favorites: [],
-  followers: [],
-  following: [],
+  recipes: { data: [], total: 0, pages: 1, currentPage: 1 },
+  favorites: { data: [], total: 0, pages: 1, currentPage: 1 },
+  followers: { data: [], total: 0, pages: 1, currentPage: 1 },
+  following: { data: [], total: 0, pages: 1, currentPage: 1 },
   loading: false,
   error: null,
 };
@@ -22,16 +22,36 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserRecipes.fulfilled, (state, { payload }) => {
-        state.recipes = payload;
+        state.recipes = {
+          data: payload.data,
+          total: payload.total,
+          pages: payload.pages,
+          currentPage: payload.currentPage,
+        };
       })
       .addCase(fetchUserFavorites.fulfilled, (state, { payload }) => {
-        state.favorites = payload;
+        state.favorites = {
+          data: payload.data,
+          total: payload.total,
+          pages: payload.pages,
+          currentPage: payload.currentPage,
+        };
       })
       .addCase(fetchUserFollowers.fulfilled, (state, { payload }) => {
-        state.followers = payload;
+        state.followers = {
+          data: payload.data,
+          total: payload.total,
+          pages: payload.pages,
+          currentPage: payload.currentPage,
+        };
       })
       .addCase(fetchUserFollowing.fulfilled, (state, { payload }) => {
-        state.following = payload;
+        state.following = {
+          data: payload.data,
+          total: payload.total,
+          pages: payload.pages,
+          currentPage: payload.currentPage,
+        };
       })
       .addCase(logOutUserOps.fulfilled, (state) => {
         Object.assign(state, initialState);

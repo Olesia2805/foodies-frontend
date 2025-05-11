@@ -38,6 +38,7 @@ import styles from './UserPage.module.css';
 
 const UserPage = () => {
   const [activeTab, setActiveTab] = useState(USER_TABS.RECIPES);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isFollowing, setIsFollowing] = useState(null);
   const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
 
@@ -111,29 +112,36 @@ const UserPage = () => {
   }, [myFollowings, urlUserId, isOwnProfile]);
 
   useEffect(() => {
+    setActiveTab(USER_TABS.RECIPES);
+    setCurrentPage(1);
+  }, [userId]);
+
+  useEffect(() => {
     if (!userId) return;
+
+    const params = { userId, page: currentPage };
 
     switch (activeTab) {
       case USER_TABS.RECIPES:
-        dispatch(fetchUserRecipes(userId));
+        dispatch(fetchUserRecipes(params));
         break;
       case USER_TABS.FAVORITES:
-        dispatch(fetchUserFavorites());
+        dispatch(fetchUserFavorites({ page: currentPage }));
         break;
       case USER_TABS.FOLLOWERS:
-        dispatch(fetchUserFollowers(userId));
+        dispatch(fetchUserFollowers(params));
         break;
       case USER_TABS.FOLLOWING:
-        dispatch(fetchUserFollowing(userId));
+        dispatch(fetchUserFollowing(params));
         break;
       default:
         break;
     }
-  }, [activeTab, userId, dispatch]);
+  }, [activeTab, userId, currentPage, dispatch]);
 
-  useEffect(() => {
-    setActiveTab(USER_TABS.RECIPES);
-  }, [userId]);
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   const handleFollowToggle = async () => {
     if (!urlUserId) return;
@@ -204,21 +212,25 @@ const UserPage = () => {
       items: recipes.data,
       renderItem: ListRecipeCard,
       emptyMessage: USER_TABS_MESSAGES.NO_RECIPES,
+      totalPages: recipes.pages,
     },
     [USER_TABS.FAVORITES]: {
       items: favorites.data,
       renderItem: ListRecipeCard,
       emptyMessage: USER_TABS_MESSAGES.NO_FAVORITES,
+      totalPages: favorites.pages,
     },
     [USER_TABS.FOLLOWERS]: {
       items: followers.data,
       renderItem: FollowerCard,
       emptyMessage: USER_TABS_MESSAGES.NO_FOLLOWERS,
+      totalPages: followers.pages,
     },
     [USER_TABS.FOLLOWING]: {
       items: following.data,
       renderItem: FollowerCard,
       emptyMessage: USER_TABS_MESSAGES.NO_FOLLOWING,
+      totalPages: following.pages,
     },
   };
 
@@ -248,14 +260,17 @@ const UserPage = () => {
           <TabsList
             tabs={visibleTabs}
             activeTab={activeTab}
-            onTabChange={setActiveTab}
+            onTabChange={(tab) => {
+              setActiveTab(tab);
+              setCurrentPage(1);
+            }}
           />
           <TabsContent
             activeTab={activeTab}
             tabsConfig={tabsConfig}
             isOwnProfile={isOwnProfile}
-            isButtonLoading={isButtonLoading}
-            handleFollowToggle={handleFollowToggle}
+            onPageChange={handlePageChange}
+            currentPage={currentPage}
             loading={loading}
             error={error}
           />

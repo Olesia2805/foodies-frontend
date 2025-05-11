@@ -8,9 +8,9 @@ import {
 
 export const fetchUserRecipes = createAsyncThunk(
   'user/fetchUserRecipes',
-  async (userId, thunkAPI) => {
+  async ({ userId, page = 1, limit = 9 }, thunkAPI) => {
     try {
-      return await getUserRecipesApi(userId);
+      return await getUserRecipesApi(userId, { page, limit });
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
     }
@@ -19,9 +19,9 @@ export const fetchUserRecipes = createAsyncThunk(
 
 export const fetchUserFavorites = createAsyncThunk(
   'user/fetchUserFavorites',
-  async (_, thunkAPI) => {
+  async ({ page = 1, limit = 9 }, thunkAPI) => {
     try {
-      return await getUserFavoritesApi();
+      return await getUserFavoritesApi({ page, limit });
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
     }
@@ -30,9 +30,9 @@ export const fetchUserFavorites = createAsyncThunk(
 
 export const fetchUserFollowers = createAsyncThunk(
   'user/fetchUserFollowers',
-  async (userId, thunkAPI) => {
+  async ({ userId, page = 1, limit = 5 }, thunkAPI) => {
     try {
-      return await getUserFollowersApi(userId);
+      return await getUserFollowersApi(userId, { page, limit });
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
     }
@@ -41,9 +41,9 @@ export const fetchUserFollowers = createAsyncThunk(
 
 export const fetchUserFollowing = createAsyncThunk(
   'user/fetchUserFollowing',
-  async (userId, thunkAPI) => {
+  async ({ userId, page = 1, limit = 5 }, thunkAPI) => {
     try {
-      return await getUserFollowingApi(userId);
+      return await getUserFollowingApi(userId, { page, limit });
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
     }

@@ -1,4 +1,5 @@
 import ListItems from '../../components/ListItems/ListItems.jsx';
+import TabsPagination from '../../components/TabsPagination/TabsPagination.jsx';
 import Loader from '../../components/Loader/Loader.jsx';
 import Error from '../../components/Error/Error.jsx';
 import styles from './TabsContent.module.css';
@@ -7,6 +8,8 @@ const TabsContent = ({
   activeTab,
   tabsConfig,
   isOwnProfile,
+  onPageChange,
+  currentPage,
   loading,
   error,
 }) => {
@@ -26,6 +29,13 @@ const TabsContent = ({
           isOwnProfile={isOwnProfile}
           emptyMessage={tab.emptyMessage}
           activeTab={activeTab}
+        />
+      )}
+      {tab.totalPages > 1 && (
+        <TabsPagination
+          totalPages={tab.totalPages}
+          currentPage={currentPage}
+          onPageChange={onPageChange}
         />
       )}
     </>
