@@ -25,21 +25,6 @@ Foodies Frontend — це клієнтська частина веб-додат�
    npm run dev
    ```
 
-## Скрипти
-
-- **Запуск локального сервера**:
-  ```bash
-  npm run dev
-  ```
-- **Збірка для продакшну**:
-  ```bash
-  npm run build
-  ```
-
-## Деплой
-
-Проєкт задеплоєно на Vercel. Для налаштування деплою перегляньте [документацію Vercel](https://vercel.com/docs).
-
 ## Структура проєкту
 
 ```
@@ -49,11 +34,10 @@ foodies-frontend/
 ├── index.html
 ├── package.json
 ├── README.md
-├── README-deploy.md
 ├── vercel.json
 ├── vite.config.js
 ├── public/
-│   └── icons/, favicon.svg, demo.html ...
+│   └── icons/, favicon.svg
 ├── src/
 │   ├── App.jsx, main.jsx, index.css
 │   ├── api/            // робота з API
@@ -73,6 +57,6 @@ foodies-frontend/
 - **Redux Toolkit**
 - **Axios**
 - **React Router**
-- **SCSS / CSS Modules**
+- **CSS Modules**
 - **Docker** (для продакшн-зборки)
 - **Vercel** (деплой)
