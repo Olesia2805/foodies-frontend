@@ -1,12 +1,62 @@
-# React + Vite
+# Foodies Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Foodies Frontend — це клієнтська частина веб-додатку Foodies, створеного з використанням React та Vite. Додаток дозволяє користувачам знаходити, додавати та ділитися рецептами, переглядати інгредієнти, фоловити інших користувачів і багато іншого.
 
-Currently, two official plugins are available:
+## Посилання
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Бекенд**: [Foodies Backend](https://foodies-backend-yutr.onrender.com)
+- **Фронтенд**: [Foodies Frontend](https://foodies-frontend-bice.vercel.app/)
+- **Swagger документація API**: [Swagger Docs](https://foodies-frontend-bice.vercel.app/api-docs/)
+- **Макет**: [Figma](https://www.figma.com/file/TKl7kDNvwtz62RsuWNnQ5E/Foodies?type=design&node-id=127-2517&mode=design&t=UejayJaJevVrIG5E-0)
 
-## Expanding the ESLint configuration
+## Як запустити локально
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Клонуйте репозиторій:
+   ```bash
+   git clone https://github.com/your-username/foodies-frontend.git
+   cd foodies-frontend
+   ```
+2. Встановіть залежності:
+   ```bash
+   npm install
+   ```
+3. Запустіть дев-сервер:
+   ```bash
+   npm run dev
+   ```
+
+## Структура проєкту
+
+```
+foodies-frontend/
+├── Dockerfile
+├── eslint.config.js
+├── index.html
+├── package.json
+├── README.md
+├── vercel.json
+├── vite.config.js
+├── public/
+│   └── icons/, favicon.svg
+├── src/
+│   ├── App.jsx, main.jsx, index.css
+│   ├── api/            // робота з API
+│   ├── assets/         // зображення, стилі, шрифти
+│   ├── components/     // повторно використовувані UI-компоненти
+│   ├── constants/      // константи
+│   ├── hoc/            // HOC-компоненти
+│   ├── hooks/          // кастомні хуки
+│   ├── pages/          // сторінки додатку
+│   ├── redux/          // стан додатку (Redux Toolkit)
+│   └── tools/          // утиліти та хелпери
+```
+
+## Технології
+
+- **React + Vite**
+- **Redux Toolkit**
+- **Axios**
+- **React Router**
+- **CSS Modules**
+- **Docker** (для продакшн-зборки)
+- **Vercel** (деплой)
