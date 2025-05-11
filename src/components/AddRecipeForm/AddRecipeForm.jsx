@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import PhotoUploader from '../formComponents/PhotoUploader/PhotoUploader';
 import css from './AddRecipeForm.module.css';
 import { Controller, useForm } from 'react-hook-form';
@@ -28,8 +28,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { recipeSchema } from './recipeSchema';
 import ErrorWrapper from '../formComponents/ErrorWrapper/ErrorWrapper';
 import {
-  MAX_STRING_LENGTH,
-  MIN_STRING_LENGTH,
+  MAX_DESCRIPTION_LENGTH,
+  MAX_INSTRUCTIONS_LENGTH,
+  MAX_TITLE_LENGTH,
+  MIN_DESCRIPTION_LENGTH,
+  MIN_INSTRUCTIONS_LENGTH,
+  MIN_TITLE_LENGTH,
 } from '../../constants/recipeForm';
 import recipeAPI from '../../api/recipeAPI';
 import toast from 'react-hot-toast';
@@ -50,26 +54,32 @@ const defaultValue = {
 
 export default function AddRecipeForm() {
   const isCategoriesLoading = useSelector(selectCategoriesIsLoading);
-  const isCategoriesError = useSelector(selectCategoriesError);
+  const categoriesError = useSelector(selectCategoriesError);
   const allCategories = useSelector(selectCategories);
 
   const isAreasLoading = useSelector(selectAreasIsLoading);
-  const isAreasError = useSelector(selectAreasError);
+  const areasError = useSelector(selectAreasError);
   const allAreas = useSelector(selectAreas);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (categoriesError) {
+      return toast.error(categoriesError + '\nPlease Reload the page');
+    }
     if (allCategories.length === 0) {
       dispatch(fetchCategories());
     }
-  }, [allCategories.length, dispatch]);
+  }, [categoriesError, allCategories.length, dispatch]);
 
   useEffect(() => {
+    if (areasError) {
+      return toast.error(areasError + '\nPlease Reload the page');
+    }
     if (allAreas.length === 0) {
       dispatch(fetchAreas());
     }
-  }, [allAreas.length, dispatch]);
+  }, [areasError, allAreas.length, dispatch]);
 
   const [isPostingRecipe, setIsPostingRecipe] = useState(false);
   const [resetTrigger, setResetTrigger] = useState(false);
@@ -122,10 +132,12 @@ export default function AddRecipeForm() {
       navigate(ROUTER.PROFILE);
     } catch (error) {
       // TODO: Review how to show errors from backend
-      toast.error(error?.response?.data?.message || 'Error');
+      toast.error(
+        error?.response?.data?.message ||
+          'An unexpected error occurred while posting the recipe. \nPlease try submitting again or refresh the page.'
+      );
     } finally {
       setIsPostingRecipe(false);
-      // TODO: Add show and hide loader
     }
   };
 
@@ -161,11 +173,16 @@ export default function AddRecipeForm() {
             required: true,
           }}
           render={({
-            field: { onChange, value, name, ref },
-            fieldState: { invalid, isTouched, error, isDirty, onBlur },
+            field: { onChange, value, name },
+            fieldState: { error },
           }) => (
             <ErrorWrapper errorMessage={error?.message} isShadow={false}>
-              <PhotoUploader onChange={onChange} error={error} value={value} />
+              <PhotoUploader
+                onChange={onChange}
+                error={error}
+                value={value}
+                name={name}
+              />
             </ErrorWrapper>
           )}
         />
@@ -177,8 +194,8 @@ export default function AddRecipeForm() {
             <InputTitle
               {...register('title', {
                 required: true,
-                maxLength: MAX_STRING_LENGTH,
-                minLength: MIN_STRING_LENGTH,
+                maxLength: MAX_TITLE_LENGTH,
+                minLength: MIN_TITLE_LENGTH,
               })}
             />
           </ErrorWrapper>
@@ -188,8 +205,8 @@ export default function AddRecipeForm() {
             name="description"
             rules={{
               required: true,
-              maxLength: MAX_STRING_LENGTH,
-              minLength: MIN_STRING_LENGTH,
+              maxLength: MAX_DESCRIPTION_LENGTH,
+              minLength: MIN_DESCRIPTION_LENGTH,
             }}
             render={({
               field: { onChange, value, name, ref, onBlur },
@@ -202,7 +219,7 @@ export default function AddRecipeForm() {
                   onChange={onChange}
                   error={error}
                   invalid={invalid}
-                  maxInputLenght={MAX_STRING_LENGTH}
+                  maxInputLenght={MAX_DESCRIPTION_LENGTH}
                   placeholder="Enter a description of the dish"
                   isTouched={isTouched}
                   isDirty={isDirty}
@@ -231,7 +248,7 @@ export default function AddRecipeForm() {
                       value={value}
                       options={categoryOptions}
                       placeholder="Select a category"
-                      isDisabled={isCategoriesError && isCategoriesLoading}
+                      isDisabled={categoriesError && isCategoriesLoading}
                       error={error}
                       name={name}
                     />
@@ -247,9 +264,8 @@ export default function AddRecipeForm() {
               control={control}
               name="time"
               render={({
-                field: { onChange, onBlur, value, name, ref },
-                fieldState: { invalid, isTouched, isDirty, error },
-                formState,
+                field: { onChange, value, name },
+                fieldState: { error },
               }) => (
                 <ErrorWrapper errorMessage={error?.message}>
                   <InputTimeCounter
@@ -280,7 +296,7 @@ export default function AddRecipeForm() {
                       value={value}
                       options={areaOptions}
                       placeholder="Select an area"
-                      isDisabled={isAreasError && isAreasLoading}
+                      isDisabled={areasError && isAreasLoading}
                       error={error}
                       name={name}
                     />
@@ -294,11 +310,7 @@ export default function AddRecipeForm() {
         <Controller
           control={control}
           name="ingredients"
-          render={({
-            field: { onChange, onBlur, value, name, ref },
-            fieldState: { invalid, isTouched, isDirty, error },
-            formState,
-          }) => (
+          render={({ field: { onChange, value }, fieldState: { error } }) => (
             <ErrorWrapper errorMessage={errors?.ingredients?.message}>
               <InputIngredients
                 onChange={onChange}
@@ -317,8 +329,8 @@ export default function AddRecipeForm() {
             name="preparation"
             rules={{
               required: true,
-              maxLength: MAX_STRING_LENGTH,
-              minLength: MIN_STRING_LENGTH,
+              maxLength: MAX_INSTRUCTIONS_LENGTH,
+              minLength: MIN_INSTRUCTIONS_LENGTH,
             }}
             render={({
               field: { onChange, value, name, ref, onBlur },
@@ -331,7 +343,7 @@ export default function AddRecipeForm() {
                   onChange={onChange}
                   error={error}
                   invalid={invalid}
-                  maxInputLenght={MAX_STRING_LENGTH}
+                  maxInputLenght={MAX_INSTRUCTIONS_LENGTH}
                   placeholder="Enter recipe"
                   isTouched={isTouched}
                   isDirty={isDirty}
@@ -349,6 +361,7 @@ export default function AddRecipeForm() {
             className={css['btn-delete']}
             type="button"
             onClick={resetForm}
+            aria-label="Reset form"
           >
             <Icon name="trash" size={20} />
           </button>

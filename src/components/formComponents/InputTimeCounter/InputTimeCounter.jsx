@@ -28,7 +28,6 @@ export default function InputTimeCounter({ value, onChange, error }) {
 
   if (value > 0) {
     const { d, h, min } = minToDays(value);
-    const days = String(d);
     const hours = String(h);
     const minutes = String(min);
     if (d)
@@ -39,15 +38,28 @@ export default function InputTimeCounter({ value, onChange, error }) {
     time = '0 min';
   }
 
-  const valueClassName = clsx(css.value, error && css.error);
+  const valueClassName = clsx(
+    value > 0 ? css.value : css['value-initial'],
+    error && css.error
+  );
 
   return (
     <div className={css.wrapper}>
-      <button type="button" onClick={decrease} className={css.button}>
+      <button
+        type="button"
+        onClick={decrease}
+        className={css.button}
+        aria-label="Decrease time"
+      >
         <Icon name="minus" size={16} />
       </button>
       <p className={valueClassName}>{time.trim()}</p>
-      <button type="button" onClick={increase} className={css.button}>
+      <button
+        type="button"
+        onClick={increase}
+        className={css.button}
+        aria-label="Increase time"
+      >
         <Icon name="plus" size={16} />
       </button>
     </div>

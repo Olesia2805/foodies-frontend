@@ -13,6 +13,7 @@ export default function InputTitle({
       type="text"
       placeholder={placeholder}
       {...otherProps}
+      aria-labelledby="title"
     >
       {value}
     </TextareaAutosize>

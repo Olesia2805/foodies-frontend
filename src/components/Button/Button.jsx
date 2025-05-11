@@ -9,7 +9,6 @@ const Button = ({
   color = 'primary',
   size = 'medium',
   width,
-  height,
   style,
   disabled,
   fullWidth,

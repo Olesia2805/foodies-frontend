@@ -1,24 +1,48 @@
 .errorMessage {
   margin: 0;
   color: var(--error);
-  font-size: 1rem;
+  font-size: 12px;
   position: absolute;
   height: auto;
   transition-property: opacity, transform;
   transition-duration: var(--transition-duration);
-  bottom: calc(-2rem);
+  bottom: -1.2rem;
   width: 100%;
   text-align: center;
   transform: translateY(-100%);
   opacity: 0;
   white-space: nowrap;
   fill: var(--error);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.errorMessage:first-letter {
+
+@media screen and (min-width: 768px) {
+  .errorMessage {
+    font-size: 1rem;
+    bottom: -2rem;
+  }
+}
+
+.errorMessageText:first-letter {
   text-transform: uppercase;
 }
 
 .visiable {
   opacity: 1;
   transform: translateY(0%);
+}
+
+.icon-error {
+  --icon-size: 12px;
+  margin-right: 4px;
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+@media screen and (min-width: 768px) {
+  .icon-error {
+    --icon-size: 1rem;
+  }
 }

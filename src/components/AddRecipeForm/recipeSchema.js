@@ -2,11 +2,15 @@ import * as yup from 'yup';
 import {
   MESSAGE_IS_REQUIRED,
   MAX_FILE_SIZE,
-  MAX_STRING_LENGTH,
-  MIN_STRING_LENGTH,
+  MAX_TITLE_LENGTH,
+  MIN_TITLE_LENGTH,
   MIN_INGREDIENTS_COUNT,
   MIN_TIME,
   MESSAGE_MIN_TIME,
+  MIN_DESCRIPTION_LENGTH,
+  MAX_DESCRIPTION_LENGTH,
+  MIN_INSTRUCTIONS_LENGTH,
+  MAX_INSTRUCTIONS_LENGTH,
 } from '../../constants/recipeForm';
 
 const selectShape = yup.object({
@@ -31,32 +35,39 @@ export const recipeSchema = yup.object({
   title: yup
     .string()
     .required(MESSAGE_IS_REQUIRED('Title'))
-    .min(MIN_STRING_LENGTH)
-    .max(MAX_STRING_LENGTH),
+    .min(MIN_TITLE_LENGTH)
+    .max(MAX_TITLE_LENGTH),
   description: yup
     .string()
     .required(MESSAGE_IS_REQUIRED('Description'))
-    .min(MIN_STRING_LENGTH)
-    .max(MAX_STRING_LENGTH),
-  category: selectShape.required(MESSAGE_IS_REQUIRED('Category')),
+    .min(MIN_DESCRIPTION_LENGTH)
+    .max(MAX_DESCRIPTION_LENGTH),
+  category: selectShape
+    .required(MESSAGE_IS_REQUIRED('Category'))
+    .typeError(MESSAGE_IS_REQUIRED('Category')),
   time: yup
     .number()
     .min(MIN_TIME, MESSAGE_MIN_TIME)
     .required(MESSAGE_IS_REQUIRED('Time')),
-  area: selectShape.required(MESSAGE_IS_REQUIRED('Area')),
+  area: selectShape
+    .required(MESSAGE_IS_REQUIRED('Area'))
+    .typeError(MESSAGE_IS_REQUIRED('Area')),
   ingredients: yup
     .array()
     .of(
-      yup.object({
-        id: yup.number().required(),
-        quantity: yup.string().required(),
-      })
+      yup.object(
+        {
+          id: yup.number().required(),
+          quantity: yup.string().required(),
+        },
+        MESSAGE_IS_REQUIRED('Ingredients')
+      )
     )
     .min(MIN_INGREDIENTS_COUNT)
     .required(MESSAGE_IS_REQUIRED('Ingredients')),
   preparation: yup
     .string()
     .required(MESSAGE_IS_REQUIRED('Preparation'))
-    .min(MIN_STRING_LENGTH)
-    .max(MAX_STRING_LENGTH),
+    .min(MIN_INSTRUCTIONS_LENGTH)
+    .max(MAX_INSTRUCTIONS_LENGTH),
 });

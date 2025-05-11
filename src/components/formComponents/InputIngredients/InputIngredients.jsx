@@ -14,6 +14,7 @@ import {
 } from '../../../redux/ingredients/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import IngredientsList from '../../IngredientsList/IngredientsList';
+import clsx from 'clsx';
 
 export default function InputIngredients({
   onChange,
@@ -100,7 +101,7 @@ export default function InputIngredients({
           name="ingredient-quantity"
           isCounter={false}
           isOneRow={true}
-          className={css['ingredients-margin-bottom-input']}
+          className={css['ingredients-input']}
           placeholder="Enter quantity"
           value={quantity}
           onChange={quantityOnChange}
@@ -108,13 +109,14 @@ export default function InputIngredients({
         />
       </div>
       <Button
-        variant="outline"
+        variant="outlined"
         type="button"
         onClick={onClick}
-        customClassName={error && css.error}
+        customClassName={clsx(css.button, error && css.error)}
+        // style={{ borderColor: 'var(--grey)' }}
       >
         Add ingredient
-        <Icon name="plus" />
+        <Icon name="plus" className={css.icon} />
       </Button>
 
       <div className={css['ingredients-list-wrapper']}>
