@@ -1,12 +1,98 @@
-# React + Vite
+# Foodies Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend for the Foodies application, built with React and Vite.
 
-Currently, two official plugins are available:
+## Links
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Backend**: [Foodies Backend](https://foodies-backend-yutr.onrender.com)
+- **Frontend**: [Foodies Frontend](https://foodies-frontend-bice.vercel.app/)
+- **API Documentation (Swagger)**: [Swagger Docs](https://foodies-frontend-bice.vercel.app/api-docs/)
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+To run the project locally:
+
+1. Clone the repository.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## Build
+
+To create a production build:
+
+```bash
+npm run build
+```
+
+## Deployment
+
+This project is deployed on Vercel. For more details, check the [Vercel Documentation](https://vercel.com/docs).
+
+## Project Structure
+
+The project has the following structure:
+
+```
+foodies-frontend/
+├── Dockerfile
+├── eslint.config.js
+├── index.html
+├── package.json
+├── README-deploy.md
+├── README.md
+├── vercel.json
+├── vite.config.js
+├── public/
+│   ├── favicon.svg
+│   └── icons/
+│       ├── demo.html
+│       ├── style.css
+│       ├── symbol-defs.svg
+│       └── demo-files/
+├── src/
+│   ├── App.jsx
+│   ├── index.css
+│   ├── main.jsx
+│   ├── api/
+│   │   ├── areasAPI.js
+│   │   ├── axiosInstance.js
+│   │   └── ingredientsAPI.js
+│   │   └── recipeAPI.js
+│   ├── assets/
+│   │   ├── fonts/
+│   │   ├── img/
+│   │   └── styles/
+│   ├── components/
+│   │   ├── AddRecipeForm/
+│   │   ├── AuthBar/
+│   │   ├── Breadcrumbs/
+│   │   ├── Button/
+│   │   ├── Categories/
+│   │   ├── CategoryList/
+│   │   ├── Container/
+│   │   ├── Divider/
+│   │   ├── Dropdown/
+│   │   ├── Error/
+│   │   ├── FollowButton/
+│   │   ├── FollowerCard/
+│   │   ├── Footer/
+│   │   ├── formComponents/
+│   │   ├── FormInputs/
+│   │   ├── Header/
+│   │   ├── Hero/
+│   │   └── ...
+│   ├── constants/
+│   │   └── ...
+│   ├── hoc/
+│   │   └── ...
+│   ├── hooks/
+│   ├── pages/
+│   ├── redux/
+│   └── tools/
+```
