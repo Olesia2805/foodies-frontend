@@ -15,7 +15,7 @@ const NotFoundPage = () => {
       </p>
       <div className={styles.buttonContainer}>
         <Link to="/">
-          <Button variant="primary" width="220px">
+          <Button variant="contained" width="220px">
             Back to Home
           </Button>
         </Link>
