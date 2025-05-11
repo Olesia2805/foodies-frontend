@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+
+import { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
@@ -40,6 +41,10 @@ import {
   RECIPES_PER_PAGE,
 } from '../../constants/userTabs.js';
 import styles from './UserPage.module.css';
+
+
+
+const FOLLOW_STATUSES_KEY = 'user_follow_statuses';
 
 const UserPage = () => {
   const [activeTab, setActiveTab] = useState(USER_TABS.RECIPES);
@@ -91,30 +96,145 @@ const UserPage = () => {
 
   const userId = isOwnProfile ? currentUserId : urlUserId;
 
-  useEffect(() => {
-    if (otherUserData && otherUserData.isFollowed !== undefined) {
-      console.log(
-        'Setting isFollowing from otherUserData:',
-        otherUserData.isFollowed
-      );
-      setIsFollowing(otherUserData.isFollowed);
+  const saveToLocalStorage = useCallback((targetUserId, status) => {
+    if (!currentUserId || !targetUserId) return;
+    
+    try {
+      const userIdStr = String(currentUserId);
+      const targetIdStr = String(targetUserId);
+      let followData = {};
+      const stored = localStorage.getItem(FOLLOW_STATUSES_KEY);
+      if (stored) {
+        followData = JSON.parse(stored);
+      }
+            if (!followData[userIdStr]) {
+        followData[userIdStr] = {};
+      }
+      followData[userIdStr][targetIdStr] = status;
+      localStorage.setItem(FOLLOW_STATUSES_KEY, JSON.stringify(followData));
+    } catch (err) {
+      console.error("Error saving follow status to localStorage:", err);
     }
-  }, [otherUserData]);
+  }, [currentUserId]);
+  
+  const getFromLocalStorage = useCallback((targetUserId) => {
+    if (!currentUserId || !targetUserId) return null;
+    
+    try {
+      const userIdStr = String(currentUserId);
+      const targetIdStr = String(targetUserId);
+      const stored = localStorage.getItem(FOLLOW_STATUSES_KEY);
+      if (!stored) return null;
+      const followData = JSON.parse(stored);
+      if (followData[userIdStr] && followData[userIdStr][targetIdStr] !== undefined) {
+        return Boolean(followData[userIdStr][targetIdStr]);
+      }
+      
+      return null;
+    } catch (err) {
+      console.error("Error reading follow status from localStorage:", err);
+      return null;
+    }
+  }, [currentUserId]);
 
   useEffect(() => {
-    if (!isOwnProfile && myFollowings && urlUserId) {
-      const isUserInFollowings =
-        Array.isArray(myFollowings) &&
-        myFollowings.some(
-          (user) => user.id === urlUserId || user.id === parseInt(urlUserId)
+    if (!isOwnProfile && urlUserId && currentUserId) {      
+      const localStorageStatus = getFromLocalStorage(urlUserId);
+      if (localStorageStatus !== null) {
+        setIsFollowing(localStorageStatus);
+      } 
+      else if (otherUserData && otherUserData.isFollowed !== undefined) {
+        setIsFollowing(otherUserData.isFollowed);
+        saveToLocalStorage(urlUserId, otherUserData.isFollowed);
+      } 
+      else if (myFollowings && Array.isArray(myFollowings)) {
+        const isInFollowings = myFollowings.some(
+          user => String(user.id) === String(urlUserId)
         );
-
-      console.log('Checking if user is in followings:', isUserInFollowings);
-      if (isUserInFollowings !== undefined) {
-        setIsFollowing(isUserInFollowings);
+        setIsFollowing(isInFollowings);
+        saveToLocalStorage(urlUserId, isInFollowings);
+      }
+      else {
+        setIsFollowing(false);
+        saveToLocalStorage(urlUserId, false);
       }
     }
-  }, [myFollowings, urlUserId, isOwnProfile]);
+  }, [
+    isOwnProfile, 
+    urlUserId, 
+    currentUserId, 
+    getFromLocalStorage, 
+    saveToLocalStorage
+  ]);
+
+  useEffect(() => {
+    if (!isOwnProfile && urlUserId && currentUserId && otherUserData && otherUserData.isFollowed !== undefined) {
+      const localStorageStatus = getFromLocalStorage(urlUserId);
+      if (localStorageStatus === null || localStorageStatus !== otherUserData.isFollowed) {
+        if (localStorageStatus === null) {
+          setIsFollowing(otherUserData.isFollowed);
+          saveToLocalStorage(urlUserId, otherUserData.isFollowed);
+        } 
+      }
+    }
+  }, [otherUserData, isOwnProfile, urlUserId, currentUserId, getFromLocalStorage, saveToLocalStorage]);
+  
+  const handleFollowToggle = async () => {
+    if (!urlUserId || isButtonLoading) return;
+    try {
+      let currentFollowStatus = getFromLocalStorage(urlUserId);
+            if (currentFollowStatus === null) {
+        currentFollowStatus = isFollowing;
+      }
+      const newFollowStatus = !currentFollowStatus;      
+      setIsFollowing(newFollowStatus);
+      saveToLocalStorage(urlUserId, newFollowStatus);
+      if (currentFollowStatus) {
+        await unfollowUser(urlUserId).unwrap();
+        toast.success('Unfollowed successfully');
+      } else {
+        try {
+          await followUser(urlUserId).unwrap();
+          toast.success('Now following this user');
+        } catch (followError) {
+          if (followError.status === 409) {
+            toast('You are already following this user');
+            setIsFollowing(true);
+            saveToLocalStorage(urlUserId, true);
+          } else {
+            setIsFollowing(currentFollowStatus);
+            saveToLocalStorage(urlUserId, currentFollowStatus);
+            throw followError;
+          }
+        }
+      }
+        dispatch(
+        profileApi.util.updateQueryData('fetchUserById', urlUserId, (draft) => {
+          if (draft) draft.isFollowed = newFollowStatus;
+        })
+      );
+            dispatch(profileApi.util.invalidateTags(['Profile']));
+        setTimeout(() => {
+        refetch();
+      }, 300);
+      
+      saveToLocalStorage(urlUserId, newFollowStatus);
+            setTimeout(() => {}, 500);
+      
+    } catch (error) {
+      toast.error(
+        `Failed to update follow status: ${error.data?.message || 'Unknown error'}`
+      );
+      const savedStatus = getFromLocalStorage(urlUserId);
+      if (savedStatus !== null) {
+        setIsFollowing(savedStatus);
+      } else {
+        setIsFollowing(false);
+        saveToLocalStorage(urlUserId, false);
+      }
+    }
+  };
+
 
   useEffect(() => {
     setActiveTab(USER_TABS.RECIPES);
@@ -167,44 +287,6 @@ const UserPage = () => {
       toast.success('Recipe removed');
     } catch (error) {
       toast.error(error.message);
-    }
-  };
-
-  const handleFollowToggle = async () => {
-    if (!urlUserId) return;
-
-    try {
-      if (isFollowing) {
-        await unfollowUser(urlUserId).unwrap();
-        setIsFollowing(false);
-        toast.success('Unfollowed successfully');
-      } else {
-        try {
-          await followUser(urlUserId).unwrap();
-          setIsFollowing(true);
-          toast.success('Now following this user');
-        } catch (followError) {
-          if (followError.status === 409) {
-            toast.error('You are already following this user');
-            setIsFollowing(true);
-          } else {
-            throw followError;
-          }
-        }
-      }
-
-      dispatch(
-        profileApi.util.updateQueryData('fetchUserById', urlUserId, (draft) => {
-          if (draft) draft.isFollowed = !isFollowing;
-        })
-      );
-
-      refetch();
-    } catch (error) {
-      console.error('Error toggling follow status:', error);
-      toast.error(
-        `Failed to update follow status: ${error.data?.message || 'Unknown error'}`
-      );
     }
   };
 
