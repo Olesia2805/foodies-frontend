@@ -103,6 +103,9 @@ export const verifyUserWithTokenOps = createAsyncThunk(
     try {
       const response = await axiosInstance.get(`/auth/verify/${token}`);
 
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('refreshToken', response.data.refreshToken);
+
       return response.data;
     } catch (err) {
       return rejectWithValue(
