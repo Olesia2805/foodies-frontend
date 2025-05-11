@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import Icon from '../Icon/Icon';
 import css from './Dropdown.module.css';
@@ -12,7 +12,10 @@ const Dropdown = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showSelectedTooltip, setShowSelectedTooltip] = useState(false);
   const dropdownRef = useRef(null);
+  const selectedTextRef = useRef(null);
+  const dispatch = useDispatch();
 
   const validItems = Array.isArray(items)
     ? items.filter((item) => item && item.name)
@@ -22,21 +25,26 @@ const Dropdown = ({
     item?.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleClickOutside = (event) => {
+  const handleClickOutside = useCallback((event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsOpen(false);
+      setShowSelectedTooltip(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [handleClickOutside]);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
+
+    if (showSelectedTooltip) {
+      setShowSelectedTooltip(false);
+    }
   };
 
   const handleItemSelect = (item) => {
@@ -54,11 +62,26 @@ const Dropdown = ({
         ? safeSelectedValue.filter((selected) => selected?.value !== item.value)
         : [...safeSelectedValue, item];
 
-      callback(newSelectedValue);
+      dispatch(callback(newSelectedValue));
     } else {
-      callback(item);
+      dispatch(callback(item));
       setIsOpen(false);
     }
+  };
+
+  const handleRemoveItem = (e, itemToRemove) => {
+    e.stopPropagation();
+
+    if (!itemToRemove) return;
+
+    const safeSelectedValue = Array.isArray(selectedValue) ? selectedValue : [];
+    const newSelectedValue = safeSelectedValue.filter(
+      (item) => item.value !== itemToRemove.value
+    );
+
+    dispatch(callback(newSelectedValue));
+
+    e.nativeEvent.stopImmediatePropagation();
   };
 
   const isItemSelected = (item) => {
@@ -73,6 +96,23 @@ const Dropdown = ({
       );
     }
     return selectedValue?.value === item.value;
+  };
+
+  const getTooltipText = () => {
+    if (
+      !isMulti ||
+      !Array.isArray(selectedValue) ||
+      selectedValue.length === 0
+    ) {
+      return '';
+    }
+
+    return selectedValue.map((item) => `- ${item.name}`).join('\n');
+  };
+
+  const handleSelectedTextClick = (e) => {
+    e.stopPropagation();
+    setShowSelectedTooltip(!showSelectedTooltip);
   };
 
   const displaySelectedValue = () => {
@@ -94,12 +134,47 @@ const Dropdown = ({
         onClick={toggleDropdown}
         type="button"
       >
-        <span>{displaySelectedValue()}</span>
+        {isMulti && Array.isArray(selectedValue) && selectedValue.length > 0 ? (
+          <span
+            title={getTooltipText()}
+            className={css.selectedText}
+            onClick={handleSelectedTextClick}
+            ref={selectedTextRef}
+          >
+            {displaySelectedValue()}
+          </span>
+        ) : (
+          <span>{displaySelectedValue()}</span>
+        )}
         <Icon
           name={isOpen ? 'chevron-up' : 'chevron-down'}
           className={css.dropdownIcon}
         />
       </button>
+
+      {showSelectedTooltip &&
+        isMulti &&
+        Array.isArray(selectedValue) &&
+        selectedValue.length > 0 && (
+          <div className={css.selectedTooltip}>
+            <div className={css.tooltipHeader}>Selected ingredients:</div>
+            <ul className={css.tooltipList}>
+              {selectedValue.map((item) => (
+                <li key={item.value} className={css.tooltipItem}>
+                  <span className={css.tooltipItemText}>- {item.name}</span>
+                  <button
+                    className={css.removeItemButton}
+                    onClick={(e) => handleRemoveItem(e, item)}
+                    aria-label={`Remove ${item.name}`}
+                    type="button"
+                  >
+                    <Icon name="close" className={css.removeIcon} size={14} />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
       {isOpen && (
         <div className={css.dropdownContent}>
