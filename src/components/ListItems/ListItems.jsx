@@ -1,4 +1,5 @@
-import Divider from '../Divider/Divider';
+import clsx from 'clsx';
+import { USER_TABS } from '../../constants/userTabs';
 import styles from './ListItems.module.css';
 
 const ListItems = ({
@@ -6,7 +7,7 @@ const ListItems = ({
   renderItem,
   isOwnProfile,
   emptyMessage,
-  showDivider,
+  activeTab,
 }) => {
   if (!Array.isArray(items) || items.length === 0) {
     return <div className={styles.empty}>{emptyMessage}</div>;
@@ -15,10 +16,16 @@ const ListItems = ({
   const RenderItem = renderItem;
 
   return (
-    <ul className={styles.list}>
-      {items.map((item, index) => (
-        <li key={index} className={styles.item}>
-          {showDivider && <Divider />}
+    <ul
+      className={clsx(
+        styles.list,
+        (activeTab === USER_TABS.FOLLOWERS ||
+          activeTab === USER_TABS.FOLLOWING) &&
+          styles.divided
+      )}
+    >
+      {items.map((item) => (
+        <li key={item._id} className={styles.item}>
           <RenderItem item={item} isOwnProfile={isOwnProfile} />
         </li>
       ))}

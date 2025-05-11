@@ -5,13 +5,6 @@ export const USER_TABS = {
   FOLLOWING: 'following',
 };
 
-export const USER_TABS_DATA = [
-  { id: USER_TABS.RECIPES, label: 'My recipes', visibleTo: 'all' },
-  { id: USER_TABS.FAVORITES, label: 'My favorites', visibleTo: 'self' },
-  { id: USER_TABS.FOLLOWERS, label: 'Followers', visibleTo: 'all' },
-  { id: USER_TABS.FOLLOWING, label: 'Following', visibleTo: 'self' },
-];
-
 export const USER_TABS_MESSAGES = {
   NO_RECIPES:
     'Nothing has been added to your recipes list yet. Please browse our recipes and add your favorites for easy access in the future.',

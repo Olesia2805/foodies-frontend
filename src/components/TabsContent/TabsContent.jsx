@@ -25,7 +25,7 @@ const TabsContent = ({
           renderItem={tab.renderItem}
           isOwnProfile={isOwnProfile}
           emptyMessage={tab.emptyMessage}
-          showDivider={tab.showDivider}
+          activeTab={activeTab}
         />
       )}
     </>

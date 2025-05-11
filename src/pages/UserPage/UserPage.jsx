@@ -33,11 +33,7 @@ import TabsList from '../../components/TabsList/TabsList.jsx';
 import TabsContent from '../../components/TabsContent/TabsContent.jsx';
 import ListRecipeCard from '../../components/ListRecipeCard/ListRecipeCard.jsx';
 import FollowerCard from '../../components/FollowerCard/FollowerCard.jsx';
-import {
-  USER_TABS,
-  USER_TABS_DATA,
-  USER_TABS_MESSAGES,
-} from '../../constants/userTabs.js';
+import { USER_TABS, USER_TABS_MESSAGES } from '../../constants/userTabs.js';
 import styles from './UserPage.module.css';
 
 const UserPage = () => {
@@ -135,6 +131,10 @@ const UserPage = () => {
     }
   }, [activeTab, userId, dispatch]);
 
+  useEffect(() => {
+    setActiveTab(USER_TABS.RECIPES);
+  }, [userId]);
+
   const handleFollowToggle = async () => {
     if (!urlUserId) return;
 
@@ -180,39 +180,45 @@ const UserPage = () => {
   const loading = useSelector(selectUserLoading);
   const error = useSelector(selectUserError);
 
-  const visibleTabs = USER_TABS_DATA.filter((tab) =>
-    isUrlOwnProfile ? true : tab.visibleTo === 'all'
-  );
+  const tabs = [
+    {
+      id: USER_TABS.RECIPES,
+      label: `${isOwnProfile ? 'My recipes' : 'Recipes'}`,
+      visibleTo: 'all',
+    },
+    {
+      id: USER_TABS.FAVORITES,
+      label: `${isOwnProfile ? 'My favorites' : 'Favorites'}`,
+      visibleTo: 'self',
+    },
+    { id: USER_TABS.FOLLOWERS, label: 'Followers', visibleTo: 'all' },
+    { id: USER_TABS.FOLLOWING, label: 'Following', visibleTo: 'self' },
+  ];
 
-  console.log('recipes.data:', recipes.data);
-  console.log('favorites.data:', favorites.data);
-  console.log('followers.data:', followers.data);
-  console.log('following.data:', following.data);
+  const visibleTabs = tabs.filter((tab) =>
+    isOwnProfile ? true : tab.visibleTo === 'all'
+  );
 
   const tabsConfig = {
     [USER_TABS.RECIPES]: {
       items: recipes.data,
       renderItem: ListRecipeCard,
       emptyMessage: USER_TABS_MESSAGES.NO_RECIPES,
-      showDivider: false,
     },
     [USER_TABS.FAVORITES]: {
       items: favorites.data,
       renderItem: ListRecipeCard,
       emptyMessage: USER_TABS_MESSAGES.NO_FAVORITES,
-      showDivider: false,
     },
     [USER_TABS.FOLLOWERS]: {
       items: followers.data,
       renderItem: FollowerCard,
       emptyMessage: USER_TABS_MESSAGES.NO_FOLLOWERS,
-      showDivider: true,
     },
     [USER_TABS.FOLLOWING]: {
       items: following.data,
       renderItem: FollowerCard,
       emptyMessage: USER_TABS_MESSAGES.NO_FOLLOWING,
-      showDivider: true,
     },
   };
 
@@ -248,6 +254,8 @@ const UserPage = () => {
             activeTab={activeTab}
             tabsConfig={tabsConfig}
             isOwnProfile={isOwnProfile}
+            isButtonLoading={isButtonLoading}
+            handleFollowToggle={handleFollowToggle}
             loading={loading}
             error={error}
           />
