@@ -1,12 +1,16 @@
-import React from 'react';
+import Divider from '../Divider/Divider';
 import styles from './ListItems.module.css';
 
-const ListItems = ({ items = [], renderItem, emptyMessage, showDivider }) => {
+const ListItems = ({
+  items = [],
+  renderItem,
+  isOwnProfile,
+  emptyMessage,
+  showDivider,
+}) => {
   if (!Array.isArray(items) || items.length === 0) {
     return <div className={styles.empty}>{emptyMessage}</div>;
   }
-
-  console.log('List items', items);
 
   const RenderItem = renderItem;
 
@@ -14,8 +18,8 @@ const ListItems = ({ items = [], renderItem, emptyMessage, showDivider }) => {
     <ul className={styles.list}>
       {items.map((item, index) => (
         <li key={index} className={styles.item}>
-          {showDivider && <div className={styles.divider}></div>}
-          <RenderItem {...item} />
+          {showDivider && <Divider />}
+          <RenderItem item={item} isOwnProfile={isOwnProfile} />
         </li>
       ))}
     </ul>

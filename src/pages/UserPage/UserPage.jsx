@@ -32,6 +32,7 @@ import UserBlock from '../../components/UserBlock/UserBlock.jsx';
 import TabsList from '../../components/TabsList/TabsList.jsx';
 import TabsContent from '../../components/TabsContent/TabsContent.jsx';
 import ListRecipeCard from '../../components/ListRecipeCard/ListRecipeCard.jsx';
+import FollowerCard from '../../components/FollowerCard/FollowerCard.jsx';
 import {
   USER_TABS,
   USER_TABS_DATA,
@@ -86,7 +87,7 @@ const UserPage = () => {
       myEmail &&
       preliminaryUserData.email === myEmail);
 
-  const userId = isUrlOwnProfile ? currentUserId : urlUserId;
+  const userId = isOwnProfile ? currentUserId : urlUserId;
 
   useEffect(() => {
     if (otherUserData && otherUserData.isFollowed !== undefined) {
@@ -203,13 +204,13 @@ const UserPage = () => {
     },
     [USER_TABS.FOLLOWERS]: {
       items: followers.data,
-      renderItem: ListRecipeCard,
+      renderItem: FollowerCard,
       emptyMessage: USER_TABS_MESSAGES.NO_FOLLOWERS,
       showDivider: true,
     },
     [USER_TABS.FOLLOWING]: {
       items: following.data,
-      renderItem: ListRecipeCard,
+      renderItem: FollowerCard,
       emptyMessage: USER_TABS_MESSAGES.NO_FOLLOWING,
       showDivider: true,
     },
@@ -238,16 +239,15 @@ const UserPage = () => {
         </div>
 
         <div className={styles.rightColumn}>
-          <div className={styles.tabsWrapper}>
-            <TabsList
-              tabs={visibleTabs}
-              activeTab={activeTab}
-              onTabChange={setActiveTab}
-            />
-          </div>
+          <TabsList
+            tabs={visibleTabs}
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+          />
           <TabsContent
             activeTab={activeTab}
             tabsConfig={tabsConfig}
+            isOwnProfile={isOwnProfile}
             loading={loading}
             error={error}
           />

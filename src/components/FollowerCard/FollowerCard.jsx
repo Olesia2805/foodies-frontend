@@ -2,36 +2,24 @@ import { Link } from 'react-router-dom';
 import Icon from '../Icon/Icon';
 import styles from './FollowerCard.module.css';
 
-const FollowerCard = ({ follower }) => {
-  console.log('Follower data:', follower);
-
-  if (!follower) {
-    return <div className={styles.card}>Follower data is not available.</div>;
-  }
+const FollowerCard = ({ item, isOwnProfile }) => {
+  console.log('Follower data:', item);
 
   return (
     <div className={styles.card}>
-      <img
-       
-        src={follower.avatar}
-       
-        alt={follower.name}
-       
-        className={styles.avatar}
-     
-      />
+      <img src={item.avatar} alt={item.name} className={styles.avatar} />
       <div className={styles.info}>
-        <h3 className={styles.name}>{follower.name?.toUpperCase()}</h3>
+        <h3 className={styles.name}>{item.name?.toUpperCase()}</h3>
         <p className={styles.recipesCount}>
-          Recipes: {follower.recipes?.length || 0}
+          Recipes: {item.recipes?.length || 0}
         </p>
         <p className={styles.recipesCount}>
-          Own recipes: {follower.recipes?.length || 0}
+          Own recipes: {item.recipes?.length || 0}
         </p>
         <button className={styles.followButton}>FOLLOW</button>
       </div>
       <div className={styles.recipesPreview}>
-        {follower.recipes?.slice(0, 4).map((recipe, index) => {
+        {item.recipes?.slice(0, 4).map((recipe, index) => {
           return (
             <img
               key={recipe.id || index}
@@ -42,7 +30,7 @@ const FollowerCard = ({ follower }) => {
           );
         })}
       </div>
-      <button
+      <Link
         className={styles.profileButton}
         onClick={() =>
           (window.location.href = `http://localhost:3001/user/${follower.id}`)
