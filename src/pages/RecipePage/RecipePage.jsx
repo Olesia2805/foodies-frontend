@@ -55,7 +55,7 @@ const RecipePage = () => {
   if (loading)
     return (
       <Container>
-        <Loader fullScreen={true} />
+        <Loader pageLoader />
       </Container>
     );
   if (error) return <Error message={error} />;
