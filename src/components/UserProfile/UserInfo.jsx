@@ -51,7 +51,6 @@ const { data: favoriteRecipesResponse } = useFetchFavoriteRecipesQuery(undefined
   }, [userData]);
   const [avatar, setAvatar] = useState(withoutAvatar);
 
-  const displayFields = isOwnProfile 
 
   const displayFields = isOwnProfile 
     ? [
@@ -171,8 +170,6 @@ const { data: favoriteRecipesResponse } = useFetchFavoriteRecipesQuery(undefined
                 name={field.name}
                 value={enhancedUserData[field.name]}
                 label={field.label}
-
-                label={field.label} 
               />
             )
           ))}
