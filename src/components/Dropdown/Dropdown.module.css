@@ -85,6 +85,97 @@
   font-weight: 700;
 }
 
+.selectedText {
+  cursor: pointer;
+  position: relative;
+}
+
+.selectedTooltip {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  z-index: 20;
+  background-color: white;
+  border: 1px solid var(--grey);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.tooltipHeader {
+  font-weight: 700;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--grey);
+  color: var(--black);
+}
+
+.tooltipList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.tooltipItem {
+  padding: 5px 0;
+  color: var(--black);
+}
+
+.tooltipItem:not(:last-child) {
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .selectedTooltip {
+    max-width: 100%;
+  }
+}
+
+.tooltipItem {
+  padding: 5px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tooltipItemText {
+  flex: 1;
+}
+
+.removeItemButton {
+  background: transparent;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.removeItemButton:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.removeIcon {
+  color: var(--dark-grey);
+  fill: var(--dark-grey);
+}
+
+.removeItemButton:hover .removeIcon {
+  color: var(--black);
+  fill: var(--black);
+}
+
+.tooltipItem:not(:last-child) {
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+}
+
 .checkIcon {
   width: 18px;
   height: 18px;

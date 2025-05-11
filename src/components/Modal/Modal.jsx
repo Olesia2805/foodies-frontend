@@ -1,7 +1,20 @@
+import { useEffect } from 'react';
 import styles from './Modal.module.css';
 import Icon from '../Icon/Icon.jsx';
 
 const Modal = ({ isOpen, onClose, children }) => {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+
+    return () => {
+      document.body.classList.remove('no-scroll');
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
@@ -10,7 +23,6 @@ const Modal = ({ isOpen, onClose, children }) => {
         <button className={styles.close} onClick={onClose}>
           <Icon name="close" size={24} />
         </button>
-
         {children}
       </div>
     </div>

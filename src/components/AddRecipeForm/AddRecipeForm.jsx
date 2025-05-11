@@ -42,23 +42,21 @@ import { ROUTER } from '../../constants/router';
 import Loader from '../Loader/Loader';
 
 const defaultValue = {
-  photo: '', // thumb
+  photo: '',
   title: '',
   description: '',
   category: '',
   time: 0,
   area: '',
   ingredients: [],
-  preparation: '', // instructions
+  preparation: '',
 };
 
 export default function AddRecipeForm() {
-  // Store Categories
   const isCategoriesLoading = useSelector(selectCategoriesIsLoading);
   const categoriesError = useSelector(selectCategoriesError);
   const allCategories = useSelector(selectCategories);
 
-  // Areas
   const isAreasLoading = useSelector(selectAreasIsLoading);
   const areasError = useSelector(selectAreasError);
   const allAreas = useSelector(selectAreas);
@@ -83,8 +81,8 @@ export default function AddRecipeForm() {
     }
   }, [areasError, allAreas.length, dispatch]);
 
-  const [isPostingRecipe, setIsPostingRecipe] = useState(false); // For Component InputIngredients
-  const [resetTrigger, setResetTrigger] = useState(false); // For Component InputIngredients
+  const [isPostingRecipe, setIsPostingRecipe] = useState(false);
+  const [resetTrigger, setResetTrigger] = useState(false);
 
   const {
     register,

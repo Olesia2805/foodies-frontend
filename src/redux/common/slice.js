@@ -10,9 +10,9 @@ const initialState = {
   selectedCategory: null,
   selectedIngredients: [],
   selectedArea: null,
-  ingredientsFetchStatus: 'idle', // 'idle', 'loading', 'succeeded', 'failed'
-  areasFetchStatus: 'idle', // 'idle', 'loading', 'succeeded', 'failed'
-  categoriesFetchStatus: 'idle', // 'idle', 'loading', 'succeeded', 'failed',
+  ingredientsFetchStatus: 'idle',
+  areasFetchStatus: 'idle',
+  categoriesFetchStatus: 'idle',
 
   isSignInModalOpen: false,
   isSignUpModalOpen: false,
@@ -50,7 +50,7 @@ const commonSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Fetching ingredients
+      
       .addCase(getIngredients.pending, (state) => {
         if (state.ingredientsFetchStatus !== 'succeeded') {
           state.isLoading = true;
@@ -69,7 +69,7 @@ const commonSlice = createSlice({
         state.ingredientsFetchStatus = 'failed';
         state.ingredients = [];
       })
-      // Fetching areas
+      
       .addCase(getAreas.pending, (state) => {
         if (state.areasFetchStatus !== 'succeeded') {
           state.isLoading = true;
@@ -88,7 +88,7 @@ const commonSlice = createSlice({
         state.areasFetchStatus = 'failed';
         state.areas = [];
       })
-      // Fetching categories
+      
       .addCase(getCategories.pending, (state) => {
         if (state.categoriesFetchStatus !== 'succeeded') {
           state.isLoading = true;
