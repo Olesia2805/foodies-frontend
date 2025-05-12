@@ -1,9 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination } from 'swiper/modules';
-
 import 'swiper/css';
-import 'swiper/css/pagination';
 
 import axiosInstance from '../../api/axiosInstance';
 import Container from '../Container/Container';
@@ -15,24 +12,48 @@ const AUTOPLAY_INTERVAL = 20000;
 
 const Testimonials = () => {
   const [testimonials, setTestimonials] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const swiperRef = useRef(null);
+
+  const fetchTestimonials = async () => {
+    try {
+      const response = await axiosInstance.get('/testimonials?page=1');
+      const fetchedTestimonials = response.data.data.map((item) => ({
+        id: item._id,
+        text: item.testimonial,
+        author: item.user?.name?.toUpperCase() || 'ANONYMOUS',
+      }));
+      setTestimonials(fetchedTestimonials);
+    } catch (error) {
+      toast.error('Error fetching testimonials');
+    }
+  };
 
   useEffect(() => {
-    const fetchTestimonials = async () => {
-      try {
-        const response = await axiosInstance.get('/testimonials?page=1');
-        const fetchedTestimonials = response.data.data.map((item) => ({
-          id: item._id,
-          text: item.testimonial,
-          author: item.user?.name?.toUpperCase() || 'ANONYMOUS',
-        }));
-        setTestimonials(fetchedTestimonials);
-      } catch (error) {
-        toast.error('Error fetching testimonials');
-      }
-    };
-
     fetchTestimonials();
   }, []);
+
+  const goToSlide = useCallback((index) => {
+    setActiveIndex(index);
+    if (swiperRef.current) {
+      swiperRef.current.slideTo(index);
+    }
+  }, []);
+
+  const goToNextSlide = useCallback(() => {
+    setActiveIndex((prevIndex) => {
+      const next = (prevIndex + 1) % testimonials.length;
+      if (swiperRef.current) {
+        swiperRef.current.slideTo(next);
+      }
+      return next;
+    });
+  }, [testimonials]);
+
+  useEffect(() => {
+    const interval = setInterval(goToNextSlide, AUTOPLAY_INTERVAL);
+    return () => clearInterval(interval);
+  }, [goToNextSlide]);
 
   if (testimonials.length === 0) return null;
 
@@ -46,10 +67,10 @@ const Testimonials = () => {
 
           <Swiper
             className={styles.slider}
-            modules={[Autoplay, Pagination]}
-            autoplay={{ delay: AUTOPLAY_INTERVAL, disableOnInteraction: false }}
-            pagination={{ clickable: true }}
-            loop={true}
+            onSwiper={(swiper) => (swiperRef.current = swiper)}
+            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+            slidesPerView={1}
+            allowTouchMove={true}
           >
             {testimonials.map(({ id, text, author }) => (
               <SwiperSlide key={id}>
@@ -58,6 +79,19 @@ const Testimonials = () => {
               </SwiperSlide>
             ))}
           </Swiper>
+
+          <div className={styles.pagination}>
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                className={`${styles.paginationDot} ${
+                  index === activeIndex ? styles.active : ''
+                }`}
+                onClick={() => goToSlide(index)}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </Container>
     </section>
