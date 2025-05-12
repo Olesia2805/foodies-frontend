@@ -1,6 +1,7 @@
 import Icon from '../../Icon/Icon';
 import styles from './IconButton.module.css';
 import cx from 'classnames';
+import { WHITE } from '../../../constants/colors';
 
 const IconButton = ({
   onClick = () => {},
@@ -8,7 +9,7 @@ const IconButton = ({
   style,
   iconId = 'plus',
   size = 16,
-  color = '#000',
+  color = WHITE,
 }) => {
   const renderIcon = () => {
     switch (iconId) {
