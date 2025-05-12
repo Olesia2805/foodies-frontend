@@ -6,7 +6,7 @@ Foodies Frontend — це клієнтська частина веб-додат�
 
 - **Бекенд**: [Foodies Backend](https://foodies-backend-yutr.onrender.com)
 - **Фронтенд**: [Foodies Frontend](https://foodies-frontend-bice.vercel.app/)
-- **Swagger документація API**: [Swagger Docs](https://foodies-frontend-bice.vercel.app/api-docs/)
+- **Swagger документація API**: [Swagger Docs](https://foodies-backend-yutr.onrender.com/api-docs/)
 - **Макет**: [Figma](https://www.figma.com/file/TKl7kDNvwtz62RsuWNnQ5E/Foodies?type=design&node-id=127-2517&mode=design&t=UejayJaJevVrIG5E-0)
 
 ## Як запустити локально
