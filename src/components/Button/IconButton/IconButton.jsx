@@ -8,7 +8,7 @@ const IconButton = ({
   style,
   iconId = 'plus',
   size = 16,
-  color = '#000',
+  color = '#fff',
 }) => {
   const renderIcon = () => {
     switch (iconId) {
