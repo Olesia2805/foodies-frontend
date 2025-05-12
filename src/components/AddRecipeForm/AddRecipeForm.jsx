@@ -129,7 +129,8 @@ export default function AddRecipeForm() {
       setIsPostingRecipe(true);
       const response = await recipeAPI.createRecipe(formData);
       if (response.status !== 201) throw new Error(response);
-      navigate(ROUTER.PROFILE);
+      const recipeId = response.data.recipe._id;
+      navigate(`${ROUTER.RECIPE}/${recipeId}`);
     } catch (error) {
       // TODO: Review how to show errors from backend
       toast.error(
