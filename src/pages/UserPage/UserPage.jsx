@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -24,7 +23,11 @@ import {
   selectUserLoading,
   selectUserError,
 } from '../../redux/user';
-import { deleteRecipe, removeFromFavorites } from '../../redux/recipes';
+import {
+  deleteRecipe,
+  fetchFavoriteRecipes,
+  removeFromFavorites,
+} from '../../redux/recipes';
 import withAuthGuard from '../../hoc/withAuthGuard.jsx';
 import Container from '../../components/Container/Container';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
@@ -41,8 +44,6 @@ import {
   RECIPES_PER_PAGE,
 } from '../../constants/userTabs.js';
 import styles from './UserPage.module.css';
-
-
 
 const FOLLOW_STATUSES_KEY = 'user_follow_statuses';
 
@@ -96,97 +97,119 @@ const UserPage = () => {
 
   const userId = isOwnProfile ? currentUserId : urlUserId;
 
-  const saveToLocalStorage = useCallback((targetUserId, status) => {
-    if (!currentUserId || !targetUserId) return;
-    
-    try {
-      const userIdStr = String(currentUserId);
-      const targetIdStr = String(targetUserId);
-      let followData = {};
-      const stored = localStorage.getItem(FOLLOW_STATUSES_KEY);
-      if (stored) {
-        followData = JSON.parse(stored);
+  const saveToLocalStorage = useCallback(
+    (targetUserId, status) => {
+      if (!currentUserId || !targetUserId) return;
+
+      try {
+        const userIdStr = String(currentUserId);
+        const targetIdStr = String(targetUserId);
+        let followData = {};
+        const stored = localStorage.getItem(FOLLOW_STATUSES_KEY);
+        if (stored) {
+          followData = JSON.parse(stored);
+        }
+        if (!followData[userIdStr]) {
+          followData[userIdStr] = {};
+        }
+        followData[userIdStr][targetIdStr] = status;
+        localStorage.setItem(FOLLOW_STATUSES_KEY, JSON.stringify(followData));
+      } catch (err) {
+        console.error('Error saving follow status to localStorage:', err);
       }
-            if (!followData[userIdStr]) {
-        followData[userIdStr] = {};
+    },
+    [currentUserId]
+  );
+
+  const getFromLocalStorage = useCallback(
+    (targetUserId) => {
+      if (!currentUserId || !targetUserId) return null;
+
+      try {
+        const userIdStr = String(currentUserId);
+        const targetIdStr = String(targetUserId);
+        const stored = localStorage.getItem(FOLLOW_STATUSES_KEY);
+        if (!stored) return null;
+        const followData = JSON.parse(stored);
+        if (
+          followData[userIdStr] &&
+          followData[userIdStr][targetIdStr] !== undefined
+        ) {
+          return Boolean(followData[userIdStr][targetIdStr]);
+        }
+
+        return null;
+      } catch (err) {
+        console.error('Error reading follow status from localStorage:', err);
+        return null;
       }
-      followData[userIdStr][targetIdStr] = status;
-      localStorage.setItem(FOLLOW_STATUSES_KEY, JSON.stringify(followData));
-    } catch (err) {
-      console.error("Error saving follow status to localStorage:", err);
-    }
-  }, [currentUserId]);
-  
-  const getFromLocalStorage = useCallback((targetUserId) => {
-    if (!currentUserId || !targetUserId) return null;
-    
-    try {
-      const userIdStr = String(currentUserId);
-      const targetIdStr = String(targetUserId);
-      const stored = localStorage.getItem(FOLLOW_STATUSES_KEY);
-      if (!stored) return null;
-      const followData = JSON.parse(stored);
-      if (followData[userIdStr] && followData[userIdStr][targetIdStr] !== undefined) {
-        return Boolean(followData[userIdStr][targetIdStr]);
-      }
-      
-      return null;
-    } catch (err) {
-      console.error("Error reading follow status from localStorage:", err);
-      return null;
-    }
-  }, [currentUserId]);
+    },
+    [currentUserId]
+  );
 
   useEffect(() => {
-    if (!isOwnProfile && urlUserId && currentUserId) {      
+    if (!isOwnProfile && urlUserId && currentUserId) {
       const localStorageStatus = getFromLocalStorage(urlUserId);
       if (localStorageStatus !== null) {
         setIsFollowing(localStorageStatus);
-      } 
-      else if (otherUserData && otherUserData.isFollowed !== undefined) {
+      } else if (otherUserData && otherUserData.isFollowed !== undefined) {
         setIsFollowing(otherUserData.isFollowed);
         saveToLocalStorage(urlUserId, otherUserData.isFollowed);
-      } 
-      else if (myFollowings && Array.isArray(myFollowings)) {
+      } else if (myFollowings && Array.isArray(myFollowings)) {
         const isInFollowings = myFollowings.some(
-          user => String(user.id) === String(urlUserId)
+          (user) => String(user.id) === String(urlUserId)
         );
         setIsFollowing(isInFollowings);
         saveToLocalStorage(urlUserId, isInFollowings);
-      }
-      else {
+      } else {
         setIsFollowing(false);
         saveToLocalStorage(urlUserId, false);
       }
     }
   }, [
-    isOwnProfile, 
-    urlUserId, 
-    currentUserId, 
-    getFromLocalStorage, 
-    saveToLocalStorage
+    isOwnProfile,
+    urlUserId,
+    currentUserId,
+    getFromLocalStorage,
+    saveToLocalStorage,
   ]);
 
   useEffect(() => {
-    if (!isOwnProfile && urlUserId && currentUserId && otherUserData && otherUserData.isFollowed !== undefined) {
+    if (
+      !isOwnProfile &&
+      urlUserId &&
+      currentUserId &&
+      otherUserData &&
+      otherUserData.isFollowed !== undefined
+    ) {
       const localStorageStatus = getFromLocalStorage(urlUserId);
-      if (localStorageStatus === null || localStorageStatus !== otherUserData.isFollowed) {
+      if (
+        localStorageStatus === null ||
+        localStorageStatus !== otherUserData.isFollowed
+      ) {
         if (localStorageStatus === null) {
           setIsFollowing(otherUserData.isFollowed);
           saveToLocalStorage(urlUserId, otherUserData.isFollowed);
-        } 
+        }
       }
     }
-  }, [otherUserData, isOwnProfile, urlUserId, currentUserId, getFromLocalStorage, saveToLocalStorage]);
-  
+  }, [
+    otherUserData,
+    isOwnProfile,
+    urlUserId,
+    currentUserId,
+    getFromLocalStorage,
+    saveToLocalStorage,
+  ]);
+
   const handleFollowToggle = async () => {
     if (!urlUserId || isButtonLoading) return;
     try {
       let currentFollowStatus = getFromLocalStorage(urlUserId);
-            if (currentFollowStatus === null) {
+      if (currentFollowStatus === null) {
         currentFollowStatus = isFollowing;
       }
-      const newFollowStatus = !currentFollowStatus;      
+      const newFollowStatus = !currentFollowStatus;
       setIsFollowing(newFollowStatus);
       saveToLocalStorage(urlUserId, newFollowStatus);
       if (currentFollowStatus) {
@@ -208,19 +231,18 @@ const UserPage = () => {
           }
         }
       }
-        dispatch(
+      dispatch(
         profileApi.util.updateQueryData('fetchUserById', urlUserId, (draft) => {
           if (draft) draft.isFollowed = newFollowStatus;
         })
       );
-            dispatch(profileApi.util.invalidateTags(['Profile']));
-        setTimeout(() => {
+      dispatch(profileApi.util.invalidateTags(['Profile']));
+      setTimeout(() => {
         refetch();
       }, 300);
-      
+
       saveToLocalStorage(urlUserId, newFollowStatus);
-            setTimeout(() => {}, 500);
-      
+      setTimeout(() => {}, 500);
     } catch (error) {
       toast.error(
         `Failed to update follow status: ${error.data?.message || 'Unknown error'}`
@@ -234,7 +256,6 @@ const UserPage = () => {
       }
     }
   };
-
 
   useEffect(() => {
     setActiveTab(USER_TABS.RECIPES);
@@ -275,7 +296,8 @@ const UserPage = () => {
         await dispatch(deleteRecipe(recipeId)).unwrap();
         updatedTotal = recipes.total - 1;
       } else if (activeTab === USER_TABS.FAVORITES) {
-        await dispatch(removeFromFavorites(recipeId)).unwrap();
+        await dispatch(removeFromFavorites(recipeId));
+        await dispatch(fetchFavoriteRecipes());
         updatedTotal = favorites.total - 1;
       }
 
