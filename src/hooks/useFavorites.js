@@ -39,6 +39,7 @@ const useFavorites = (id) => {
     isFav,
     isFavoriteLoading,
     onFavoriteHandler,
+    favoritesCount: favoritesIds.length,
   };
 };
 
