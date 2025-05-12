@@ -8,6 +8,7 @@
 }
 
 .leftImage {
+  object-fit: cover;
   display: block;
   width: 77px;
   height: 70px;
@@ -31,6 +32,7 @@
 }
 
 .rightImage {
+  object-fit: cover;
   display: block;
   width: 190px;
   height: 172px;
