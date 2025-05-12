@@ -31,6 +31,9 @@ export default function InputIngredients({
   const [selectedIngredient, setSelectedIngredient] = useState(null);
   const [quantity, setQuantity] = useState('');
 
+  const [isIngredientEmpty, setIsIngredientEmpty] = useState(false);
+  const [isQuantityEmpty, setIsQuantityEmpty] = useState(false);
+
   const dropdownOptions = useMemo(() => {
     return allIngredients.map((item) => {
       return {
@@ -63,7 +66,20 @@ export default function InputIngredients({
   };
 
   const onClick = () => {
-    if (selectedIngredient && quantity.length > 0) {
+    let isValid = true;
+    if (!selectedIngredient) {
+      isValid = false;
+      setIsIngredientEmpty(true);
+    }
+
+    if (quantity.length === 0) {
+      isValid = false;
+      setIsQuantityEmpty(true);
+    }
+
+    if (isValid) {
+      setIsQuantityEmpty(false);
+      setIsIngredientEmpty(false);
       onChange([...value, { id: selectedIngredient.value, quantity }]);
       setSelectedIngredient(null);
       setQuantity('');
@@ -94,7 +110,7 @@ export default function InputIngredients({
           options={dropdownOptions}
           placeholder="Select placeholder"
           isDisabled={isIngredientsError && isIngredientsLoading}
-          error={!Boolean(selectedIngredient) && error}
+          error={!Boolean(selectedIngredient) && (error || isIngredientEmpty)}
         />
 
         <InputTextCounter
@@ -105,7 +121,7 @@ export default function InputIngredients({
           placeholder="Enter quantity"
           value={quantity}
           onChange={quantityOnChange}
-          error={quantity.length === 0 && error}
+          error={quantity.length === 0 && (error || isQuantityEmpty)}
         />
       </div>
       <Button
